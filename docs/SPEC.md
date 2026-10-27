@@ -18,9 +18,12 @@ M1 is a deterministic fixture-backed push slice. It deliberately does not claim 
 - src/server.js: built-in Node HTTP server, validated API inputs, bounded static routing and explicit errors.
 - src/domain/: pure prioritization, windowing and signal calculations, independent of providers and presentation.
 - src/providers/: normalized fixture provider first; live source adapters next. Provider boundary is the later storage/cache integration point.
+- src/ingest.js and src/storage/: bounded public-source collection, raw-response archive and atomic JSON snapshots. No external fetch during a briefing request. A single manual ingestion process is sufficient for the prototype.
 - test/: Node test runner for behavior and HTTP integration. No build tool required.
 
 Later source contracts must carry stable IDs, NSE symbol, category, event/fetch timestamps, source URL, evidence locator, currency/unit and data mode. EOD volume compares with the preceding 20 valid sessions, excluding the current session. Partial history is explicitly marked. Source adapters must use timeouts, caching, bounded retries and stale/error states. Never silently fall back from failed live data to fixtures.
+
+M2 implements live snapshot, recorded-source replay and fictional demo as separate selectable modes. Live windows advance with the current clock; recorded windows stay fixed at capture time. Exchange titles/descriptions are displayed as metadata, with original filing links and rule-based category labels. Document analysis and page citations remain M3. A results meeting notice is not an actual results release; unknown categories remain visible. Data fetches older than 24 hours, sessions over four calendar days old, failed updates, newer incomplete source rows and split-affected comparisons pause applicable alerts. This conservative freshness rule is explicit and does not pretend to be a full exchange-holiday calendar.
 
 ## Scope boundaries
 Push means an in-app briefing and refresh initially; OS push and background scheduling are deferred. Pull may use a model behind a replaceable server-side adapter after document retrieval and citations work. Results extraction (Revenue, EBITDA, PBT, PAT with QoQ/YoY) and promised-vs-delivered analysis are candidates for one strong demonstration, not a commitment to all eight research outputs. No authentication, trading, portfolio accounting, native app, voice or elaborate chat shell for this prototype.

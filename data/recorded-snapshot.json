@@ -1,0 +1,2784 @@
+{
+  "schemaVersion": 1,
+  "mode": "recorded",
+  "asOf": "2026-10-27T21:44:30.621Z",
+  "portfolio": [
+    {
+      "symbol": "RELIANCE",
+      "name": "Reliance Industries",
+      "sector": "Energy",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 1201.800048828125,
+        "volume": 7490515,
+        "previousClose": 1190,
+        "previousSession": "2026-10-23",
+        "averageVolume": 15259242.15,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 1219.199951171875,
+            "volume": 13923795
+          },
+          {
+            "session": "2026-09-25",
+            "close": 1226,
+            "volume": 13138735
+          },
+          {
+            "session": "2026-09-28",
+            "close": 1197.5999755859375,
+            "volume": 13602349
+          },
+          {
+            "session": "2026-09-29",
+            "close": 1182,
+            "volume": 24191416
+          },
+          {
+            "session": "2026-09-30",
+            "close": 1187,
+            "volume": 16376789
+          },
+          {
+            "session": "2026-10-01",
+            "close": 1167.699951171875,
+            "volume": 16771221
+          },
+          {
+            "session": "2026-10-05",
+            "close": 1186.4000244140625,
+            "volume": 14254907
+          },
+          {
+            "session": "2026-10-06",
+            "close": 1218,
+            "volume": 18003127
+          },
+          {
+            "session": "2026-10-07",
+            "close": 1207.699951171875,
+            "volume": 11880731
+          },
+          {
+            "session": "2026-10-08",
+            "close": 1178,
+            "volume": 13965493
+          },
+          {
+            "session": "2026-10-09",
+            "close": 1170.300048828125,
+            "volume": 12086708
+          },
+          {
+            "session": "2026-10-12",
+            "close": 1158.9000244140625,
+            "volume": 11338332
+          },
+          {
+            "session": "2026-10-13",
+            "close": 1166.699951171875,
+            "volume": 10988483
+          },
+          {
+            "session": "2026-10-14",
+            "close": 1174.5999755859375,
+            "volume": 10938195
+          },
+          {
+            "session": "2026-10-15",
+            "close": 1215,
+            "volume": 23456219
+          },
+          {
+            "session": "2026-10-16",
+            "close": 1211.199951171875,
+            "volume": 17225283
+          },
+          {
+            "session": "2026-10-19",
+            "close": 1202,
+            "volume": 15572554
+          },
+          {
+            "session": "2026-10-21",
+            "close": 1209,
+            "volume": 17607823
+          },
+          {
+            "session": "2026-10-22",
+            "close": 1184.5,
+            "volume": 14957042
+          },
+          {
+            "session": "2026-10-23",
+            "close": 1190,
+            "volume": 14905641
+          },
+          {
+            "session": "2026-10-26",
+            "close": 1201.800048828125,
+            "volume": 7490515
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/RELIANCE.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/RELIANCE.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "TCS",
+      "name": "Tata Consultancy Services",
+      "sector": "Technology",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 2535,
+        "volume": 4326029,
+        "previousClose": 2530,
+        "previousSession": "2026-10-23",
+        "averageVolume": 5876698.45,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 2087,
+            "volume": 1760662
+          },
+          {
+            "session": "2026-09-25",
+            "close": 2082,
+            "volume": 3342195
+          },
+          {
+            "session": "2026-09-28",
+            "close": 2070.699951171875,
+            "volume": 2457049
+          },
+          {
+            "session": "2026-09-29",
+            "close": 2032.4000244140625,
+            "volume": 4437783
+          },
+          {
+            "session": "2026-09-30",
+            "close": 2050.60009765625,
+            "volume": 3656425
+          },
+          {
+            "session": "2026-10-01",
+            "close": 2075,
+            "volume": 3428501
+          },
+          {
+            "session": "2026-10-05",
+            "close": 2114.39990234375,
+            "volume": 5270768
+          },
+          {
+            "session": "2026-10-06",
+            "close": 2100,
+            "volume": 2382510
+          },
+          {
+            "session": "2026-10-07",
+            "close": 2080.300048828125,
+            "volume": 1349758
+          },
+          {
+            "session": "2026-10-08",
+            "close": 2076,
+            "volume": 4288031
+          },
+          {
+            "session": "2026-10-09",
+            "close": 2156,
+            "volume": 11692314
+          },
+          {
+            "session": "2026-10-12",
+            "close": 2125,
+            "volume": 3540523
+          },
+          {
+            "session": "2026-10-13",
+            "close": 2269.300048828125,
+            "volume": 11048193
+          },
+          {
+            "session": "2026-10-14",
+            "close": 2304.89990234375,
+            "volume": 12145767
+          },
+          {
+            "session": "2026-10-15",
+            "close": 2350,
+            "volume": 9150523
+          },
+          {
+            "session": "2026-10-16",
+            "close": 2465,
+            "volume": 12166634
+          },
+          {
+            "session": "2026-10-19",
+            "close": 2460.89990234375,
+            "volume": 8676373
+          },
+          {
+            "session": "2026-10-21",
+            "close": 2529,
+            "volume": 5707347
+          },
+          {
+            "session": "2026-10-22",
+            "close": 2506.89990234375,
+            "volume": 4174671
+          },
+          {
+            "session": "2026-10-23",
+            "close": 2530,
+            "volume": 6857942
+          },
+          {
+            "session": "2026-10-26",
+            "close": 2535,
+            "volume": 4326029
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/TCS.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/TCS.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "HDFCBANK",
+      "name": "HDFC Bank",
+      "sector": "Banking",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 688.0499877929688,
+        "volume": 23489755,
+        "previousClose": 692.7999877929688,
+        "previousSession": "2026-10-23",
+        "averageVolume": 31252108.5,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 728.9000244140625,
+            "volume": 29575194
+          },
+          {
+            "session": "2026-09-25",
+            "close": 735.5999755859375,
+            "volume": 19853034
+          },
+          {
+            "session": "2026-09-28",
+            "close": 719.0499877929688,
+            "volume": 21675579
+          },
+          {
+            "session": "2026-09-29",
+            "close": 722.7000122070312,
+            "volume": 42755901
+          },
+          {
+            "session": "2026-09-30",
+            "close": 708.7000122070312,
+            "volume": 39365496
+          },
+          {
+            "session": "2026-10-01",
+            "close": 721.2000122070312,
+            "volume": 37389857
+          },
+          {
+            "session": "2026-10-05",
+            "close": 704.7999877929688,
+            "volume": 66056690
+          },
+          {
+            "session": "2026-10-06",
+            "close": 711.4500122070312,
+            "volume": 26568270
+          },
+          {
+            "session": "2026-10-07",
+            "close": 702.75,
+            "volume": 29944008
+          },
+          {
+            "session": "2026-10-08",
+            "close": 692.25,
+            "volume": 26808765
+          },
+          {
+            "session": "2026-10-09",
+            "close": 707.25,
+            "volume": 18397972
+          },
+          {
+            "session": "2026-10-12",
+            "close": 704.9000244140625,
+            "volume": 18197879
+          },
+          {
+            "session": "2026-10-13",
+            "close": 714,
+            "volume": 18838639
+          },
+          {
+            "session": "2026-10-14",
+            "close": 710.7000122070312,
+            "volume": 23945373
+          },
+          {
+            "session": "2026-10-15",
+            "close": 726.8499755859375,
+            "volume": 37365177
+          },
+          {
+            "session": "2026-10-16",
+            "close": 728.8499755859375,
+            "volume": 28936902
+          },
+          {
+            "session": "2026-10-19",
+            "close": 712,
+            "volume": 33524133
+          },
+          {
+            "session": "2026-10-21",
+            "close": 706.9500122070312,
+            "volume": 26573703
+          },
+          {
+            "session": "2026-10-22",
+            "close": 694.0499877929688,
+            "volume": 60280576
+          },
+          {
+            "session": "2026-10-23",
+            "close": 692.7999877929688,
+            "volume": 18989022
+          },
+          {
+            "session": "2026-10-26",
+            "close": 688.0499877929688,
+            "volume": 23489755
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/HDFCBANK.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/HDFCBANK.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "INFY",
+      "name": "Infosys",
+      "sector": "Technology",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 1166,
+        "volume": 25964569,
+        "previousClose": 1153.800048828125,
+        "previousSession": "2026-10-23",
+        "averageVolume": 14999728.2,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 1014.5,
+            "volume": 6891893
+          },
+          {
+            "session": "2026-09-25",
+            "close": 1000.2000122070312,
+            "volume": 10240700
+          },
+          {
+            "session": "2026-09-28",
+            "close": 1003.2000122070312,
+            "volume": 8567672
+          },
+          {
+            "session": "2026-09-29",
+            "close": 1015.4000244140625,
+            "volume": 12992711
+          },
+          {
+            "session": "2026-09-30",
+            "close": 994.0999755859375,
+            "volume": 13508984
+          },
+          {
+            "session": "2026-10-01",
+            "close": 1035,
+            "volume": 15166446
+          },
+          {
+            "session": "2026-10-05",
+            "close": 1020.5,
+            "volume": 12126808
+          },
+          {
+            "session": "2026-10-06",
+            "close": 1013.8499755859375,
+            "volume": 8252213
+          },
+          {
+            "session": "2026-10-07",
+            "close": 992,
+            "volume": 7493993
+          },
+          {
+            "session": "2026-10-08",
+            "close": 997,
+            "volume": 14847874
+          },
+          {
+            "session": "2026-10-09",
+            "close": 1023.4000244140625,
+            "volume": 14094234
+          },
+          {
+            "session": "2026-10-12",
+            "close": 1020,
+            "volume": 8429312
+          },
+          {
+            "session": "2026-10-13",
+            "close": 1062.0999755859375,
+            "volume": 21781113
+          },
+          {
+            "session": "2026-10-14",
+            "close": 1088,
+            "volume": 22113407
+          },
+          {
+            "session": "2026-10-15",
+            "close": 1110,
+            "volume": 16012759
+          },
+          {
+            "session": "2026-10-16",
+            "close": 1161.199951171875,
+            "volume": 25566304
+          },
+          {
+            "session": "2026-10-19",
+            "close": 1130.699951171875,
+            "volume": 13258477
+          },
+          {
+            "session": "2026-10-21",
+            "close": 1168,
+            "volume": 18597997
+          },
+          {
+            "session": "2026-10-22",
+            "close": 1153.3499755859375,
+            "volume": 17007168
+          },
+          {
+            "session": "2026-10-23",
+            "close": 1153.800048828125,
+            "volume": 33044499
+          },
+          {
+            "session": "2026-10-26",
+            "close": 1166,
+            "volume": 25964569
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/INFY.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/INFY.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "ICICIBANK",
+      "name": "ICICI Bank",
+      "sector": "Banking",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 1403,
+        "volume": 7936076,
+        "previousClose": 1394.199951171875,
+        "previousSession": "2026-10-23",
+        "averageVolume": 12517395.8,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 1334.5,
+            "volume": 8653920
+          },
+          {
+            "session": "2026-09-25",
+            "close": 1326.800048828125,
+            "volume": 10841310
+          },
+          {
+            "session": "2026-09-28",
+            "close": 1302,
+            "volume": 6327946
+          },
+          {
+            "session": "2026-09-29",
+            "close": 1292.199951171875,
+            "volume": 14811396
+          },
+          {
+            "session": "2026-09-30",
+            "close": 1321.699951171875,
+            "volume": 14095232
+          },
+          {
+            "session": "2026-10-01",
+            "close": 1310.5999755859375,
+            "volume": 13163495
+          },
+          {
+            "session": "2026-10-05",
+            "close": 1332,
+            "volume": 13223493
+          },
+          {
+            "session": "2026-10-06",
+            "close": 1342.800048828125,
+            "volume": 12201451
+          },
+          {
+            "session": "2026-10-07",
+            "close": 1357.5,
+            "volume": 14774121
+          },
+          {
+            "session": "2026-10-08",
+            "close": 1349,
+            "volume": 11277755
+          },
+          {
+            "session": "2026-10-09",
+            "close": 1355,
+            "volume": 5507667
+          },
+          {
+            "session": "2026-10-12",
+            "close": 1340,
+            "volume": 8605258
+          },
+          {
+            "session": "2026-10-13",
+            "close": 1360.199951171875,
+            "volume": 5765182
+          },
+          {
+            "session": "2026-10-14",
+            "close": 1338.5999755859375,
+            "volume": 8253235
+          },
+          {
+            "session": "2026-10-15",
+            "close": 1389.4000244140625,
+            "volume": 17551899
+          },
+          {
+            "session": "2026-10-16",
+            "close": 1397,
+            "volume": 14925887
+          },
+          {
+            "session": "2026-10-19",
+            "close": 1381,
+            "volume": 25149396
+          },
+          {
+            "session": "2026-10-21",
+            "close": 1385,
+            "volume": 17537734
+          },
+          {
+            "session": "2026-10-22",
+            "close": 1398.5,
+            "volume": 16108318
+          },
+          {
+            "session": "2026-10-23",
+            "close": 1394.199951171875,
+            "volume": 11573221
+          },
+          {
+            "session": "2026-10-26",
+            "close": 1403,
+            "volume": 7936076
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/ICICIBANK.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/ICICIBANK.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "BHARTIARTL",
+      "name": "Bharti Airtel",
+      "sector": "Telecom",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 1917.5,
+        "volume": 2993913,
+        "previousClose": 1892.0999755859375,
+        "previousSession": "2026-10-23",
+        "averageVolume": 8333801.95,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 1795.800048828125,
+            "volume": 4567379
+          },
+          {
+            "session": "2026-09-25",
+            "close": 1785.4000244140625,
+            "volume": 4766200
+          },
+          {
+            "session": "2026-09-28",
+            "close": 1771.4000244140625,
+            "volume": 4683537
+          },
+          {
+            "session": "2026-09-29",
+            "close": 1771.199951171875,
+            "volume": 9811381
+          },
+          {
+            "session": "2026-09-30",
+            "close": 1757,
+            "volume": 8080358
+          },
+          {
+            "session": "2026-10-01",
+            "close": 1741.0999755859375,
+            "volume": 5609657
+          },
+          {
+            "session": "2026-10-05",
+            "close": 1779.9000244140625,
+            "volume": 7310041
+          },
+          {
+            "session": "2026-10-06",
+            "close": 1810.5,
+            "volume": 5155150
+          },
+          {
+            "session": "2026-10-07",
+            "close": 1833.9000244140625,
+            "volume": 13920833
+          },
+          {
+            "session": "2026-10-08",
+            "close": 1804.5999755859375,
+            "volume": 6582419
+          },
+          {
+            "session": "2026-10-09",
+            "close": 1805.0999755859375,
+            "volume": 3362523
+          },
+          {
+            "session": "2026-10-12",
+            "close": 1778.699951171875,
+            "volume": 4819377
+          },
+          {
+            "session": "2026-10-13",
+            "close": 1806.5,
+            "volume": 5942868
+          },
+          {
+            "session": "2026-10-14",
+            "close": 1794.5999755859375,
+            "volume": 5185554
+          },
+          {
+            "session": "2026-10-15",
+            "close": 1854,
+            "volume": 11315521
+          },
+          {
+            "session": "2026-10-16",
+            "close": 1905,
+            "volume": 25484107
+          },
+          {
+            "session": "2026-10-19",
+            "close": 1875.199951171875,
+            "volume": 8586339
+          },
+          {
+            "session": "2026-10-21",
+            "close": 1891.699951171875,
+            "volume": 8974372
+          },
+          {
+            "session": "2026-10-22",
+            "close": 1895,
+            "volume": 12647520
+          },
+          {
+            "session": "2026-10-23",
+            "close": 1892.0999755859375,
+            "volume": 9870903
+          },
+          {
+            "session": "2026-10-26",
+            "close": 1917.5,
+            "volume": 2993913
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/BHARTIARTL.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/BHARTIARTL.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "LT",
+      "name": "Larsen & Toubro",
+      "sector": "Industrials",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 3680,
+        "volume": 1144515,
+        "previousClose": 3647,
+        "previousSession": "2026-10-23",
+        "averageVolume": 1943605.45,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 3858.39990234375,
+            "volume": 1649308
+          },
+          {
+            "session": "2026-09-25",
+            "close": 3876.199951171875,
+            "volume": 1230579
+          },
+          {
+            "session": "2026-09-28",
+            "close": 3766.39990234375,
+            "volume": 1361601
+          },
+          {
+            "session": "2026-09-29",
+            "close": 3749.10009765625,
+            "volume": 2546475
+          },
+          {
+            "session": "2026-09-30",
+            "close": 3760,
+            "volume": 2396040
+          },
+          {
+            "session": "2026-10-01",
+            "close": 3693.39990234375,
+            "volume": 2220932
+          },
+          {
+            "session": "2026-10-05",
+            "close": 3750,
+            "volume": 2323437
+          },
+          {
+            "session": "2026-10-06",
+            "close": 3770,
+            "volume": 1994276
+          },
+          {
+            "session": "2026-10-07",
+            "close": 3701.5,
+            "volume": 1609969
+          },
+          {
+            "session": "2026-10-08",
+            "close": 3625.10009765625,
+            "volume": 1690918
+          },
+          {
+            "session": "2026-10-09",
+            "close": 3703.300048828125,
+            "volume": 1339156
+          },
+          {
+            "session": "2026-10-12",
+            "close": 3627.5,
+            "volume": 1177475
+          },
+          {
+            "session": "2026-10-13",
+            "close": 3675,
+            "volume": 2254840
+          },
+          {
+            "session": "2026-10-14",
+            "close": 3642,
+            "volume": 1826165
+          },
+          {
+            "session": "2026-10-15",
+            "close": 3632,
+            "volume": 2452067
+          },
+          {
+            "session": "2026-10-16",
+            "close": 3627.10009765625,
+            "volume": 1875108
+          },
+          {
+            "session": "2026-10-19",
+            "close": 3661.89990234375,
+            "volume": 2331147
+          },
+          {
+            "session": "2026-10-21",
+            "close": 3636,
+            "volume": 1902623
+          },
+          {
+            "session": "2026-10-22",
+            "close": 3638.300048828125,
+            "volume": 2668020
+          },
+          {
+            "session": "2026-10-23",
+            "close": 3647,
+            "volume": 2021973
+          },
+          {
+            "session": "2026-10-26",
+            "close": 3680,
+            "volume": 1144515
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/LT.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/LT.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "ITC",
+      "name": "ITC",
+      "sector": "Consumer",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 260.5,
+        "volume": 15094338,
+        "previousClose": 257.8999938964844,
+        "previousSession": "2026-10-23",
+        "averageVolume": 21057130.05,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 268,
+            "volume": 7398276
+          },
+          {
+            "session": "2026-09-25",
+            "close": 269,
+            "volume": 6240148
+          },
+          {
+            "session": "2026-09-28",
+            "close": 265.20001220703125,
+            "volume": 7863377
+          },
+          {
+            "session": "2026-09-29",
+            "close": 265.1000061035156,
+            "volume": 14419948
+          },
+          {
+            "session": "2026-09-30",
+            "close": 262.75,
+            "volume": 14079098
+          },
+          {
+            "session": "2026-10-01",
+            "close": 255.89999389648438,
+            "volume": 16447266
+          },
+          {
+            "session": "2026-10-05",
+            "close": 268.8999938964844,
+            "volume": 49020716
+          },
+          {
+            "session": "2026-10-06",
+            "close": 266.70001220703125,
+            "volume": 22132738
+          },
+          {
+            "session": "2026-10-07",
+            "close": 265.70001220703125,
+            "volume": 50025295
+          },
+          {
+            "session": "2026-10-08",
+            "close": 255,
+            "volume": 53680318
+          },
+          {
+            "session": "2026-10-09",
+            "close": 266,
+            "volume": 31030528
+          },
+          {
+            "session": "2026-10-12",
+            "close": 257.8999938964844,
+            "volume": 14895734
+          },
+          {
+            "session": "2026-10-13",
+            "close": 261,
+            "volume": 13435481
+          },
+          {
+            "session": "2026-10-14",
+            "close": 261.5,
+            "volume": 19299265
+          },
+          {
+            "session": "2026-10-15",
+            "close": 263.8999938964844,
+            "volume": 22784367
+          },
+          {
+            "session": "2026-10-16",
+            "close": 263.5,
+            "volume": 12994056
+          },
+          {
+            "session": "2026-10-19",
+            "close": 260.79998779296875,
+            "volume": 11528925
+          },
+          {
+            "session": "2026-10-21",
+            "close": 262,
+            "volume": 21000241
+          },
+          {
+            "session": "2026-10-22",
+            "close": 258.8999938964844,
+            "volume": 15306749
+          },
+          {
+            "session": "2026-10-23",
+            "close": 257.8999938964844,
+            "volume": 17560075
+          },
+          {
+            "session": "2026-10-26",
+            "close": 260.5,
+            "volume": 15094338
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/ITC.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/ITC.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "SUNPHARMA",
+      "name": "Sun Pharmaceutical",
+      "sector": "Healthcare",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 1740,
+        "volume": 1622698,
+        "previousClose": 1748,
+        "previousSession": "2026-10-23",
+        "averageVolume": 1553675.5,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 1849.9000244140625,
+            "volume": 1742885
+          },
+          {
+            "session": "2026-09-25",
+            "close": 1852.199951171875,
+            "volume": 683246
+          },
+          {
+            "session": "2026-09-28",
+            "close": 1838,
+            "volume": 947719
+          },
+          {
+            "session": "2026-09-29",
+            "close": 1865,
+            "volume": 3083083
+          },
+          {
+            "session": "2026-09-30",
+            "close": 1816.5999755859375,
+            "volume": 2401495
+          },
+          {
+            "session": "2026-10-01",
+            "close": 1801,
+            "volume": 2314700
+          },
+          {
+            "session": "2026-10-05",
+            "close": 1779.699951171875,
+            "volume": 1290843
+          },
+          {
+            "session": "2026-10-06",
+            "close": 1804.0999755859375,
+            "volume": 1478310
+          },
+          {
+            "session": "2026-10-07",
+            "close": 1781,
+            "volume": 1150689
+          },
+          {
+            "session": "2026-10-08",
+            "close": 1759.800048828125,
+            "volume": 1605236
+          },
+          {
+            "session": "2026-10-09",
+            "close": 1760,
+            "volume": 1346107
+          },
+          {
+            "session": "2026-10-12",
+            "close": 1760,
+            "volume": 1141685
+          },
+          {
+            "session": "2026-10-13",
+            "close": 1770.699951171875,
+            "volume": 1191057
+          },
+          {
+            "session": "2026-10-14",
+            "close": 1746.4000244140625,
+            "volume": 1808782
+          },
+          {
+            "session": "2026-10-15",
+            "close": 1764,
+            "volume": 1376380
+          },
+          {
+            "session": "2026-10-16",
+            "close": 1758.800048828125,
+            "volume": 1522459
+          },
+          {
+            "session": "2026-10-19",
+            "close": 1743,
+            "volume": 829445
+          },
+          {
+            "session": "2026-10-21",
+            "close": 1745.0999755859375,
+            "volume": 2316342
+          },
+          {
+            "session": "2026-10-22",
+            "close": 1758,
+            "volume": 1778519
+          },
+          {
+            "session": "2026-10-23",
+            "close": 1748,
+            "volume": 1064528
+          },
+          {
+            "session": "2026-10-26",
+            "close": 1740,
+            "volume": 1622698
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/SUNPHARMA.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/SUNPHARMA.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "EICHERMOT",
+      "name": "Eicher Motors",
+      "sector": "Auto",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 7099.5,
+        "volume": 331591,
+        "previousClose": 7066,
+        "previousSession": "2026-10-23",
+        "averageVolume": 416172.8,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 7338.5,
+            "volume": 258170
+          },
+          {
+            "session": "2026-09-25",
+            "close": 7360,
+            "volume": 201194
+          },
+          {
+            "session": "2026-09-28",
+            "close": 7213.5,
+            "volume": 423079
+          },
+          {
+            "session": "2026-09-29",
+            "close": 7179,
+            "volume": 596560
+          },
+          {
+            "session": "2026-09-30",
+            "close": 7150,
+            "volume": 418141
+          },
+          {
+            "session": "2026-10-01",
+            "close": 6920,
+            "volume": 817452
+          },
+          {
+            "session": "2026-10-05",
+            "close": 7021.5,
+            "volume": 381658
+          },
+          {
+            "session": "2026-10-06",
+            "close": 7051,
+            "volume": 233372
+          },
+          {
+            "session": "2026-10-07",
+            "close": 6960,
+            "volume": 272452
+          },
+          {
+            "session": "2026-10-08",
+            "close": 6767.5,
+            "volume": 361283
+          },
+          {
+            "session": "2026-10-09",
+            "close": 7050,
+            "volume": 551231
+          },
+          {
+            "session": "2026-10-12",
+            "close": 7119,
+            "volume": 377241
+          },
+          {
+            "session": "2026-10-13",
+            "close": 7163,
+            "volume": 346905
+          },
+          {
+            "session": "2026-10-14",
+            "close": 7082.5,
+            "volume": 460500
+          },
+          {
+            "session": "2026-10-15",
+            "close": 7225,
+            "volume": 418885
+          },
+          {
+            "session": "2026-10-16",
+            "close": 7284.5,
+            "volume": 368563
+          },
+          {
+            "session": "2026-10-19",
+            "close": 7349,
+            "volume": 490129
+          },
+          {
+            "session": "2026-10-21",
+            "close": 7170.5,
+            "volume": 570831
+          },
+          {
+            "session": "2026-10-22",
+            "close": 7084.5,
+            "volume": 406738
+          },
+          {
+            "session": "2026-10-23",
+            "close": 7066,
+            "volume": 369072
+          },
+          {
+            "session": "2026-10-26",
+            "close": 7099.5,
+            "volume": 331591
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/EICHERMOT.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/EICHERMOT.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "TITAN",
+      "name": "Titan Company",
+      "sector": "Consumer",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 4323,
+        "volume": 382563,
+        "previousClose": 4299.7001953125,
+        "previousSession": "2026-10-23",
+        "averageVolume": 798932.9,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 4832.5,
+            "volume": 504126
+          },
+          {
+            "session": "2026-09-25",
+            "close": 4884,
+            "volume": 368677
+          },
+          {
+            "session": "2026-09-28",
+            "close": 4819.5,
+            "volume": 632938
+          },
+          {
+            "session": "2026-09-29",
+            "close": 4675,
+            "volume": 1188414
+          },
+          {
+            "session": "2026-09-30",
+            "close": 4587,
+            "volume": 927060
+          },
+          {
+            "session": "2026-10-01",
+            "close": 4515.7001953125,
+            "volume": 694098
+          },
+          {
+            "session": "2026-10-05",
+            "close": 4580,
+            "volume": 731987
+          },
+          {
+            "session": "2026-10-06",
+            "close": 4550,
+            "volume": 800113
+          },
+          {
+            "session": "2026-10-07",
+            "close": 4377,
+            "volume": 2951280
+          },
+          {
+            "session": "2026-10-08",
+            "close": 4359.5,
+            "volume": 1490894
+          },
+          {
+            "session": "2026-10-09",
+            "close": 4410,
+            "volume": 591677
+          },
+          {
+            "session": "2026-10-12",
+            "close": 4400,
+            "volume": 724353
+          },
+          {
+            "session": "2026-10-13",
+            "close": 4487,
+            "volume": 550356
+          },
+          {
+            "session": "2026-10-14",
+            "close": 4444,
+            "volume": 552204
+          },
+          {
+            "session": "2026-10-15",
+            "close": 4455.7998046875,
+            "volume": 533115
+          },
+          {
+            "session": "2026-10-16",
+            "close": 4444.7998046875,
+            "volume": 577590
+          },
+          {
+            "session": "2026-10-19",
+            "close": 4424.2001953125,
+            "volume": 651506
+          },
+          {
+            "session": "2026-10-21",
+            "close": 4380.89990234375,
+            "volume": 448729
+          },
+          {
+            "session": "2026-10-22",
+            "close": 4350,
+            "volume": 426321
+          },
+          {
+            "session": "2026-10-23",
+            "close": 4299.7001953125,
+            "volume": 633220
+          },
+          {
+            "session": "2026-10-26",
+            "close": 4323,
+            "volume": 382563
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/TITAN.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/TITAN.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "MARICO",
+      "name": "Marico",
+      "sector": "Consumer",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 775.1500244140625,
+        "volume": 1257960,
+        "previousClose": 766.5,
+        "previousSession": "2026-10-23",
+        "averageVolume": 1609162.55,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 824.5499877929688,
+            "volume": 919851
+          },
+          {
+            "session": "2026-09-25",
+            "close": 819,
+            "volume": 459905
+          },
+          {
+            "session": "2026-09-28",
+            "close": 813.25,
+            "volume": 1076911
+          },
+          {
+            "session": "2026-09-29",
+            "close": 787.1500244140625,
+            "volume": 1626109
+          },
+          {
+            "session": "2026-09-30",
+            "close": 786,
+            "volume": 2455494
+          },
+          {
+            "session": "2026-10-01",
+            "close": 781.3499755859375,
+            "volume": 1777571
+          },
+          {
+            "session": "2026-10-05",
+            "close": 790,
+            "volume": 3353838
+          },
+          {
+            "session": "2026-10-06",
+            "close": 794.1500244140625,
+            "volume": 1467158
+          },
+          {
+            "session": "2026-10-07",
+            "close": 787.25,
+            "volume": 1064427
+          },
+          {
+            "session": "2026-10-08",
+            "close": 777.25,
+            "volume": 565931
+          },
+          {
+            "session": "2026-10-09",
+            "close": 786.1500244140625,
+            "volume": 933937
+          },
+          {
+            "session": "2026-10-12",
+            "close": 782.4000244140625,
+            "volume": 1039988
+          },
+          {
+            "session": "2026-10-13",
+            "close": 782.7999877929688,
+            "volume": 2363419
+          },
+          {
+            "session": "2026-10-14",
+            "close": 790,
+            "volume": 2700350
+          },
+          {
+            "session": "2026-10-15",
+            "close": 788.25,
+            "volume": 2687126
+          },
+          {
+            "session": "2026-10-16",
+            "close": 785,
+            "volume": 1590704
+          },
+          {
+            "session": "2026-10-19",
+            "close": 778,
+            "volume": 1297998
+          },
+          {
+            "session": "2026-10-21",
+            "close": 775.6500244140625,
+            "volume": 1773019
+          },
+          {
+            "session": "2026-10-22",
+            "close": 775,
+            "volume": 1258348
+          },
+          {
+            "session": "2026-10-23",
+            "close": 766.5,
+            "volume": 1771167
+          },
+          {
+            "session": "2026-10-26",
+            "close": 775.1500244140625,
+            "volume": 1257960
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/MARICO.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/MARICO.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "CDSL",
+      "name": "Central Depository Services",
+      "sector": "Financial services",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 1196,
+        "volume": 907846,
+        "previousClose": 1188.5,
+        "previousSession": "2026-10-23",
+        "averageVolume": 922291,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 1320,
+            "volume": 1232299
+          },
+          {
+            "session": "2026-09-25",
+            "close": 1318,
+            "volume": 1248040
+          },
+          {
+            "session": "2026-09-28",
+            "close": 1289,
+            "volume": 1109537
+          },
+          {
+            "session": "2026-09-29",
+            "close": 1261.9000244140625,
+            "volume": 1412255
+          },
+          {
+            "session": "2026-09-30",
+            "close": 1264,
+            "volume": 871860
+          },
+          {
+            "session": "2026-10-01",
+            "close": 1242.5,
+            "volume": 1324382
+          },
+          {
+            "session": "2026-10-05",
+            "close": 1250,
+            "volume": 915900
+          },
+          {
+            "session": "2026-10-06",
+            "close": 1263.4000244140625,
+            "volume": 896613
+          },
+          {
+            "session": "2026-10-07",
+            "close": 1275,
+            "volume": 1021756
+          },
+          {
+            "session": "2026-10-08",
+            "close": 1258,
+            "volume": 695430
+          },
+          {
+            "session": "2026-10-09",
+            "close": 1260,
+            "volume": 716634
+          },
+          {
+            "session": "2026-10-12",
+            "close": 1266,
+            "volume": 750601
+          },
+          {
+            "session": "2026-10-13",
+            "close": 1292,
+            "volume": 762099
+          },
+          {
+            "session": "2026-10-14",
+            "close": 1284,
+            "volume": 640217
+          },
+          {
+            "session": "2026-10-15",
+            "close": 1293,
+            "volume": 828150
+          },
+          {
+            "session": "2026-10-16",
+            "close": 1286.9000244140625,
+            "volume": 825106
+          },
+          {
+            "session": "2026-10-19",
+            "close": 1270,
+            "volume": 555214
+          },
+          {
+            "session": "2026-10-21",
+            "close": 1237.199951171875,
+            "volume": 650041
+          },
+          {
+            "session": "2026-10-22",
+            "close": 1225,
+            "volume": 677522
+          },
+          {
+            "session": "2026-10-23",
+            "close": 1188.5,
+            "volume": 1312164
+          },
+          {
+            "session": "2026-10-26",
+            "close": 1196,
+            "volume": 907846
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/CDSL.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/CDSL.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "POLYCAB",
+      "name": "Polycab India",
+      "sector": "Industrials",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 7739,
+        "volume": 225323,
+        "previousClose": 7440,
+        "previousSession": "2026-10-23",
+        "averageVolume": 524705,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 8366.5,
+            "volume": 237772
+          },
+          {
+            "session": "2026-09-25",
+            "close": 8408.5,
+            "volume": 296612
+          },
+          {
+            "session": "2026-09-28",
+            "close": 8191,
+            "volume": 274844
+          },
+          {
+            "session": "2026-09-29",
+            "close": 8102.5,
+            "volume": 1645809
+          },
+          {
+            "session": "2026-09-30",
+            "close": 8026,
+            "volume": 494724
+          },
+          {
+            "session": "2026-10-01",
+            "close": 7990,
+            "volume": 463691
+          },
+          {
+            "session": "2026-10-05",
+            "close": 8080,
+            "volume": 424158
+          },
+          {
+            "session": "2026-10-06",
+            "close": 8147,
+            "volume": 301660
+          },
+          {
+            "session": "2026-10-07",
+            "close": 8310,
+            "volume": 531310
+          },
+          {
+            "session": "2026-10-08",
+            "close": 8151,
+            "volume": 367261
+          },
+          {
+            "session": "2026-10-09",
+            "close": 8255,
+            "volume": 335752
+          },
+          {
+            "session": "2026-10-12",
+            "close": 8405,
+            "volume": 456246
+          },
+          {
+            "session": "2026-10-13",
+            "close": 8290,
+            "volume": 802263
+          },
+          {
+            "session": "2026-10-14",
+            "close": 8335,
+            "volume": 1146595
+          },
+          {
+            "session": "2026-10-15",
+            "close": 8207,
+            "volume": 853479
+          },
+          {
+            "session": "2026-10-16",
+            "close": 8219,
+            "volume": 597786
+          },
+          {
+            "session": "2026-10-19",
+            "close": 8025,
+            "volume": 294308
+          },
+          {
+            "session": "2026-10-21",
+            "close": 7770.5,
+            "volume": 308749
+          },
+          {
+            "session": "2026-10-22",
+            "close": 7671,
+            "volume": 335530
+          },
+          {
+            "session": "2026-10-23",
+            "close": 7440,
+            "volume": 325551
+          },
+          {
+            "session": "2026-10-26",
+            "close": 7739,
+            "volume": 225323
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/POLYCAB.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/POLYCAB.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    },
+    {
+      "symbol": "APLAPOLLO",
+      "name": "APL Apollo Tubes",
+      "sector": "Materials",
+      "eod": {
+        "session": "2026-10-26",
+        "close": 2077.89990234375,
+        "volume": 987700,
+        "previousClose": 2033.699951171875,
+        "previousSession": "2026-10-23",
+        "averageVolume": 514296.15,
+        "baselineSessions": 20,
+        "history": [
+          {
+            "session": "2026-09-24",
+            "close": 2184.800048828125,
+            "volume": 469774
+          },
+          {
+            "session": "2026-09-25",
+            "close": 2214.699951171875,
+            "volume": 339098
+          },
+          {
+            "session": "2026-09-28",
+            "close": 2197,
+            "volume": 319967
+          },
+          {
+            "session": "2026-09-29",
+            "close": 2188.60009765625,
+            "volume": 639577
+          },
+          {
+            "session": "2026-09-30",
+            "close": 2190.10009765625,
+            "volume": 587352
+          },
+          {
+            "session": "2026-10-01",
+            "close": 2115.699951171875,
+            "volume": 1615913
+          },
+          {
+            "session": "2026-10-05",
+            "close": 2099.800048828125,
+            "volume": 678442
+          },
+          {
+            "session": "2026-10-06",
+            "close": 2152,
+            "volume": 320327
+          },
+          {
+            "session": "2026-10-07",
+            "close": 2135,
+            "volume": 613418
+          },
+          {
+            "session": "2026-10-08",
+            "close": 2040,
+            "volume": 253118
+          },
+          {
+            "session": "2026-10-09",
+            "close": 2114.10009765625,
+            "volume": 397189
+          },
+          {
+            "session": "2026-10-12",
+            "close": 2157.39990234375,
+            "volume": 286344
+          },
+          {
+            "session": "2026-10-13",
+            "close": 2185,
+            "volume": 305085
+          },
+          {
+            "session": "2026-10-14",
+            "close": 2160,
+            "volume": 696558
+          },
+          {
+            "session": "2026-10-15",
+            "close": 2139,
+            "volume": 156879
+          },
+          {
+            "session": "2026-10-16",
+            "close": 2152.699951171875,
+            "volume": 236375
+          },
+          {
+            "session": "2026-10-19",
+            "close": 2144.60009765625,
+            "volume": 381848
+          },
+          {
+            "session": "2026-10-21",
+            "close": 2066.800048828125,
+            "volume": 562176
+          },
+          {
+            "session": "2026-10-22",
+            "close": 2052.39990234375,
+            "volume": 648903
+          },
+          {
+            "session": "2026-10-23",
+            "close": 2033.699951171875,
+            "volume": 777580
+          },
+          {
+            "session": "2026-10-26",
+            "close": 2077.89990234375,
+            "volume": 987700
+          }
+        ],
+        "currency": "INR",
+        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "source": {
+          "label": "Yahoo Finance · NSE daily history",
+          "url": "https://finance.yahoo.com/quote/APLAPOLLO.NS/history/",
+          "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/APLAPOLLO.NS?interval=1d&range=3mo&events=splits"
+        },
+        "latestSourceSession": "2026-10-27",
+        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+      },
+      "dataError": null
+    }
+  ],
+  "announcements": [
+    {
+      "id": "nse-c13a225e26d20a8bbd3ed77c",
+      "symbol": "INFY",
+      "category": "investor_meetings",
+      "title": "Updates",
+      "summary": "Infosys Limited has informed the Exchange regarding ' Investor Conference'.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-27T17:23:15.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/Infosys_27102026225301_SE_filing_Investor_Conference_27102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-5a63c69da0942121c9f230b2",
+      "symbol": "LT",
+      "category": "earnings_call",
+      "title": "Analysts/Institutional Investor Meet/Con. Call Updates",
+      "summary": "Larsen & Toubro Limited has informed the Exchange about Link of Recording",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-27T16:43:16.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/PAM_27102026221257_Intimation27102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-c6670aec060c583339383453",
+      "symbol": "RELIANCE",
+      "category": "board_meeting",
+      "title": "General Updates",
+      "summary": "Trading in equity shares of Jio Platforms Limited (JPL) will commence from October 28, 2026.Further, a meeting of board of directors of JPL is scheduled to be held on Friday, October 30, 2026, inter alia, to consider and approve the standalone and consolidated unaudited financial results of JPL for the quarter and half year ended September 30, 2026.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-27T16:41:29.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/kavinavora_27102026220855_RIL_SELETTER_271026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-922bc586a41e3d2f0e6738d4",
+      "symbol": "RELIANCE",
+      "category": "board_meeting",
+      "title": "Analysts/Institutional Investor Meet/Con. Call Updates",
+      "summary": "The meeting of the Board of Directors of the Company is scheduled on October 30, 2026, inter alia, to consider and approve a. the standalone and consolidated unaudited financial results of the Company for the quarter and half year ended September 30, 2026; and b. raising of funds by way of issuance of listed, secured / unsecured, redeemable non-convertible debentures on private placement basis, in one or more tranches. The Company will hold an analyst meet, post the Board Meeting, to discuss the financial results for the quarter and half year ended September 30, 2026.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-27T13:47:10.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/kavinavora_27102026191700_SE_27102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-277ccf6a8fbb73bcba7bebd5",
+      "symbol": "POLYCAB",
+      "category": "investor_meetings",
+      "title": "General Updates",
+      "summary": "Polycab India Limited has informed the Exchange about Analyst(s)/Investor(s) meet.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-27T13:34:27.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/POLYCAB_27102026190410_Intimationtostockexchange.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-bcb6e30aa28b91648df57f4c",
+      "symbol": "POLYCAB",
+      "category": "unclassified",
+      "title": "Certificate under SEBI (Depositories and Participants) Regulations, 2018",
+      "summary": "Polycab India Limited has informed the Exchange about Certificate under SEBI (Depositories and Participants) Regulations, 2018",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-27T13:12:35.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/POLYCAB_27102026184209_IntimationtoStockExchange.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-3b97b259a3eaba3efddacf1d",
+      "symbol": "LT",
+      "category": "other",
+      "title": "Updates",
+      "summary": "Larsen & Toubro Limited has informed the Exchange regarding 'Analyst Presentation.- Q2 / H1 FY27'.",
+      "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
+      "publishedAt": "2026-10-27T13:07:19.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/PAM_27102026183653_AnalystPresentationSep2026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-eb46d696c9cb1f17e806c02e",
+      "symbol": "CDSL",
+      "category": "earnings_call",
+      "title": "Analysts/Institutional Investor Meet/Con. Call Updates",
+      "summary": "CDSL has informed the Exchange about Schedule of Conference Call to be held on Monday, November 02, 2026.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-27T12:02:39.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/CDSL_27102026172744_NSEIntimation_Concall_02112026_Signed.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-d2aee57b0480055265fd5495",
+      "symbol": "LT",
+      "category": "results",
+      "title": "Outcome of Board Meeting",
+      "summary": "Larsen & Toubro Limited has submitted to the Exchange, the consolidated and standalone un-audited financial results of the Company for the quarter and half-year ended September 30, 2026.",
+      "why": "Review the financial statements and comparatives. Headline figures have not yet been extracted.",
+      "publishedAt": "2026-10-27T11:43:09.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/PAM_27102026171156_LTSep2026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-c6386b86d411dc1b73e83b1b",
+      "symbol": "INFY",
+      "category": "other",
+      "title": "Updates",
+      "summary": "Infosys Limited has informed the Exchange regarding 'Infosys Successfully Delivers Syngenta s Global SAP S/4HANA Transformation for Crop Protection Business'.",
+      "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
+      "publishedAt": "2026-10-27T11:08:30.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/Infosys_27102026163727_PR_27102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-03a3b2f42555c9b9742836b0",
+      "symbol": "LT",
+      "category": "unclassified",
+      "title": "Allotment of Securities",
+      "summary": "Larsen & Toubro Limited has informed the Exchange regarding allotment of 21098 securities pursuant to ESOP/ESPS at its meeting held on October 27, 2026",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-27T07:59:18.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/PAM_27102026132854_ESOPAllotment27102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-b6b832f524a91ca0e04f142c",
+      "symbol": "APLAPOLLO",
+      "category": "unclassified",
+      "title": "Copy of Newspaper Publication",
+      "summary": "APL Apollo Tubes Limited has informed the Exchange about Copy of Newspaper Publication",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-27T06:36:32.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/APLAPOLLO_27102026120603_Newspaper_Publication.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-db18c51229467865485f9aa2",
+      "symbol": "ICICIBANK",
+      "category": "unclassified",
+      "title": "ESOP/ESOS/ESPS",
+      "summary": "ICICI Bank Limited has informed the Exchange regarding Allotment of 1063398  Shares.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-27T05:04:04.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/ICICIBANK1_27102026103348_Letter_to_exchange.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-4aab35a84ef52cc3da53b17c",
+      "symbol": "LT",
+      "category": "other",
+      "title": "Bagging/Receiving of orders/contracts",
+      "summary": "Larsen & Toubro Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
+      "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
+      "publishedAt": "2026-10-27T04:46:48.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/PAM_27102026101631_PressRelease27102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-65c501eded486bf5223c6c47",
+      "symbol": "HDFCBANK",
+      "category": "management_change",
+      "title": "General Updates",
+      "summary": "HDFC Bank Limited has informed the Exchange regarding disclosure under Regulation 30 and other applicable regulations of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Change in Managing Director and Chief Executive Officer of the Bank",
+      "why": "Check the role, effective date and succession details. No professional biography has been verified.",
+      "publishedAt": "2026-10-27T02:32:54.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK_27102026080232_SEIntimation_appt_of_AB.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-c6f76ae74cc846a9cf2d6bc8",
+      "symbol": "APLAPOLLO",
+      "category": "earnings_call",
+      "title": "Analysts/Institutional Investor Meet/Con. Call Updates",
+      "summary": "APL Apollo Tubes Limited has informed the Exchange about Link of Recording",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-26T14:54:20.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/APLAPOLLO_26102026202346_ConCall_Recording_outcome.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-ba7a277c645d85384ead3e5c",
+      "symbol": "BHARTIARTL",
+      "category": "unclassified",
+      "title": "Certificate under SEBI (Depositories and Participants) Regulations, 2018",
+      "summary": "Bharti Airtel Limited has informed the Exchange about Certificate under Regulation 74(5) of SEBI (Depositories and Participants) Regulations, 2018 for the period from July 01, 2026 to September 30, 2026.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-26T13:31:02.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/BHARTIARTL_26102026190028_BhartiAirtelReg74_5_disclosure.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-0f08ebcf7b98d01183792b98",
+      "symbol": "APLAPOLLO",
+      "category": "press_release",
+      "title": "Press Release",
+      "summary": "APL Apollo Tubes Limited has informed the Exchange regarding a press release dated October 26, 2026, titled \"Q2FY27 Financial Performance\".",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-26T07:22:48.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/APLAPOLLO_26102026125230_Press_Release.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-54abe4d1bfc43cd8dc2a8f68",
+      "symbol": "APLAPOLLO",
+      "category": "other",
+      "title": "Investor Presentation",
+      "summary": "APL Apollo Tubes Limited has informed the Exchange about Investor Presentation",
+      "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
+      "publishedAt": "2026-10-26T07:22:48.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/APLAPOLLO_26102026125000_Investor_Presentation.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-79c58b7604b123fcc27c8ce6",
+      "symbol": "APLAPOLLO",
+      "category": "M&A",
+      "title": "General Updates",
+      "summary": "APL Apollo Tubes Limited has informed the Exchange about the acquisition of additional stake of 31% in SG Enterprise Solutions Private Limited",
+      "why": "Check the transaction terms, funding and approvals in the filing.",
+      "publishedAt": "2026-10-26T07:07:02.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/APLAPOLLO_26102026123649_Outcome_of_Board_Meeting_26102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-fb5ff5312ae6171e03a70d01",
+      "symbol": "SUNPHARMA",
+      "category": "other",
+      "title": "Allotment of Securities",
+      "summary": "Sun Pharmaceutical Industries Limited has informed the Exchange regarding allotment of 781600 securities pursuant to Non Convertible Securities at its meeting held on October 26, 2026",
+      "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
+      "publishedAt": "2026-10-26T07:00:34.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/SUNSEC_26102026122925_SE_Intimation_of_allotment_of_NCDs_26_Oct_2026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-961431a3489a35b33be09270",
+      "symbol": "APLAPOLLO",
+      "category": "results",
+      "title": "Outcome of Board Meeting",
+      "summary": "APL Apollo Tubes Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
+      "why": "Review the financial statements and comparatives. Headline figures have not yet been extracted.",
+      "publishedAt": "2026-10-26T06:54:28.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/APLAPOLLO_26102026122107_Outcome_of_Board_Meeting_26102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-f71a998ef64cf8213f3b9f59",
+      "symbol": "HDFCBANK",
+      "category": "unclassified",
+      "title": "ESOP/ESOS/ESPS",
+      "summary": "HDFC Bank Limited has informed the Exchange regarding Grant of 1302379  Options.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-24T16:57:22.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK_24102026222634_SE_Intimation_grant_of_ESOPs.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-547a1c5594200928b64ec1fb",
+      "symbol": "RELIANCE",
+      "category": "other",
+      "title": "General Updates",
+      "summary": "Initial Public Offer of Jio Platforms Limited",
+      "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
+      "publishedAt": "2026-10-24T16:18:04.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/PVIVINMA_24102026214355_RIL_SE_241026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-958b65bf52fb17176aabd3bf",
+      "symbol": "INFY",
+      "category": "unclassified",
+      "title": "Copy of Newspaper Publication",
+      "summary": "Infosys Limited has informed the Exchange about Copy of Newspaper Publication",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-24T14:13:00.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/Infosys_24102026194244_Financials_newspaper_ad_SE_filing.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-a604cb1c371d23f64920e478",
+      "symbol": "ICICIBANK",
+      "category": "credit_rating",
+      "title": "Credit Rating",
+      "summary": "ICICI Bank Limited has informed the Exchange about Credit Rating",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-24T08:16:13.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/ICICI2022_24102026134600_NSEBSE24102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-31a6a03726c0ffbfa915f75f",
+      "symbol": "HDFCBANK",
+      "category": "earnings_call",
+      "title": "Analysts/Institutional Investor Meet/Con. Call Updates",
+      "summary": "HDFC Bank Limited has informed the Exchange about Transcript",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-23T17:20:22.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK_23102026224657_SEintimationTranscriptofearningscall17oct2026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-c6025e7563119dd3fefa23fe",
+      "symbol": "INFY",
+      "category": "other",
+      "title": "Updates",
+      "summary": "Infosys Limited has informed the Exchange regarding 'Report of auditors on financial statements for the quarter and half year ended September 30, 2026 withUDIN'.",
+      "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
+      "publishedAt": "2026-10-23T14:37:11.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/Infosys_23102026200652_SE_filing_Auditors_report_with_UDIN.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-62b166ed6b189d438c95f39a",
+      "symbol": "TITAN",
+      "category": "earnings_call",
+      "title": "Analysts/Institutional Investor Meet/Con. Call Updates",
+      "summary": "Titan Company Limited has informed the Exchange about Earnings call for Q2 and half year ended FY 2026-27",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-23T14:28:53.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/TITAN_23102026195704_SEQ2FY27EarningCall.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-dcad286d6981a9c23eb3f581",
+      "symbol": "SUNPHARMA",
+      "category": "press_release",
+      "title": "Press Release",
+      "summary": "Sun Pharmaceutical Industries Limited has informed the Exchange regarding a press release dated October 23, 2026.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-23T12:31:41.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/SUNSEC_23102026180028_SE_Intimation_of_Press_Release_-_ESMO.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-fb473776de7d6cd8f4c94244",
+      "symbol": "ICICIBANK",
+      "category": "earnings_call",
+      "title": "Analysts/Institutional Investor Meet/Con. Call Updates",
+      "summary": "ICICI Bank Limited has informed the Exchange about transcript of the call with media and of earnings call with analysts and investors on the financial results for the quarter and six months ended September 30, 2026",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-23T12:30:27.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/ICICI2022_23102026175603_NSEBSE23102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-47f8012db8c2c8e9ae849f9b",
+      "symbol": "INFY",
+      "category": "dividend",
+      "title": "Record Date",
+      "summary": "Infosys Limited has informed the Exchange that Record date for the purpose of Dividend  is 03-Nov-2026.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-23T10:40:52.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/Infosys_23102026160926_BM_Outcome_Oct232026_1.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-e1ded19ac6a53fd1caf77e8f",
+      "symbol": "INFY",
+      "category": "results",
+      "title": "Outcome of Board Meeting",
+      "summary": "Infosys Limited has submitted to the Exchange, Financial Results for the quarter and half year ended September 30, 2026 and declaration of interim dividend",
+      "why": "Review the financial statements and comparatives. Headline figures have not yet been extracted.",
+      "publishedAt": "2026-10-23T10:38:26.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/Infosys_23102026160704_BM_Outcome_Oct232026_1.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-3c66c4b34b89759063dec5c0",
+      "symbol": "POLYCAB",
+      "category": "investor_meetings",
+      "title": "General Updates",
+      "summary": "Polycab India Limited has informed the Exchange about Analyst(s)/Investor(s) meet.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-23T09:04:30.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/POLYCAB_23102026143418_Intimationtostockexchange.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-4bbee6f65713d45f41821523",
+      "symbol": "ICICIBANK",
+      "category": "unclassified",
+      "title": "ESOP/ESOS/ESPS",
+      "summary": "ICICI Bank Limited has informed the Exchange regarding Allotment of 24096  Shares.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-22T11:15:26.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/ICICIBANK1_22102026164514_Lettertoexchange.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-f1750916a0fc6968ccaef01b",
+      "symbol": "HDFCBANK",
+      "category": "unclassified",
+      "title": "ESOP/ESOS/ESPS",
+      "summary": "HDFC Bank Limited has informed the Exchange regarding Allotment of 9138522  Shares.",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-22T08:27:50.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK_22102026135701_SELetterESOP22102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-63507c69c4b2c3740ac9708b",
+      "symbol": "HDFCBANK",
+      "category": "unclassified",
+      "title": "Copy of Newspaper Publication",
+      "summary": "HDFC Bank Limited has informed the Exchange about Copy of Newspaper Publication",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-22T06:25:18.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK3_22102026115451_PB_adv_22102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-7fdfc0e5853089854db3eca8",
+      "symbol": "MARICO",
+      "category": "press_release",
+      "title": "Press Release",
+      "summary": "Please find attached a press release by Marico Limited, titled  Marico Marks International Day of Climate Action with 89.3% Reduction in Operational Emissions Intensity Since FY13 .",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-22T06:08:06.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/marico_22102026113739_SEInt.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-83dec7bbf22297615453fe7e",
+      "symbol": "RELIANCE",
+      "category": "other",
+      "title": "Updates",
+      "summary": "Please find attached a media statement issued by the Company.",
+      "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
+      "publishedAt": "2026-10-21T17:14:39.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/kavinavora_21102026224413_SE_21102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-5137fe7fdb79465734d4d62b",
+      "symbol": "RELIANCE",
+      "category": "credit_rating",
+      "title": "Credit Rating",
+      "summary": "Reliance Industries Limited has informed the Exchange about Credit Rating",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-21T15:13:30.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/PVIVINMA_21102026204310_SE_ICRA.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-f350895206f46855d564507f",
+      "symbol": "APLAPOLLO",
+      "category": "investor_meetings",
+      "title": "Analysts/Institutional Investor Meet/Con. Call Updates",
+      "summary": "APL Apollo Tubes Limited has informed the Exchange about Schedule of meet",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-21T08:55:35.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/APLAPOLLO_21102026142048_Concall_Intimation.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-0963e53124e27f8fec22e607",
+      "symbol": "HDFCBANK",
+      "category": "postal_ballot",
+      "title": "Shareholders meeting",
+      "summary": "HDFC Bank Limited has informed the Exchange regarding Notice of Postal Ballot",
+      "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
+      "publishedAt": "2026-10-21T06:22:36.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK3_21102026115151_SEIntimationPostalBallotNoticeOct2026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
+    {
+      "id": "nse-a24c6df6d97d6571d63b6a9d",
+      "symbol": "LT",
+      "category": "other",
+      "title": "Bagging/Receiving of orders/contracts",
+      "summary": "Larsen & Toubro Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
+      "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
+      "publishedAt": "2026-10-21T04:16:52.000Z",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/PAM_21102026094637_PressRelease21102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    }
+  ],
+  "sources": {
+    "prices": {
+      "label": "Yahoo Finance EOD",
+      "status": "partial",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "errors": [],
+      "warnings": [
+        {
+          "symbol": "RELIANCE",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "TCS",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "HDFCBANK",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "INFY",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "ICICIBANK",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "BHARTIARTL",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "LT",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "ITC",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "SUNPHARMA",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "EICHERMOT",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "TITAN",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "MARICO",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "CDSL",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "POLYCAB",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        },
+        {
+          "symbol": "APLAPOLLO",
+          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        }
+      ]
+    },
+    "announcements": {
+      "label": "NSE announcements",
+      "status": "ok",
+      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+      "error": null,
+      "totalSourceRows": 2974
+    }
+  },
+  "rawSha256": "7f024622615832b4c1c1b22f65972eaa646836d02f67de349f10cd4b21944cad"
+}

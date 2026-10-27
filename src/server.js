@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve, extname } from 'node:path';
 import { buildBriefing } from './domain/briefing.js';
-import { getDemoDataset } from './providers/demo.js';
+import { getDataset, DatasetUnavailable } from './providers/snapshot.js';
 
 const publicDir = fileURLToPath(new URL('../public/', import.meta.url));
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.webmanifest': 'application/manifest+json', '.png': 'image/png', '.svg': 'image/svg+xml' };
@@ -13,7 +13,7 @@ function json(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
-export function createAppServer() {
+export function createAppServer({ datasetProvider = getDataset } = {}) {
   return createServer(async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'no-referrer');
@@ -24,7 +24,7 @@ export function createAppServer() {
     }
     try {
       const url = new URL(req.url, 'http://localhost');
-      if (url.pathname === '/api/health') return json(res, 200, { ok: true, mode: 'demo' });
+      if (url.pathname === '/api/health') return json(res, 200, { ok: true, modes: ['live', 'recorded', 'demo'] });
       if (url.pathname === '/api/briefing') {
         try {
           const options = {
@@ -32,9 +32,13 @@ export function createAppServer() {
             priceThreshold: Number(url.searchParams.get('price') ?? 3),
             volumeThreshold: Number(url.searchParams.get('volume') ?? 2),
           };
-          return json(res, 200, buildBriefing(getDemoDataset(), options));
+          // Validate inexpensive inputs before reading snapshots.
+          buildBriefing({ asOf: new Date().toISOString(), portfolio: [], announcements: [] }, options);
+          const dataset = await datasetProvider(url.searchParams.get('mode') ?? 'live');
+          return json(res, 200, buildBriefing(dataset, options));
         } catch (error) {
           if (error instanceof RangeError) return json(res, 400, { error: error.message });
+          if (error instanceof DatasetUnavailable) return json(res, 503, { error: error.message });
           throw error;
         }
       }
@@ -55,5 +59,5 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   const host = process.env.HOST ?? '127.0.0.1';
   const server = createAppServer();
   server.on('error', error => { console.error(`FINN could not start: ${error.message}`); process.exitCode = 1; });
-  server.listen(port, host, () => console.log(`FINN ready at http://${host}:${server.address().port} (demo data)`));
+  server.listen(port, host, () => console.log(`FINN ready at http://${host}:${server.address().port} (live snapshot / recorded / demo modes)`));
 }

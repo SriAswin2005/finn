@@ -2,7 +2,7 @@
   "id": "/",
   "name": "FINN — Portfolio intelligence",
   "short_name": "FINN",
-  "description": "A considered portfolio briefing. Prototype with fictional demo data.",
+  "description": "A considered portfolio briefing with original exchange filings and end-of-day market records.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

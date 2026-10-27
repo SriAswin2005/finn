@@ -1,9 +1,21 @@
 const priorities = {
   litigation: 100, results: 95, 'M&A': 90, management_change: 85, capex: 75,
-  fund_raise: 70, credit_rating: 65, dividend: 45, earnings_call: 15,
+  fund_raise: 70, credit_rating: 65, pledging: 65, insider_trading: 55, dividend: 45, earnings_call: 15,
   investor_meetings: 10, unclassified: 5,
 };
 const routineCategories = new Set(['earnings_call', 'investor_meetings', 'unclassified', 'postal_ballot', 'agm_egm']);
+
+export function evaluateEod(company, asOf, mode) {
+  const eod = company.eod;
+  if (!eod) return { priceChange: null, volumeRatio: null, warning: company.dataError ?? 'No completed price history available.', alertEligible: false };
+  const priceChange = Number.isFinite(eod.close) && Number.isFinite(eod.previousClose) && eod.previousClose > 0
+    ? (eod.close / eod.previousClose - 1) * 100 : null;
+  const volumeRatio = Number.isFinite(eod.volume) && eod.volume >= 0 && Number.isFinite(eod.averageVolume) && eod.averageVolume > 0 && eod.baselineSessions === 20
+    ? eod.volume / eod.averageVolume : null;
+  const tooOld = mode !== 'demo' && (!Number.isFinite(Date.parse(eod.fetchedAt)) || !Number.isFinite(Date.parse(`${eod.session}T16:00:00+05:30`)) || Date.parse(asOf) - Date.parse(eod.fetchedAt) > 24 * 3600000 || Date.parse(asOf) - Date.parse(`${eod.session}T16:00:00+05:30`) > 4 * 86400000);
+  const warning = company.dataError || eod.comparisonWarning || (tooOld ? 'Cached market data is stale. Refresh ingestion before using alerts.' : null);
+  return { priceChange, volumeRatio, warning, alertEligible: !warning };
+}
 
 export function buildBriefing(dataset, { hours = 24, priceThreshold = 3, volumeThreshold = 2 } = {}) {
   if (![24, 72, 168].includes(hours)) throw new RangeError('Window must be 24, 72 or 168 hours.');
@@ -16,22 +28,19 @@ export function buildBriefing(dataset, { hours = 24, priceThreshold = 3, volumeT
     return symbols.has(a.symbol) && time <= now && time >= now - hours * 3600000;
   }).map(a => ({ ...a, priority: priorities[a.category] ?? 30, routine: routineCategories.has(a.category) }))
     .sort((a, b) => b.priority - a.priority || Date.parse(b.publishedAt) - Date.parse(a.publishedAt) || a.id.localeCompare(b.id));
-  const signals = dataset.portfolio.flatMap(company => {
-    const eod = company.eod;
-    if (!eod) return [];
-    const priceChange = Number.isFinite(eod.close) && Number.isFinite(eod.previousClose) && eod.previousClose > 0
-      ? (eod.close / eod.previousClose - 1) * 100 : null;
-    const volumeRatio = Number.isFinite(eod.volume) && eod.volume >= 0 && Number.isFinite(eod.averageVolume) && eod.averageVolume > 0 && eod.baselineSessions === 20
-      ? eod.volume / eod.averageVolume : null;
+  const portfolio = dataset.portfolio.map(company => ({ ...company, market: evaluateEod(company, dataset.asOf, dataset.mode) }));
+  const signals = portfolio.flatMap(company => {
+    const { priceChange, volumeRatio, alertEligible } = company.market;
+    if (!alertEligible) return [];
     const reasons = [];
     if (priceChange !== null && Math.abs(priceChange) + 1e-9 >= priceThreshold) reasons.push('price');
     if (volumeRatio !== null && volumeRatio + 1e-9 >= volumeThreshold) reasons.push('volume');
-    return reasons.length ? [{ symbol: company.symbol, name: company.name, priceChange, volumeRatio, reasons, session: eod.session }] : [];
+    return reasons.length ? [{ symbol: company.symbol, name: company.name, priceChange, volumeRatio, reasons, session: company.eod.session, source: company.eod.source }] : [];
   });
   return {
-    mode: dataset.mode, asOf: dataset.asOf, hours,
+    mode: dataset.mode, asOf: dataset.asOf, snapshotAt: dataset.snapshotAt ?? dataset.asOf, sources: dataset.sources ?? null, stale: dataset.stale ?? false, hours,
     thresholds: { price: priceThreshold, volume: volumeThreshold },
-    portfolio: dataset.portfolio.map(({ eod, ...company }) => company),
+    portfolio,
     announcements, signals,
     counts: { material: announcements.filter(a => !a.routine).length, routine: announcements.filter(a => a.routine).length, signals: signals.length },
   };

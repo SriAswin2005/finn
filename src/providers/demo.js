@@ -1,15 +1,6 @@
 // Fictional scenarios, never a representation of actual disclosures or market data.
+import { portfolio as companies } from '../config/portfolio.js';
 export const DEMO_AS_OF = '2026-10-28T12:30:00.000Z';
-const companies = [
-  ['RELIANCE', 'Reliance Industries', 'Energy'], ['TCS', 'Tata Consultancy Services', 'Technology'],
-  ['HDFCBANK', 'HDFC Bank', 'Banking'], ['INFY', 'Infosys', 'Technology'],
-  ['ICICIBANK', 'ICICI Bank', 'Banking'], ['BHARTIARTL', 'Bharti Airtel', 'Telecom'],
-  ['LT', 'Larsen & Toubro', 'Industrials'], ['ITC', 'ITC', 'Consumer'],
-  ['SUNPHARMA', 'Sun Pharmaceutical', 'Healthcare'], ['TATAMOTORS', 'Tata Motors', 'Auto'],
-  ['TITAN', 'Titan Company', 'Consumer'], ['MARICO', 'Marico', 'Consumer'],
-  ['CDSL', 'Central Depository Services', 'Financial services'], ['POLYCAB', 'Polycab India', 'Industrials'],
-  ['APLAPOLLO', 'APL Apollo Tubes', 'Materials'],
-];
 const movements = [1.2, -0.8, 0.6, -3.7, 1.1, 2.2, 4.2, 0.3, -1.5, -2.1, 1.4, 0.7, 3.4, -0.9, 1.8];
 const volumes = [1.1, 0.8, 1.2, 2.6, 0.9, 1.8, 2.2, 0.7, 1.1, 1.6, 1.2, 0.8, 2.4, 1.3, 1.4];
 const scenarios = [
@@ -25,8 +16,8 @@ const scenarios = [
 ];
 
 export function getDemoDataset() {
-  const portfolio = companies.map(([symbol, name, sector], i) => ({
-    symbol, name, sector, eod: {
+  const portfolio = companies.map((company, i) => ({
+    ...company, eod: {
       session: '2026-10-28', previousClose: 1000, close: 1000 * (1 + movements[i] / 100),
       volume: Math.round(100000 * volumes[i]), averageVolume: 100000, baselineSessions: 20,
     },

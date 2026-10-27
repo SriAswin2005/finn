@@ -1,13 +1,14 @@
 {
   "name": "finn",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "engines": { "node": ">=24.16.0" },
   "scripts": {
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
+    "ingest": "node src/ingest.js",
     "test": "node --test",
-    "check": "node --check src/server.js && node --check src/domain/briefing.js && node --check src/providers/demo.js && node --check public/app.js && node --check public/sw.js"
+    "check": "node scripts/check.js"
   }
 }

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { once } from 'node:events';
 import { createAppServer } from '../src/server.js';
+import { DatasetUnavailable } from '../src/providers/snapshot.js';
 
 test('HTTP contract, validation, static isolation and install assets', async t => {
   const server = createAppServer();
@@ -11,14 +12,14 @@ test('HTTP contract, validation, static isolation and install assets', async t =
   const base = `http://127.0.0.1:${server.address().port}`;
   const request = path => fetch(base + path);
   const health = await request('/api/health');
-  assert.deepEqual(await health.json(), { ok: true, mode: 'demo' });
-  const response = await request('/api/briefing?hours=168&price=50&volume=20');
+  assert.deepEqual(await health.json(), { ok: true, modes: ['live', 'recorded', 'demo'] });
+  const response = await request('/api/briefing?mode=demo&hours=168&price=50&volume=20');
   assert.equal(response.headers.get('cache-control'), 'no-store');
   const data = await response.json();
   assert.equal(data.counts.material, 6);
   assert.equal(data.counts.signals, 0);
-  for (const path of ['/api/briefing?hours=bad', '/api/briefing?price=', '/api/briefing?volume=100']) assert.equal((await request(path)).status, 400);
-  for (const path of ['/src/server.js', '/package.json', '/.env', '/%2e%2e/package.json', '/api/missing']) assert.equal((await request(path)).status, 404);
+  for (const path of ['/api/briefing?hours=bad', '/api/briefing?price=', '/api/briefing?volume=100', '/api/briefing?mode=unknown']) assert.equal((await request(path)).status, 400);
+  for (const path of ['/src/server.js', '/package.json', '/.env', '/%2e%2e/package.json', '/api/missing', '/data/cache/snapshot.json']) assert.equal((await request(path)).status, 404);
   assert.equal((await fetch(base + '/api/briefing', { method: 'POST' })).status, 405);
   assert.match(await (await request('/')).text(), /Your portfolio,/);
   assert.equal((await fetch(base, { method: 'HEAD' })).status, 200);
@@ -34,4 +35,13 @@ test('HTTP contract, validation, static isolation and install assets', async t =
     assert.equal(buffer.readUInt32BE(20), size);
   }
   assert.equal((await request('/sw.js')).headers.get('cache-control'), 'no-cache');
+});
+
+test('missing live data returns a useful 503, never a fictional briefing', async t => {
+  const server = createAppServer({ datasetProvider: async () => { throw new DatasetUnavailable('No live snapshot yet.'); } });
+  server.listen(0, '127.0.0.1'); await once(server, 'listening');
+  t.after(() => new Promise(resolve => server.close(resolve)));
+  const response = await fetch(`http://127.0.0.1:${server.address().port}/api/briefing?mode=live`);
+  assert.equal(response.status, 503);
+  assert.deepEqual(await response.json(), { error: 'No live snapshot yet.' });
 });

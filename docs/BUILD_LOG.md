@@ -11,3 +11,14 @@
 - Next iteration: verify real EOD and exchange-announcement access, then implement one provider-to-UI source path before adding research.
 
 This log records decisions only. Preserve the original AI chat exports/share links separately for the required build-history submission.
+
+## October 28, 2026 — M2
+- Verified public Yahoo daily-history and NSE announcements endpoints; added no runtime dependencies.
+- Separated the portfolio configuration from the fictional provider. Replaced an inaccessible mock holding with EICHERMOT after checking its history response.
+- Added bounded collection, explicit IST date normalization, price baselines, split/incomplete-row warnings, raw-response hashes and atomic snapshot persistence.
+- Captured real history for all 15 companies and 43 portfolio announcements. Preserved a committed replay so the source-backed workflow runs without an external network call.
+- Source failures preserve the last successful record with its original fetch time; missing live data never falls back to the fictional demo.
+- Added source modes, freshness warnings, original filing links and inspectable market calculations. Verified a real LT results attachment is a PDF.
+- Refined category rules against observed source metadata: results submissions must not be collapsed as board-meeting notices. Kept unknown categories visible.
+- Yahoo's newest source rows had missing closes. Kept the valid previous session visible and paused affected alerts rather than using the metadata's intraday quote.
+- Verified 16 automated tests and the source/replay/demo workflows in the browser. M3 remains focused primary-document retrieval and research.

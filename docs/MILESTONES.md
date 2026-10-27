@@ -18,11 +18,13 @@ Dates are targets in IST; finish the core before November 1, 2026.
 - [x] Git checkpoint with run instructions and known limitations.
 
 ## M2 — Real data spine (October 29)
-- [ ] Implement one EOD source and one NSE/BSE announcement source; verify access early.
-- [ ] Persist/cache normalized data with source/fetch times and explicit stale/error states.
-- [ ] Verify 15–20 portfolio symbols and configurable alerts against known calculations.
-- [ ] Capture a reproducible source-backed demo dataset; retain evidence URLs.
-- [ ] Gate: real filing and real EOD record travel from provider through API to phone UI.
+- [x] Implement one EOD source and one NSE/BSE announcement source; verify access early.
+- [x] Persist/cache normalized data with source/fetch times and explicit stale/error states.
+- [x] Verify 15–20 portfolio symbols and configurable alerts against known calculations.
+- [x] Capture a reproducible source-backed demo dataset; retain evidence URLs.
+- [x] Gate: real filing and real EOD record travel from provider through API to phone-sized browser UI. Physical phone verification remains M4.
+
+Completed October 28: 15 valid histories, 43 portfolio announcements, recorded replay and 16 passing tests. The latest Yahoo row lacks its close; records show the preceding valid session and explicitly pause alerts. This upstream data limitation is visible, not a blocker for continuing M3.
 
 ## M3 — Primary-source pull (October 29–30)
 - [ ] Generic NSE ticker input, discovery and document retrieval with bounded failures.
