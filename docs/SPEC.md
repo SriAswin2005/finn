@@ -1,0 +1,29 @@
+# FINN specification
+
+## Product decision
+An investor opens FINN to answer: what changed in my portfolio, why does it matter, and what should I read next? A concise briefing leads; evidence and research are one step deeper. Mobile-first installable PWA now; native packaging later only if needed. Target a complete, reliable demo by October 31, before the November 1, 2026 deadline (IST).
+
+## Challenge requirements and chosen scope
+The main brief asks for push and pull interactions, 15–20 mock portfolio companies, 3–5 research examples, EOD prices/volume, exchange announcements, and annual-report/transcript fundamentals. Research should work on any NSE ticker with available data. Thin working workflows are explicitly preferred to broad coverage. The companion reference supplies announcement categories and definitions; neither a price move nor a summary should become investment advice.
+
+Core experience:
+1. Briefing: choose 24h / 3d / 7d, rank material portfolio announcements, collapse routine filings, open evidence, and inspect configurable EOD price/volume signals.
+2. Research: submit an NSE ticker; discover primary documents and return a compact business snapshot plus a focused, cited analysis. Show unavailable evidence explicitly. Three to five document-backed demo examples, with graceful unsupported-ticker behavior.
+3. Trust: show source, event time, fetch time and data mode; distinguish observations, computed values and inference. Never invent numbers, executive biographies or citations.
+
+M1 is a deterministic fixture-backed push slice. It deliberately does not claim live prices, actual company events, LLM analysis or completed research. All scenarios are fictional; public company names are used solely for the mock portfolio. The demo clock is fixed at October 28, 2026, 18:00 IST, independent of the system clock.
+
+## Architecture
+- public/: semantic HTML, CSS and browser JS modules. Same-origin /api contract; local preferences stored only in the browser. Web manifest, generated PNG icons and service worker.
+- src/server.js: built-in Node HTTP server, validated API inputs, bounded static routing and explicit errors.
+- src/domain/: pure prioritization, windowing and signal calculations, independent of providers and presentation.
+- src/providers/: normalized fixture provider first; live source adapters next. Provider boundary is the later storage/cache integration point.
+- test/: Node test runner for behavior and HTTP integration. No build tool required.
+
+Later source contracts must carry stable IDs, NSE symbol, category, event/fetch timestamps, source URL, evidence locator, currency/unit and data mode. EOD volume compares with the preceding 20 valid sessions, excluding the current session. Partial history is explicitly marked. Source adapters must use timeouts, caching, bounded retries and stale/error states. Never silently fall back from failed live data to fixtures.
+
+## Scope boundaries
+Push means an in-app briefing and refresh initially; OS push and background scheduling are deferred. Pull may use a model behind a replaceable server-side adapter after document retrieval and citations work. Results extraction (Revenue, EBITDA, PBT, PAT with QoQ/YoY) and promised-vs-delivered analysis are candidates for one strong demonstration, not a commitment to all eight research outputs. No authentication, trading, portfolio accounting, native app, voice or elaborate chat shell for this prototype.
+
+## Submission
+Phone-accessible deployed prototype, GitHub repository, AI build-history exports/share links, and short covering note with decisions, omissions and next steps. Email destination in the brief: assessment@enam.com; subject: ENAM - IIT screening - 2027. Sending and public deployment are later user actions, not part of M1.
