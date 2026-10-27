@@ -9,13 +9,13 @@ Dates are targets in IST; finish the core before November 1, 2026.
 - [x] Choose zero-runtime-dependency Node + browser module implementation.
 
 ## M1 — First complete briefing slice (October 28)
-- [ ] 15-company portfolio served by an explicit demo provider and same-origin API.
-- [ ] Ranked announcements; selectable window; routine items collapsed; detail view.
-- [ ] Configurable price/volume thresholds; preferences survive reload.
-- [ ] Responsive accessible UI with loading, error and empty states.
-- [ ] PWA manifest, real PNG icons, shell cache and honest offline state.
-- [ ] Domain + HTTP tests and desktop/mobile browser checks pass.
-- [ ] Git checkpoint with run instructions and known limitations.
+- [x] 15-company portfolio served by an explicit demo provider and same-origin API.
+- [x] Ranked announcements; selectable window; routine items collapsed; detail view.
+- [x] Configurable price/volume thresholds; preferences survive reload.
+- [x] Responsive UI with semantic controls, labelled dialogs and loading/error/empty states.
+- [x] PWA manifest, real PNG icons, shell cache and honest unavailable-data state.
+- [x] Domain + HTTP tests and desktop/mobile browser checks pass (see docs/VERIFICATION.md).
+- [x] Git checkpoint with run instructions and known limitations.
 
 ## M2 — Real data spine (October 29)
 - [ ] Implement one EOD source and one NSE/BSE announcement source; verify access early.

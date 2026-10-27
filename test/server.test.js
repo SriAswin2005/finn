@@ -1,0 +1,37 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { once } from 'node:events';
+import { createAppServer } from '../src/server.js';
+
+test('HTTP contract, validation, static isolation and install assets', async t => {
+  const server = createAppServer();
+  server.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  t.after(() => new Promise(resolve => server.close(resolve)));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const request = path => fetch(base + path);
+  const health = await request('/api/health');
+  assert.deepEqual(await health.json(), { ok: true, mode: 'demo' });
+  const response = await request('/api/briefing?hours=168&price=50&volume=20');
+  assert.equal(response.headers.get('cache-control'), 'no-store');
+  const data = await response.json();
+  assert.equal(data.counts.material, 6);
+  assert.equal(data.counts.signals, 0);
+  for (const path of ['/api/briefing?hours=bad', '/api/briefing?price=', '/api/briefing?volume=100']) assert.equal((await request(path)).status, 400);
+  for (const path of ['/src/server.js', '/package.json', '/.env', '/%2e%2e/package.json', '/api/missing']) assert.equal((await request(path)).status, 404);
+  assert.equal((await fetch(base + '/api/briefing', { method: 'POST' })).status, 405);
+  assert.match(await (await request('/')).text(), /Your portfolio,/);
+  assert.equal((await fetch(base, { method: 'HEAD' })).status, 200);
+  const manifest = await (await request('/manifest.webmanifest')).json();
+  assert.equal(manifest.display, 'standalone');
+  for (const icon of manifest.icons) {
+    const response = await request(icon.src);
+    assert.equal(response.headers.get('content-type'), 'image/png');
+    const buffer = Buffer.from(await response.arrayBuffer());
+    assert.equal(buffer.toString('hex', 0, 8), '89504e470d0a1a0a');
+    const size = Number(icon.sizes.split('x')[0]);
+    assert.equal(buffer.readUInt32BE(16), size);
+    assert.equal(buffer.readUInt32BE(20), size);
+  }
+  assert.equal((await request('/sw.js')).headers.get('cache-control'), 'no-cache');
+});

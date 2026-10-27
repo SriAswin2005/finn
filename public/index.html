@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173d35">
+  <meta name="description" content="FINN — a concise portfolio briefing. Financial intelligence, with the evidence in reach.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="stylesheet" href="/styles.css">
+  <title>FINN — Your portfolio briefing</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to briefing</a>
+  <header class="masthead">
+    <a class="wordmark" href="/" aria-label="FINN home">finn<span>.</span></a>
+    <span class="brand-note">A little signal.<br>A lot less noise.</span>
+    <button id="install" class="quiet" hidden>Install FINN</button>
+    <button id="settings-open" class="quiet" aria-haspopup="dialog">Alert settings</button>
+  </header>
+  <main id="main">
+    <div class="edition"><span class="status-dot"></span> PORTFOLIO INTELLIGENCE <span class="edition-number">NO. 001 / PROTOTYPE</span></div>
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow">WEDNESDAY, 28 OCTOBER 2026</p><h1 id="page-title">Your portfolio,<br><em>in perspective.</em></h1><p class="intro-copy">The changes worth your attention.<br>The context to decide what comes next.</p></div>
+      <aside class="demo-note"><span class="demo-tag">DEMO EDITION</span><p>A working briefing with fictional scenarios.</p><small>Fixed snapshot · 28 Oct, 6:00 PM IST<br>No live market data or actual filings.</small></aside>
+    </section>
+    <div class="toolbar"><div class="window-control"><label for="window">Briefing window</label><select id="window"><option value="24">Last 24 hours</option><option value="72">Last 3 days</option><option value="168">Last 7 days</option></select></div><button id="refresh" class="quiet">Refresh briefing <span aria-hidden="true">↻</span></button></div>
+    <p id="status" class="status" role="status" aria-live="polite">Loading your briefing…</p>
+    <div id="briefing" hidden>
+      <section class="overview" aria-label="Briefing at a glance"><div><strong id="material-count">0</strong><span>changes to read</span></div><div><strong id="signal-count">0</strong><span>EOD signals</span></div><div><strong id="portfolio-count">15</strong><span>companies followed</span></div></section>
+      <div class="briefing-grid">
+        <section aria-labelledby="changes-title"><div class="section-heading"><h2 id="changes-title">What changed</h2><span>PRIORITY FIRST</span></div><div id="announcements"></div><details id="routine"><summary id="routine-label">Routine disclosures</summary><div id="routine-items"></div></details></section>
+        <aside><section class="signals-panel" aria-labelledby="signals-title"><div class="section-heading"><h2 id="signals-title">On the radar</h2><span>EOD</span></div><p id="threshold-caption" class="muted"></p><div id="signals"></div><p class="signal-footnote">Fictional closing moves. Volume is compared with the preceding 20-session average. These signals use the latest demo session, independent of the filing window.</p></section><details class="portfolio"><summary>Your 15 companies</summary><ul id="portfolio"></ul></details><div class="next-note"><span class="eyebrow">UP NEXT IN FINN</span><h3>From a signal<br>to a source.</h3><p>Company research grounded in annual reports and earnings calls is the next workflow being built.</p></div></aside>
+      </div>
+    </div>
+    <noscript><p>Enable JavaScript to load and filter the briefing.</p></noscript>
+    <footer><span class="wordmark small">finn<span>.</span></span><p>Designed for a considered decision.<br><span>ENAM Build Challenge · Prototype 0.1</span></p><span class="footer-label">FICTIONAL DATA · NOT INVESTMENT ADVICE</span></footer>
+  </main>
+  <dialog id="settings" aria-labelledby="settings-title"><form id="settings-form"><div class="dialog-top"><span class="eyebrow">MAKE SIGNAL PERSONAL</span><button type="button" class="close quiet" data-close="settings" aria-label="Close alert settings">×</button></div><h2 id="settings-title">What earns your attention?</h2><p>Flag a company when either threshold is met at the close.</p><label for="price-threshold">Daily price move, up or down (%)</label><input id="price-threshold" name="price" type="number" min="0.1" max="50" step="0.1" required><label for="volume-threshold">Volume vs. 20-session average (×)</label><input id="volume-threshold" name="volume" type="number" min="1" max="20" step="0.1" required><p class="muted">Saved on this browser. Alerts appear inside FINN; background notifications are not enabled.</p><button class="primary" type="submit">Save thresholds</button></form></dialog>
+  <dialog id="detail" aria-labelledby="detail-title"><div class="dialog-top"><span id="detail-symbol" class="eyebrow"></span><button class="close quiet" data-close="detail" aria-label="Close announcement">×</button></div><h2 id="detail-title"></h2><p id="detail-time" class="muted"></p><p id="detail-summary"></p><h3>Why it matters</h3><p id="detail-why"></p><div class="evidence"><span class="eyebrow">EVIDENCE STATUS</span><p id="detail-evidence"></p><strong>Fictional demo scenario · no source document</strong></div></dialog>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
