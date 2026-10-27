@@ -1,13 +1,18 @@
+import { researchCompany } from './research.js';
 const $ = id => document.getElementById(id);
-const defaults = { hours: 24, price: 3, volume: 2, mode: 'live' };
+const alertCategories = ['results', 'M&A', 'management_change', 'litigation', 'fund_raise', 'capex', 'credit_rating', 'dividend', 'pledging', 'other'];
+const defaults = { hours: 24, price: 3, volume: 2, mode: 'recorded', delivery: 'inapp', categories: ['results', 'M&A', 'management_change', 'litigation', 'fund_raise', 'capex'] };
 let preferences = { ...defaults };
 let requestId = 0;
 let pendingInstall;
 let currentMode = 'live';
+let currentBriefing;
 try {
   const saved = JSON.parse(localStorage.getItem('finn.preferences.v1'));
   if ([24, 72, 168].includes(saved?.hours)) preferences.hours = saved.hours;
   if (['live', 'recorded', 'demo'].includes(saved?.mode)) preferences.mode = saved.mode;
+  if (['inapp', 'paused'].includes(saved?.delivery)) preferences.delivery = saved.delivery;
+  if (Array.isArray(saved?.categories)) preferences.categories = saved.categories.filter(category => alertCategories.includes(category));
   if (Number.isFinite(saved?.price) && saved.price >= 0.1 && saved.price <= 50) preferences.price = saved.price;
   if (Number.isFinite(saved?.volume) && saved.volume >= 1 && saved.volume <= 20) preferences.volume = saved.volume;
 } catch { /* Browser storage may be disabled or contain an older format. */ }
@@ -82,6 +87,7 @@ function card(item) {
   return article;
 }
 function render(data) {
+  currentBriefing = data;
   setModeHeader(data.mode, data.asOf);
   $('material-count').textContent = data.counts.material;
   $('signal-count').textContent = data.counts.signals;
@@ -124,7 +130,60 @@ function render(data) {
     if (source.warnings?.length) section.append(element('p', 'muted', `${source.warnings.length} market records have comparison warnings. ${source.warnings[0].warning} Open a company market record for details.`));
     return section;
   }));
+  renderPortfolio(data);
+  renderAlerts(data);
+  if (location.hash === '#research') $('footer-mode').textContent = 'PRIMARY DOCUMENT EVIDENCE · NOT INVESTMENT ADVICE';
 }
+function renderPortfolio(data) {
+  $('portfolio-mode').textContent = `${data.mode === 'demo' ? 'Fictional demo' : data.mode === 'recorded' ? 'Recorded public sources' : 'Cached public sources'} · ${data.portfolio.length} companies · Prices are EOD, not intraday. Filing counts use your Today window.`;
+  $('portfolio-grid').replaceChildren(...data.portfolio.map(company => {
+    const article = element('article', 'portfolio-card'); const eod = company.eod;
+    const heading = element('div', 'portfolio-card-heading');
+    heading.append(element('strong', '', company.symbol), element('span', 'muted', company.sector));
+    const filings = data.announcements.filter(item => item.symbol === company.symbol).length;
+    article.append(heading, element('h3', '', company.name), element('p', 'portfolio-price', eod ? `₹${number(eod.close)}` : 'Price unavailable'), element('p', 'muted', eod ? `${company.market.priceChange === null ? 'Change unavailable' : `${company.market.priceChange >= 0 ? '+' : ''}${company.market.priceChange.toFixed(2)}%`} · ${company.market.volumeRatio === null ? 'Volume unavailable' : `${company.market.volumeRatio.toFixed(2)}× volume`} · Session ${eod.session}` : 'No completed record.'), element('p', 'muted', `${filings} disclosures in the selected window.${company.market.warning ? ` ${company.market.warning}` : ''}`));
+    const inspect = element('button', 'detail-button', 'Inspect market record'); inspect.addEventListener('click', () => openMarket(company));
+    const research = element('button', 'quiet', `Research ${company.symbol}`); research.addEventListener('click', () => researchCompany(company.symbol));
+    article.append(inspect, research); return article;
+  }));
+}
+function syncAlertForm() {
+  $('alerts-price').value = preferences.price; $('alerts-volume').value = preferences.volume; $('alerts-delivery').value = preferences.delivery;
+  $('alert-categories').replaceChildren(...alertCategories.map(category => {
+    const label = element('label', 'category-choice'); const checkbox = element('input');
+    checkbox.type = 'checkbox'; checkbox.name = 'category'; checkbox.value = category; checkbox.checked = preferences.categories.includes(category);
+    label.append(checkbox, element('span', '', categoryLabel(category))); return label;
+  }));
+}
+function renderAlerts(data) {
+  $('alerts-mode').textContent = `${data.mode === 'demo' ? 'Fictional demo' : data.mode === 'recorded' ? 'Recorded source replay' : 'Latest saved sources'} · ${data.hours}-hour filing window. ${data.stale ? 'Data warnings apply; inspect Sources & freshness in Today.' : ''}`;
+  if (preferences.delivery === 'paused') { $('alert-matches').replaceChildren(element('p', 'empty', 'In-app alerts are paused. Your briefing and portfolio remain available.')); return; }
+  const matches = data.announcements.filter(item => preferences.categories.includes(item.category));
+  const signals = data.signals.map(signal => {
+    const article = element('article', 'announcement'); article.append(element('h3', '', `${signal.symbol} · ${signal.reasons.join(' + ')} threshold`), element('p', '', `Session ${signal.session} · ${signal.priceChange === null ? 'Price unavailable' : `${signal.priceChange.toFixed(2)}% price`} · ${signal.volumeRatio === null ? 'Volume unavailable' : `${signal.volumeRatio.toFixed(2)}× volume`}`));
+    const button = element('button', 'detail-button', 'Inspect calculation →'); button.addEventListener('click', () => openMarket(data.portfolio.find(company => company.symbol === signal.symbol))); article.append(button); return article;
+  });
+  $('alert-matches').replaceChildren(...matches.map(card), ...signals, ...(!matches.length && !signals.length ? [element('p', 'empty', 'No matching alerts from eligible data. This can mean no threshold was crossed or the source is incomplete; check Today for coverage.')] : []));
+}
+syncAlertForm();
+$('alerts-form').addEventListener('submit', event => {
+  event.preventDefault(); preferences.price = Number($('alerts-price').value); preferences.volume = Number($('alerts-volume').value); preferences.delivery = $('alerts-delivery').value;
+  preferences.categories = [...$('alert-categories').querySelectorAll('input:checked')].map(input => input.value);
+  const saved = persist(); $('alerts-saved').textContent = saved ? 'Preferences saved on this browser.' : 'Preferences apply to this session; browser storage is unavailable.';
+  loadBriefing();
+});
+function showScreen() {
+  const screen = ['today', 'portfolio', 'research', 'alerts'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'today';
+  for (const name of ['today', 'portfolio', 'research', 'alerts']) $(`screen-${name}`).hidden = name !== screen;
+  for (const link of document.querySelectorAll('[data-screen]')) {
+    if (link.dataset.screen === screen) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
+  }
+  if (screen === 'alerts') syncAlertForm();
+  $('footer-mode').textContent = screen === 'research' ? 'PRIMARY DOCUMENT EVIDENCE · NOT INVESTMENT ADVICE' : `${currentMode === 'demo' ? 'FICTIONAL DATA' : currentMode === 'recorded' ? 'RECORDED PUBLIC DATA' : 'PUBLIC SOURCE DATA'} · NOT INVESTMENT ADVICE`;
+  if (screen === 'portfolio' && !currentBriefing) $('portfolio-mode').textContent = 'Portfolio unavailable. Check Today for the data-source status and refresh.';
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', showScreen); showScreen();
 async function loadBriefing() {
   const id = ++requestId;
   const controller = new AbortController();
@@ -133,6 +192,9 @@ async function loadBriefing() {
   $('status').textContent = 'Loading your briefing…';
   setModeHeader(preferences.mode);
   $('briefing').hidden = true;
+  currentBriefing = null;
+  $('portfolio-grid').replaceChildren(); $('portfolio-mode').textContent = 'Loading selected data source…';
+  $('alert-matches').replaceChildren(); $('alerts-mode').textContent = 'Loading selected data source…';
   $('refresh').disabled = true;
   try {
     const query = new URLSearchParams({ hours: preferences.hours, price: preferences.price, volume: preferences.volume, mode: preferences.mode });
@@ -149,6 +211,7 @@ async function loadBriefing() {
     if (id !== requestId) return;
     $('status').className = 'status error';
     $('status').textContent = error.fromApi ? error.message : navigator.onLine ? 'Briefing unavailable. Check the server, then choose Refresh briefing.' : 'You’re offline. The FINN shell is available; reconnect and refresh to load the briefing.';
+    $('portfolio-mode').textContent = $('status').textContent; $('alerts-mode').textContent = $('status').textContent;
   } finally {
     clearTimeout(timeout);
     if (id === requestId) $('refresh').disabled = false;
@@ -166,6 +229,7 @@ $('settings-form').addEventListener('submit', event => {
   event.preventDefault();
   preferences.price = Number($('price-threshold').value);
   preferences.volume = Number($('volume-threshold').value);
+  syncAlertForm();
   const saved = persist();
   $('settings').close();
   loadBriefing().then(() => { if (!saved) $('status').textContent += ' Browser storage is unavailable; preferences apply for this session only.'; });
@@ -186,6 +250,8 @@ window.addEventListener('offline', () => {
   $('refresh').disabled = false;
   $('status').className = 'status error';
   $('status').textContent = 'You’re offline. Reconnect and refresh to load the briefing.';
+  currentBriefing = null; $('portfolio-grid').replaceChildren(); $('alert-matches').replaceChildren();
+  $('portfolio-mode').textContent = $('status').textContent; $('alerts-mode').textContent = $('status').textContent;
 });
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {
   // Online operation remains available if the browser blocks offline support.

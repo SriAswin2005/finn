@@ -2,7 +2,7 @@
 
 Build a reliable mobile-first briefing PWA for the ENAM AI Engineer challenge, due November 1, 2026. Read docs/SPEC.md and docs/MILESTONES.md before changing scope. Work locally unless deployment is requested.
 
-- Finish one small vertical slice at a time. Verify its acceptance criteria, update the milestone checklist and commit a useful checkpoint.
+- Finish one small vertical slice at a time. Verify it, update PROGRESS.md and the milestone checklist, and commit. Continue to the next approved P0 milestone when safe; do not stop solely at a checkpoint.
 - Keep the runtime dependency-free while the core fits Node and browser APIs. Justify new dependencies by a concrete need. Do not migrate frameworks for polish.
 - Keep UI, HTTP routes, domain rules and data providers separate. Providers must return normalized records; domain rules must be independently testable.
 - Never present fixture data as live, or a model-generated assertion as a primary-source fact. Preserve timestamps, document URLs, page/section citations and units as ingestion is added. Missing data is unavailable, never zero.
@@ -11,4 +11,5 @@ Build a reliable mobile-first briefing PWA for the ENAM AI Engineer challenge, d
 - Prefer targeted file reads and tests. Test domain edge cases and HTTP contracts; do not add tests that merely mirror markup.
 - Mobile layout, keyboard access, loading/error/empty states and honest offline behavior are core quality. Local HTTP supports development; installation on a phone requires HTTPS hosting.
 - Run npm run check and npm test before each implementation checkpoint. Record browser verification or any verification limit. Preserve progress in Git; never rewrite user history.
-- Do not add native packaging, notifications infrastructure, voice, trading, authentication or broad dashboards before the core workflow passes.
+- P0: Today digest, Portfolio, source-backed Research, configurable in-app Alerts and deployable verified application. Prioritize business/financial evidence, guidance vs delivery and balanced cases; never invent unsupported analysis.
+- P1 voice, notifications and further PWA work wait for P0. P2 native packaging and on-device models are deferred. No external publishing, email, authentication or spending without user approval. Keep model calls disabled until credentials and budget are authorized.

@@ -59,3 +59,25 @@ Verified the running API/UI at 390×844 and 1280×900 with no horizontal overflo
 
 ## Remaining limitations
 Collection is a manual command, not a scheduled job or a phone-side action. A committed replay is available without network access; a fresh clone needs `npm run ingest` for Latest sources. Public endpoints can change, throttle or be incomplete. Snapshot persistence is intended for one local collector. The freshness rule is conservative and calendar-day-based, not an NSE holiday calendar. Metadata classification is not semantic document analysis. Results extraction and primary-document research remain M3.
+
+# M3A and core navigation — October 28, 2026
+
+Reconciled the two challenge PDFs with the user's implementation briefing. Retained the working stack; added pypdf 6.10.0 in a local .venv.
+
+## Source and automated verification
+- Captured annual report plus two earnings-call transcripts for INFY, ASIANPAINT and PERSISTENT, preserving hashes and physical PDF pages. Cold HCLTECH research through the UI retrieved a 485-page report and 26-/29-page transcripts without ticker mappings. Issuer checks and primary attachment links were present.
+- `npm run check` passed. `npm test`: 26 tests passed, zero failed. New checks cover actual Python PDF extraction, discovery, private-address/redirect/size guards, missing research, page citations, exact quote/numeric rejection, quota/cache/fallback behavior and research HTTP/POST safeguards.
+- All Gemini responses in tests are simulated. Zero live model calls made. Model availability, generated note quality and guidance comparison are UNVERIFIED pending a billing-disabled project's key.
+- `npm run build` and `npm run verify:build` passed: release checksums, secret/cache exclusions, packaged HTTP briefing and recorded research. No external source call is needed for packaged replay.
+- Docker CLI exists, but the Linux engine is stopped. Dockerfile is prepared; no container build claimed. The tested Node archive is independent of Docker.
+
+## Browser verification
+- Today / Portfolio / Ask FINN / Alerts navigation and 15 portfolio cards work; a portfolio research button loads the selected company.
+- All three captured examples load documents/page links. Cold HCLTECH succeeds. Invalid ticker input returns a clear error and recovers on choosing an example.
+- AI button is disabled with a truthful message when the key is absent; no placeholder AI conclusions are shown.
+- Default fictional rules show four category matches and three market signals. Deselecting categories and raising thresholds yields an empty state; pause/threshold preferences survive reload. Defaults restored after testing.
+- Inspected 320×740 and 390×844 portrait, 844×390 landscape and desktop. No horizontal overflow (305/829 content widths at narrow/landscape sizes reflect scrollbar allowance).
+- New browsers default to labelled Recorded sources. Existing preferences remain. Research is independently labelled primary evidence regardless of Today data mode.
+
+## Remaining gates
+Keyword excerpts are not verified financial conclusions or a comparable-period promise-versus-delivery analysis. Live Gemini output and semantic review remain necessary. Hosting approval, HTTPS physical-phone/PWA verification, GitHub publication and original AI-history exports remain pending. No external deployment, paid call or email occurred.

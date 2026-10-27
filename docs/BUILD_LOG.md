@@ -22,3 +22,11 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 - Refined category rules against observed source metadata: results submissions must not be collapsed as board-meeting notices. Kept unknown categories visible.
 - Yahoo's newest source rows had missing closes. Kept the valid previous session visible and paused affected alerts rather than using the metadata's intraday quote.
 - Verified 16 automated tests and the source/replay/demo workflows in the browser. M3 remains focused primary-document retrieval and research.
+
+## October 28, 2026 — Reconciliation, M3A and P0 screens
+- Re-read both challenge PDFs and the pasted instructions. Added root SPEC.md and PROGRESS.md; retained the working stack instead of migrating to suggested frameworks.
+- Added one justified dependency, pypdf 6.10.0, for bounded page-preserving extraction. Full PDFs/text stay in ignored cache; three recorded examples retain selected pages, hashes and citations.
+- Generic discovery uses annual-report/transcript links only. Cold HCLTECH lookup succeeded without ticker-specific mappings.
+- Added Today / Portfolio / Ask FINN / Alerts, portfolio research links, announcement categories and pause preferences; verified navigation, narrow phones, landscape, errors and persistence.
+- User approved Gemini free quota only. Implemented opt-in, backend secrets, cached structured claims, exact quote/numeric guards, durable caps and model-specific fallback. Simulated tests consume no model allowance. Actual quality remains unverified pending a local key.
+- Prepared and smoke-tested a local release archive with checksums and secret exclusions; prepared container instructions and covering-email draft. Docker engine is stopped. Nothing published or emailed.

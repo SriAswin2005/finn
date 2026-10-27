@@ -26,19 +26,32 @@ Dates are targets in IST; finish the core before November 1, 2026.
 
 Completed October 28: 15 valid histories, 43 portfolio announcements, recorded replay and 16 passing tests. The latest Yahoo row lacks its close; records show the preceding valid session and explicitly pause alerts. This upstream data limitation is visible, not a blocker for continuing M3.
 
-## M3 — Primary-source pull (October 29–30)
-- [ ] Generic NSE ticker input, discovery and document retrieval with bounded failures.
-- [ ] Parse/chunk annual reports and transcripts; preserve page/section provenance.
-- [ ] Focused cited analysis; cache by document hash and prompt/model version.
-- [ ] Three to five research examples; test an unseen ticker and missing evidence.
-- [ ] Gate: every factual research claim can be traced to a primary document.
+## M3A — Primary-source retrieval (implemented October 28)
+- [x] Generic NSE ticker input, discovery and document retrieval with bounded failures.
+- [x] Parse/chunk annual reports and transcripts; preserve physical-page provenance.
+- [x] Three recorded examples (INFY, ASIANPAINT, PERSISTENT); cold HCLTECH lookup and missing-evidence behavior verified.
+- [x] Source corpus excludes Screener financials/AI summaries, broker reports and news.
+- [x] Gate: original documents and selected passages travel through API to Research UI with page references.
+
+## M3B — AI synthesis (credentials pending)
+- [x] Gemini free-tier-only opt-in, backend secrets, bounded context/output, structured claims and evidence/prompt/model cache.
+- [x] Test quote/citation/numeric guards, quota ledger, concurrency and conservative model-specific fallback with simulated responses.
+- [ ] Verify actual Gemini output using the user's billing-disabled project; validate quality and failure behavior.
+- [ ] Verify a supported business/financial snapshot, conditional bull/bear interpretation and guidance-vs-delivery analysis where comparable evidence exists. Mark unsupported outputs unavailable.
+- [ ] Gate: every displayed AI claim has inspected primary support. Exact quotes and numeric checks alone do not prove semantic correctness.
+
+## P0 navigation and alert preferences
+- [x] Today / Portfolio / Ask FINN / Alerts with portfolio-to-research links.
+- [x] In-app announcement-category, price/volume and pause preferences survive reload.
+- [x] Missing-source and empty states; no claim of OS push support.
 
 ## M4 — Demo hardening and delivery (October 31)
 - [ ] Verify mobile installation on HTTPS, offline/stale behavior and clean startup.
 - [ ] Prioritize one strong analysis example if time allows (results or guidance delivery).
-- [ ] Deploy, verify hosted API and phone workflow; push repository to GitHub.
-- [ ] Prepare covering note, architecture/tradeoffs, AI build history and demo steps.
+- [x] Build local deployable archive with checksum/secret-exclusion checks and packaged HTTP/research smoke test.
+- [ ] Deploy with user approval, verify hosted API and phone workflow; push repository to GitHub with approval.
+- [ ] Finalize covering note, architecture/tradeoffs, original AI build history and demo steps. Draft prepared locally.
 - [ ] Final reproducible checks and tagged demo checkpoint. Keep November 1 as buffer.
 
 ## Decisions needed later
-Verify public-source access before choosing ingestion dependencies. Select a deployment target and, if synthesis needs one, an available model credential. Neither is required for M1. Do not block local development on these choices.
+Gemini free quota ONLY is approved; local `.env` key and billing-disabled-project confirmation remain pending. A hosting target, GitHub destination and external publication approval are needed after local verification. Docker CLI exists but its engine is not running; the container image is prepared but unbuilt. This does not block the tested Node release archive. No email has been sent and no site/repository published.

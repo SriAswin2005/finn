@@ -4,7 +4,12 @@ A briefing-first, mobile-first financial intelligence PWA for the ENAM AI Engine
 
 ## Run
 
-Requires Node 24.16.0 or newer. No install step and no API key required.
+Requires Node 24.16.0 or newer. The recorded briefing and three research examples run without installation or an API key. New PDF collection also needs Python 3.12+ and one dependency:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
 
 ```powershell
 npm start
@@ -19,12 +24,14 @@ npm test
 
 ## Current milestone
 
-M2: public sources → normalized on-disk snapshot → domain ranking/signals → HTTP API → interactive briefing. The mock portfolio contains 15 NSE symbols across sectors. Runtime dependencies remain zero. Document-grounded research is next.
+M3A / prototype 0.3: Today, Portfolio, Ask FINN and Alerts. Public data travels through normalized snapshots and deterministic ranking/signals to the briefing. Generic research discovers annual reports and earnings-call transcripts, extracts physical PDF pages and returns cited excerpts. Captured examples: INFY, ASIANPAINT and PERSISTENT. HCLTECH was also verified through a cold on-demand lookup outside that set.
+
+Node/frontend runtime dependencies remain zero; PDF parsing uses `pypdf==6.10.0`. Gemini synthesis is implemented behind a provider boundary, but live model output is unverified until a free-tier key is configured. Retrieved excerpts are not a verified guidance-versus-delivery analysis, and no model output is fabricated for the demo.
 
 Choose a data mode and briefing window, expand routine filings, open original NSE filings, inspect company market records, and change alert thresholds. Preferences remain in this browser.
 
 - **Latest sources** reads the local ingestion snapshot. It never falls back to fictional data. A fresh clone needs an ingestion run before using this mode.
-- **Recorded sources** replays the committed real-data capture at its original timestamp; it is not current information. This works without contacting Yahoo/NSE.
+- **Recorded sources** is the first-run default. It replays the committed real-data capture at its original timestamp; it is not current information. This works without contacting Yahoo/NSE.
 - **Fictional demo** uses the original deterministic scenarios and fixed demo clock, clearly labelled throughout.
 
 ## Collect public data
@@ -43,6 +50,27 @@ Also replaces the committed replay snapshot when all configured histories and NS
 
 The initial capture has 15 histories and 43 NSE portfolio announcements, collected October 28, 2026, 03:14 IST. Yahoo's latest daily row (October 27) had no close, so the app shows the valid October 26 session with a warning and pauses those alerts. It does not substitute the provider's intraday quote. Fresh source collection may resolve upstream gaps; no user intervention is required for the recorded workflow.
 
-The PWA caches its application shell; a failed API request shows offline/unavailable status. Source failures preserve older evidence with warnings. Phone installation will be verified after HTTPS deployment. See [data source contracts](docs/DATA_SOURCES.md) and [verification](docs/VERIFICATION.md).
+## Research and free-quota AI
+
+Enter an NSE symbol in Ask FINN; the discovery code does not require the company to be in the portfolio or examples. Optional questions retrieve matching source passages. Annual reports and transcripts are the only research corpus; Screener supplies document links, not financial evidence or AI summaries. PDFs that are unavailable, scanned, oversized or fail issuer checks produce explicit coverage errors.
+
+```powershell
+npm run research:collect -- INFY ASIANPAINT PERSISTENT
+```
+
+This refreshes document discovery, reuses recent immutable document URLs, and saves selected page evidence for an offline-source replay. Downloaded PDFs/full extracted text stay in ignored `data/cache/research/`. The committed selected pages are served through the research API, not as static files. Citations use physical PDF pages; printed page numbers can differ.
+
+Gemini is free quota only, opt-in, and called only on **Generate cited AI note**. Configure a billing-disabled project using [AI setup](docs/AI_SETUP.md). Backend-only key, bounded excerpts/output, evidence/prompt/model cache, durable local quotas and limited model-specific fallback conserve allowance. No actual model requests were used in automated tests.
+
+## Build and release
+
+```powershell
+npm run build
+npm run verify:build
+```
+
+Produces `dist/finn-prototype.tar.gz` plus a runnable `dist/finn/` directory and checksum manifest. The packaged app is smoke-tested without source-network access. Secrets, live caches, downloaded PDFs and local environments are excluded. [Deployment preparation](docs/DEPLOYMENT.md) includes a container option; no external deployment happens automatically.
+
+The PWA caches its application shell; a failed API request shows offline/unavailable status. Source failures preserve older evidence with warnings. Physical-phone installation still requires HTTPS verification. See [data source contracts](docs/DATA_SOURCES.md), [milestones](docs/MILESTONES.md), [progress](PROGRESS.md) and [verification](docs/VERIFICATION.md).
 
 See [specification](docs/SPEC.md), [milestones](docs/MILESTONES.md), [environment](docs/ENVIRONMENT.md) and [project instructions](AGENTS.md). Keep AI conversation exports/share links for the challenge submission; Git records code checkpoints, not the full build history.

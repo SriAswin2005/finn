@@ -4,26 +4,49 @@ import { fileURLToPath } from 'node:url';
 import { resolve, extname } from 'node:path';
 import { buildBriefing } from './domain/briefing.js';
 import { getDataset, DatasetUnavailable } from './providers/snapshot.js';
+import { getResearch, ResearchUnavailable } from './research/service.js';
+import { createGeminiProvider, AiUnavailable } from './ai/gemini.js';
 
 const publicDir = fileURLToPath(new URL('../public/', import.meta.url));
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.webmanifest': 'application/manifest+json', '.png': 'image/png', '.svg': 'image/svg+xml' };
-const assets = new Set(['/index.html', '/styles.css', '/app.js', '/sw.js', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/maskable-512.png']);
+const assets = new Set(['/index.html', '/styles.css', '/app.js', '/research.js', '/sw.js', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/maskable-512.png']);
 function json(res, status, body) {
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
   res.end(JSON.stringify(body));
 }
 
-export function createAppServer({ datasetProvider = getDataset } = {}) {
+export function createAppServer({ datasetProvider = getDataset, researchProvider = getResearch, aiProvider = createGeminiProvider() } = {}) {
   return createServer(async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'no-referrer');
     res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
-    if (req.method !== 'GET' && req.method !== 'HEAD') {
+    const researchPost = req.method === 'POST' && req.url === '/api/research/analysis';
+    if (req.method !== 'GET' && req.method !== 'HEAD' && !researchPost) {
       res.setHeader('Allow', 'GET, HEAD');
       return json(res, 405, { error: 'Method not allowed.' });
     }
     try {
       const url = new URL(req.url, 'http://localhost');
+      if (url.pathname === '/api/research' || researchPost) {
+        try {
+          let ticker = url.searchParams.get('ticker'); let question = url.searchParams.get('question') ?? '';
+          if (researchPost) {
+            if (!req.headers['content-type']?.startsWith('application/json')) return json(res, 415, { error: 'Use application/json.' });
+            if (req.headers.origin && req.headers.origin !== `http://${req.headers.host}` && req.headers.origin !== `https://${req.headers.host}`) return json(res, 403, { error: 'Cross-origin generation is not allowed.' });
+            const chunks = []; let size = 0;
+            for await (const chunk of req) { size += chunk.length; if (size > 2048) return json(res, 413, { error: 'Request too large.' }); chunks.push(chunk); }
+            const payload = Buffer.concat(chunks).toString('utf8');
+            try { const body = JSON.parse(payload); ticker = body.ticker; question = body.question ?? ''; }
+            catch { return json(res, 400, { error: 'Invalid JSON.' }); }
+          }
+          const research = await researchProvider(ticker, question);
+          return json(res, 200, researchPost ? await aiProvider.generate(research) : research);
+        } catch (error) {
+          if (error instanceof RangeError) return json(res, 400, { error: error.message });
+          if (error instanceof ResearchUnavailable || error instanceof AiUnavailable) return json(res, 503, { error: error.message });
+          throw error;
+        }
+      }
       if (url.pathname === '/api/health') return json(res, 200, { ok: true, modes: ['live', 'recorded', 'demo'] });
       if (url.pathname === '/api/briefing') {
         try {

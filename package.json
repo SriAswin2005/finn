@@ -1,14 +1,17 @@
 {
   "name": "finn",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "engines": { "node": ">=24.16.0" },
   "scripts": {
-    "dev": "node --watch src/server.js",
-    "start": "node src/server.js",
+    "dev": "node --env-file-if-exists=.env --watch src/server.js",
+    "start": "node --env-file-if-exists=.env src/server.js",
     "ingest": "node src/ingest.js",
-    "test": "node --test",
+    "research:collect": "node scripts/collect-research.js",
+    "build": "node scripts/build.js",
+    "verify:build": "node scripts/smoke-build.js",
+    "test": "node scripts/test.js",
     "check": "node scripts/check.js"
   }
 }

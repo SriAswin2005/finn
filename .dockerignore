@@ -1,0 +1,9 @@
+.git
+.env
+.env.*
+.venv
+node_modules
+data/cache
+dist
+tmp
+*.pdf

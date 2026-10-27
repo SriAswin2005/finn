@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { once } from 'node:events';
 import { createAppServer } from '../src/server.js';
 import { DatasetUnavailable } from '../src/providers/snapshot.js';
+import { AiUnavailable } from '../src/ai/gemini.js';
 
 test('HTTP contract, validation, static isolation and install assets', async t => {
   const server = createAppServer();
@@ -35,6 +36,25 @@ test('HTTP contract, validation, static isolation and install assets', async t =
     assert.equal(buffer.readUInt32BE(20), size);
   }
   assert.equal((await request('/sw.js')).headers.get('cache-control'), 'no-cache');
+});
+
+test('research HTTP contract preserves page citations and protects generation requests', async t => {
+  let generated = 0;
+  const server = createAppServer({ aiProvider: { generate: async () => { generated++; throw new AiUnavailable('Free quota not configured.'); } } });
+  server.listen(0, '127.0.0.1'); await once(server, 'listening');
+  t.after(() => new Promise(resolve => server.close(resolve)));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const response = await fetch(base + '/api/research?ticker=ASIANPAINT');
+  assert.equal(response.status, 200); const result = await response.json();
+  assert.equal(result.documents.length, 3); assert.ok(result.evidence.every(item => item.page >= 1));
+  assert.equal((await fetch(base + '/api/research?ticker=../private')).status, 400);
+  assert.equal((await fetch(base + '/data/cache/research/ASIANPAINT.json')).status, 404);
+  const post = options => fetch(base + '/api/research/analysis', { method: 'POST', ...options });
+  assert.equal((await post({ body: '{}' })).status, 415);
+  assert.equal((await post({ headers: { 'Content-Type': 'application/json', Origin: 'https://attacker.test' }, body: '{}' })).status, 403);
+  assert.equal((await post({ headers: { 'Content-Type': 'application/json' }, body: '{bad' })).status, 400);
+  assert.equal((await post({ headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ticker: 'INFY' }) })).status, 503);
+  assert.equal(generated, 1);
 });
 
 test('missing live data returns a useful 503, never a fictional briefing', async t => {

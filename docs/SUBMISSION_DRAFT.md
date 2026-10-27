@@ -1,0 +1,26 @@
+# Covering email draft — not sent
+
+To: assessment@enam.com
+
+Subject: ENAM - IIT screening - 2027
+
+Hello ENAM team,
+
+I built FINN around the investor's daily briefing: a prioritized portfolio digest with original exchange filings, inspectable end-of-day signals, and on-demand primary-document research. The mobile interface includes Today, Portfolio, Ask FINN and configurable in-app Alerts.
+
+The prototype uses a modular Node/browser application with a small Python PDF parser. Calculations and initial triage are deterministic; evidence is cached with document hashes and physical-page citations. A replaceable Gemini adapter adds on-demand synthesis with free-quota budgets, model-specific fallback and citation checks. [Before submission: replace this sentence with the actual verified AI behavior and limitations.]
+
+I deliberately deferred voice, background push and native packaging to focus on reliable source handling. Data gaps are visible; the recorded source replay is clearly distinguished from current data and fictional scenarios. The next steps would improve semantic retrieval, comparable-period guidance analysis and deployment operations.
+
+- Prototype: [add verified HTTPS link]
+- Repository: [add approved GitHub URL]
+- AI build history: [add original conversation exports/share links]
+
+Regards,
+Aswin
+
+## Submission gates
+- Verify live Gemini behavior and inspect the cited claims; update the tradeoffs paragraph truthfully.
+- Approve hosting/audience and GitHub publication; verify the phone workflow after deployment.
+- Preserve original coding-agent conversations. The build log is not a substitute for those originals.
+- Include the release/checkpoint and short demo instructions. Do not email this draft automatically.
