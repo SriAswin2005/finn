@@ -7,7 +7,8 @@ import { normalizeTicker, discoverDocuments, directDocumentUrl } from '../src/re
 import { isPublicAddress, publicUrl, downloadPublic } from '../src/research/download.js';
 import { buildEvidence } from '../src/research/evidence.js';
 import { getResearch, parseDocument, ResearchUnavailable } from '../src/research/service.js';
-import { createGeminiProvider, validateAnalysis, selectEligibleModel, AiUnavailable } from '../src/ai/gemini.js';
+import { createGeminiProvider, validateAnalysis, selectEligibleModel, retryDeadline, AiUnavailable } from '../src/ai/gemini.js';
+import { mergeGeminiEnvironment } from '../src/config/ai-env.js';
 
 test('discovery accepts arbitrary NSE symbols but only report/transcript evidence links', () => {
   assert.equal(normalizeTicker(' m&m.ns '), 'M&M');
@@ -57,6 +58,50 @@ test('evidence selection does not manufacture financial rows or conclusions', ()
   assert.ok(result.sections.every(section => section.evidenceIds.length === 0));
 });
 
+test('guidance compares source coverage across calls; financial evidence includes a call and annual context', () => {
+  const guidance = 'Our revenue growth guidance for the financial year is 2% to 4%. Our margin guidance remains 20% to 22%. We expect demand growth and maintain our outlook. ';
+  const documents = [
+    { id: 'annual', sha256: 'a', kind: 'annual_report', pages: [{ page: 2, text: 'Annual revenue was 100 million. Profit, margin, cash flow and growth are discussed here. '.repeat(5) }] },
+    { id: 'latest', sha256: 'b', kind: 'transcript', pages: [{ page: 3, text: guidance.repeat(5) }, { page: 4, text: guidance.repeat(5) }] },
+    { id: 'earlier', sha256: 'c', kind: 'transcript', pages: [{ page: 6, text: guidance + 'Our revenue and profit growth for the period was reported at 3%. '.repeat(4) }] },
+  ];
+  const result = buildEvidence(documents);
+  const ids = section => result.sections.find(item => item.id === section).evidenceIds.map(id => result.evidence.find(item => item.id === id).documentId);
+  assert.deepEqual(ids('guidance'), ['latest', 'earlier']);
+  assert.deepEqual(ids('financial'), ['latest', 'annual']);
+});
+
+test('captured guidance includes both available transcripts for each research example', async () => {
+  for (const ticker of ['INFY', 'ASIANPAINT', 'PERSISTENT']) {
+    const result = await getResearch(ticker);
+    const guidance = result.sections.find(section => section.id === 'guidance');
+    const documentIds = new Set(guidance.evidenceIds.map(id => result.evidence.find(item => item.id === id).documentId));
+    assert.equal(documentIds.size, 2);
+  }
+});
+
+test('explicit forward ranges outrank a passing mention of old guidance', () => {
+  const actual = 'Revenue growth and operating margin improved versus earlier guidance. Expectations, outlook and fiscal targets are discussed. '.repeat(4);
+  const forward = 'Our revenue growth guidance for the financial year is 2% to 4%. Our operating margin guidance remains 20% to 22%. '.repeat(2);
+  const result = buildEvidence([{ id: 'call', sha256: 'x', kind: 'transcript', pages: [{ page: 1, text: actual }, { page: 2, text: forward }] }]);
+  const guidance = result.sections.find(section => section.id === 'guidance');
+  assert.equal(result.evidence.find(evidence => evidence.id === guidance.evidenceIds[0]).page, 2);
+});
+
+test('local AI configuration requires explicit free confirmation and preserves unrelated settings', () => {
+  const dummy = 'test_dummy_key_1234567890';
+  const existing = 'PORT=3001\nGEMINI_API_KEY=old_dummy_key\nFINN_AI_TOTAL_DAILY_LIMIT=8\n';
+  const options = { key: dummy, confirmed: true, models: 'gemini-3.5-flash-lite,gemini-3.5-flash-lite' };
+  const merged = mergeGeminiEnvironment(existing, options);
+  assert.match(merged, /PORT=3001/); assert.match(merged, /FINN_AI_TOTAL_DAILY_LIMIT=8/);
+  assert.equal(merged.match(/GEMINI_API_KEY=/g).length, 1);
+  assert.match(merged, /FINN_AI_FREE_TIER_CONFIRMED=true/);
+  assert.match(merged, /FINN_GEMINI_MODELS=gemini-3.5-flash-lite\n/);
+  assert.throws(() => mergeGeminiEnvironment(existing, { ...options, confirmed: false }), /billing-disabled/);
+  assert.throws(() => mergeGeminiEnvironment(existing, { ...options, key: 'bad\nPORT=9' }), /key format/);
+  assert.throws(() => mergeGeminiEnvironment(existing, { ...options, models: 'unapproved-model' }), /supported model/);
+});
+
 function simplePdf() {
   const stream = 'BT /F1 12 Tf 30 700 Td (' + 'Our business provides services and products to customers. '.repeat(5) + ') Tj ET';
   const objects = ['<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R] /Count 1 >>', '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>', '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>', `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`];
@@ -74,7 +119,10 @@ test('real Python PDF parser preserves page numbers and rejects non-PDF input', 
 const evidence = [{ id: 'e1', documentId: 'd', page: 3, text: 'The company reported revenue of 100 million for the year. Management noted demand uncertainty.' }];
 const validAnalysis = () => ({ claims: [{ section: 'financial', text: 'Reported revenue was 100 million for the year.', inference: false, references: [{ evidenceId: 'e1', quote: 'reported revenue of 100 million for the year' }] }], unavailableSections: ['guidance'] });
 test('AI validation rejects invented citations, quotes and numbers', () => {
-  assert.equal(validateAnalysis(validAnalysis(), evidence).claims.length, 1);
+  const validated = validateAnalysis(validAnalysis(), evidence);
+  assert.equal(validated.claims.length, 1);
+  assert.deepEqual(validated.unavailableSections, ['business', 'guidance', 'bull', 'bear']);
+  const wrongLabel = validAnalysis(); wrongLabel.claims[0].section = 'bull'; assert.throws(() => validateAnalysis(wrongLabel, evidence), /interpretations/);
   const badId = validAnalysis(); badId.claims[0].references[0].evidenceId = 'invented'; assert.throws(() => validateAnalysis(badId, evidence), /citation validation/);
   const badQuote = validAnalysis(); badQuote.claims[0].references[0].quote = 'This exact quote does not exist anywhere.'; assert.throws(() => validateAnalysis(badQuote, evidence), /citation validation/);
   const badNumber = validAnalysis(); badNumber.claims[0].text = 'Revenue was 999 million.'; assert.throws(() => validateAnalysis(badNumber, evidence), /number absent/);
@@ -103,5 +151,20 @@ test('Gemini does not rotate around ambiguous project quotas or bad credentials'
     const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => { calls++; return new Response('{}', { status }); } });
     await assert.rejects(provider.generate({ evidenceHash: `stop-${status}`, evidence, documents: [], company: 'Test', question: '' }), AiUnavailable);
     assert.equal(calls, 1);
+    if (status === 429) {
+      await assert.rejects(provider.generate({ evidenceHash: 'different-company', evidence, documents: [], company: 'Other', question: '' }), /cooling down/);
+      assert.equal(calls, 1);
+      const restarted = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => { calls++; return new Response('{}'); } });
+      await assert.rejects(restarted.generate({ evidenceHash: 'after-restart', evidence, documents: [], company: 'Other', question: '' }), /cooling down/);
+      assert.equal(calls, 1);
+    }
   }
+});
+
+test('Gemini cooldown honors HTTP dates, long delays and structured retry guidance', () => {
+  const now = Date.parse('2026-10-28T00:00:00Z');
+  assert.equal(retryDeadline('30', {}, now), now + 60000);
+  assert.equal(retryDeadline('172800', {}, now), now + 172800000);
+  assert.equal(retryDeadline('Thu, 29 Oct 2026 00:00:00 GMT', {}, now), now + 86400000);
+  assert.equal(retryDeadline('60', { error: { details: [{ retryDelay: '120.5s' }] } }, now), now + 120500);
 });

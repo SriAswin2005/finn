@@ -7,6 +7,7 @@ import { normalizeYahoo } from '../src/providers/yahoo.js';
 import { normalizeNse, parseNseTime, filingUrl } from '../src/providers/nse.js';
 import { classifyAnnouncement } from '../src/domain/announcements.js';
 import { fetchJson } from '../src/providers/http.js';
+import { normalizeNseEod, completeEod, nseEodUrl } from '../src/providers/nse-eod.js';
 import { collectSnapshot } from '../src/ingest.js';
 import { getDataset, DatasetUnavailable } from '../src/providers/snapshot.js';
 import { writeJsonAtomic, readSnapshot } from '../src/storage/snapshots.js';
@@ -137,8 +138,62 @@ test('recorded source snapshot reproduces calculations for all configured compan
     const baseline = eod.history.slice(0, 20);
     assert.equal(eod.averageVolume, baseline.reduce((sum, session) => sum + session.volume, 0) / 20);
     assert.equal(eod.close, eod.history[20].close);
-    assert.equal(eod.previousClose, eod.history[19].close);
-    assert.equal(eod.source.label, 'Yahoo Finance · NSE daily history');
+    if (eod.officialRecord) {
+      assert.equal(eod.previousClose, eod.officialRecord.previousClose);
+      assert.equal(eod.close, eod.officialRecord.close); assert.equal(eod.volume, eod.officialRecord.volume);
+      assert.equal(eod.source.label, 'NSE official EOD closing report');
+      assert.equal(eod.baselineSource.label, 'Yahoo Finance · NSE daily history');
+    } else {
+      assert.equal(eod.previousClose, eod.history[19].close);
+      assert.equal(eod.source.label, 'Yahoo Finance · NSE daily history');
+    }
   }
   for (const filing of data.announcements) assert.ok(filingUrl(filing.source.url));
+});
+
+test('official NSE EOD fills only the matching completed session with separate baseline provenance', () => {
+  const body = chart(); body.chart.result[0].indicators.quote[0].close[22] = null;
+  const fetchedAt = '2026-10-24T12:00:00Z'; const incomplete = normalizeYahoo(body, 'TEST', fetchedAt);
+  const csv = 'SYMBOL, SERIES, DATE1, PREV_CLOSE, CLOSE_PRICE, TTL_TRD_QNTY\nTEST, EQ, 23-Oct-2026, 121.10, 124.50, 2500\nTEST, BE, 23-Oct-2026, 90, 91, 100\nOTHER, EQ, 23-Oct-2026, 2, 3, 10';
+  const report = normalizeNseEod(csv, '2026-10-23', ['TEST']); assert.equal(report.rows.size, 1);
+  const eod = completeEod(incomplete, report.rows.get('TEST'), 'TEST', fetchedAt);
+  assert.equal(eod.session, '2026-10-23'); assert.equal(eod.previousClose, 121.10); assert.equal(eod.close, 124.50);
+  assert.equal(eod.volume, 2500); assert.equal(eod.baselineSessions, 20); assert.equal(eod.averageVolume, 1115);
+  assert.equal(eod.comparisonWarning, null); assert.equal(eod.source.url, nseEodUrl(eod.session));
+  assert.equal(eod.baselineSource.url, incomplete.source.url);
+  const view = buildBriefing({ mode: 'live', asOf: fetchedAt, portfolio: [{ symbol: 'TEST', eod }], announcements: [] });
+  assert.deepEqual(view.signals[0].reasons, ['volume']);
+  assert.throws(() => completeEod(incomplete, report.rows.get('TEST'), 'OTHER', fetchedAt), /does not match/);
+  assert.throws(() => completeEod(incomplete, report.rows.get('TEST'), 'TEST', '2026-10-23T09:00:00Z'), /not yet complete/);
+  const split = completeEod({ ...incomplete, splitSessions: ['2026-10-23'] }, report.rows.get('TEST'), 'TEST', fetchedAt);
+  assert.match(split.comparisonWarning, /stock split/);
+});
+
+test('NSE EOD rejects wrong dates/schema/duplicates and does not interpret missing values as zero', () => {
+  const header = 'SYMBOL,SERIES,DATE1,PREV_CLOSE,CLOSE_PRICE,TTL_TRD_QNTY\n';
+  assert.throws(() => normalizeNseEod(header + 'TEST,EQ,22-Oct-2026,100,102,10', '2026-10-23', ['TEST']), /different session/);
+  assert.throws(() => normalizeNseEod('<html>blocked</html>', '2026-10-23', ['TEST']), /schema/);
+  const row = 'TEST,EQ,23-Oct-2026,100,102,10';
+  assert.throws(() => normalizeNseEod(header + row + '\n' + row, '2026-10-23', ['TEST']), /duplicate/);
+  const missing = normalizeNseEod(header + 'TEST,EQ,23-Oct-2026,100,-,10', '2026-10-23', ['TEST']);
+  assert.equal(missing.rows.size, 0); assert.deepEqual(missing.rejected, ['TEST']);
+});
+
+test('collector completes missing Yahoo closes from one NSE report and preserves warnings on failure', async () => {
+  const body = chart(); body.chart.result[0].indicators.quote[0].close[22] = null;
+  const now = new Date('2026-10-24T12:00:00Z'); const eod = normalizeYahoo(body, 'TEST', now.toISOString());
+  const options = {
+    now, companies: [{ symbol: 'TEST', name: 'Owned test company' }], prices: async () => ({ eod, raw: body }),
+    announcements: async () => ({ announcements: [], raw: [], rejected: 0, totalSourceRows: 0, requestUrl: 'https://www.nseindia.com/api/corporate-announcements' }),
+  };
+  const csv = 'SYMBOL,SERIES,DATE1,PREV_CLOSE,CLOSE_PRICE,TTL_TRD_QNTY\nTEST,EQ,23-Oct-2026,121.1,124.5,2500';
+  let calls = 0;
+  const successful = await collectSnapshot({ ...options, closingReport: async session => { calls++; return { ...normalizeNseEod(csv, session, ['TEST']), raw: csv, requestUrl: nseEodUrl(session) }; } });
+  assert.equal(calls, 1); assert.equal(successful.snapshot.sources.prices.officialRowsUsed, 1);
+  assert.equal(successful.snapshot.sources.prices.status, 'ok');
+  assert.equal(successful.snapshot.portfolio[0].eod.session, '2026-10-23');
+  const failed = await collectSnapshot({ ...options, closingReport: async () => { throw new Error('Source unavailable'); } });
+  assert.equal(failed.snapshot.sources.prices.status, 'partial');
+  assert.equal(failed.snapshot.portfolio[0].eod.session, '2026-10-22');
+  assert.match(failed.snapshot.portfolio[0].eod.comparisonWarning, /alerts are paused/);
 });

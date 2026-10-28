@@ -36,4 +36,6 @@ The user prioritizes business/financial snapshots, historical trends, guidance v
 ## Submission
 User approved Gemini free quota only. Credentials stay in an ignored backend .env and require billing-disabled-project confirmation. Model selection is configurable within a checked free-tier allowlist; local caps are conservative, not provider quota claims. No paid fallback. Exact citation checks do not substitute for semantic review. PWA/voice/native work stays behind the remaining AI quality and delivery gates.
 
+Current hardening adds explicit NSE official-close fallback for incomplete Yahoo rows, with Yahoo retained for preceding-session volume context. A source change is recorded and inspectable; failures preserve warnings. Research retrieval preserves both available call periods and labels unmatched coverage. `npm run configure:ai` accepts the one needed Gemini key through hidden local input; it makes no model request. Global quota errors persist a project-wide cooldown across questions and restarts.
+
 Phone-accessible deployed prototype, GitHub repository, AI build-history exports/share links, and short covering note with decisions, omissions and next steps. Email destination in the brief: assessment@enam.com; subject: ENAM - IIT screening - 2027. Sending and public deployment are later user actions, not part of M1.

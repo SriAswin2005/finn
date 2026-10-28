@@ -4,7 +4,8 @@ import { resolve } from 'node:path';
 import { dataDirectory, writeJsonAtomic } from '../storage/snapshots.js';
 
 export const PROMPT_VERSION = 'cited-primary-research-v1';
-const allowedModels = new Set(['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-2.5-flash-lite']);
+export const SUPPORTED_GEMINI_MODELS = Object.freeze(['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-2.5-flash-lite']);
+const allowedModels = new Set(SUPPORTED_GEMINI_MODELS);
 const sections = ['business', 'financial', 'guidance', 'bull', 'bear'];
 const schema = {
   type: 'object', required: ['claims', 'unavailableSections'], additionalProperties: false,
@@ -23,6 +24,8 @@ export function validateAnalysis(value, evidence) {
   const byId = new Map(evidence.map(item => [item.id, item]));
   for (const claim of value.claims) {
     if (!sections.includes(claim.section) || typeof claim.text !== 'string' || claim.text.length > 500 || typeof claim.inference !== 'boolean' || !Array.isArray(claim.references) || !claim.references.length || claim.references.length > 3) throw new AiUnavailable('AI output contained an invalid claim.');
+    if (!claim.text.trim()) throw new AiUnavailable('AI output contained an empty claim.');
+    if (['bull', 'bear'].includes(claim.section) && !claim.inference) throw new AiUnavailable('Bull and bear cases must be labelled as interpretations.');
     for (const ref of claim.references) {
       if (typeof ref.quote !== 'string' || ref.quote.length < 20 || ref.quote.length > 220 || !byId.has(ref.evidenceId) || !normalized(byId.get(ref.evidenceId).text).includes(normalized(ref.quote))) throw new AiUnavailable('AI citation validation failed. No generated analysis has been published.');
     }
@@ -30,7 +33,8 @@ export function validateAnalysis(value, evidence) {
     const numbers = (claim.text.match(/\d[\d,.]*/g) ?? []).map(number => number.replaceAll(',', '').replace(/\.$/, ''));
     if (numbers.some(number => !quoteNumbers.has(number))) throw new AiUnavailable('AI output introduced a number absent from its quoted evidence.');
   }
-  return { claims: value.claims, unavailableSections: value.unavailableSections };
+  const covered = new Set(value.claims.map(claim => claim.section));
+  return { claims: value.claims, unavailableSections: sections.filter(section => !covered.has(section)) };
 }
 async function readJson(path, fallback) {
   try { return JSON.parse(await readFile(path, 'utf8')); } catch (error) { if (error.code === 'ENOENT') return fallback; throw error; }
@@ -41,11 +45,30 @@ function limit(value, fallback, maximum = 100) {
   return number;
 }
 export function selectEligibleModel(models, ledger, now, limits) {
+  if ((ledger.projectCooldown ?? 0) > now) return undefined;
   return models.find(model => {
     const entries = ledger.entries.filter(entry => now - entry.at < 86400000);
     const own = entries.filter(entry => entry.model === model);
     return entries.length < limits.total && own.length < limits.daily && own.filter(entry => now - entry.at < 3600000).length < limits.hourly && !own.some(entry => now - entry.at < 60000) && (ledger.cooldowns[model] ?? 0) <= now;
   });
+}
+export function retryDeadline(header, body, now) {
+  const deadlines = [];
+  if (header) {
+    if (/^\d+(?:\.\d+)?$/.test(header.trim())) deadlines.push(now + Number(header) * 1000);
+    else { const date = Date.parse(header); if (Number.isFinite(date)) deadlines.push(date); }
+  }
+  const details = Array.isArray(body?.error?.details) ? body.error.details : [];
+  for (const detail of details) {
+    if (typeof detail.retryDelay === 'string' && /^\d+(?:\.\d+)?s$/.test(detail.retryDelay)) deadlines.push(now + parseFloat(detail.retryDelay) * 1000);
+  }
+  const valid = deadlines.filter(value => Number.isSafeInteger(Math.ceil(value)) && value > now && value <= 8_640_000_000_000_000);
+  return Math.max(now + 60000, ...(valid.length ? valid : [now + 3600000]));
+}
+function isModelQuota(body) {
+  const details = Array.isArray(body?.error?.details) ? body.error.details : [];
+  const violations = details.flatMap(detail => Array.isArray(detail?.violations) ? detail.violations : detail?.quotaId ? [detail] : []);
+  return violations.length > 0 && violations.every(violation => typeof violation.quotaId === 'string' && /permodel/i.test(violation.quotaId));
 }
 export function createGeminiProvider({ env = process.env, fetchImpl = fetch, directory = resolve(dataDirectory, 'cache/ai'), now = Date.now } = {}) {
   let active = null;
@@ -71,6 +94,7 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
       const ledgerPath = resolve(directory, 'quota.json');
       const ledger = await readJson(ledgerPath, { entries: [], cooldowns: {} });
       ledger.entries = ledger.entries.filter(entry => now() - entry.at < 86400000);
+      if ((ledger.projectCooldown ?? 0) > now()) throw new AiUnavailable(`Gemini project allowance is cooling down until ${new Date(ledger.projectCooldown).toISOString()}. Saved evidence and cached notes remain available.`);
       const attempted = new Set();
       for (let attempt = 0; attempt < models.length; attempt++) {
         const model = selectEligibleModel(models.filter(model => !attempted.has(model)), ledger, now(), limits);
@@ -88,9 +112,11 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
         const body = await response.json().catch(() => null);
         if (!response.ok) {
           if ([401, 403, 400].includes(response.status)) throw new AiUnavailable('Gemini rejected the configuration or credentials. No other provider was called.');
-          const modelQuota = response.status === 429 && JSON.stringify(body?.error?.details ?? []).toLowerCase().includes('permodel');
-          const retrySeconds = Math.max(60, Math.min(86400, Number(response.headers.get('retry-after')) || 3600));
-          ledger.cooldowns[model] = now() + retrySeconds * 1000; await writeJsonAtomic(ledgerPath, ledger);
+          const modelQuota = response.status === 429 && isModelQuota(body);
+          const until = retryDeadline(response.headers.get('retry-after'), body, now());
+          ledger.cooldowns[model] = until;
+          if (response.status === 429 && !modelQuota) ledger.projectCooldown = until;
+          await writeJsonAtomic(ledgerPath, ledger);
           if (modelQuota || response.status === 404 || response.status >= 500) continue;
           throw new AiUnavailable('Gemini quota is unavailable. Project-level or unclear limits are not bypassed with model rotation. Please try later.');
         }

@@ -37,6 +37,9 @@ export function normalizeYahoo(body, symbol, fetchedAt) {
     baselineSessions: baseline.length, history, currency: 'INR', fetchedAt,
     source: { label: 'Yahoo Finance · NSE daily history', url: `https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}.NS/history/`, requestUrl: yahooUrl(symbol) },
     latestSourceSession,
+    hasIncompleteLatestSession: latestSourceSession > current.session,
+    hasSplitInBaseline: splitInBaseline,
+    splitSessions,
     comparisonWarning: splitInBaseline ? 'A stock split occurs in the comparison window. Alerts are suppressed until the baseline is comparable.' : latestSourceSession > current.session ? `The newer source session ${latestSourceSession} has missing price or volume. Showing ${current.session}; alerts are paused.` : null,
   };
 }

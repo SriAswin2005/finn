@@ -95,8 +95,10 @@ export async function getResearch(tickerInput, question = '', { collect = collec
   };
 }
 
-export async function recordResearch(tickerInput) {
-  const ticker = normalizeTicker(tickerInput); const data = await collectResearch(ticker);
+export async function recordResearch(tickerInput, { cachedOnly = false } = {}) {
+  const ticker = normalizeTicker(tickerInput);
+  const data = cachedOnly ? await readJson(resolve(cacheDirectory, `${ticker}.json`)) : await collectResearch(ticker);
+  if (!data) throw new ResearchUnavailable('No local document cache exists for this ticker. Collect it first.');
   const view = buildEvidence(data.documents); const selected = new Map();
   for (const evidence of view.evidence) {
     if (!selected.has(evidence.documentId)) selected.set(evidence.documentId, new Set());

@@ -24,7 +24,7 @@ Dates are targets in IST; finish the core before November 1, 2026.
 - [x] Capture a reproducible source-backed demo dataset; retain evidence URLs.
 - [x] Gate: real filing and real EOD record travel from provider through API to phone-sized browser UI. Physical phone verification remains M4.
 
-Completed October 28: 15 valid histories, 43 portfolio announcements, recorded replay and 16 passing tests. The latest Yahoo row lacks its close; records show the preceding valid session and explicitly pause alerts. This upstream data limitation is visible, not a blocker for continuing M3.
+Initial M2 capture had 43 announcements and missing latest closes. Later October 28 hardening added the official NSE closing-report fallback: current capture has 44 announcements, complete October 27 data for all 15 companies, and two default market signals. Failed sources still remain explicit.
 
 ## M3A — Primary-source retrieval (implemented October 28)
 - [x] Generic NSE ticker input, discovery and document retrieval with bounded failures.
@@ -36,6 +36,7 @@ Completed October 28: 15 valid histories, 43 portfolio announcements, recorded r
 ## M3B — AI synthesis (credentials pending)
 - [x] Gemini free-tier-only opt-in, backend secrets, bounded context/output, structured claims and evidence/prompt/model cache.
 - [x] Test quote/citation/numeric guards, quota ledger, concurrency and conservative model-specific fallback with simulated responses.
+- [x] Include guidance from both available calls, prefer explicit forward ranges, and retain financial context from both call/annual evidence. Add hidden-input local key setup and persisted project-level cooldowns.
 - [ ] Verify actual Gemini output using the user's billing-disabled project; validate quality and failure behavior.
 - [ ] Verify a supported business/financial snapshot, conditional bull/bear interpretation and guidance-vs-delivery analysis where comparable evidence exists. Mark unsupported outputs unavailable.
 - [ ] Gate: every displayed AI claim has inspected primary support. Exact quotes and numeric checks alone do not prove semantic correctness.

@@ -1,26 +1,21 @@
 {
   "schemaVersion": 1,
   "mode": "recorded",
-  "asOf": "2026-10-27T21:44:30.621Z",
+  "asOf": "2026-10-28T06:24:30.565Z",
   "portfolio": [
     {
       "symbol": "RELIANCE",
       "name": "Reliance Industries",
       "sector": "Energy",
       "eod": {
-        "session": "2026-10-26",
-        "close": 1201.800048828125,
-        "volume": 7490515,
-        "previousClose": 1190,
-        "previousSession": "2026-10-23",
-        "averageVolume": 15259242.15,
+        "session": "2026-10-27",
+        "close": 1196.199951171875,
+        "volume": 13067787,
+        "previousClose": 1201.800048828125,
+        "previousSession": "2026-10-26",
+        "averageVolume": 14937578.15,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 1219.199951171875,
-            "volume": 13923795
-          },
           {
             "session": "2026-09-25",
             "close": 1226,
@@ -120,17 +115,25 @@
             "session": "2026-10-26",
             "close": 1201.800048828125,
             "volume": 7490515
+          },
+          {
+            "session": "2026-10-27",
+            "close": 1196.199951171875,
+            "volume": 13067787
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/RELIANCE.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/RELIANCE.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -139,19 +142,14 @@
       "name": "Tata Consultancy Services",
       "sector": "Technology",
       "eod": {
-        "session": "2026-10-26",
-        "close": 2535,
-        "volume": 4326029,
-        "previousClose": 2530,
-        "previousSession": "2026-10-23",
-        "averageVolume": 5876698.45,
+        "session": "2026-10-27",
+        "close": 2496.89990234375,
+        "volume": 4337081,
+        "previousClose": 2535,
+        "previousSession": "2026-10-26",
+        "averageVolume": 6004966.8,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 2087,
-            "volume": 1760662
-          },
           {
             "session": "2026-09-25",
             "close": 2082,
@@ -251,17 +249,25 @@
             "session": "2026-10-26",
             "close": 2535,
             "volume": 4326029
+          },
+          {
+            "session": "2026-10-27",
+            "close": 2496.89990234375,
+            "volume": 4337081
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/TCS.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/TCS.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -270,19 +276,14 @@
       "name": "HDFC Bank",
       "sector": "Banking",
       "eod": {
-        "session": "2026-10-26",
-        "close": 688.0499877929688,
-        "volume": 23489755,
-        "previousClose": 692.7999877929688,
-        "previousSession": "2026-10-23",
-        "averageVolume": 31252108.5,
+        "session": "2026-10-27",
+        "close": 680.2000122070312,
+        "volume": 40614930,
+        "previousClose": 688.0499877929688,
+        "previousSession": "2026-10-26",
+        "averageVolume": 30947836.55,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 728.9000244140625,
-            "volume": 29575194
-          },
           {
             "session": "2026-09-25",
             "close": 735.5999755859375,
@@ -382,17 +383,25 @@
             "session": "2026-10-26",
             "close": 688.0499877929688,
             "volume": 23489755
+          },
+          {
+            "session": "2026-10-27",
+            "close": 680.2000122070312,
+            "volume": 40614930
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/HDFCBANK.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/HDFCBANK.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -401,19 +410,14 @@
       "name": "Infosys",
       "sector": "Technology",
       "eod": {
-        "session": "2026-10-26",
-        "close": 1166,
-        "volume": 25964569,
-        "previousClose": 1153.800048828125,
-        "previousSession": "2026-10-23",
-        "averageVolume": 14999728.2,
+        "session": "2026-10-27",
+        "close": 1163,
+        "volume": 20117848,
+        "previousClose": 1166,
+        "previousSession": "2026-10-26",
+        "averageVolume": 15953362,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 1014.5,
-            "volume": 6891893
-          },
           {
             "session": "2026-09-25",
             "close": 1000.2000122070312,
@@ -513,17 +517,25 @@
             "session": "2026-10-26",
             "close": 1166,
             "volume": 25964569
+          },
+          {
+            "session": "2026-10-27",
+            "close": 1163,
+            "volume": 20117848
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/INFY.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/INFY.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -532,19 +544,14 @@
       "name": "ICICI Bank",
       "sector": "Banking",
       "eod": {
-        "session": "2026-10-26",
-        "close": 1403,
-        "volume": 7936076,
-        "previousClose": 1394.199951171875,
-        "previousSession": "2026-10-23",
-        "averageVolume": 12517395.8,
+        "session": "2026-10-27",
+        "close": 1386.9000244140625,
+        "volume": 16183741,
+        "previousClose": 1403,
+        "previousSession": "2026-10-26",
+        "averageVolume": 12481503.6,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 1334.5,
-            "volume": 8653920
-          },
           {
             "session": "2026-09-25",
             "close": 1326.800048828125,
@@ -644,17 +651,25 @@
             "session": "2026-10-26",
             "close": 1403,
             "volume": 7936076
+          },
+          {
+            "session": "2026-10-27",
+            "close": 1386.9000244140625,
+            "volume": 16183741
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/ICICIBANK.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/ICICIBANK.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -663,19 +678,14 @@
       "name": "Bharti Airtel",
       "sector": "Telecom",
       "eod": {
-        "session": "2026-10-26",
-        "close": 1917.5,
-        "volume": 2993913,
-        "previousClose": 1892.0999755859375,
-        "previousSession": "2026-10-23",
-        "averageVolume": 8333801.95,
+        "session": "2026-10-27",
+        "close": 1978.800048828125,
+        "volume": 13054163,
+        "previousClose": 1917.5,
+        "previousSession": "2026-10-26",
+        "averageVolume": 8255128.65,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 1795.800048828125,
-            "volume": 4567379
-          },
           {
             "session": "2026-09-25",
             "close": 1785.4000244140625,
@@ -775,17 +785,25 @@
             "session": "2026-10-26",
             "close": 1917.5,
             "volume": 2993913
+          },
+          {
+            "session": "2026-10-27",
+            "close": 1978.800048828125,
+            "volume": 13054163
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/BHARTIARTL.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/BHARTIARTL.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -794,19 +812,14 @@
       "name": "Larsen & Toubro",
       "sector": "Industrials",
       "eod": {
-        "session": "2026-10-26",
-        "close": 3680,
-        "volume": 1144515,
-        "previousClose": 3647,
-        "previousSession": "2026-10-23",
-        "averageVolume": 1943605.45,
+        "session": "2026-10-27",
+        "close": 3665.10009765625,
+        "volume": 1471485,
+        "previousClose": 3680,
+        "previousSession": "2026-10-26",
+        "averageVolume": 1918365.8,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 3858.39990234375,
-            "volume": 1649308
-          },
           {
             "session": "2026-09-25",
             "close": 3876.199951171875,
@@ -906,17 +919,25 @@
             "session": "2026-10-26",
             "close": 3680,
             "volume": 1144515
+          },
+          {
+            "session": "2026-10-27",
+            "close": 3665.10009765625,
+            "volume": 1471485
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/LT.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/LT.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -925,19 +946,14 @@
       "name": "ITC",
       "sector": "Consumer",
       "eod": {
-        "session": "2026-10-26",
-        "close": 260.5,
-        "volume": 15094338,
-        "previousClose": 257.8999938964844,
-        "previousSession": "2026-10-23",
-        "averageVolume": 21057130.05,
+        "session": "2026-10-27",
+        "close": 260,
+        "volume": 27659894,
+        "previousClose": 260.5,
+        "previousSession": "2026-10-26",
+        "averageVolume": 21441933.15,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 268,
-            "volume": 7398276
-          },
           {
             "session": "2026-09-25",
             "close": 269,
@@ -1037,17 +1053,25 @@
             "session": "2026-10-26",
             "close": 260.5,
             "volume": 15094338
+          },
+          {
+            "session": "2026-10-27",
+            "close": 260,
+            "volume": 27659894
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/ITC.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/ITC.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -1056,19 +1080,14 @@
       "name": "Sun Pharmaceutical",
       "sector": "Healthcare",
       "eod": {
-        "session": "2026-10-26",
-        "close": 1740,
-        "volume": 1622698,
-        "previousClose": 1748,
-        "previousSession": "2026-10-23",
-        "averageVolume": 1553675.5,
+        "session": "2026-10-27",
+        "close": 1751.2,
+        "volume": 1547898,
+        "previousClose": 1740,
+        "previousSession": "2026-10-26",
+        "averageVolume": 1547666.15,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 1849.9000244140625,
-            "volume": 1742885
-          },
           {
             "session": "2026-09-25",
             "close": 1852.199951171875,
@@ -1168,17 +1187,39 @@
             "session": "2026-10-26",
             "close": 1740,
             "volume": 1622698
+          },
+          {
+            "session": "2026-10-27",
+            "close": 1751.2,
+            "volume": 1547898
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
+          "label": "NSE official EOD closing report",
+          "url": "https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_27102026.csv",
+          "requestUrl": "https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_27102026.csv"
+        },
+        "latestSourceSession": "2026-10-27",
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null,
+        "baselineSource": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/SUNPHARMA.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/SUNPHARMA.NS?interval=1d&range=3mo&events=splits"
         },
-        "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "officialRecord": {
+          "symbol": "SUNPHARMA",
+          "series": "EQ",
+          "session": "2026-10-27",
+          "close": 1751.2,
+          "previousClose": 1740,
+          "volume": 1547898,
+          "rawLine": "SUNPHARMA, EQ, 27-Oct-2026, 1740.00, 1740.00, 1767.90, 1740.00, 1751.20, 1751.20, 1759.15, 1547898, 27229.90, 78291, 982678, 63.48"
+        }
       },
       "dataError": null
     },
@@ -1187,19 +1228,14 @@
       "name": "Eicher Motors",
       "sector": "Auto",
       "eod": {
-        "session": "2026-10-26",
-        "close": 7099.5,
-        "volume": 331591,
-        "previousClose": 7066,
-        "previousSession": "2026-10-23",
-        "averageVolume": 416172.8,
+        "session": "2026-10-27",
+        "close": 7165,
+        "volume": 333270,
+        "previousClose": 7099.5,
+        "previousSession": "2026-10-26",
+        "averageVolume": 419843.85,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 7338.5,
-            "volume": 258170
-          },
           {
             "session": "2026-09-25",
             "close": 7360,
@@ -1299,17 +1335,39 @@
             "session": "2026-10-26",
             "close": 7099.5,
             "volume": 331591
+          },
+          {
+            "session": "2026-10-27",
+            "close": 7165,
+            "volume": 333270
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
+          "label": "NSE official EOD closing report",
+          "url": "https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_27102026.csv",
+          "requestUrl": "https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_27102026.csv"
+        },
+        "latestSourceSession": "2026-10-27",
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null,
+        "baselineSource": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/EICHERMOT.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/EICHERMOT.NS?interval=1d&range=3mo&events=splits"
         },
-        "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "officialRecord": {
+          "symbol": "EICHERMOT",
+          "series": "EQ",
+          "session": "2026-10-27",
+          "close": 7165,
+          "previousClose": 7099.5,
+          "volume": 333270,
+          "rawLine": "EICHERMOT, EQ, 27-Oct-2026, 7099.50, 7069.50, 7170.00, 7067.50, 7165.00, 7165.00, 7131.60, 333270, 23767.49, 28820, 177843, 53.36"
+        }
       },
       "dataError": null
     },
@@ -1318,19 +1376,14 @@
       "name": "Titan Company",
       "sector": "Consumer",
       "eod": {
-        "session": "2026-10-26",
-        "close": 4323,
-        "volume": 382563,
-        "previousClose": 4299.7001953125,
-        "previousSession": "2026-10-23",
-        "averageVolume": 798932.9,
+        "session": "2026-10-27",
+        "close": 4365.89990234375,
+        "volume": 749496,
+        "previousClose": 4323,
+        "previousSession": "2026-10-26",
+        "averageVolume": 792854.75,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 4832.5,
-            "volume": 504126
-          },
           {
             "session": "2026-09-25",
             "close": 4884,
@@ -1430,17 +1483,25 @@
             "session": "2026-10-26",
             "close": 4323,
             "volume": 382563
+          },
+          {
+            "session": "2026-10-27",
+            "close": 4365.89990234375,
+            "volume": 749496
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/TITAN.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/TITAN.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -1449,19 +1510,14 @@
       "name": "Marico",
       "sector": "Consumer",
       "eod": {
-        "session": "2026-10-26",
-        "close": 775.1500244140625,
-        "volume": 1257960,
-        "previousClose": 766.5,
-        "previousSession": "2026-10-23",
-        "averageVolume": 1609162.55,
+        "session": "2026-10-27",
+        "close": 776.1500244140625,
+        "volume": 1768613,
+        "previousClose": 775.1500244140625,
+        "previousSession": "2026-10-26",
+        "averageVolume": 1626068,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 824.5499877929688,
-            "volume": 919851
-          },
           {
             "session": "2026-09-25",
             "close": 819,
@@ -1561,17 +1617,25 @@
             "session": "2026-10-26",
             "close": 775.1500244140625,
             "volume": 1257960
+          },
+          {
+            "session": "2026-10-27",
+            "close": 776.1500244140625,
+            "volume": 1768613
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/MARICO.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/MARICO.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -1580,19 +1644,14 @@
       "name": "Central Depository Services",
       "sector": "Financial services",
       "eod": {
-        "session": "2026-10-26",
-        "close": 1196,
-        "volume": 907846,
-        "previousClose": 1188.5,
-        "previousSession": "2026-10-23",
-        "averageVolume": 922291,
+        "session": "2026-10-27",
+        "close": 1222,
+        "volume": 826875,
+        "previousClose": 1196,
+        "previousSession": "2026-10-26",
+        "averageVolume": 906068.35,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 1320,
-            "volume": 1232299
-          },
           {
             "session": "2026-09-25",
             "close": 1318,
@@ -1692,17 +1751,25 @@
             "session": "2026-10-26",
             "close": 1196,
             "volume": 907846
+          },
+          {
+            "session": "2026-10-27",
+            "close": 1222,
+            "volume": 826875
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/CDSL.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/CDSL.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -1711,19 +1778,14 @@
       "name": "Polycab India",
       "sector": "Industrials",
       "eod": {
-        "session": "2026-10-26",
-        "close": 7739,
-        "volume": 225323,
-        "previousClose": 7440,
-        "previousSession": "2026-10-23",
-        "averageVolume": 524705,
+        "session": "2026-10-27",
+        "close": 7718,
+        "volume": 350924,
+        "previousClose": 7739,
+        "previousSession": "2026-10-26",
+        "averageVolume": 524082.55,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 8366.5,
-            "volume": 237772
-          },
           {
             "session": "2026-09-25",
             "close": 8408.5,
@@ -1823,17 +1885,25 @@
             "session": "2026-10-26",
             "close": 7739,
             "volume": 225323
+          },
+          {
+            "session": "2026-10-27",
+            "close": 7718,
+            "volume": 350924
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/POLYCAB.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/POLYCAB.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     },
@@ -1842,19 +1912,14 @@
       "name": "APL Apollo Tubes",
       "sector": "Materials",
       "eod": {
-        "session": "2026-10-26",
-        "close": 2077.89990234375,
-        "volume": 987700,
-        "previousClose": 2033.699951171875,
-        "previousSession": "2026-10-23",
-        "averageVolume": 514296.15,
+        "session": "2026-10-27",
+        "close": 2213.89990234375,
+        "volume": 2074071,
+        "previousClose": 2077.89990234375,
+        "previousSession": "2026-10-26",
+        "averageVolume": 540192.45,
         "baselineSessions": 20,
         "history": [
-          {
-            "session": "2026-09-24",
-            "close": 2184.800048828125,
-            "volume": 469774
-          },
           {
             "session": "2026-09-25",
             "close": 2214.699951171875,
@@ -1954,22 +2019,47 @@
             "session": "2026-10-26",
             "close": 2077.89990234375,
             "volume": 987700
+          },
+          {
+            "session": "2026-10-27",
+            "close": 2213.89990234375,
+            "volume": 2074071
           }
         ],
         "currency": "INR",
-        "fetchedAt": "2026-10-27T21:44:30.621Z",
+        "fetchedAt": "2026-10-28T06:24:30.565Z",
         "source": {
           "label": "Yahoo Finance · NSE daily history",
           "url": "https://finance.yahoo.com/quote/APLAPOLLO.NS/history/",
           "requestUrl": "https://query1.finance.yahoo.com/v8/finance/chart/APLAPOLLO.NS?interval=1d&range=3mo&events=splits"
         },
         "latestSourceSession": "2026-10-27",
-        "comparisonWarning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
+        "hasIncompleteLatestSession": false,
+        "hasSplitInBaseline": false,
+        "splitSessions": [],
+        "comparisonWarning": null
       },
       "dataError": null
     }
   ],
   "announcements": [
+    {
+      "id": "nse-3ee6725eab1f9fd5cc85b38c",
+      "symbol": "POLYCAB",
+      "category": "litigation",
+      "title": "Corporate Insolvency Resolution Process",
+      "summary": "Polycab India Limited has informed the Exchange on the update of NCLAT order dated October 27, 2026",
+      "why": "Read the order and disclosed financial exposure. Materiality has not been assessed.",
+      "publishedAt": "2026-10-28T04:54:43.000Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
+      "classification": "metadata rules",
+      "source": {
+        "label": "NSE corporate announcement",
+        "url": "https://nsearchives.nseindia.com/corporate/POLYCAB_28102026102430_StockExchangeintimation27102026.pdf",
+        "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
+        "evidence": "Title and description supplied by NSE. The linked document has not yet been parsed or analysed."
+      }
+    },
     {
       "id": "nse-c13a225e26d20a8bbd3ed77c",
       "symbol": "INFY",
@@ -1978,7 +2068,7 @@
       "summary": "Infosys Limited has informed the Exchange regarding ' Investor Conference'.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-27T17:23:15.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -1995,7 +2085,7 @@
       "summary": "Larsen & Toubro Limited has informed the Exchange about Link of Recording",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-27T16:43:16.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2012,7 +2102,7 @@
       "summary": "Trading in equity shares of Jio Platforms Limited (JPL) will commence from October 28, 2026.Further, a meeting of board of directors of JPL is scheduled to be held on Friday, October 30, 2026, inter alia, to consider and approve the standalone and consolidated unaudited financial results of JPL for the quarter and half year ended September 30, 2026.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-27T16:41:29.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2029,7 +2119,7 @@
       "summary": "The meeting of the Board of Directors of the Company is scheduled on October 30, 2026, inter alia, to consider and approve a. the standalone and consolidated unaudited financial results of the Company for the quarter and half year ended September 30, 2026; and b. raising of funds by way of issuance of listed, secured / unsecured, redeemable non-convertible debentures on private placement basis, in one or more tranches. The Company will hold an analyst meet, post the Board Meeting, to discuss the financial results for the quarter and half year ended September 30, 2026.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-27T13:47:10.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2046,7 +2136,7 @@
       "summary": "Polycab India Limited has informed the Exchange about Analyst(s)/Investor(s) meet.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-27T13:34:27.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2063,7 +2153,7 @@
       "summary": "Polycab India Limited has informed the Exchange about Certificate under SEBI (Depositories and Participants) Regulations, 2018",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-27T13:12:35.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2080,7 +2170,7 @@
       "summary": "Larsen & Toubro Limited has informed the Exchange regarding 'Analyst Presentation.- Q2 / H1 FY27'.",
       "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
       "publishedAt": "2026-10-27T13:07:19.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2097,7 +2187,7 @@
       "summary": "CDSL has informed the Exchange about Schedule of Conference Call to be held on Monday, November 02, 2026.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-27T12:02:39.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2114,7 +2204,7 @@
       "summary": "Larsen & Toubro Limited has submitted to the Exchange, the consolidated and standalone un-audited financial results of the Company for the quarter and half-year ended September 30, 2026.",
       "why": "Review the financial statements and comparatives. Headline figures have not yet been extracted.",
       "publishedAt": "2026-10-27T11:43:09.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2131,7 +2221,7 @@
       "summary": "Infosys Limited has informed the Exchange regarding 'Infosys Successfully Delivers Syngenta s Global SAP S/4HANA Transformation for Crop Protection Business'.",
       "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
       "publishedAt": "2026-10-27T11:08:30.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2148,7 +2238,7 @@
       "summary": "Larsen & Toubro Limited has informed the Exchange regarding allotment of 21098 securities pursuant to ESOP/ESPS at its meeting held on October 27, 2026",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-27T07:59:18.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2165,7 +2255,7 @@
       "summary": "APL Apollo Tubes Limited has informed the Exchange about Copy of Newspaper Publication",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-27T06:36:32.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2182,7 +2272,7 @@
       "summary": "ICICI Bank Limited has informed the Exchange regarding Allotment of 1063398  Shares.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-27T05:04:04.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2199,7 +2289,7 @@
       "summary": "Larsen & Toubro Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
       "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
       "publishedAt": "2026-10-27T04:46:48.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2216,7 +2306,7 @@
       "summary": "HDFC Bank Limited has informed the Exchange regarding disclosure under Regulation 30 and other applicable regulations of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Change in Managing Director and Chief Executive Officer of the Bank",
       "why": "Check the role, effective date and succession details. No professional biography has been verified.",
       "publishedAt": "2026-10-27T02:32:54.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2233,7 +2323,7 @@
       "summary": "APL Apollo Tubes Limited has informed the Exchange about Link of Recording",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-26T14:54:20.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2250,7 +2340,7 @@
       "summary": "Bharti Airtel Limited has informed the Exchange about Certificate under Regulation 74(5) of SEBI (Depositories and Participants) Regulations, 2018 for the period from July 01, 2026 to September 30, 2026.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-26T13:31:02.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2267,7 +2357,7 @@
       "summary": "APL Apollo Tubes Limited has informed the Exchange regarding a press release dated October 26, 2026, titled \"Q2FY27 Financial Performance\".",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-26T07:22:48.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2284,7 +2374,7 @@
       "summary": "APL Apollo Tubes Limited has informed the Exchange about Investor Presentation",
       "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
       "publishedAt": "2026-10-26T07:22:48.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2301,7 +2391,7 @@
       "summary": "APL Apollo Tubes Limited has informed the Exchange about the acquisition of additional stake of 31% in SG Enterprise Solutions Private Limited",
       "why": "Check the transaction terms, funding and approvals in the filing.",
       "publishedAt": "2026-10-26T07:07:02.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2318,7 +2408,7 @@
       "summary": "Sun Pharmaceutical Industries Limited has informed the Exchange regarding allotment of 781600 securities pursuant to Non Convertible Securities at its meeting held on October 26, 2026",
       "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
       "publishedAt": "2026-10-26T07:00:34.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2335,7 +2425,7 @@
       "summary": "APL Apollo Tubes Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
       "why": "Review the financial statements and comparatives. Headline figures have not yet been extracted.",
       "publishedAt": "2026-10-26T06:54:28.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2352,7 +2442,7 @@
       "summary": "HDFC Bank Limited has informed the Exchange regarding Grant of 1302379  Options.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-24T16:57:22.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2369,7 +2459,7 @@
       "summary": "Initial Public Offer of Jio Platforms Limited",
       "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
       "publishedAt": "2026-10-24T16:18:04.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2386,7 +2476,7 @@
       "summary": "Infosys Limited has informed the Exchange about Copy of Newspaper Publication",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-24T14:13:00.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2403,7 +2493,7 @@
       "summary": "ICICI Bank Limited has informed the Exchange about Credit Rating",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-24T08:16:13.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2420,7 +2510,7 @@
       "summary": "HDFC Bank Limited has informed the Exchange about Transcript",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-23T17:20:22.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2437,7 +2527,7 @@
       "summary": "Infosys Limited has informed the Exchange regarding 'Report of auditors on financial statements for the quarter and half year ended September 30, 2026 withUDIN'.",
       "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
       "publishedAt": "2026-10-23T14:37:11.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2454,7 +2544,7 @@
       "summary": "Titan Company Limited has informed the Exchange about Earnings call for Q2 and half year ended FY 2026-27",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-23T14:28:53.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2471,7 +2561,7 @@
       "summary": "Sun Pharmaceutical Industries Limited has informed the Exchange regarding a press release dated October 23, 2026.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-23T12:31:41.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2488,7 +2578,7 @@
       "summary": "ICICI Bank Limited has informed the Exchange about transcript of the call with media and of earnings call with analysts and investors on the financial results for the quarter and six months ended September 30, 2026",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-23T12:30:27.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2505,7 +2595,7 @@
       "summary": "Infosys Limited has informed the Exchange that Record date for the purpose of Dividend  is 03-Nov-2026.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-23T10:40:52.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2522,7 +2612,7 @@
       "summary": "Infosys Limited has submitted to the Exchange, Financial Results for the quarter and half year ended September 30, 2026 and declaration of interim dividend",
       "why": "Review the financial statements and comparatives. Headline figures have not yet been extracted.",
       "publishedAt": "2026-10-23T10:38:26.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2539,7 +2629,7 @@
       "summary": "Polycab India Limited has informed the Exchange about Analyst(s)/Investor(s) meet.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-23T09:04:30.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2556,7 +2646,7 @@
       "summary": "ICICI Bank Limited has informed the Exchange regarding Allotment of 24096  Shares.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-22T11:15:26.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2573,7 +2663,7 @@
       "summary": "HDFC Bank Limited has informed the Exchange regarding Allotment of 9138522  Shares.",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-22T08:27:50.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2590,7 +2680,7 @@
       "summary": "HDFC Bank Limited has informed the Exchange about Copy of Newspaper Publication",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-22T06:25:18.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2607,7 +2697,7 @@
       "summary": "Please find attached a press release by Marico Limited, titled  Marico Marks International Day of Climate Action with 89.3% Reduction in Operational Emissions Intensity Since FY13 .",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-22T06:08:06.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2624,7 +2714,7 @@
       "summary": "Please find attached a media statement issued by the Company.",
       "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
       "publishedAt": "2026-10-21T17:14:39.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2641,7 +2731,7 @@
       "summary": "Reliance Industries Limited has informed the Exchange about Credit Rating",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-21T15:13:30.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2658,7 +2748,7 @@
       "summary": "APL Apollo Tubes Limited has informed the Exchange about Schedule of meet",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-21T08:55:35.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2675,7 +2765,7 @@
       "summary": "HDFC Bank Limited has informed the Exchange regarding Notice of Postal Ballot",
       "why": "Open the exchange filing for the terms and context. Classification uses metadata only; the document has not been analysed.",
       "publishedAt": "2026-10-21T06:22:36.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2692,7 +2782,7 @@
       "summary": "Larsen & Toubro Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
       "why": "The exchange metadata is not enough to determine materiality. Review the original filing.",
       "publishedAt": "2026-10-21T04:16:52.000Z",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "classification": "metadata rules",
       "source": {
         "label": "NSE corporate announcement",
@@ -2704,81 +2794,21 @@
   ],
   "sources": {
     "prices": {
-      "label": "Yahoo Finance EOD",
-      "status": "partial",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "label": "Yahoo history + NSE official EOD",
+      "status": "ok",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "errors": [],
-      "warnings": [
-        {
-          "symbol": "RELIANCE",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "TCS",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "HDFCBANK",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "INFY",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "ICICIBANK",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "BHARTIARTL",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "LT",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "ITC",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "SUNPHARMA",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "EICHERMOT",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "TITAN",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "MARICO",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "CDSL",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "POLYCAB",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        },
-        {
-          "symbol": "APLAPOLLO",
-          "warning": "The newer source session 2026-10-27 has missing price or volume. Showing 2026-10-26; alerts are paused."
-        }
-      ]
+      "officialRowsUsed": 2,
+      "warnings": []
     },
     "announcements": {
       "label": "NSE announcements",
       "status": "ok",
-      "fetchedAt": "2026-10-27T21:44:30.621Z",
+      "fetchedAt": "2026-10-28T06:24:30.565Z",
       "requestUrl": "https://www.nseindia.com/api/corporate-announcements?index=equities&from_date=21-10-2026&to_date=28-10-2026",
       "error": null,
-      "totalSourceRows": 2974
+      "totalSourceRows": 3028
     }
   },
-  "rawSha256": "7f024622615832b4c1c1b22f65972eaa646836d02f67de349f10cd4b21944cad"
+  "rawSha256": "cd58587d82226a2c84ab83d8953c84e440b5138b0343c05bb0916dc3c0156232"
 }

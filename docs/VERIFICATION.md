@@ -81,3 +81,12 @@ Reconciled the two challenge PDFs with the user's implementation briefing. Retai
 
 ## Remaining gates
 Keyword excerpts are not verified financial conclusions or a comparable-period promise-versus-delivery analysis. Live Gemini output and semantic review remain necessary. Hosting approval, HTTPS physical-phone/PWA verification, GitHub publication and original AI-history exports remain pending. No external deployment, paid call or email occurred.
+
+# Continued hardening — October 28, 2026
+
+- `npm run check` and all 34 tests passed after adding source-balanced guidance, forward-range ranking, hidden-input setup validation and persisted quota cooldown checks.
+- Guidance now selects both available transcripts for each captured example; financial retrieval includes call plus annual context. Recorded pages were regenerated from the local PDF cache without downloads or AI calls.
+- Missing AI sections are derived from validated claim coverage. Bull/bear statements require the interpretation flag. Project-level/ambiguous 429 errors block further model requests across different questions and process restarts; numeric/date Retry-After and structured delays are tested.
+- The Windows setup wizard was tested in an isolated ignored folder with a dummy key. Codex's sandbox blocked raw console mode; unrestricted local execution saved the dummy key without echo and with zero network calls. The dummy file was deleted. The command now stops before requesting a key if secure input cannot be enabled.
+- Live collection refreshed at 11:54 IST: all 15 October 27 market records valid, 44 portfolio announcements from 3,028 source rows, no source warnings. Two incomplete Yahoo rows were completed from the official NSE report with separate baseline provenance. The current recorded default view has six priority filings, seven routine disclosures and two EOD signals.
+- Browser verified 15/15 alert coverage and real signal rendering. SUNPHARMA's detail opens the official closing-report link and the separate Yahoo volume-history link with the correct methodology explanation. Research displays earlier/later call evidence. This does not verify generated analysis; a real Gemini key is still absent.

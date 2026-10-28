@@ -30,3 +30,10 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 - Added Today / Portfolio / Ask FINN / Alerts, portfolio research links, announcement categories and pause preferences; verified navigation, narrow phones, landscape, errors and persistence.
 - User approved Gemini free quota only. Implemented opt-in, backend secrets, cached structured claims, exact quote/numeric guards, durable caps and model-specific fallback. Simulated tests consume no model allowance. Actual quality remains unverified pending a local key.
 - Prepared and smoke-tested a local release archive with checksums and secret exclusions; prepared container instructions and covering-email draft. Docker engine is stopped. Nothing published or emailed.
+
+## October 28, 2026 — EOD completeness and synthesis preparation
+- Continued independent P0 work while the Gemini key remained absent. Added a hidden-input local setup command; confirmed with a dummy key and removed the test credential.
+- Fixed project quota cooldown persistence so a later question or restart cannot rotate around a project-level 429. Added standard retry-date/structured-delay handling and explicit unavailable-section/interpretation checks.
+- Guidance retrieval now preserves both call periods and prefers explicit forward ranges; annual and call financial context are both included. Rebuilt replay excerpts from cached primary documents.
+- Verified NSE's official closing CSV as a fallback for incomplete Yahoo sessions. Exact symbol/series/session, price/volume validation and stock-split safeguards preserve honest calculations and source links. Fresh collection completed all 15 EOD records; two required NSE fallback.
+- Regression suite: 34 passing tests. Local release/progress updated; live model verification still requires the user's Gemini key. No paid or real model requests made.

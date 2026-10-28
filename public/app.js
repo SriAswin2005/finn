@@ -71,8 +71,8 @@ function openMarket(company) {
     ['Volume / baseline', company.market.volumeRatio === null ? 'Unavailable' : `${company.market.volumeRatio.toFixed(2)}×`],
   ] : [];
   $('market-values').replaceChildren(...rows.flatMap(([key, value]) => [element('dt', '', key), element('dd', '', value)]));
-  $('market-warning').textContent = company.market.warning ?? 'Raw closing prices; daily bars are accepted only after 4:00 PM IST. Volume baseline excludes the current session. Split-affected comparisons are suppressed.';
-  $('market-source').replaceChildren(sourceLink(eod?.source, 'View Yahoo Finance history ↗'));
+  $('market-warning').textContent = company.market.warning ?? (eod?.baselineSource ? 'Daily price change uses the NSE report’s close and previous close. Volume is compared with the preceding 20 valid Yahoo sessions; the current session is excluded.' : 'Raw closing prices; daily bars are accepted only after 4:00 PM IST. Volume baseline excludes the current session. Split-affected comparisons are suppressed.');
+  $('market-source').replaceChildren(sourceLink(eod?.source, eod?.baselineSource ? 'Open NSE closing report ↗' : 'View Yahoo Finance history ↗'), ...(eod?.baselineSource ? [sourceLink(eod.baselineSource, 'View volume-baseline history ↗')] : []));
   $('market-detail').showModal();
 }
 function card(item) {

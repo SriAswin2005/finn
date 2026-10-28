@@ -40,7 +40,7 @@ Choose a data mode and briefing window, expand routine filings, open original NS
 npm run ingest
 ```
 
-This fetches Yahoo NSE daily histories (3 months) and seven calendar days of NSE announcements, with timeouts, one bounded retry and three price requests at a time. The API only reads the saved snapshot; Refresh briefing does not scrape external sites. Collection is manual for now.
+This fetches Yahoo NSE daily histories (3 months) and seven calendar days of NSE announcements, with timeouts, one bounded retry and three price requests at a time. An incomplete latest Yahoo row can be completed from NSE's official closing report, preserving separate price and historical-volume source links. The API only reads the saved snapshot; Refresh briefing does not scrape external sites. Collection is manual for now.
 
 ```powershell
 npm run ingest -- --record
@@ -48,7 +48,7 @@ npm run ingest -- --record
 
 Also replaces the committed replay snapshot when all configured histories and NSE metadata are available. Inspect and commit that file deliberately. Exit code 1 indicates source errors or comparison warnings; the usable local snapshot is still saved. Raw responses are retained in ignored `data/cache/raw/`, and the live snapshot is atomically replaced in `data/cache/snapshot.json`. Do not run simultaneous ingesters.
 
-The initial capture has 15 histories and 43 NSE portfolio announcements, collected October 28, 2026, 03:14 IST. Yahoo's latest daily row (October 27) had no close, so the app shows the valid October 26 session with a warning and pauses those alerts. It does not substitute the provider's intraday quote. Fresh source collection may resolve upstream gaps; no user intervention is required for the recorded workflow.
+The current capture has 15 complete October 27 EOD records and 44 NSE portfolio announcements, collected October 28, 2026, 11:54 IST. NSE's official report completed two missing Yahoo rows; all 15 records are eligible for alert evaluation and two cross the default thresholds. The original incomplete capture was replaced with validated source records, not an intraday quote. Source failures still retain warnings and pause affected alerts.
 
 ## Research and free-quota AI
 
@@ -60,7 +60,11 @@ npm run research:collect -- INFY ASIANPAINT PERSISTENT
 
 This refreshes document discovery, reuses recent immutable document URLs, and saves selected page evidence for an offline-source replay. Downloaded PDFs/full extracted text stay in ignored `data/cache/research/`. The committed selected pages are served through the research API, not as static files. Citations use physical PDF pages; printed page numbers can differ.
 
+Use `npm run research:collect -- --cached INFY ASIANPAINT PERSISTENT` to rebuild selected evidence from existing local documents without downloading them again. Guidance retrieval includes both available calls; financial context includes a call and annual evidence when available. A quarterly actual is not automatically treated as a full-year guidance result.
+
 Gemini is free quota only, opt-in, and called only on **Generate cited AI note**. Configure a billing-disabled project using [AI setup](docs/AI_SETUP.md). Backend-only key, bounded excerpts/output, evidence/prompt/model cache, durable local quotas and limited model-specific fallback conserve allowance. No actual model requests were used in automated tests.
+
+Run `npm run configure:ai` in your own PowerShell to enter the one required Gemini key with hidden input. No ChatGPT or voice-service key is required.
 
 ## Build and release
 

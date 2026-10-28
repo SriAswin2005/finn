@@ -4,10 +4,11 @@ import { createHash } from 'node:crypto';
 import { portfolio } from './config/portfolio.js';
 import { fetchPrices } from './providers/yahoo.js';
 import { fetchAnnouncements } from './providers/nse.js';
+import { fetchNseEod, completeEod } from './providers/nse-eod.js';
 import { readSnapshot, writeJsonAtomic, liveSnapshotPath, recordedSnapshotPath, dataDirectory } from './storage/snapshots.js';
 
 // Independent source failures preserve the last good records with their original fetch times.
-export async function collectSnapshot({ previous = null, now = new Date(), companies = portfolio, prices = fetchPrices, announcements = fetchAnnouncements } = {}) {
+export async function collectSnapshot({ previous = null, now = new Date(), companies = portfolio, prices = fetchPrices, announcements = fetchAnnouncements, closingReport = fetchNseEod } = {}) {
   const fetchedAt = now.toISOString(); const slots = [...companies]; const records = new Map(); const errors = []; const raw = {};
   async function worker() {
     while (slots.length) {
@@ -25,6 +26,19 @@ export async function collectSnapshot({ previous = null, now = new Date(), compa
   }
   const announcementTask = announcements(companies.map(c => c.symbol), fetchedAt).then(result => ({ result })).catch(error => ({ error }));
   await Promise.all(Array.from({ length: Math.min(3, companies.length) }, worker));
+  const reportErrors = []; let completed = 0;
+  const sessions = [...new Set([...records.values()].filter(company => !company.dataError && company.eod?.hasIncompleteLatestSession).map(company => company.eod.latestSourceSession))].sort().slice(-2);
+  for (const session of sessions) {
+    try {
+      const report = await closingReport(session, companies.map(company => company.symbol));
+      raw.closingReports ??= {}; raw.closingReports[session] = { url: report.requestUrl, csv: report.raw };
+      for (const company of records.values()) {
+        if (company.dataError || !company.eod?.hasIncompleteLatestSession || company.eod.latestSourceSession !== session) continue;
+        const row = report.rows.get(company.symbol); if (!row) continue;
+        company.eod = completeEod(company.eod, row, company.symbol, fetchedAt); completed++;
+      }
+    } catch (error) { reportErrors.push({ symbol: `NSE report ${session}`, error: error.message }); }
+  }
   const result = await announcementTask;
   let filings; let announcementStatus;
   if (result.error) {
@@ -39,7 +53,7 @@ export async function collectSnapshot({ previous = null, now = new Date(), compa
     schemaVersion: 1, mode: 'live', asOf: fetchedAt,
     portfolio: companies.map(company => records.get(company.symbol)), announcements: filings,
     sources: {
-      prices: { label: 'Yahoo Finance EOD', status: errors.length === companies.length ? 'unavailable' : errors.length ? 'partial' : 'ok', fetchedAt: errors.length === companies.length ? previous?.sources.prices.fetchedAt ?? null : fetchedAt, errors },
+      prices: { label: completed ? 'Yahoo history + NSE official EOD' : 'Yahoo Finance EOD', status: errors.length === companies.length ? 'unavailable' : errors.length || reportErrors.length ? 'partial' : 'ok', fetchedAt: errors.length === companies.length ? previous?.sources.prices.fetchedAt ?? null : fetchedAt, errors: [...errors, ...reportErrors], officialRowsUsed: completed },
       announcements: announcementStatus,
     },
   };

@@ -31,8 +31,16 @@ Writes use a temporary sibling followed by atomic replacement. One ingester only
 Source fetch age over 24 hours and session age over four calendar days are conservatively stale. Live briefing windows use current time, while recorded/demo windows use the capture/demo clock. The four-day rule is not holiday-calendar-aware. The browser's API path stays network-only; cache fallback applies to the PWA shell.
 
 ## Captured evidence and limitations
+The original capture below is retained as a development record. The current replay was refreshed at 11:54 IST on October 28: 15 completed October 27 EOD records, 44 portfolio announcements, 15/15 eligible records and two default market signals. Yahoo supplied most closes; the NSE fallback supplied two. Source warnings are currently clear.
 Capture: October 28, 2026, 03:14 IST. 15 valid histories and 43 portfolio announcements, normalized from 2,974 NSE rows. Replaced the original mock TATAMOTORS holding after its source endpoint returned 404; EICHERMOT returned a valid history. No claim is made here about the reason for the old symbol's failure.
 
 Yahoo's October 27 rows had null closes. The recorded market records therefore show October 26 with warnings; no intraday price was substituted and all affected alerts are paused. This does not require a user credential or manual intervention; it remains an upstream completeness limitation to recheck during hardening.
 
 Verified LT results attachment: https://nsearchives.nseindia.com/corporate/PAM_27102026171156_LTSep2026.pdf returned HTTP 206, `application/pdf`, and `%PDF-` for a bounded range request. This verifies the link, not the numerical contents of the document.
+
+## Official closing-report fallback
+NSE publishes Full Bhavcopy and Security Deliverable data from https://www.nseindia.com/all-reports. FINN uses the bounded CSV at `https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_DDMMYYYY.csv` only for a completed session identified by an incomplete Yahoo row. At most two distinct report dates are fetched per ingestion.
+
+Validate headers, exact session, NSE EQ series, symbol, finite positive CLOSE_PRICE/PREV_CLOSE, integer TTL_TRD_QNTY and unique equity rows. A validated official row supplies both the closing price and the previous-close basis; do not overwrite it with an intraday quote. Volume uses the preceding 20 valid Yahoo sessions, excluding the new report session. Current-day reports are rejected before 16:00 IST, and split-affected comparisons remain suppressed, including splits on the newly completed day.
+
+Each completed record retains the official row, CSV URL, separate Yahoo baseline source, and per-session history. The raw report joins the ignored hashed source bundle. If the report fails, the previous record/warning remains; no zero or invented close is substituted. Official previous close can differ from a vendor's raw historical close, so calculations explicitly use the official report's previous close rather than silently mixing bases.
