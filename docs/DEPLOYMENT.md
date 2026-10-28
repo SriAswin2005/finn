@@ -27,4 +27,6 @@ Omit `--env-file .env` if AI is disabled. For a hosted deployment, configure ser
 
 Public release needs HTTPS, a chosen hosting account, approved audience and a protected method for AI generation. Same-origin JSON checks and local budgets are present, but anonymous internet access must not expose an unprotected Gemini key-backed generation endpoint. Decide access control or keep AI disabled for the public demo before deployment. Source collection is manual, not a scheduler.
 
-Nothing is published by the build command. External deployment, GitHub push and email require the user's approval. Verify HTTPS installation and a physical-phone workflow after choosing the host. Do not claim these are complete based on the local smoke test.
+Nothing is published by the build command. With user authorization, the private source repository is now https://github.com/SriAswin2005/finn, using master and the configured device account. Source history was scanned for the current key and common credential patterns before publication; no findings. Runtime caches and secrets remain untracked. Reviewers need separately approved access before submission.
+
+External app deployment and email still require the user's approval. A hosting destination has not been chosen. Verify HTTPS installation and a physical-phone workflow after choosing the host. Do not claim these are complete based on the local smoke test.

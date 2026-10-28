@@ -59,3 +59,8 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 - Both Gemma candidates timed out. Small questions now try Gemma 26B then Flash-Lite; general concise notes prefer Flash-Lite. Bounded network/attempt limits and shared-project cooldowns remain intact.
 - Reviewed six primary-supported INFY claims: business, financial headline, earlier/later growth guidance and conditional cases. Flash-Lite completed the accepted v6 note in about 6.5 seconds. Comparable full-year guidance delivery is explicitly unverified. Browser rendering, timestamps and cache reuse verified; AI_REVIEW.md records the bounded acceptance case.
 - Verified 390-pixel layout and local server-offline recovery. Shell cache updated to v4 so new client code is available offline; API responses remain network-only. Updated demo/submission/progress records. All 40 tests and syntax checks pass. External delivery remains pending hosting/GitHub decisions and approval.
+
+## October 28, 2026 — Authorized private repository
+- User authorized use of the GitHub account configured on the device and creation of a private repository. Git Credential Manager identified SriAswin2005; authentication stayed in memory and was not printed or embedded in URLs.
+- Scanned all nine existing Git commits for the current key and common API/private-key patterns; no findings. Confirmed `.env`, runtime caches, tmp and dist were absent from tracked history.
+- Created https://github.com/SriAswin2005/finn as private and pushed the existing master branch/history without rewriting it. Updated delivery documents. No app deployment, collaborator invitation or email was performed.

@@ -52,9 +52,10 @@ Initial M2 capture had 43 announcements and missing latest closes. Later October
 - [ ] Verify mobile installation on HTTPS, offline/stale behavior and clean startup.
 - [x] Verify one strong cited analysis example: INFY business/financial highlight, balanced conditional cases and guidance revision. Do not claim verified guidance delivery.
 - [x] Build local deployable archive with checksum/secret-exclusion checks and packaged HTTP/research smoke test.
+- [x] With user authorization, create private GitHub repository https://github.com/SriAswin2005/finn and push preserved history on master. Credentials/runtime caches are excluded.
 - [ ] Deploy with user approval, verify hosted API and phone workflow; push repository to GitHub with approval.
 - [ ] Finalize covering note, architecture/tradeoffs, original AI build history and demo steps. Draft prepared locally.
 - [ ] Final reproducible checks and tagged demo checkpoint. Keep November 1 as buffer.
 
 ## Decisions needed later
-Gemini free quota ONLY is approved; the manually corrected local `.env` key is accepted by Google and all six configured text models are listed. One INFY AI note is reviewed and cached. Gemma inference remains unverified because both hosted candidates timed out; no low-latency guarantee is claimed. A hosting target, GitHub destination and external publication approval are needed after local verification. Docker CLI exists but its engine is not running; the container image is prepared but unbuilt. This does not block the tested Node release archive. No email has been sent and no site/repository published.
+Gemini free quota ONLY is approved; the manually corrected local `.env` key is accepted by Google and all six configured text models are listed. One INFY AI note is reviewed and cached. Gemma inference remains unverified because both hosted candidates timed out; no low-latency guarantee is claimed. The user authorized private GitHub creation/publication; https://github.com/SriAswin2005/finn now contains the preserved source history. A hosting target and deployment approval are still needed. Docker CLI exists but its engine is not running; the container image is prepared but unbuilt. This does not block the tested Node release archive. No email has been sent and no app has been deployed externally.

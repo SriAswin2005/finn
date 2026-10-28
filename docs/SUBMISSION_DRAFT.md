@@ -13,7 +13,7 @@ The prototype uses a modular Node/browser application with a small Python PDF pa
 I deliberately deferred voice, background push and native packaging to focus on reliable source handling. Data gaps are visible; the recorded source replay is clearly distinguished from current data and fictional scenarios. The next steps would improve semantic retrieval, comparable-period guidance analysis and deployment operations.
 
 - Prototype: [add verified HTTPS link]
-- Repository: [add approved GitHub URL]
+- Repository: https://github.com/SriAswin2005/finn (private during development; arrange reviewer access before sending)
 - AI build history: [add original conversation exports/share links]
 
 Regards,
@@ -21,6 +21,6 @@ Aswin
 
 ## Submission gates
 - One INFY live note is reviewed; preserve that bounded claim and keep guidance delivery/Gemma latency limitations explicit. Recheck the actual release before submission.
-- Approve hosting/audience and GitHub publication; verify the phone workflow after deployment.
+- Private GitHub publication is complete. Approve hosting/audience and any reviewer repository access; verify the phone workflow after deployment.
 - Preserve original coding-agent conversations. The build log is not a substitute for those originals.
 - Include the release/checkpoint and short demo instructions. Do not email this draft automatically.
