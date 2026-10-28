@@ -96,3 +96,8 @@ Keyword excerpts are not verified financial conclusions or a comparable-period p
 - Simulated Gemma transport timeout falls back to the other configured Gemma; minimal thinking and prompt JSON are used without assuming schema-mode support. Thought parts are excluded. Citation/numeric failures still stop with one call; six text candidates cannot expand the three-attempt limit. Existing project-wide cooldown/authentication tests pass.
 - All 37 tests pass outside the Windows sandbox. Initial sandbox execution was blocked by temporary-file rename and loopback restrictions; rerunning with those permissions passed. No real provider request or quota consumption occurred.
 - This change has no browser markup or client behavior changes. Earlier responsive browser checks stand; live AI rendering, quality and latency await successful local key setup.
+
+## First live credential check — October 28
+- Verified only key presence, free-tier confirmation and non-secret inventory: six supported text candidates and eight deferred specialist IDs. The credential itself was never printed.
+- First INFY generation attempt was rejected in approximately 402 ms; this measures rejection latency, not model inference. Google returned HTTP 400 / INVALID_ARGUMENT / `API key not valid. Please pass a valid API key.` The independent model-list metadata endpoint returned the same error. No note was generated and no model fallback occurred.
+- Added an actionable invalid-key message with a simulated regression ensuring arbitrary provider text/credentials are not echoed and only one model is attempted. Live quality, inference latency, model availability and AI browser rendering remain unverified until a valid key is saved.

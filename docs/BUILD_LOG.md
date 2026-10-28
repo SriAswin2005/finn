@@ -43,3 +43,7 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 - Checked Google's official Gemma API and free-tier pricing documentation. Added the two hosted Gemma 4 IDs and current free Flash candidates; no paid fallback. Gemma uses prompt JSON and minimal thinking; all responses retain existing evidence validation.
 - Narrow business questions prefer Gemma; broader research preserves configured Flash order. Transport/server failures receive bounded fallback with at most three calls and a shared 45-second network budget. No automatic retry of invalid analysis or shared project limits.
 - 37 tests pass. No browser changes; live provider verification remains pending rerun of local setup, as the failed run saved no credential.
+
+## October 28, 2026 — Live credential check
+- User confirmed setup saved. Verified configuration without exposing the secret, then made one bounded INFY research attempt. Google rejected the key; a separate model-list metadata check confirmed HTTP 400 / invalid API key. No generated analysis or model rotation occurred.
+- Improved invalid-key errors with local setup instructions and a regression test for secret-safe output/no fallback. User intervention is required to replace the key. Provider availability, latency and semantic-quality gates remain open.

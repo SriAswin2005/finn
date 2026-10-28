@@ -33,7 +33,7 @@ Initial M2 capture had 43 announcements and missing latest closes. Later October
 - [x] Source corpus excludes Screener financials/AI summaries, broker reports and news.
 - [x] Gate: original documents and selected passages travel through API to Research UI with page references.
 
-## M3B — AI synthesis (credentials pending)
+## M3B — AI synthesis (saved key rejected by Google)
 - [x] Gemini free-tier-only opt-in, backend secrets, bounded context/output, structured claims and evidence/prompt/model cache.
 - [x] Test quote/citation/numeric guards, quota ledger, concurrency and conservative model-specific fallback with simulated responses.
 - [x] Include guidance from both available calls, prefer explicit forward ranges, and retain financial context from both call/annual evidence. Add hidden-input local key setup and persisted project-level cooldowns.
@@ -56,4 +56,4 @@ Initial M2 capture had 43 announcements and missing latest closes. Later October
 - [ ] Final reproducible checks and tagged demo checkpoint. Keep November 1 as buffer.
 
 ## Decisions needed later
-Gemini free quota ONLY is approved; local `.env` key and billing-disabled-project confirmation remain pending. A hosting target, GitHub destination and external publication approval are needed after local verification. Docker CLI exists but its engine is not running; the container image is prepared but unbuilt. This does not block the tested Node release archive. No email has been sent and no site/repository published.
+Gemini free quota ONLY is approved; local `.env` and free-tier confirmation are saved. Google rejected the saved API key as invalid on the first research attempt and a model-list metadata check; replace the key through `npm run configure:ai` before live AI verification. A hosting target, GitHub destination and external publication approval are needed after local verification. Docker CLI exists but its engine is not running; the container image is prepared but unbuilt. This does not block the tested Node release archive. No email has been sent and no site/repository published.

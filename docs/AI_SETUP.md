@@ -47,3 +47,6 @@ Structured output requires claims, evidence IDs and exact supporting quotes. The
 - Gemma hosted model IDs and minimal thinking: https://ai.google.dev/gemma/docs/core/gemma_on_gemini_api
 
 Actual model access/quotas must be confirmed in your project. Do not assume the example counts are current provider allowances.
+
+## If Google rejects the key
+Successful local setup confirms that settings were saved, not that Google accepted them. On October 28, the saved key was rejected with HTTP 400 and `API key not valid` by both generation and model-list metadata. Rerun `npm run configure:ai`, preserve your model list, confirm the existing settings update, and enter a valid Gemini API key from your billing-disabled AI Studio project. Restart FINN afterward. Do not paste the key into chat. FINN stops on credential errors rather than rotating models.

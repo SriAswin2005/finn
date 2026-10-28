@@ -175,6 +175,21 @@ test('Gemini does not rotate around ambiguous project quotas or bad credentials'
   }
 });
 
+test('invalid API keys give actionable setup guidance without leaking provider text or rotating', async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'finn-invalid-key-')); t.after(() => rm(directory, { recursive: true, force: true }));
+  let calls = 0;
+  const secret = 'test-only-secret-not-for-display';
+  const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: secret, FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_GEMINI_MODELS: userModels }, fetchImpl: async () => {
+    calls++;
+    return new Response(JSON.stringify({ error: { message: `Provider text containing ${secret}`, details: [{ reason: 'API_KEY_INVALID' }] } }), { status: 400 });
+  } });
+  await assert.rejects(provider.generate({ evidenceHash: 'invalid-key', evidence, documents: [], company: 'Test', question: '' }), error => {
+    assert.match(error.message, /key as invalid/); assert.match(error.message, /npm run configure:ai/);
+    assert.ok(!error.message.includes(secret)); return true;
+  });
+  assert.equal(calls, 1);
+});
+
 test('Gemma uses prompt JSON, filters thinking, and falls back after transport failure', async t => {
   const directory = await mkdtemp(join(tmpdir(), 'finn-gemma-')); t.after(() => rm(directory, { recursive: true, force: true }));
   const calls = [];

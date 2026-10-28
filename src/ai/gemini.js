@@ -123,6 +123,9 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
           continue;
         }
         if (!response.ok) {
+          const invalidKey = body?.error?.details?.some?.(detail => detail.reason === 'API_KEY_INVALID')
+            || /API key not valid/i.test(body?.error?.message ?? '');
+          if (invalidKey) throw new AiUnavailable('Google rejected the Gemini API key as invalid. Run npm run configure:ai with a valid key from your billing-disabled Google AI Studio project, then restart FINN.');
           if ([401, 403, 400].includes(response.status)) throw new AiUnavailable('Gemini rejected the configuration or credentials. No other provider was called.');
           const modelQuota = response.status === 429 && isModelQuota(body);
           const until = retryDeadline(response.headers.get('retry-after'), body, now());
