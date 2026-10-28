@@ -81,6 +81,11 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   const port = Number(process.env.PORT ?? 3000);
   const host = process.env.HOST ?? '127.0.0.1';
   const server = createAppServer();
-  server.on('error', error => { console.error(`FINN could not start: ${error.message}`); process.exitCode = 1; });
+  server.on('error', error => {
+    console.error(error.code === 'EADDRINUSE'
+      ? `FINN could not start: ${host}:${port} is already in use. Stop the earlier FINN server with Ctrl+C in its terminal, then run npm start. npm restart cannot stop a server running in another terminal.`
+      : `FINN could not start: ${error.message}`);
+    process.exitCode = 1;
+  });
   server.listen(port, host, () => console.log(`FINN ready at http://${host}:${server.address().port} (live snapshot / recorded / demo modes)`));
 }

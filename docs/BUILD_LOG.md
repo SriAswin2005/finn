@@ -47,3 +47,8 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 ## October 28, 2026 — Live credential check
 - User confirmed setup saved. Verified configuration without exposing the secret, then made one bounded INFY research attempt. Google rejected the key; a separate model-list metadata check confirmed HTTP 400 / invalid API key. No generated analysis or model rotation occurred.
 - Improved invalid-key errors with local setup instructions and a regression test for secret-safe output/no fallback. User intervention is required to replace the key. Provider availability, latency and semantic-quality gates remain open.
+
+## October 28, 2026 — Port conflict recovery
+- Identified and replaced the confirmed stale FINN server on port 3000. The new server loads saved AI configuration and answers research HTTP requests. No unrelated Node process was stopped.
+- Rechecked Google model metadata without a generation: the saved key is still rejected. Non-secret format checks did not identify a recoverable paste issue; user must supply a valid Gemini API key locally.
+- Added actionable EADDRINUSE console guidance and documented the Ctrl+C / npm start workflow. Live AI verification remains blocked by the credential rather than the port.

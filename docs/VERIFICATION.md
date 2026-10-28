@@ -101,3 +101,9 @@ Keyword excerpts are not verified financial conclusions or a comparable-period p
 - Verified only key presence, free-tier confirmation and non-secret inventory: six supported text candidates and eight deferred specialist IDs. The credential itself was never printed.
 - First INFY generation attempt was rejected in approximately 402 ms; this measures rejection latency, not model inference. Google returned HTTP 400 / INVALID_ARGUMENT / `API key not valid. Please pass a valid API key.` The independent model-list metadata endpoint returned the same error. No note was generated and no model fallback occurred.
 - Added an actionable invalid-key message with a simulated regression ensuring arbitrary provider text/credentials are not echoed and only one model is attempted. Live quality, inference latency, model availability and AI browser rendering remain unverified until a valid key is saved.
+
+## Server restart recovery — October 28
+- Port 3000 belonged to Node PID 16780 running `node --env-file-if-exists=.env src/server.js`; its HTTP research response identified FINN/Infosys and AI unconfigured. Verified the listener and command line again before stopping that specific process.
+- Restarted this workspace with `npm start`; `/api/research?ticker=INFY` returns HTTP 200 and `ai.configured=true`. Google's model-list metadata still returns HTTP 400 / INVALID_ARGUMENT / invalid API key. No generation call was made during this recovery.
+- Non-secret shape checks did not establish an incomplete paste or an accidentally prepended environment-variable name. The cause of the invalid credential remains unknown. No secret was printed or changed.
+- Improved EADDRINUSE startup guidance: stop the existing FINN terminal with Ctrl+C, then use `npm start`; npm's default restart cannot stop another terminal's process.

@@ -50,3 +50,5 @@ Actual model access/quotas must be confirmed in your project. Do not assume the 
 
 ## If Google rejects the key
 Successful local setup confirms that settings were saved, not that Google accepted them. On October 28, the saved key was rejected with HTTP 400 and `API key not valid` by both generation and model-list metadata. Rerun `npm run configure:ai`, preserve your model list, confirm the existing settings update, and enter a valid Gemini API key from your billing-disabled AI Studio project. Restart FINN afterward. Do not paste the key into chat. FINN stops on credential errors rather than rotating models.
+
+To load changed settings, press Ctrl+C in the terminal running FINN, then run `npm start`. `npm restart` does not stop a server started in another terminal; attempting it while that server owns port 3000 produces EADDRINUSE. Do not stop unrelated Node processes. The stale FINN server was identified and replaced locally after the user's port conflict; the new process reports AI configured, but Google's metadata endpoint still rejects the saved key. No additional generation was attempted.
