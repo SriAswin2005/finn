@@ -47,7 +47,7 @@ async function load() {
     $('research-status').textContent = 'Primary evidence is ready. Open a page reference to inspect the original document.';
   } catch (error) {
     if (id !== request) return;
-    $('research-status').className = 'status error'; $('research-status').textContent = error.name === 'AbortError' ? 'Document collection timed out. Please retry; completed documents may already be cached.' : error.message;
+    $('research-status').className = 'status error'; $('research-status').textContent = error.name === 'AbortError' ? 'Document collection timed out. Please retry; completed documents may already be cached.' : error instanceof TypeError ? 'FINN could not be reached. Check your connection and that the server is running. The offline app shell does not include research data.' : error.message;
   } finally { clearTimeout(timeout); if (id === request) $('research-submit').disabled = false; }
 }
 $('research-form').addEventListener('submit', event => { event.preventDefault(); load(); });
@@ -70,8 +70,8 @@ $('research-ai').addEventListener('click', async () => {
         article.append(node('blockquote', '', ref.quote), citation(doc, evidence.page));
       }
       return article;
-    }), node('p', 'muted', `Unsupported sections: ${analysis.unavailableSections.join(', ') || 'none declared'}. Citation and quote checks passed; they do not prove semantic correctness. Read the sources before relying on a claim.`));
-    $('ai-status').textContent = `${analysis.provider} · ${analysis.model} · ${analysis.cached ? 'cached note; no new generation' : 'new note'} · ${analysis.promptVersion}`;
-  } catch (error) { if (id === request) $('ai-status').textContent = error.message; }
+    }), node('p', 'muted', 'Guidance versus delivery: not verified. A revised forecast does not establish that an earlier forecast was met or missed; matching periods and reporting basis must be checked.'), node('p', 'muted', `Unsupported sections: ${analysis.unavailableSections.join(', ') || 'none declared'}. Citation and quote checks passed; they do not prove semantic correctness. Read the sources before relying on a claim.`));
+    $('ai-status').textContent = `${analysis.provider} · ${analysis.model} · ${analysis.cached ? 'cached note; no new generation' : 'new note'} · generated ${new Date(analysis.generatedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST · ${analysis.promptVersion}`;
+  } catch (error) { if (id === request) $('ai-status').textContent = error.name === 'TimeoutError' ? 'The AI request timed out. Your source evidence remains available; check the connection before retrying.' : error instanceof TypeError ? 'FINN could not be reached. Your loaded evidence remains visible; reconnect before requesting an AI note.' : error.message; }
   finally { if (id === request) $('research-ai').disabled = !data.ai.configured; }
 });

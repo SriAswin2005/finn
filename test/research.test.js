@@ -10,6 +10,7 @@ import { getResearch, parseDocument, ResearchUnavailable } from '../src/research
 import { createGeminiProvider, validateAnalysis, selectEligibleModel, retryDeadline, AiUnavailable } from '../src/ai/gemini.js';
 import { mergeGeminiEnvironment } from '../src/config/ai-env.js';
 import { modelInventory, researchModelOrder } from '../src/ai/models.js';
+import { buildQuoteBank, resolveQuoteReferences } from '../src/ai/quotes.js';
 
 test('discovery accepts arbitrary NSE symbols but only report/transcript evidence links', () => {
   assert.equal(normalizeTicker(' m&m.ns '), 'M&M');
@@ -111,7 +112,7 @@ test('setup preserves the full user inventory and excludes specialists and unver
   const content = mergeGeminiEnvironment('', { key: 'dummy_key_123456789012345', confirmed: true, models: userModels });
   assert.ok(content.includes(`FINN_GEMINI_MODELS=${userModels}\n`));
   assert.equal(researchModelOrder(inventory, 'Describe its business and products')[0], 'gemma-4-26b-a4b-it');
-  assert.equal(researchModelOrder(inventory, 'Compare financial guidance delivery')[0], 'gemini-3.8-flash');
+  assert.equal(researchModelOrder(inventory, 'Compare financial guidance delivery')[0], 'gemini-3.5-flash-lite');
   assert.equal(researchModelOrder(inventory, '').length, 6);
   for (const invalid of ['gemini-3.8-flash\nPORT=9', '../gemini-model', 'gemini-embedding-001', Array.from({ length: 41 }, (_, i) => `gemini-model-${i}`).join(',')]) assert.throws(() => modelInventory(invalid));
 });
@@ -132,6 +133,7 @@ test('real Python PDF parser preserves page numbers and rejects non-PDF input', 
 
 const evidence = [{ id: 'e1', documentId: 'd', page: 3, text: 'The company reported revenue of 100 million for the year. Management noted demand uncertainty.' }];
 const validAnalysis = () => ({ claims: [{ section: 'financial', text: 'Reported revenue was 100 million for the year.', inference: false, references: [{ evidenceId: 'e1', quote: 'reported revenue of 100 million for the year' }] }], unavailableSections: ['guidance'] });
+const wireAnalysis = () => { const value = validAnalysis(); value.claims[0].references = [{ quoteId: 'q1' }]; return value; };
 test('AI validation rejects invented citations, quotes and numbers', () => {
   const validated = validateAnalysis(validAnalysis(), evidence);
   assert.equal(validated.claims.length, 1);
@@ -149,7 +151,7 @@ test('Gemini uses cached results, bounded model fallback and durable local quota
   const provider = createGeminiProvider({ env, directory, fetchImpl: async () => {
     calls++;
     if (calls === 1) return new Response(JSON.stringify({ error: { details: [{ quotaId: 'RequestsPerDayPerProjectPerModel-FreeTier' }] } }), { status: 429, headers: { 'retry-after': '3600' } });
-    return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(validAnalysis()) }] } }] }));
+    return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(wireAnalysis()) }] } }] }));
   } });
   const research = { evidenceHash: 'abc', evidence, documents: [], company: 'Owned test company', question: '' };
   const first = await provider.generate(research); assert.equal(first.model, 'gemini-3.1-flash-lite'); assert.equal(calls, 2);
@@ -190,21 +192,23 @@ test('invalid API keys give actionable setup guidance without leaking provider t
   assert.equal(calls, 1);
 });
 
-test('Gemma uses prompt JSON, filters thinking, and falls back after transport failure', async t => {
+test('Gemma uses prompt JSON, filters thinking, and falls back to Flash-Lite after transport failure', async t => {
   const directory = await mkdtemp(join(tmpdir(), 'finn-gemma-')); t.after(() => rm(directory, { recursive: true, force: true }));
   const calls = [];
   const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_GEMINI_MODELS: userModels }, fetchImpl: async (url, options) => {
     calls.push(url);
     const request = JSON.parse(options.body);
     assert.equal(request.generationConfig.thinkingConfig.thinkingLevel, 'minimal');
-    assert.equal(request.generationConfig.responseJsonSchema, undefined);
-    assert.match(request.contents[0].parts[0].text, /Return ONLY JSON/);
+    if (calls.length === 1) {
+      assert.equal(request.generationConfig.responseJsonSchema, undefined);
+      assert.match(request.contents[0].parts[0].text, /Return ONLY JSON/);
+    }
     assert.ok(options.signal instanceof AbortSignal);
     if (calls.length === 1) throw new DOMException('Busy connection', 'TimeoutError');
-    return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ thought: true, text: 'private reasoning' }, { text: JSON.stringify(validAnalysis()) }] } }] }));
+    return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ thought: true, text: 'private reasoning' }, { text: JSON.stringify(wireAnalysis()) }] } }] }));
   } });
   const result = await provider.generate({ evidenceHash: 'gemma', evidence, documents: [], company: 'Test', question: 'Describe the business' });
-  assert.equal(result.model, 'gemma-4-31b-it'); assert.equal(calls.length, 2);
+  assert.equal(result.model, 'gemini-3.5-flash-lite'); assert.equal(calls.length, 2);
   assert.match(calls[0], /gemma-4-26b-a4b-it:generateContent$/);
 });
 
@@ -215,7 +219,7 @@ test('large inventory never expands three-attempt bound and invalid evidence is 
     const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_GEMINI_MODELS: userModels }, fetchImpl: async () => {
       calls++;
       if (!invalidOutput) return new Response('{}', { status: 503 });
-      const bad = validAnalysis(); bad.claims[0].text = 'Revenue was 999 million.';
+      const bad = wireAnalysis(); bad.claims[0].text = 'Revenue was 999 million.';
       return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(bad) }] } }] }));
     } });
     await assert.rejects(provider.generate({ evidenceHash: 'bounded', evidence, documents: [], company: 'Test', question: '' }), AiUnavailable);
@@ -229,4 +233,31 @@ test('Gemini cooldown honors HTTP dates, long delays and structured retry guidan
   assert.equal(retryDeadline('172800', {}, now), now + 172800000);
   assert.equal(retryDeadline('Thu, 29 Oct 2026 00:00:00 GMT', {}, now), now + 86400000);
   assert.equal(retryDeadline('60', { error: { details: [{ retryDelay: '120.5s' }] } }, now), now + 120500);
+});
+
+test('Flash uses its supported thinking level and rejects truncated notes even with valid JSON', async t => {
+  for (const model of ['gemini-3.8-flash', 'gemini-3.6-flash']) {
+    const directory = await mkdtemp(join(tmpdir(), 'finn-thinking-')); t.after(() => rm(directory, { recursive: true, force: true }));
+    let calls = 0;
+    const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_GEMINI_MODELS: model }, fetchImpl: async (_url, options) => {
+      calls++; const config = JSON.parse(options.body).generationConfig;
+      assert.equal(config.thinkingConfig.thinkingLevel, model === 'gemini-3.8-flash' ? 'low' : 'minimal');
+      assert.equal(config.maxOutputTokens, 3200);
+      return new Response(JSON.stringify({ candidates: [{ finishReason: 'MAX_TOKENS', content: { parts: [{ text: JSON.stringify(validAnalysis()) }] } }] }));
+    } });
+    await assert.rejects(provider.generate({ evidenceHash: model, evidence, documents: [], company: 'Test', question: '' }), /No partial analysis/);
+    assert.equal(calls, 1);
+  }
+});
+
+test('quote bank preserves exact bounded source text and rejects invented IDs', () => {
+  const source = [{ id: 'd-p3', text: 'Revenue was 100 million in the reporting period. ' + 'Detailed source context and conditions apply here. '.repeat(12) }];
+  const quotes = buildQuoteBank(source);
+  assert.ok(quotes.length > 2);
+  for (const quote of quotes) { assert.ok(source[0].text.includes(quote.quote)); assert.ok(quote.quote.length >= 20 && quote.quote.length <= 220); }
+  const wire = { claims: [{ references: [{ quoteId: quotes[0].id }] }] };
+  assert.equal(resolveQuoteReferences(wire, quotes).claims[0].references[0].quote, quotes[0].quote);
+  assert.throws(() => resolveQuoteReferences({ claims: [{ references: [{ quoteId: 'made-up' }] }] }, quotes), /Unknown source quote/);
+  const long = buildQuoteBank([{ id: 'long', text: 'word '.repeat(140) }]);
+  assert.ok(long.length >= 3); assert.ok(long.every(q => q.quote.length <= 220));
 });

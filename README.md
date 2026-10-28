@@ -26,7 +26,7 @@ npm test
 
 M3A / prototype 0.3: Today, Portfolio, Ask FINN and Alerts. Public data travels through normalized snapshots and deterministic ranking/signals to the briefing. Generic research discovers annual reports and earnings-call transcripts, extracts physical PDF pages and returns cited excerpts. Captured examples: INFY, ASIANPAINT and PERSISTENT. HCLTECH was also verified through a cold on-demand lookup outside that set.
 
-Node/frontend runtime dependencies remain zero; PDF parsing uses `pypdf==6.10.0`. Gemini synthesis is implemented behind a provider boundary, but live model output is unverified until a free-tier key is configured. Retrieved excerpts are not a verified guidance-versus-delivery analysis, and no model output is fabricated for the demo.
+Node/frontend runtime dependencies remain zero; PDF parsing uses `pypdf==6.10.0`. One live Gemini Flash-Lite INFY note is reviewed and browser verified, with server-resolved source quotes, page citations, balanced cases and cache reuse. A fresh checkout still needs its own authorized free-tier key; runtime AI caches are not shipped. Guidance revision is supported; comparable full-year delivery remains unverified. See docs/AI_REVIEW.md.
 
 Choose a data mode and briefing window, expand routine filings, open original NSE filings, inspect company market records, and change alert thresholds. Preferences remain in this browser.
 

@@ -33,14 +33,14 @@ Initial M2 capture had 43 announcements and missing latest closes. Later October
 - [x] Source corpus excludes Screener financials/AI summaries, broker reports and news.
 - [x] Gate: original documents and selected passages travel through API to Research UI with page references.
 
-## M3B — AI synthesis (saved key rejected by Google)
+## M3B — AI synthesis (one reviewed live example verified)
 - [x] Gemini free-tier-only opt-in, backend secrets, bounded context/output, structured claims and evidence/prompt/model cache.
 - [x] Test quote/citation/numeric guards, quota ledger, concurrency and conservative model-specific fallback with simulated responses.
 - [x] Include guidance from both available calls, prefer explicit forward ranges, and retain financial context from both call/annual evidence. Add hidden-input local key setup and persisted project-level cooldowns.
 - [x] Fix setup rejection of larger inventories: validate before secret input, preserve specialist IDs, route supported Gemma/Flash text models and bound timeout/server fallback. Verify with simulated responses; live model quality remains below.
-- [ ] Verify actual Gemini output using the user's billing-disabled project; validate quality and failure behavior.
-- [ ] Verify a supported business/financial snapshot, conditional bull/bear interpretation and guidance-vs-delivery analysis where comparable evidence exists. Mark unsupported outputs unavailable.
-- [ ] Gate: every displayed AI claim has inspected primary support. Exact quotes and numeric checks alone do not prove semantic correctness.
+- [x] Verify actual Gemini output using the user's billing-disabled project; validate quality and failure behavior. Flash-Lite returned the reviewed INFY note in 6.5 seconds; timeout, busy-server, truncated, numeric and quote errors were observed and rejected during live iteration.
+- [x] Verify a supported business/financial snapshot and conditional bull/bear interpretation. INFY's earlier/later guidance is cited separately; full-year guidance delivery remains explicitly unverified because matching outcome evidence is not established.
+- [x] Gate for the reviewed INFY example: all six displayed AI claims inspected against primary support. Browser verified server-resolved quotes, PDF page links and cache reuse. This is not a quality guarantee for arbitrary future generations; see docs/AI_REVIEW.md.
 
 ## P0 navigation and alert preferences
 - [x] Today / Portfolio / Ask FINN / Alerts with portfolio-to-research links.
@@ -48,12 +48,13 @@ Initial M2 capture had 43 announcements and missing latest closes. Later October
 - [x] Missing-source and empty states; no claim of OS push support.
 
 ## M4 — Demo hardening and delivery (October 31)
+- [x] Verify local clean restart, updated shell cache, unavailable-research state with the server stopped, and recovery to the reviewed cached note after restart.
 - [ ] Verify mobile installation on HTTPS, offline/stale behavior and clean startup.
-- [ ] Prioritize one strong analysis example if time allows (results or guidance delivery).
+- [x] Verify one strong cited analysis example: INFY business/financial highlight, balanced conditional cases and guidance revision. Do not claim verified guidance delivery.
 - [x] Build local deployable archive with checksum/secret-exclusion checks and packaged HTTP/research smoke test.
 - [ ] Deploy with user approval, verify hosted API and phone workflow; push repository to GitHub with approval.
 - [ ] Finalize covering note, architecture/tradeoffs, original AI build history and demo steps. Draft prepared locally.
 - [ ] Final reproducible checks and tagged demo checkpoint. Keep November 1 as buffer.
 
 ## Decisions needed later
-Gemini free quota ONLY is approved; local `.env` and free-tier confirmation are saved. Google rejected the saved API key as invalid on the first research attempt and a model-list metadata check; replace the key through `npm run configure:ai` before live AI verification. A hosting target, GitHub destination and external publication approval are needed after local verification. Docker CLI exists but its engine is not running; the container image is prepared but unbuilt. This does not block the tested Node release archive. No email has been sent and no site/repository published.
+Gemini free quota ONLY is approved; the manually corrected local `.env` key is accepted by Google and all six configured text models are listed. One INFY AI note is reviewed and cached. Gemma inference remains unverified because both hosted candidates timed out; no low-latency guarantee is claimed. A hosting target, GitHub destination and external publication approval are needed after local verification. Docker CLI exists but its engine is not running; the container image is prepared but unbuilt. This does not block the tested Node release archive. No email has been sent and no site/repository published.

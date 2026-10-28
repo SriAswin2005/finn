@@ -20,9 +20,12 @@ export function modelInventory(value = DEFAULT_MODELS) {
 
 export function researchModelOrder(inventory, question = '') {
   // Only narrow business-description questions are small tasks. Financial,
-  // comparative and open-ended research retain the configured Flash order.
+  // comparative and open-ended research use Flash-Lite before larger Flash.
   const simple = question.length <= 160 && /\b(business|products?|services?)\b/i.test(question)
     && !/\b(growth|guidance|financial|revenue|profit|margin|risk|compare|valuation|bull|bear|delivery)\b/i.test(question);
-  const preferred = simple ? ['gemma-4-26b-a4b-it', 'gemma-4-31b-it'] : [];
-  return [...preferred.filter(id => inventory.text.includes(id)), ...inventory.text.filter(id => !preferred.includes(id) && !id.startsWith('gemma-')), ...inventory.text.filter(id => !preferred.includes(id) && id.startsWith('gemma-'))];
+  const lite = inventory.text.filter(id => id.includes('flash-lite'));
+  const flash = inventory.text.filter(id => id.startsWith('gemini-') && !lite.includes(id));
+  const gemma = inventory.text.filter(id => id.startsWith('gemma-'));
+  const order = simple ? ['gemma-4-26b-a4b-it', ...lite, 'gemma-4-31b-it', ...flash] : [...lite, ...flash, ...gemma];
+  return [...new Set(order)].filter(id => inventory.text.includes(id));
 }
