@@ -2,10 +2,10 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { dataDirectory, writeJsonAtomic } from '../storage/snapshots.js';
+import { modelInventory, researchModelOrder } from './models.js';
+export { SUPPORTED_GEMINI_MODELS } from './models.js';
 
-export const PROMPT_VERSION = 'cited-primary-research-v1';
-export const SUPPORTED_GEMINI_MODELS = Object.freeze(['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-2.5-flash-lite']);
-const allowedModels = new Set(SUPPORTED_GEMINI_MODELS);
+export const PROMPT_VERSION = 'cited-primary-research-v2';
 const sections = ['business', 'financial', 'guidance', 'bull', 'bear'];
 const schema = {
   type: 'object', required: ['claims', 'unavailableSections'], additionalProperties: false,
@@ -74,8 +74,9 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
   let active = null;
   async function generate(research) {
     if (!env.GEMINI_API_KEY || env.FINN_AI_FREE_TIER_CONFIRMED !== 'true') throw new AiUnavailable('Gemini is not enabled. Add a key from a billing-disabled project and confirm free-tier use in the server configuration.');
-    const models = (env.FINN_GEMINI_MODELS ?? 'gemini-3.5-flash-lite,gemini-3.1-flash-lite').split(',').map(value => value.trim()).filter(Boolean);
-    if (!models.length || models.length > 3 || models.some(model => !allowedModels.has(model))) throw new AiUnavailable('Configure up to three supported free-tier Gemini models. No paid model fallback is enabled.');
+    let models;
+    try { models = researchModelOrder(modelInventory(env.FINN_GEMINI_MODELS), research.question); }
+    catch { throw new AiUnavailable('Configure supported free-tier text models. Check the model list with npm run configure:ai.'); }
     const limits = { total: limit(env.FINN_AI_TOTAL_DAILY_LIMIT, 20), daily: limit(env.FINN_AI_MODEL_DAILY_LIMIT, 20), hourly: limit(env.FINN_AI_MODEL_HOURLY_LIMIT, 5, 20) };
     const key = createHash('sha256').update(JSON.stringify({ evidenceHash: research.evidenceHash, models, prompt: PROMPT_VERSION })).digest('hex');
     const cachePath = resolve(directory, `${key}.json`);
@@ -96,20 +97,31 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
       ledger.entries = ledger.entries.filter(entry => now() - entry.at < 86400000);
       if ((ledger.projectCooldown ?? 0) > now()) throw new AiUnavailable(`Gemini project allowance is cooling down until ${new Date(ledger.projectCooldown).toISOString()}. Saved evidence and cached notes remain available.`);
       const attempted = new Set();
-      for (let attempt = 0; attempt < models.length; attempt++) {
+      const started = Date.now(); // Wall clock, independent of the injected quota clock.
+      for (let attempt = 0; attempt < Math.min(models.length, 3); attempt++) {
+        const remaining = 45000 - (Date.now() - started);
+        if (remaining <= 0) break;
         const model = selectEligibleModel(models.filter(model => !attempted.has(model)), ledger, now(), limits);
         if (!model) break;
         attempted.add(model);
         ledger.entries.push({ model, at: now() });
         await writeJsonAtomic(ledgerPath, ledger); // Reserve before the request; failures also consume local allowance.
-        let response;
+        let response, body;
+        const gemma = model.startsWith('gemma-');
+        const generationConfig = gemma
+          ? { maxOutputTokens: 2200, temperature: 0.2, thinkingConfig: { thinkingLevel: 'minimal' } }
+          : { responseMimeType: 'application/json', responseJsonSchema: schema, maxOutputTokens: 2200, temperature: 0.2 };
         try {
           response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-            method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY }, signal: AbortSignal.timeout(45000),
-            body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseMimeType: 'application/json', responseJsonSchema: schema, maxOutputTokens: 2200, temperature: 0.2 } }),
+            method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY }, signal: AbortSignal.timeout(Math.min(20000, remaining)),
+            body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: gemma ? `${prompt}\nReturn ONLY JSON, without markdown, matching this schema: ${JSON.stringify(schema)}` : prompt }] }], generationConfig }),
           });
-        } catch { throw new AiUnavailable('Gemini connection failed. No immediate retry was made; your evidence remains available.'); }
-        const body = await response.json().catch(() => null);
+          body = await response.json().catch(error => { if (error.name === 'AbortError' || error.name === 'TimeoutError') throw error; return null; });
+        } catch {
+          ledger.cooldowns[model] = now() + 60000;
+          await writeJsonAtomic(ledgerPath, ledger);
+          continue;
+        }
         if (!response.ok) {
           if ([401, 403, 400].includes(response.status)) throw new AiUnavailable('Gemini rejected the configuration or credentials. No other provider was called.');
           const modelQuota = response.status === 429 && isModelQuota(body);
@@ -121,13 +133,13 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
           throw new AiUnavailable('Gemini quota is unavailable. Project-level or unclear limits are not bypassed with model rotation. Please try later.');
         }
         let value;
-        try { value = JSON.parse(body?.candidates?.[0]?.content?.parts?.filter(part => typeof part.text === 'string').map(part => part.text).join('') ?? ''); }
+        try { value = JSON.parse(body?.candidates?.[0]?.content?.parts?.filter(part => typeof part.text === 'string' && !part.thought).map(part => part.text).join('') ?? ''); }
         catch { throw new AiUnavailable('Gemini did not return a complete research note. No additional model call was made.'); }
         const validated = validateAnalysis(value, evidence);
         const result = { ...validated, model, provider: 'Gemini', promptVersion: PROMPT_VERSION, evidenceHash: research.evidenceHash, generatedAt: new Date(now()).toISOString(), cached: false };
         await writeJsonAtomic(cachePath, result); return result;
       }
-      throw new AiUnavailable('No configured Gemini model has available free allowance. Source evidence remains usable; try later.');
+      throw new AiUnavailable('No configured text model could complete the note within the request and allowance limits. Source evidence remains usable; try later.');
     }
   }
   return { generate };

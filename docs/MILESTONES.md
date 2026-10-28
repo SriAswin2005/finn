@@ -37,6 +37,7 @@ Initial M2 capture had 43 announcements and missing latest closes. Later October
 - [x] Gemini free-tier-only opt-in, backend secrets, bounded context/output, structured claims and evidence/prompt/model cache.
 - [x] Test quote/citation/numeric guards, quota ledger, concurrency and conservative model-specific fallback with simulated responses.
 - [x] Include guidance from both available calls, prefer explicit forward ranges, and retain financial context from both call/annual evidence. Add hidden-input local key setup and persisted project-level cooldowns.
+- [x] Fix setup rejection of larger inventories: validate before secret input, preserve specialist IDs, route supported Gemma/Flash text models and bound timeout/server fallback. Verify with simulated responses; live model quality remains below.
 - [ ] Verify actual Gemini output using the user's billing-disabled project; validate quality and failure behavior.
 - [ ] Verify a supported business/financial snapshot, conditional bull/bear interpretation and guidance-vs-delivery analysis where comparable evidence exists. Mark unsupported outputs unavailable.
 - [ ] Gate: every displayed AI claim has inspected primary support. Exact quotes and numeric checks alone do not prove semantic correctness.

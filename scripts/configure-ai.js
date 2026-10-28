@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { mergeGeminiEnvironment } from '../src/config/ai-env.js';
+import { modelInventory, DEFAULT_MODELS } from '../src/ai/models.js';
 
 async function readOptional(path) {
   try { return await readFile(path, 'utf8'); } catch (error) { if (error.code === 'ENOENT') return null; throw error; }
@@ -44,13 +45,19 @@ async function run() {
   const confirmed = await question('Is this a Gemini project with billing disabled? Type YES to continue: ');
   if (confirmed.trim() !== 'YES') { readline.close(); throw new Error('Cancelled. Nothing saved.'); }
   const models = await question('Free models available in your AI Studio project [gemini-3.5-flash-lite,gemini-3.1-flash-lite]: ');
+  let inventory;
+  try { inventory = modelInventory(models.trim() || DEFAULT_MODELS); }
+  catch (error) { readline.close(); throw error; }
+  console.log(`Research text candidates: ${inventory.text.join(', ')}`);
+  if (inventory.specialist.length) console.log(`Saved for later specialist workflows (not called for research): ${inventory.specialist.join(', ')}`);
+  if (inventory.unverified.length) console.log(`Saved but disabled until verified: ${inventory.unverified.join(', ')}`);
   if (existing) {
     const replace = await question('Update the existing .env Gemini settings while preserving other settings? [y/N]: ');
     if (replace.trim().toLowerCase() !== 'y') { readline.close(); throw new Error('Cancelled. Nothing saved.'); }
   }
   readline.close();
   const key = await hiddenKey();
-  const content = mergeGeminiEnvironment(base, { key, confirmed: true, models: models.trim() || 'gemini-3.5-flash-lite,gemini-3.1-flash-lite' });
+  const content = mergeGeminiEnvironment(base, { key, confirmed: true, models: inventory.all.join(',') });
   // Refuse to overwrite settings edited while the wizard was open.
   if (await readOptional(path) !== existing) throw new Error('.env changed during setup. Nothing saved; run the command again.');
   const temporary = `${path}.${randomUUID()}.tmp`;

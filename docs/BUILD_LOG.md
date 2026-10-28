@@ -37,3 +37,9 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 - Guidance retrieval now preserves both call periods and prefers explicit forward ranges; annual and call financial context are both included. Rebuilt replay excerpts from cached primary documents.
 - Verified NSE's official closing CSV as a fallback for incomplete Yahoo sessions. Exact symbol/series/session, price/volume validation and stock-split safeguards preserve honest calculations and source links. Fresh collection completed all 15 EOD records; two required NSE fallback.
 - Regression suite: 34 passing tests. Local release/progress updated; live model verification still requires the user's Gemini key. No paid or real model requests made.
+
+## October 28, 2026 — Model setup recovery
+- User supplied the exact setup rejection: the wizard had enforced three specific Flash IDs and only checked them after hidden key input. Removed that restriction, moved inventory validation before secret input, and retained the full supplied list without invoking specialist/unknown IDs.
+- Checked Google's official Gemma API and free-tier pricing documentation. Added the two hosted Gemma 4 IDs and current free Flash candidates; no paid fallback. Gemma uses prompt JSON and minimal thinking; all responses retain existing evidence validation.
+- Narrow business questions prefer Gemma; broader research preserves configured Flash order. Transport/server failures receive bounded fallback with at most three calls and a shared 45-second network budget. No automatic retry of invalid analysis or shared project limits.
+- 37 tests pass. No browser changes; live provider verification remains pending rerun of local setup, as the failed run saved no credential.

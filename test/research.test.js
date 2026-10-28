@@ -9,6 +9,7 @@ import { buildEvidence } from '../src/research/evidence.js';
 import { getResearch, parseDocument, ResearchUnavailable } from '../src/research/service.js';
 import { createGeminiProvider, validateAnalysis, selectEligibleModel, retryDeadline, AiUnavailable } from '../src/ai/gemini.js';
 import { mergeGeminiEnvironment } from '../src/config/ai-env.js';
+import { modelInventory, researchModelOrder } from '../src/ai/models.js';
 
 test('discovery accepts arbitrary NSE symbols but only report/transcript evidence links', () => {
   assert.equal(normalizeTicker(' m&m.ns '), 'M&M');
@@ -99,7 +100,20 @@ test('local AI configuration requires explicit free confirmation and preserves u
   assert.match(merged, /FINN_GEMINI_MODELS=gemini-3.5-flash-lite\n/);
   assert.throws(() => mergeGeminiEnvironment(existing, { ...options, confirmed: false }), /billing-disabled/);
   assert.throws(() => mergeGeminiEnvironment(existing, { ...options, key: 'bad\nPORT=9' }), /key format/);
-  assert.throws(() => mergeGeminiEnvironment(existing, { ...options, models: 'unapproved-model' }), /supported model/);
+  assert.throws(() => mergeGeminiEnvironment(existing, { ...options, models: 'gemini-unverified-model' }), /supported model/);
+});
+
+const userModels = 'gemini-3.8-flash,gemini-3.6-flash,gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemma-4-31b-it,gemma-4-26b-a4b-it,gemini-embedding-001,gemini-embedding-2,gemini-2.5-flash-native-audio-preview-12-2025,gemini-3.1-flash-live-preview,gemini-3.5-live-translate-preview,gemini-3.5-transcribe-live,gemini-3.8-live,gemini-3.8-live-extended-thinking';
+test('setup preserves the full user inventory and excludes specialists and unverified models from research', () => {
+  const inventory = modelInventory(userModels + ',gemini-future-model');
+  assert.equal(inventory.all.length, 15); assert.equal(inventory.text.length, 6);
+  assert.equal(inventory.specialist.length, 8); assert.deepEqual(inventory.unverified, ['gemini-future-model']);
+  const content = mergeGeminiEnvironment('', { key: 'dummy_key_123456789012345', confirmed: true, models: userModels });
+  assert.ok(content.includes(`FINN_GEMINI_MODELS=${userModels}\n`));
+  assert.equal(researchModelOrder(inventory, 'Describe its business and products')[0], 'gemma-4-26b-a4b-it');
+  assert.equal(researchModelOrder(inventory, 'Compare financial guidance delivery')[0], 'gemini-3.8-flash');
+  assert.equal(researchModelOrder(inventory, '').length, 6);
+  for (const invalid of ['gemini-3.8-flash\nPORT=9', '../gemini-model', 'gemini-embedding-001', Array.from({ length: 41 }, (_, i) => `gemini-model-${i}`).join(',')]) assert.throws(() => modelInventory(invalid));
 });
 
 function simplePdf() {
@@ -158,6 +172,39 @@ test('Gemini does not rotate around ambiguous project quotas or bad credentials'
       await assert.rejects(restarted.generate({ evidenceHash: 'after-restart', evidence, documents: [], company: 'Other', question: '' }), /cooling down/);
       assert.equal(calls, 1);
     }
+  }
+});
+
+test('Gemma uses prompt JSON, filters thinking, and falls back after transport failure', async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'finn-gemma-')); t.after(() => rm(directory, { recursive: true, force: true }));
+  const calls = [];
+  const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_GEMINI_MODELS: userModels }, fetchImpl: async (url, options) => {
+    calls.push(url);
+    const request = JSON.parse(options.body);
+    assert.equal(request.generationConfig.thinkingConfig.thinkingLevel, 'minimal');
+    assert.equal(request.generationConfig.responseJsonSchema, undefined);
+    assert.match(request.contents[0].parts[0].text, /Return ONLY JSON/);
+    assert.ok(options.signal instanceof AbortSignal);
+    if (calls.length === 1) throw new DOMException('Busy connection', 'TimeoutError');
+    return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ thought: true, text: 'private reasoning' }, { text: JSON.stringify(validAnalysis()) }] } }] }));
+  } });
+  const result = await provider.generate({ evidenceHash: 'gemma', evidence, documents: [], company: 'Test', question: 'Describe the business' });
+  assert.equal(result.model, 'gemma-4-31b-it'); assert.equal(calls.length, 2);
+  assert.match(calls[0], /gemma-4-26b-a4b-it:generateContent$/);
+});
+
+test('large inventory never expands three-attempt bound and invalid evidence is not retried', async t => {
+  for (const invalidOutput of [false, true]) {
+    const directory = await mkdtemp(join(tmpdir(), 'finn-attempts-')); t.after(() => rm(directory, { recursive: true, force: true }));
+    let calls = 0;
+    const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_GEMINI_MODELS: userModels }, fetchImpl: async () => {
+      calls++;
+      if (!invalidOutput) return new Response('{}', { status: 503 });
+      const bad = validAnalysis(); bad.claims[0].text = 'Revenue was 999 million.';
+      return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(bad) }] } }] }));
+    } });
+    await assert.rejects(provider.generate({ evidenceHash: 'bounded', evidence, documents: [], company: 'Test', question: '' }), AiUnavailable);
+    assert.equal(calls, invalidOutput ? 1 : 3);
   }
 });
 
