@@ -64,3 +64,8 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 - User authorized use of the GitHub account configured on the device and creation of a private repository. Git Credential Manager identified SriAswin2005; authentication stayed in memory and was not printed or embedded in URLs.
 - Scanned all nine existing Git commits for the current key and common API/private-key patterns; no findings. Confirmed `.env`, runtime caches, tmp and dist were absent from tracked history.
 - Created https://github.com/SriAswin2005/finn as private and pushed the existing master branch/history without rewriting it. Updated delivery documents. No app deployment, collaborator invitation or email was performed.
+
+## October 28, 2026 — Free hosting assessment
+- Compared official Render, Railway, Koyeb and Hugging Face documentation against FINN's combined Node/Python runtime, private source and persistent cache/quota ledger.
+- Recommended Railway trial conditionally for the complete demo, pending automated account/network eligibility and finite-credit checks. Render Free remains a limited-demo fallback; ephemeral disk cannot preserve local AI caps. Koyeb onboarding/resource limits and new Docker Space paid-plan requirements make them lower priority.
+- Recorded deployment/access prerequisites in HOSTING_ASSESSMENT.md. Documentation-only work; runtime unchanged. No accounts, permissions, secrets, payment methods or hosted resources were created/changed.

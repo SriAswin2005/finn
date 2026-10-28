@@ -53,6 +53,7 @@ Initial M2 capture had 43 announcements and missing latest closes. Later October
 - [x] Verify one strong cited analysis example: INFY business/financial highlight, balanced conditional cases and guidance revision. Do not claim verified guidance delivery.
 - [x] Build local deployable archive with checksum/secret-exclusion checks and packaged HTTP/research smoke test.
 - [x] With user authorization, create private GitHub repository https://github.com/SriAswin2005/finn and push preserved history on master. Credentials/runtime caches are excluded.
+- [x] Assess free hosting against Node/Python, private source and durable quota storage. Conditional recommendation: Railway trial if eligible; Render limited-demo fallback. See docs/HOSTING_ASSESSMENT.md. No host/account/deployment approved yet.
 - [ ] Deploy with user approval, verify hosted API and phone workflow; push repository to GitHub with approval.
 - [ ] Finalize covering note, architecture/tradeoffs, original AI build history and demo steps. Draft prepared locally.
 - [ ] Final reproducible checks and tagged demo checkpoint. Keep November 1 as buffer.
