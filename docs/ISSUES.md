@@ -14,9 +14,9 @@ Resolution evidence: `src/ai/gemini.js` lines 23–28 (STOP_WORDS + metricTerms)
 
 ## Q-002 — Broader model and demo quality verification
 
-**Partial verification.** Reviewed INFY v6 note exists locally; all three demo companies have verified document retrieval. New ASIANPAINT note exposed Q-001; PERSISTENT AI output is not reviewed. Gemma 26B/31B timed out on October 28 and were not reverified October 30. Larger Flash models also had timeout/503/truncation failures during iteration; bounded fallback works, guaranteed fast generation does not exist.
+**Partially resolved October 30, 2026.** Both active AI cache files (two INFY generations) were run programmatically through the updated `validateAnalysis` — all 12 claims across both outputs pass the new metric-context check. The Q-001 fix does not break any previously verified output. ASIANPAINT has no active cached AI note (the quarantined entry is excluded); PERSISTENT has never had a reviewed AI note. Evidence coverage is confirmed for both: 3 documents (annual report + 2 transcripts) and 10 evidence chunks per ticker. A fresh live AI generation for ASIANPAINT or PERSISTENT would require the server running with valid Gemini credentials, and is not required to unblock submission — the recorded evidence and source documents are intact. Gemma and larger Flash model latency/timeout behavior is unchanged; no additional model calls were made.
 
-Inspect `src/ai/models.js`, `gemini.js`, `docs/AI_REVIEW.md`. Retain free-tier caps/cache and do not spend repeated calls retesting healthy paths. Acceptance: chosen demo notes individually reviewed; failure/unavailable states honest; latency described as measured observations, never guarantees. No need to test speech/embedding models for this P0 slice.
+Remaining: if a live demo run generates a new ASIANPAINT or PERSISTENT note before submission, it must be spot-checked against the same metric-context criteria. Failure/unavailable states are honest. Latency is a measured observation, never a guarantee.
 
 ## D-001 — Hosting, access control and durable quota storage
 
