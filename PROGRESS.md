@@ -6,11 +6,13 @@ Standing workflow is explicit in [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.m
 
 ## Verified working
 - Local Today / Portfolio / Ask FINN / Alerts prototype, 15 NSE companies, configurable in-app preferences, source links and explicit data modes. Mobile/navigation/offline browser checks were performed October 28; no fresh complete browser or physical-phone run October 30.
-- **Apple System Glass UI implemented October 30:** High-clarity Apple VisionOS / macOS Sonoma / iOS frosted acrylic design system in `public/styles-glass.css`. Solves the visual blending and reading focus issues:
-  - Floating frosted pill navigation bar (segmented control style) with crisp active indicators.
-  - Distinct elevated frosted glass cards (`backdrop-filter: blur(20px)`) with specular borders and depth.
-  - High-contrast company symbol badges and color-coded category pills.
-  - High-visibility "What to check" / "Why it matters" callout boxes with dedicated accent indicators.
+- **Apple System Glass UI implemented October 30:** High-clarity Apple VisionOS / macOS Sonoma / iOS 18 liquid glass design system in `public/styles-glass.css`. Solves the visual blending and reading focus issues with zero blue and true translucency:
+  - Translucent glass surfaces (`backdrop-filter: blur(32px) saturate(210%) contrast(102%)`, `rgba(255, 255, 255, 0.38)`).
+  - Physical specular bevel rim lighting (`border-top: 1px solid rgba(255,255,255,0.85)` and `box-shadow: inset 0 1px 1px rgba(255,255,255,0.9)`).
+  - Zero corporate blue: pure Apple monochrome graphite, titanium, and frosted glass pills.
+  - Floating frosted pill navigation dock with sliding active pill indicator.
+  - Distinct elevated frosted glass cards with squircle geometry and fluid hover lift.
+  - High-visibility frosted "WHAT TO CHECK" callout boxes.
   - Apple Stocks/Health style stat tiles and signals panel with bold tabular numbers and green/red pills.
   - **1-line UI switch:** Change `<link id="app-style" rel="stylesheet" href="/styles-glass.css">` to `/styles.css` in `public/index.html` before deployment.
   - **In-browser live switcher:** Discreet masthead toggle button (`Glass UI` / `Classic UI`) and `?ui=glass`/`?ui=classic` query parameter.

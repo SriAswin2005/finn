@@ -140,7 +140,8 @@ Keyword excerpts are not verified financial conclusions or a comparable-period p
 - Current limits: Docker daemon is stopped on host; container image remains prepared but unbuilt. Physical-phone HTTPS installation, hosted deployment, reviewer GitHub access and AI export links remain pending user approval.
 
 ## October 30 Apple System Glass UI verification
-- Implemented `public/styles-glass.css` providing an Apple visionOS / macOS Sonoma / iOS 18 frosted acrylic design system (`backdrop-filter: blur(20px)`), high-contrast badges, distinct card containers, and dedicated insight callout blocks.
+- Implemented `public/styles-glass.css` providing an authentic Apple visionOS / macOS Sonoma / iOS 18 liquid glass design system (`backdrop-filter: blur(32px) saturate(210%) contrast(102%)`), true translucency (`rgba(255,255,255,0.38)`), specular top rim highlights (`border-top: 1px solid rgba(255,255,255,0.85)` with `box-shadow: inset 0 1px 1px rgba(255,255,255,0.9)`), and organic canvas depth.
+- Zero corporate blue: replaced all blue accents with pure Apple monochrome graphite, titanium, and frosted glass pills.
 - One-line switch: Changing `<link id="app-style" rel="stylesheet" href="/styles-glass.css">` to `/styles.css` in `public/index.html` switches back to the classic editorial paper style.
 - In-browser live switcher: Added `#theme-toggle` button in the masthead and `?ui=glass`/`?ui=classic` query support in `public/app.js`, persisting user choice in browser localStorage.
 - Offline shell: Updated service worker cache in `public/sw.js` to `finn-shell-v5`, caching both stylesheets so offline fallback works seamlessly under either UI.
