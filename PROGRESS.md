@@ -17,3 +17,5 @@ Deadline: November 1, 2026. Aim to finish the reliable core by October 31 (IST).
 - GitHub private publication is authorized and complete. External application deployment and email still require user approval. Keep original AI chat exports/share links for submission; private repository access must be arranged for reviewers before final delivery.
 
 Details: docs/SPEC.md, docs/MILESTONES.md, docs/VERIFICATION.md and docs/BUILD_LOG.md.
+
+October 30 audit: **not all PDF capabilities are implemented or verified**. All 40 tests, syntax and packaged-release checks pass. Fresh ingestion succeeds (15/15 October 29 EOD records, 55 portfolio filings) and cold TCS research succeeds. New ASIANPAINT AI output exposed missing metric context in an attached guidance citation; the audit-generated note is quarantined, but the semantic validation gap is not fixed. Automatic monitoring, structured quarterly results, biographies, four-quarter delivery, broader financial workflows and final delivery gates remain missing/partial. Full matrix: docs/REQUIREMENTS_AUDIT_2026-10-30.md.

@@ -41,6 +41,7 @@ Initial M2 capture had 43 announcements and missing latest closes. Later October
 - [x] Verify actual Gemini output using the user's billing-disabled project; validate quality and failure behavior. Flash-Lite returned the reviewed INFY note in 6.5 seconds; timeout, busy-server, truncated, numeric and quote errors were observed and rejected during live iteration.
 - [x] Verify a supported business/financial snapshot and conditional bull/bear interpretation. INFY's earlier/later guidance is cited separately; full-year guidance delivery remains explicitly unverified because matching outcome evidence is not established.
 - [x] Gate for the reviewed INFY example: all six displayed AI claims inspected against primary support. Browser verified server-resolved quotes, PDF page links and cache reuse. This is not a quality guarantee for arbitrary future generations; see docs/AI_REVIEW.md.
+- [ ] October 30 audit follow-up: correct/reject missing metric context in ASIANPAINT's generated guidance citation and broaden demo semantic review. The new failed-review cache entry was quarantined; existing quote/numeric guards do not fix this gap. See REQUIREMENTS_AUDIT_2026-10-30.md.
 
 ## P0 navigation and alert preferences
 - [x] Today / Portfolio / Ask FINN / Alerts with portfolio-to-research links.

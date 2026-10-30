@@ -69,3 +69,9 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 - Compared official Render, Railway, Koyeb and Hugging Face documentation against FINN's combined Node/Python runtime, private source and persistent cache/quota ledger.
 - Recommended Railway trial conditionally for the complete demo, pending automated account/network eligibility and finite-credit checks. Render Free remains a limited-demo fallback; ephemeral disk cannot preserve local AI caps. Koyeb onboarding/resource limits and new Docker Space paid-plan requirements make them lower priority.
 - Recorded deployment/access prerequisites in HOSTING_ASSESSMENT.md. Documentation-only work; runtime unchanged. No accounts, permissions, secrets, payment methods or hosted resources were created/changed.
+
+## October 30, 2026 — Original-document audit
+- User requested an honest full feature check. Re-read both original PDFs and mapped every described capability, distinguishing required delivery/source/generalization items from illustrative menu features.
+- Syntax, 40 tests and packaged-release verification passed. Refreshed stale ignored live data successfully; tested current HTTP responses and a cold generic TCS lookup. Recorded replay remained unchanged.
+- One new ASIANPAINT free-tier note exposed insufficient metric context in its supporting quote despite passing mechanical guards. Reported immediately, quarantined only that newly generated cache entry, and left semantic validation explicitly open. No source-code changes or claim that all functionality is complete.
+- Added REQUIREMENTS_AUDIT_2026-10-30.md and updated milestones/progress. Missing automatic monitoring, financial workflows and delivery tasks are listed precisely.
