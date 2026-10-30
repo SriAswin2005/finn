@@ -257,4 +257,27 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').cat
   // Online operation remains available if the browser blocks offline support.
   $('status').textContent += ' Offline support could not be enabled.';
 });
+function initTheme() {
+  const link = $('app-style');
+  const toggle = $('theme-toggle');
+  if (!link) return;
+  const urlParam = new URLSearchParams(location.search).get('ui');
+  let currentTheme = urlParam || localStorage.getItem('finn.theme') || (link.getAttribute('href').includes('glass') ? 'glass' : 'classic');
+  function applyTheme(theme, save = true) {
+    currentTheme = theme;
+    const href = theme === 'glass' ? '/styles-glass.css' : '/styles.css';
+    link.setAttribute('href', href);
+    if (toggle) toggle.textContent = theme === 'glass' ? 'Glass UI' : 'Classic UI';
+    if (save) {
+      try { localStorage.setItem('finn.theme', theme); } catch {}
+    }
+  }
+  applyTheme(currentTheme, false);
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      applyTheme(currentTheme === 'glass' ? 'classic' : 'glass', true);
+    });
+  }
+}
+initTheme();
 loadBriefing();
