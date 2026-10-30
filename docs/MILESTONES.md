@@ -2,6 +2,8 @@
 
 Dates are targets in IST; finish the core before November 1, 2026.
 
+Start new sessions with [HANDOFF.md](../HANDOFF.md). This checklist records bounded milestones, not universal feature correctness. [ISSUES.md](ISSUES.md) owns unresolved failures and acceptance criteria; newer audit findings can reopen quality work even when an earlier example's gate is checked. In particular, Q-001 remains open despite the reviewed INFY example.
+
 ## M0 — Environment and plan (October 28)
 - [x] Read both challenge PDFs, choose product scope and write project instructions.
 - [x] Verify Node 24.16.0, npm 11.13.0, Python 3.12.10 and Git 2.53.0.windows.2 on PATH.

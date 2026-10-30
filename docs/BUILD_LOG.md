@@ -75,3 +75,9 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 - Syntax, 40 tests and packaged-release verification passed. Refreshed stale ignored live data successfully; tested current HTTP responses and a cold generic TCS lookup. Recorded replay remained unchanged.
 - One new ASIANPAINT free-tier note exposed insufficient metric context in its supporting quote despite passing mechanical guards. Reported immediately, quarantined only that newly generated cache entry, and left semantic validation explicitly open. No source-code changes or claim that all functionality is complete.
 - Added REQUIREMENTS_AUDIT_2026-10-30.md and updated milestones/progress. Missing automatic monitoring, financial workflows and delivery tasks are listed precisely.
+
+## October 30, 2026 — Maintainer/AI handoff
+- Added root HANDOFF.md with product intent, reading order, authority rules, feature/verification matrix, architecture-to-file map, setup, permission boundaries and next slice.
+- Added docs/ISSUES.md with stable issue IDs, actual failure reproduction and acceptance criteria; added a copyable new-session prompt. Linked entry points from AGENTS.md, README.md and specifications/milestones.
+- Reconciled PROGRESS.md into current state, distinguishing refreshed live data from intentional recorded replay, historical test counts from the current suite, and passing mechanical checks from open semantic quality issues. No unmerged Git files at start; no runtime feature or AI fix claimed.
+- Included HANDOFF.md in release packaging so an extracted archive has the same continuation context as a clone. Credentials, caches and local captures remain excluded.

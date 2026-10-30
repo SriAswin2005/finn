@@ -2,6 +2,8 @@
 
 A briefing-first, mobile-first financial intelligence PWA for the ENAM AI Engineer challenge.
 
+**New maintainer or AI session:** start with [HANDOFF.md](HANDOFF.md), then [PROGRESS.md](PROGRESS.md) and [current issues](docs/ISSUES.md). They cover intent, implementation map, verified/partial/missing behavior, open failures, permissions and next steps. Use the [copyable continuation prompt](docs/CONTINUATION_PROMPT.md) for tools that do not automatically read AGENTS.md. The [October 30 audit](docs/REQUIREMENTS_AUDIT_2026-10-30.md) contains the full PDF feature matrix. Passing tests do not resolve the open AI citation-context issue.
+
 ## Run
 
 Requires Node 24.16.0 or newer. The recorded briefing and three research examples run without installation or an API key. New PDF collection also needs Python 3.12+ and one dependency:
@@ -24,7 +26,7 @@ npm test
 
 ## Current milestone
 
-M3A / prototype 0.3: Today, Portfolio, Ask FINN and Alerts. Public data travels through normalized snapshots and deterministic ranking/signals to the briefing. Generic research discovers annual reports and earnings-call transcripts, extracts physical PDF pages and returns cited excerpts. Captured examples: INFY, ASIANPAINT and PERSISTENT. HCLTECH was also verified through a cold on-demand lookup outside that set.
+Prototype 0.3 has local Today, Portfolio, Ask FINN and Alerts, plus one reviewed AI example; delivery and broader AI quality remain incomplete. Public data travels through normalized snapshots and deterministic ranking/signals to the briefing. Generic research discovers annual reports and earnings-call transcripts, extracts physical PDF pages and returns cited excerpts. Captured examples: INFY, ASIANPAINT and PERSISTENT. HCLTECH and TCS were verified through cold on-demand lookups outside that set. See current handoff/issues rather than treating this milestone label as full completion.
 
 Node/frontend runtime dependencies remain zero; PDF parsing uses `pypdf==6.10.0`. One live Gemini Flash-Lite INFY note is reviewed and browser verified, with server-resolved source quotes, page citations, balanced cases and cache reuse. A fresh checkout still needs its own authorized free-tier key; runtime AI caches are not shipped. Guidance revision is supported; comparable full-year delivery remains unverified. See docs/AI_REVIEW.md.
 

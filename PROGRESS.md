@@ -1,21 +1,28 @@
-# FINN progress
+# FINN current progress
 
-Deadline: November 1, 2026. Aim to finish the reliable core by October 31 (IST).
+Last reconciled October 30, 2026 (IST). Deadline: November 1. Start with [HANDOFF.md](HANDOFF.md); working rules are in [AGENTS.md](AGENTS.md). This is current status, not a chronological log.
 
-- M0–M2 complete: local responsive PWA, 15-company briefing, Yahoo/NSE ingestion, recorded source replay, price/volume alert rules and 16 passing tests. Git checkpoint: 44bcd81.
-- M3A verified: generic NSE document discovery, page citations, three recorded examples and cold HCLTECH lookup. Guidance now includes both available calls; financial retrieval balances call/annual context. 34 tests pass.
-- P0 navigation verified: Today / Portfolio / Ask FINN / Alerts, portfolio research links, category/threshold preferences and pause control. Narrow phone, portrait/landscape and desktop checks completed.
-- M3B live example verified: Flash-Lite produced a reviewed six-claim INFY note in about 6.5 seconds. Browser displays exact server-resolved quotes, physical-page citations, conditional bull/bear labels and cache reuse. Source quote IDs, thinking controls and truncated-output rejection are implemented. The suite now has 40 tests. See docs/AI_REVIEW.md; arbitrary future output is not certified by this one example.
-- Latest data: October 27 EOD complete for all 15 companies; official NSE fallback filled two missing Yahoo rows. Current replay contains 44 filings and two default market signals, with no source warnings.
-- AI credentials resolved: after the user edited `.env` manually, Google's model-list API accepted the saved key and listed all six configured text candidates. Only free-tier use is authorized. Earlier invalid-key attempts produced no note. Both Gemma models timed out during live checks; their availability is confirmed, inference quality/latency is not.
-- Resolved EADDRINUSE by identifying and replacing only the earlier FINN server. The current server at http://127.0.0.1:3000 loads the corrected key and verified implementation. Clear Ctrl+C / npm start guidance is documented.
-- Corrected setup's three-model restriction. Up to 40 inventory IDs are preserved, excluding specialist/unverified candidates from research. Small business questions try Gemma 26B then Flash-Lite; concise general research prefers Flash-Lite. Fallback retains three-attempt/45-second network bounds and never bypasses a shared project limit. Guidance revisions are supported; comparable full-year delivery remains explicitly unverified.
-- Release archive and checksum/secret-exclusion/packaged HTTP checks pass. Private source repository created and pushed with user approval: https://github.com/SriAswin2005/finn (master). Container recipe prepared but Docker engine stopped; no image verification claimed. HTTPS hosting and physical-phone verification remain pending.
-- Local offline recovery verified: updated shell opens with the server stopped and clearly reports unavailable research; restarting restores evidence and the reviewed cached note. API responses are never silently replaced by fixtures or offline cache. Phone HTTPS installation remains pending.
-- Free hosting assessed against current official documentation: Railway trial is the preferred full-demo candidate if eligible; Render Free is a limited-demo fallback. Ephemeral hosting would reset the local AI ledger, so hosted live AI needs durable storage and approved reviewer access. No hosting account created, app deployed or secret transferred. See docs/HOSTING_ASSESSMENT.md.
-- Preserve the current modular Node/browser implementation. Add only a PDF parsing dependency with a concrete purpose. Suggested React/FastAPI stack is optional in the user's briefing, not a migration requirement.
-- GitHub private publication is authorized and complete. External application deployment and email still require user approval. Keep original AI chat exports/share links for submission; private repository access must be arranged for reviewers before final delivery.
+## Verified working
+- Local Today / Portfolio / Ask FINN / Alerts prototype, 15 NSE companies, configurable in-app preferences, source links and explicit data modes. Mobile/navigation/offline browser checks were performed October 28; no fresh complete browser or physical-phone run October 30.
+- October 30: syntax, all **40 tests**, and packaged-release checks pass. No known unmerged Git files at handoff; recheck the working tree before editing.
+- Manual live ingestion succeeded October 30 at 15:59 IST: 15/15 October 29 EOD records and 55 portfolio filings. Recorded replay is deliberately separate: October 28 capture, October 27 closes, 44 filings. Neither is a continuous monitoring service; freshness must be checked again when resuming.
+- Three recorded primary-document examples: INFY, ASIANPAINT, PERSISTENT. Generic cold HCLTECH and TCS retrieval verified, with TCS tested October 30.
+- One INFY six-claim AI example reviewed; exact server-owned quotes, PDF pages, conditional cases and cache reuse verified. Gemini free-tier key accepted after manual local configuration. No universal AI accuracy or latency claim.
+- Private source repository created/pushed with approval: https://github.com/SriAswin2005/finn, master. Local deployable archive verified; secrets/caches excluded.
 
-Details: docs/SPEC.md, docs/MILESTONES.md, docs/VERIFICATION.md and docs/BUILD_LOG.md.
+## Open failures and incomplete work
+- **Q-001:** new ASIANPAINT guidance note passed numeric/quote guards without its attached quote establishing the claimed volume metric. Only that audit-generated cache entry is quarantined. The validation gap is **not fixed**. See [ISSUES.md](docs/ISSUES.md) for reproduction, files and acceptance criteria.
+- Broader AI semantic review is partial. Gemma models previously timed out; PERSISTENT AI is not reviewed. INFY guidance revision is supported, full-year/four-quarter delivery is not.
+- Automatic ingestion/watch/notifications, quarterly financial extraction/comparisons, biographies and dedicated balance-sheet/cash-quality/multi-year workflows are absent or partial. Voice/native/on-device features remain deferred. See the [full audit](docs/REQUIREMENTS_AUDIT_2026-10-30.md).
+- Hosted access control, durable hosted quota storage, container execution, HTTPS phone installation and final submission are incomplete/unverified. Dockerfile exists; a passing Node archive does not verify Docker.
+- No host selected or deployment approved. [Hosting assessment](docs/HOSTING_ASSESSMENT.md): conditional Railway trial candidate; Render limited-demo fallback. No hosting account, secret transfer or app publication performed.
 
-October 30 audit: **not all PDF capabilities are implemented or verified**. All 40 tests, syntax and packaged-release checks pass. Fresh ingestion succeeds (15/15 October 29 EOD records, 55 portfolio filings) and cold TCS research succeeds. New ASIANPAINT AI output exposed missing metric context in an attached guidance citation; the audit-generated note is quarantined, but the semantic validation gap is not fixed. Automatic monitoring, structured quarterly results, biographies, four-quarter delivery, broader financial workflows and final delivery gates remain missing/partial. Full matrix: docs/REQUIREMENTS_AUDIT_2026-10-30.md.
+## Continue next
+1. Fix/reject Q-001 with a meaningful regression and source review, without loosening evidence checks.
+2. Review the chosen demo analyses and preserve unsupported outputs explicitly.
+3. Obtain remaining host/access approval; verify container, persistence, HTTPS and phone behavior after deployment.
+4. Finish reviewer GitHub access, original AI conversation exports, covering note and final demo checkpoint. No email sent.
+
+Keep the modular Node/browser runtime and pinned Python parser. Free-tier Gemini and ongoing private source pushes are authorized; paid use, external deployment/authentication/access grants, secret transfer and email are not approved. Credentials and runtime caches do not travel with Git. Never assume the local server is running or data is fresh from this document alone.
+
+Details: [specification](docs/SPEC.md), [milestones](docs/MILESTONES.md), [verification](docs/VERIFICATION.md), [issues](docs/ISSUES.md), [historical build log](docs/BUILD_LOG.md).

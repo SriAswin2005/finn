@@ -2,6 +2,8 @@
 
 Build a reliable mobile-first briefing PWA for the ENAM AI Engineer challenge, due November 1, 2026. Read docs/SPEC.md and docs/MILESTONES.md before changing scope. Work locally unless deployment is requested.
 
+Start a new session with HANDOFF.md, PROGRESS.md and docs/ISSUES.md before opening implementation files. HANDOFF.md maps the relevant slice to its files; avoid a full repository scan. Read docs/REQUIREMENTS_AUDIT_2026-10-30.md for exhaustive coverage, not as proof every item is complete. Update current status/issue evidence at handoff; historical logs never override a newer open finding. Private GitHub publication and billing-disabled Gemini free-tier use are already authorized; other external actions still need approval.
+
 - Finish one small vertical slice at a time. Verify it, update PROGRESS.md and the milestone checklist, and commit. Continue to the next approved P0 milestone when safe; do not stop solely at a checkpoint.
 - Keep the runtime dependency-free while the core fits Node and browser APIs. Justify new dependencies by a concrete need. Do not migrate frameworks for polish.
 - Keep UI, HTTP routes, domain rules and data providers separate. Providers must return normalized records; domain rules must be independently testable.
