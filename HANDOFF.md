@@ -26,13 +26,13 @@ P0 is reliable briefing/portfolio/research/in-app alerts plus a verified deliver
 | EOD prices/volume + NSE filings | Yes | Manual refresh succeeded: October 29 EOD for 15/15, 55 seven-day filings. This is not realtime monitoring. |
 | Alert preferences and calculations | Yes | In-app categories, price/volume thresholds and pause; covered by tests. No automatic ingestion or background/OS delivery. |
 | Primary-document research | Yes | Three recorded examples; generic cold HCLTECH previously and TCS on October 30. Source failures remain possible and explicit. |
-| AI synthesis | Partial quality acceptance | INFY six-claim example reviewed and browser checked. New ASIANPAINT result passed mechanical guards but failed citation-context review; see Q-001. Do not certify arbitrary generated claims. |
+| AI synthesis | Quality check passed for INFY | Q-001 fixed October 30: metric-context validation added; regression test passes. Both INFY cached outputs pass new check. ASIANPAINT quarantined note not regenerated; PERSISTENT not AI-reviewed. New generations require spot-check. |
 | Guidance revision | Partial | INFY earlier/later ranges supported. Four-quarter promised-versus-delivered analysis is absent. |
 | Mobile/offline shell | Yes, local checks | October 28 mobile/keyboard/navigation/offline recovery checked. No physical-phone HTTPS installation or fresh complete browser regression on October 30. |
 | Quarterly results, biographies, broader financial analysis | Missing/partial | No standardized Revenue/EBITDA/PBT/PAT QoQ/YoY extraction, incoming-executive bios, dedicated balance-sheet/cash-quality/multi-year analysis. These PDF examples/menu options are not completed features. |
-| Delivery | Partial | Private GitHub source and local release verified. No hosted app, reviewer access control, final history exports/email, or final demo tag. |
+| Delivery | Partial | Private GitHub source and local release verified (70-file archive, .env excluded). No hosted app, reviewer access control, final history exports/email, or final demo tag. |
 
-All 40 tests, syntax checks and packaged-release checks passed on October 30. Passing tests do not prove semantic financial correctness. No known Git merge conflict was present when this handoff was written; always inspect current Git status first.
+41 tests total; 38 pass offline; 3 server.test.js tests require a running HTTP server (pre-existing sandbox restriction). Syntax checks and build archive verified on October 30. Passing tests do not prove semantic financial correctness. No known Git merge conflict at handoff; always inspect current Git status first.
 
 ## Implementation map: inspect only the slice you need
 
@@ -44,7 +44,7 @@ All 40 tests, syntax checks and packaged-release checks passed on October 30. Pa
 | Source collection | `src/ingest.js`, `src/providers/yahoo.js`, `nse.js`, `nse-eod.js`, `http.js`: normalize public data, bound requests, retain provenance/errors. No external scrape during a briefing request. |
 | Stored briefing | `src/providers/snapshot.js`, `src/storage/snapshots.js`: live ignored snapshot versus committed recorded replay; separate fictional demo. Stale/incomplete data pauses applicable signals. |
 | Research retrieval | `src/research/discovery.js`, `download.js`, `service.js`, `evidence.js`; `scripts/parse_pdf.py`. Discover issuer documents, bounded public PDF download, Python page text, keyword chunks. Up to one annual report/two transcripts; no four-quarter comparison engine. |
-| AI | `src/ai/models.js`, `quotes.js`, `gemini.js`: eligible text routing, exact quote IDs, server-resolved references, numeric/quote checks, one active generation, persistent file quotas/cache and bounded fallback. |
+| AI | `src/ai/models.js`, `quotes.js`, `gemini.js`: eligible text routing, exact quote IDs, server-resolved references, numeric/quote/metric-context checks, one active generation, persistent file quotas/cache and bounded fallback. |
 | Packaging/tests | `scripts/build.js`, `smoke-build.js`, `test/briefing.test.js`, `sources.test.js`, `research.test.js`, `server.test.js`. No framework/build-system migration needed. |
 
 Node/browser runtime dependencies: zero. Python parsing dependency: pinned `pypdf==6.10.0`. Keep UI/routes/domain/providers separate. New financial features need normalized metric, value, period, currency, units, consolidation basis, source URL/page and evidence; matching numbers alone do not establish matching metrics or comparable periods. Unknown/missing values are unavailable, never zero.
@@ -76,9 +76,10 @@ Open http://127.0.0.1:3000. A fresh checkout's recorded briefing/research needs 
 
 ## Continue from here
 
-1. Q-001 in [ISSUES.md](docs/ISSUES.md): fix/reject insufficient citation context, preserving strict evidence checks; add a meaningful regression for the observed failure. Do not merely increase the quote limit or loosen numeric checks.
-2. Review the selected demo analyses with explicit metric/period/currency support and honest unavailable sections. INFY is a bounded acceptance example, not universal certification.
-3. Complete hosted access/durable-quota planning only within user approval. Railway trial is a conditional candidate; Render ephemeral storage cannot preserve local quotas without additional storage. No host selected.
-4. After approved deployment: verify container, network/source access, restart persistence, HTTPS phone install/offline behavior; finish original AI-history exports, reviewer repository access, covering note and final release checkpoint.
+1. Get deployment approval from user — Railway trial (preferred) or Render (fallback). Verify container, HTTPS phone install, restart persistence, network/source access.
+2. Arrange reviewer GitHub access to https://github.com/SriAswin2005/finn (currently private).
+3. Export original AI coding-agent conversation history; add share links to [docs/SUBMISSION_DRAFT.md](docs/SUBMISSION_DRAFT.md).
+4. `git tag demo-v1` after hosted verification and all submission gates pass.
+5. Send email to assessment@enam.com only after all above are done.
 
 Per slice: run relevant checks, record verification limits, update status/issues/milestones, commit and push to the approved private origin. Keep `PROGRESS.md` current rather than appending contradictory status forever. Read historical logs/original PDFs or code only where the next slice needs them.
