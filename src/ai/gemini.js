@@ -20,6 +20,13 @@ const schema = {
 };
 export class AiUnavailable extends Error {}
 const normalized = value => value.replace(/\s+/g, ' ').trim();
+// Stop words too generic to establish metric context even when matched.
+const STOP_WORDS = new Set(['about', 'above', 'after', 'again', 'against', 'being', 'between', 'business', 'claim', 'company', 'compared', 'during', 'fiscal', 'following', 'growth', 'guidance', 'having', 'outlook', 'period', 'reported', 'reporting', 'revised', 'section', 'since', 'target', 'their', 'these', 'those', 'through', 'under', 'which', 'while', 'within', 'without', 'would']);
+// Extract meaningful metric-identifying terms: lower-cased alpha words >=5 chars, not stop words.
+function metricTerms(text) {
+  return [...new Set((text.match(/[a-zA-Z]{5,}/g) ?? []).map(w => w.toLowerCase()).filter(w => !STOP_WORDS.has(w)))];
+}
+
 export function validateAnalysis(value, evidence) {
   if (!value || !Array.isArray(value.claims) || !Array.isArray(value.unavailableSections) || value.claims.length > 8 || value.unavailableSections.some(section => !sections.includes(section))) throw new AiUnavailable('AI output did not match the research contract.');
   const byId = new Map(evidence.map(item => [item.id, item]));
@@ -33,6 +40,13 @@ export function validateAnalysis(value, evidence) {
     const quoteNumbers = new Set((claim.references.map(ref => ref.quote).join(' ').match(/\d[\d,.]*/g) ?? []).map(number => number.replaceAll(',', '').replace(/\.$/, '')));
     const numbers = (claim.text.match(/\d[\d,.]*/g) ?? []).map(number => number.replaceAll(',', '').replace(/\.$/, ''));
     if (numbers.some(number => !quoteNumbers.has(number))) throw new AiUnavailable('AI output introduced a number absent from its quoted evidence.');
+    // Q-001: verify that the claim's key metric terms appear in its combined quote text.
+    // Sharing numbers with a quote that names a different metric does not support the claim.
+    const combinedQuotes = claim.references.map(ref => ref.quote).join(' ').toLowerCase();
+    const claimTerms = metricTerms(claim.text);
+    if (claimTerms.length > 0 && !claimTerms.some(term => combinedQuotes.includes(term))) {
+      throw new AiUnavailable('AI citation does not establish the metric context of its claim. No generated analysis has been published.');
+    }
   }
   const covered = new Set(value.claims.map(claim => claim.section));
   return { claims: value.claims, unavailableSections: sections.filter(section => !covered.has(section)) };

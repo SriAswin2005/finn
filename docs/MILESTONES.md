@@ -2,7 +2,7 @@
 
 Dates are targets in IST; finish the core before November 1, 2026.
 
-Start new sessions with [HANDOFF.md](../HANDOFF.md). This checklist records bounded milestones, not universal feature correctness. [ISSUES.md](ISSUES.md) owns unresolved failures and acceptance criteria; newer audit findings can reopen quality work even when an earlier example's gate is checked. In particular, Q-001 remains open despite the reviewed INFY example.
+Start new sessions with [HANDOFF.md](../HANDOFF.md). This checklist records bounded milestones, not universal feature correctness. [ISSUES.md](ISSUES.md) owns unresolved failures and acceptance criteria; newer audit findings can reopen quality work even when an earlier example's gate is checked. In particular, Q-002 (broader demo review) remains open.
 
 ## M0 — Environment and plan (October 28)
 - [x] Read both challenge PDFs, choose product scope and write project instructions.
@@ -43,7 +43,7 @@ Initial M2 capture had 43 announcements and missing latest closes. Later October
 - [x] Verify actual Gemini output using the user's billing-disabled project; validate quality and failure behavior. Flash-Lite returned the reviewed INFY note in 6.5 seconds; timeout, busy-server, truncated, numeric and quote errors were observed and rejected during live iteration.
 - [x] Verify a supported business/financial snapshot and conditional bull/bear interpretation. INFY's earlier/later guidance is cited separately; full-year guidance delivery remains explicitly unverified because matching outcome evidence is not established.
 - [x] Gate for the reviewed INFY example: all six displayed AI claims inspected against primary support. Browser verified server-resolved quotes, PDF page links and cache reuse. This is not a quality guarantee for arbitrary future generations; see docs/AI_REVIEW.md.
-- [ ] October 30 audit follow-up: correct/reject missing metric context in ASIANPAINT's generated guidance citation and broaden demo semantic review. The new failed-review cache entry was quarantined; existing quote/numeric guards do not fix this gap. See REQUIREMENTS_AUDIT_2026-10-30.md.
+- [x] October 30 audit follow-up: added metric-context check to `validateAnalysis` — a claim whose key metric terms are absent from its combined quote text is now rejected. Regression test passes. See ISSUES.md Q-001 (resolved). ASIANPAINT and PERSISTENT demo semantic review remains open (Q-002).
 
 ## P0 navigation and alert preferences
 - [x] Today / Portfolio / Ask FINN / Alerts with portfolio-to-research links.

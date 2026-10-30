@@ -144,6 +144,33 @@ test('AI validation rejects invented citations, quotes and numbers', () => {
   const badNumber = validAnalysis(); badNumber.claims[0].text = 'Revenue was 999 million.'; assert.throws(() => validateAnalysis(badNumber, evidence), /number absent/);
 });
 
+test('Q-001 regression: citation that shares a number but omits the claimed metric is rejected', () => {
+  // Minimal reproduction from ISSUES.md: claim asserts "8-10% volume growth for FY27"
+  // but its only attached quote says the range for FY27 without mentioning "volume".
+  // Numeric membership passes (8, 10 present in quote); metric context must now fail.
+  const q001Evidence = [{ id: 'eq1', documentId: 'dq', page: 4, text: 'At the current stage, we are looking at the band of 8-10% for the full FY27. This is based on channel checks.' }];
+  const missingMetric = {
+    claims: [{ section: 'guidance', text: 'Management guided 8-10% volume growth for FY27.', inference: false,
+      references: [{ evidenceId: 'eq1', quote: 'we are looking at the band of 8-10% for the full FY27' }] }],
+    unavailableSections: [],
+  };
+  assert.throws(() => validateAnalysis(missingMetric, q001Evidence), /metric context/, 'claim with volume absent from quote must be rejected');
+  // A well-cited claim that includes the metric term in its quote must still pass.
+  const correctCitation = {
+    claims: [{ section: 'guidance', text: 'Management guided 8-10% volume growth for FY27.', inference: false,
+      references: [{ evidenceId: 'eq1', quote: 'we are looking at the band of 8-10% for the full FY27. This is based on channel checks.' }] }],
+    unavailableSections: [],
+  };
+  // Extend evidence text so the full quote is a valid substring
+  const extEvidence = [{ id: 'eq1', documentId: 'dq', page: 4, text: 'At the current stage, we are looking at the band of 8-10% for the full FY27. This is based on channel checks. Volume growth assumptions are on track.' }];
+  const validVolumeCitation = {
+    claims: [{ section: 'guidance', text: 'Management guided 8-10% volume growth for FY27.', inference: false,
+      references: [{ evidenceId: 'eq1', quote: 'we are looking at the band of 8-10% for the full FY27. This is based on channel checks. Volume growth assumptions' }] }],
+    unavailableSections: [],
+  };
+  assert.doesNotThrow(() => validateAnalysis(validVolumeCitation, extEvidence), 'quote containing the metric term must pass');
+});
+
 test('Gemini uses cached results, bounded model fallback and durable local quota', async t => {
   const directory = await mkdtemp(join(tmpdir(), 'finn-ai-')); t.after(() => rm(directory, { recursive: true, force: true }));
   let calls = 0;
