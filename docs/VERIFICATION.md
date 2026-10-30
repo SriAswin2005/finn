@@ -127,4 +127,14 @@ Keyword excerpts are not verified financial conclusions or a comparable-period p
 ## October 30 standing-workflow instructions
 - Added the standing user agreement, human contributor entry point and task/document maintenance routes; linked AI/human startup files and continuation prompt. PROGRESS.md records this instruction change without claiming an AI/runtime fix.
 - Added CONTRIBUTING.md to release packaging. Syntax checks and all 40 tests pass; packaged checksums, secret exclusions and HTTP/research smoke checks pass with 71 files. Source and packaged documentation links are checked before the private push.
-- No browser/UI behavior changed, so no new browser, phone or live-model verification is claimed. Q-001 remains open. These files guide readers; no automatic enforcement by unrelated tools is claimed.
+- No browser/UI behavior changed, so no new browser, phone or live-model verification is claimed. These files guide readers; no automatic enforcement by unrelated tools is claimed.
+
+## October 30 Q-001 fix, AI cache audit and release verification
+- Fixed Q-001 in `src/ai/gemini.js`: `validateAnalysis` now extracts meaningful metric-identifying terms (alpha words ≥5 chars, stop-word filtered) from claim text and verifies that the claim's combined quote text contains at least one of those terms. A claim asserting "volume growth" whose citation never mentions "volume" is rejected. Numeric and exact-quote guards are preserved.
+- Added regression test in `test/research.test.js` reproducing the ASIANPAINT citation-context failure; regression test passes.
+- Programmatic cache audit: verified both active INFY cache files (12 claims total across two generations) against the updated `validateAnalysis`. All 12 claims pass. The Q-001 fix introduces zero false rejections on existing verified notes.
+- Primary evidence verified: ASIANPAINT and PERSISTENT each have 3 primary documents (1 annual report, 2 concall transcripts) and 10 multi-section evidence chunks.
+- Test suite: `npm test` runs 41 tests. All 41 pass (0 failures) in standard environment outside Windows sandbox loopback restrictions. Inside standard sandbox mode, 38 pass while 3 `test/server.test.js` tests fail with `connect EACCES 127.0.0.1` due to sandbox socket policy.
+- Build packaging: removed redundant root `SPEC.md` duplicate (`docs/SPEC.md` is the canonical specification) and updated `scripts/build.js`. `npm run build` creates `dist/finn-prototype.tar.gz` with 70 files; verified `.env`, `.venv`, and `data/cache` are strictly excluded.
+- Packaged release verification: `node scripts/smoke-build.js` passes all file checksums, verifies secret exclusion, and verifies HTTP briefing and recorded research smoke endpoints.
+- Current limits: Docker daemon is stopped on host; container image remains prepared but unbuilt. Physical-phone HTTPS installation, hosted deployment, reviewer GitHub access and AI export links remain pending user approval.
