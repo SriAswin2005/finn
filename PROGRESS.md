@@ -2,6 +2,8 @@
 
 Last reconciled October 30, 2026 (IST). Deadline: November 1. Start with [HANDOFF.md](HANDOFF.md); working rules are in [AGENTS.md](AGENTS.md). This is current status, not a chronological log.
 
+Standing workflow is now explicit in [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.md), with a human [CONTRIBUTING.md](CONTRIBUTING.md) entry point. It persists the user's working style, targeted task/file routing, immediate documentation for every small logical change, verified checkpoints, automatic routine private pushes and descriptive one- or two-sentence commit messages. This instruction/packaging change does not fix Q-001 or change runtime feature status.
+
 ## Verified working
 - Local Today / Portfolio / Ask FINN / Alerts prototype, 15 NSE companies, configurable in-app preferences, source links and explicit data modes. Mobile/navigation/offline browser checks were performed October 28; no fresh complete browser or physical-phone run October 30.
 - October 30: syntax, all **40 tests**, and packaged-release checks pass. No known unmerged Git files at handoff; recheck the working tree before editing.

@@ -2,6 +2,8 @@
 
 Open this FINN repository and read `AGENTS.md`, `HANDOFF.md`, `PROGRESS.md` and `docs/ISSUES.md` first. Do not scan the entire codebase. Then read only the specification/milestones and files needed for the next small slice.
 
+The user's standing style and instructions are in `docs/WORKING_AGREEMENT.md`; follow them without asking the user to repeat them. For every tiny logical change, immediately update progress and the affected issues/challenges/verification/other documents, verify, and commit/push to the approved private origin. Keep code and documentation together. Use one or two concrete sentences describing the actual change as the commit message, with a useful subject; no vague labels or long paragraphs. Report any failure or unsuccessful upload immediately.
+
 We are building a briefing-first, mobile-first financial intelligence PWA for the ENAM AI Engineer challenge, due November 1, 2026. Preserve the modular dependency-free Node/browser runtime plus pinned Python PDF parser. Original PDFs are authoritative; optional examples are not completed requirements. Use current dated audit/verification rather than old milestone summaries to judge what works.
 
 Start by reporting Git status and the current highest-priority open issue. Unless the user redirects, address Q-001: an AI guidance citation passed quote/numeric checks without establishing its claimed metric. It is not fixed by quarantine. Preserve primary-source provenance and reject ambiguity; do not loosen validation to make the demo pass.

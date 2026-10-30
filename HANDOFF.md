@@ -5,6 +5,7 @@ Last reconciled: October 30, 2026, Asia/Kolkata. Deadline: November 1, 2026. Thi
 ## Read order and authority
 
 1. [AGENTS.md](AGENTS.md): working rules, permissions and boundaries.
+   The [standing working agreement](docs/WORKING_AGREEMENT.md) preserves the user's style, targeted reading routes, immediate documentation duties and commit/push/message requirements. It applies without another reminder.
 2. This file: product, architecture, current state and continuation path.
 3. [PROGRESS.md](PROGRESS.md) and [docs/ISSUES.md](docs/ISSUES.md): dated status and unresolved work.
 4. Read [docs/SPEC.md](docs/SPEC.md) and [docs/MILESTONES.md](docs/MILESTONES.md) when planning/changing scope. For an exhaustive feature matrix, use [the October 30 audit](docs/REQUIREMENTS_AUDIT_2026-10-30.md).

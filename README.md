@@ -4,6 +4,8 @@ A briefing-first, mobile-first financial intelligence PWA for the ENAM AI Engine
 
 **New maintainer or AI session:** start with [HANDOFF.md](HANDOFF.md), then [PROGRESS.md](PROGRESS.md) and [current issues](docs/ISSUES.md). They cover intent, implementation map, verified/partial/missing behavior, open failures, permissions and next steps. Use the [copyable continuation prompt](docs/CONTINUATION_PROMPT.md) for tools that do not automatically read AGENTS.md. The [October 30 audit](docs/REQUIREMENTS_AUDIT_2026-10-30.md) contains the full PDF feature matrix. Passing tests do not resolve the open AI citation-context issue.
 
+The user's workflow is preserved in the [standing working agreement](docs/WORKING_AGREEMENT.md) and [contributor entry point](CONTRIBUTING.md): every small logical change updates its documentation immediately, is verified, and is committed/pushed with a clear one- or two-sentence message. Do not wait for another reminder or repeat settled instructions.
+
 ## Run
 
 Requires Node 24.16.0 or newer. The recorded briefing and three research examples run without installation or an API key. New PDF collection also needs Python 3.12+ and one dependency:

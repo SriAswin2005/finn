@@ -123,3 +123,8 @@ Keyword excerpts are not verified financial conclusions or a comparable-period p
 - Cold TCS retrieval (previously uncached) succeeded with one annual report and two transcripts, no errors, about 32 seconds. This verifies another generic ticker, not universal issuer availability.
 - INFY cached AI note passed existing guards. New ASIANPAINT generation passed mechanical guards but attached a quote that did not establish the metric labelled volume growth. Quarantined only that new cache entry and preserved audit evidence. Semantic/citation-context coverage remains an open quality issue; no code fix or comprehensive AI correctness claim.
 - No fresh full browser, physical-phone, hosted or Docker-image verification. Original AI-history exports, final covering note/access and deployment remain unfinished.
+
+## October 30 standing-workflow instructions
+- Added the standing user agreement, human contributor entry point and task/document maintenance routes; linked AI/human startup files and continuation prompt. PROGRESS.md records this instruction change without claiming an AI/runtime fix.
+- Added CONTRIBUTING.md to release packaging. Syntax checks and all 40 tests pass; packaged checksums, secret exclusions and HTTP/research smoke checks pass with 71 files. Source and packaged documentation links are checked before the private push.
+- No browser/UI behavior changed, so no new browser, phone or live-model verification is claimed. Q-001 remains open. These files guide readers; no automatic enforcement by unrelated tools is claimed.

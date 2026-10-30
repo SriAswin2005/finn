@@ -81,3 +81,8 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 - Added docs/ISSUES.md with stable issue IDs, actual failure reproduction and acceptance criteria; added a copyable new-session prompt. Linked entry points from AGENTS.md, README.md and specifications/milestones.
 - Reconciled PROGRESS.md into current state, distinguishing refreshed live data from intentional recorded replay, historical test counts from the current suite, and passing mechanical checks from open semantic quality issues. No unmerged Git files at start; no runtime feature or AI fix claimed.
 - Included HANDOFF.md in release packaging so an extracted archive has the same continuation context as a clone. Credentials, caches and local captures remain excluded.
+
+## October 30, 2026 — Standing user workflow
+- User requires future AI/human workers to inherit the established style without repeated instructions. Added WORKING_AGREEMENT.md with targeted read routes, document ownership, immediate status/issue/challenge updates for every small logical change, verification and prompt private commit/push duties.
+- Specified one- or two-sentence commit messages describing the final change, useful at a glance; no vague labels or long paragraphs. Documented how to report failed pushes, interruptions and unresolved conflicts without claiming completion.
+- Linked the agreement from AI/human entry points and the continuation prompt. Added CONTRIBUTING.md to release contents. Q-001 and all runtime feature statuses remain unchanged; these are repository workflow instructions, not universal enforcement on unrelated tools.
