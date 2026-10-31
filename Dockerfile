@@ -5,7 +5,8 @@ WORKDIR /app
 COPY requirements.txt ./
 RUN python3 -m venv /opt/finn-python \
     && /opt/finn-python/bin/pip install --no-cache-dir -r requirements.txt
-COPY package.json ./
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 COPY src ./src
 COPY scripts ./scripts
 COPY test ./test

@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { dataDirectory, writeJsonAtomic } from '../storage/snapshots.js';
+import { dataDirectory, runtimeCacheDirectory, writeJsonAtomic } from '../storage/snapshots.js';
 import { modelInventory, researchModelOrder } from './models.js';
 import { buildQuoteBank, resolveQuoteReferences } from './quotes.js';
 import { createQuotaStore } from './quota.js';
@@ -89,9 +89,9 @@ function isModelQuota(body) {
   const violations = details.flatMap(detail => Array.isArray(detail?.violations) ? detail.violations : detail?.quotaId ? [detail] : []);
   return violations.length > 0 && violations.every(violation => typeof violation.quotaId === 'string' && /permodel/i.test(violation.quotaId));
 }
-export function createGeminiProvider({ env = process.env, fetchImpl = fetch, directory = resolve(dataDirectory, 'cache/ai'), recordedDirectory = resolve(dataDirectory, 'research/notes'), now = Date.now } = {}) {
+export function createGeminiProvider({ env = process.env, fetchImpl = fetch, directory = resolve(runtimeCacheDirectory, 'ai'), recordedDirectory = resolve(dataDirectory, 'research/notes'), now = Date.now } = {}) {
   let active = null;
-  const cacheOnly = env.FINN_AI_CACHE_ONLY === 'true' || (Boolean(env.RAILWAY_ENVIRONMENT) && env.FINN_AI_LIVE_ENABLED !== 'true');
+  const cacheOnly = env.FINN_AI_CACHE_ONLY === 'true' || Boolean(env.VERCEL) || (Boolean(env.RAILWAY_ENVIRONMENT) && env.FINN_AI_LIVE_ENABLED !== 'true');
   const enabled = !cacheOnly && Boolean(env.GEMINI_API_KEY && env.FINN_AI_FREE_TIER_CONFIRMED === 'true');
   const quota = createQuotaStore({ path: resolve(directory, 'quota.json') });
   function cachePathFor(research) {

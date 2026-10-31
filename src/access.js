@@ -5,7 +5,7 @@ const digest = value => createHash('sha256').update(value).digest();
 const equal = (left, right) => timingSafeEqual(digest(left), digest(right));
 
 // One shared reviewer credential; no user accounts or durable session database.
-export function createAccessGate({ token = process.env.FINN_ACCESS_TOKEN, required = process.env.FINN_REQUIRE_ACCESS_TOKEN === 'true' || Boolean(process.env.RAILWAY_ENVIRONMENT), now = Date.now } = {}) {
+export function createAccessGate({ token = process.env.FINN_ACCESS_TOKEN, required = process.env.FINN_REQUIRE_ACCESS_TOKEN === 'true' || Boolean(process.env.RAILWAY_ENVIRONMENT || process.env.VERCEL), now = Date.now } = {}) {
   if (!token && required) throw new Error('Set FINN_ACCESS_TOKEN before starting the hosted reviewer demo.');
   if (token && token.length < 32) throw new Error('FINN_ACCESS_TOKEN must contain at least 32 characters.');
   const signature = expiry => createHmac('sha256', token).update(`finn-reviewer:${expiry}`).digest('base64url');

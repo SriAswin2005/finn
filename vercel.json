@@ -1,0 +1,19 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "",
+  "functions": {
+    "api/finn.js": {
+      "maxDuration": 300,
+      "includeFiles": "{public/**,data/research/**,data/recorded-snapshot.json}"
+    },
+    "api/parse.py": {
+      "maxDuration": 60,
+      "excludeFiles": "{.git/**,.env*,.venv/**,node_modules/**,data/**,dist/**,tmp/**,docs/**,test/**,public/**}"
+    }
+  },
+  "routes": [
+    { "src": "/api/parse", "dest": "/api/parse.py" },
+    { "src": "/(.*)", "dest": "/api/finn.js" }
+  ]
+}

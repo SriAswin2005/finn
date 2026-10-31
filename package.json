@@ -3,7 +3,9 @@
   "version": "0.3.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=24.16.0" },
+  "engines": {
+    "node": ">=24.16.0"
+  },
   "scripts": {
     "dev": "node --env-file-if-exists=.env --watch src/server.js",
     "start": "node --env-file-if-exists=.env src/server.js",
@@ -14,5 +16,8 @@
     "verify:build": "node scripts/smoke-build.js",
     "test": "node scripts/test.js",
     "check": "node scripts/check.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "1.2.0"
   }
 }

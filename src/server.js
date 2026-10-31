@@ -16,12 +16,13 @@ function json(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
-export function createAppServer({ datasetProvider = getDataset, researchProvider = getResearch, aiProvider = createGeminiProvider(), accessGate = createAccessGate() } = {}) {
-  return createServer(async (req, res) => {
+export function createRequestHandler({ datasetProvider = getDataset, researchProvider = getResearch, aiProvider = createGeminiProvider(), accessGate = createAccessGate() } = {}) {
+  return async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'no-referrer');
     res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
-    const url = new URL(req.url, 'http://localhost');
+    let url;
+    try { url = new URL(req.url, 'http://localhost'); } catch { return json(res, 400, { error: 'Invalid request URL.' }); }
     if (!accessGate(req, res, url)) return;
     const researchPost = req.method === 'POST' && url.pathname === '/api/research/analysis';
     if (req.method !== 'GET' && req.method !== 'HEAD' && !researchPost) {
@@ -36,7 +37,11 @@ export function createAppServer({ datasetProvider = getDataset, researchProvider
             if (!req.headers['content-type']?.startsWith('application/json')) return json(res, 415, { error: 'Use application/json.' });
             if (req.headers.origin && req.headers.origin !== `http://${req.headers.host}` && req.headers.origin !== `https://${req.headers.host}`) return json(res, 403, { error: 'Cross-origin generation is not allowed.' });
             const chunks = []; let size = 0;
-            for await (const chunk of req) { size += chunk.length; if (size > 2048) return json(res, 413, { error: 'Request too large.' }); chunks.push(chunk); }
+            if (req.body !== undefined) {
+              const content = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
+              if (Buffer.byteLength(content) > 2048) return json(res, 413, { error: 'Request too large.' });
+              chunks.push(Buffer.from(content));
+            } else for await (const chunk of req) { size += chunk.length; if (size > 2048) return json(res, 413, { error: 'Request too large.' }); chunks.push(chunk); }
             const payload = Buffer.concat(chunks).toString('utf8');
             try { const body = JSON.parse(payload); ticker = body.ticker; question = body.question ?? ''; }
             catch { return json(res, 400, { error: 'Invalid JSON.' }); }
@@ -78,8 +83,10 @@ export function createAppServer({ datasetProvider = getDataset, researchProvider
       console.error('Request failed:', error.message);
       json(res, 500, { error: 'Unable to load FINN. Please retry.' });
     }
-  });
+  };
 }
+
+export function createAppServer(options = {}) { return createServer(createRequestHandler(options)); }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const port = Number(process.env.PORT ?? 3000);

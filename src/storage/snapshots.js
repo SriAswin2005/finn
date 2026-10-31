@@ -2,8 +2,10 @@ import { readFile, mkdir, writeFile, rename, rm } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { tmpdir } from 'node:os';
 export const dataDirectory = fileURLToPath(new URL('../../data/', import.meta.url));
-export const liveSnapshotPath = resolve(dataDirectory, 'cache/snapshot.json');
+export const runtimeCacheDirectory = process.env.FINN_CACHE_DIRECTORY ?? (process.env.VERCEL ? resolve(tmpdir(), 'finn-cache') : resolve(dataDirectory, 'cache'));
+export const liveSnapshotPath = resolve(runtimeCacheDirectory, 'snapshot.json');
 export const recordedSnapshotPath = resolve(dataDirectory, 'recorded-snapshot.json');
 
 export async function readSnapshot(path) {

@@ -1,25 +1,27 @@
-# Railway reviewer deployment
+# Vercel + Neon deployment
 
-Authorized October 31, 2026. Use only private `SriAswin2005/finn`, branch `master`, and the free trial; no paid plan or payment method. The user is signing in and connecting the repository. No host has been deployed or verified yet.
+Selected and authorized October 31, 2026, replacing Railway. Vercel project: `sriak/finn`. Neon Free: `finn-research`, Singapore, application authentication disabled. Provisioning/connection succeeded and terms were accepted in the user's browser. No payment or Gemini key is involved. CLI source upload is used because automatic private GitHub integration failed; private source pushes still use the approved origin.
 
-`railway.toml` uses the existing Dockerfile, one replica and `/api/health`. Docker includes Node/Python/pypdf. Set a random 32+ character `FINN_ACCESS_TOKEN` as a host secret and `FINN_REQUIRE_ACCESS_TOKEN=true`. Railway refuses startup without the token. Never commit/log the credential. Open `https://HOST/?key=TOKEN` once: FINN issues a signed 24-hour HttpOnly/Secure/SameSite=Lax cookie and redirects to the clean URL. All UI/assets and research/generation APIs require access; health alone is public. Rotating the token invalidates sessions. The gate also protects the key-backed endpoint if live AI is enabled later.
+## Runtime and access
 
-No Gemini credential is to be uploaded. The next slice bakes reviewed notes and makes AI cache-only by default for this host. State is disposable: a small volume is optional and missing quota storage must fail closed, never create a fresh reviewer allowance. Recorded briefing/evidence are already included in the image. Do not rely on ignored `data/cache` transferring through Git.
+`vercel.json` routes every UI/asset/API request through `api/finn.js`, reusing the local Node handler. Only `/api/health` is public. `FINN_ACCESS_TOKEN` (random 32+ chars) exchanges `?key=TOKEN` for a signed 24-hour HttpOnly, Secure, SameSite=Lax cookie and redirects to a clean URL. Rotate it to invalidate sessions. Vercel refuses startup without a token and always disables live Gemini calls. The baked reviewed INFY note appears immediately; all three recorded evidence examples work without Neon/model calls. A revised forecast or Q1 actual is never an annual delivery verdict.
+
+`api/parse.py` is a private Python/pypdf function. `FINN_PARSER_SECRET` signs short-lived metadata-only calls from Node. Python downloads from a DNS-validated, TLS-verified public host with address pinning; bounds redirects, bytes, time, pages and extracted text. No PDF upload body crosses Vercel's request-size limit. Scanned/unreadable documents fail explicitly. The local app still uses the same parser in a subprocess.
+
+`DATABASE_URL` is supplied server-side by Neon. Only collected public research is stored in the `finn_research_cache` table using parameterized queries. Records survive process restarts; real database verification remains pending. `/tmp` holds disposable scratch files. No user accounts, preferences, credentials or downloaded PDFs are persisted to the database. Browser preferences remain on the device.
+
+## Deployment state and secrets
+
+Local syntax/all 67 tests and the 92-file package smoke pass. They do not prove hosted routing, source networking, database persistence, cold start or physical-phone behavior. Those checks remain open until a deployment URL exists.
+
+The locally generated reviewer token and parser secret are in ignored `.env.deployment`. Automatic approval review rejected their first upload because hosting authorization was not considered specific enough; the user subsequently explicitly approved both secrets for sriak/finn production. Upload is authorized; no unprotected deployment is permitted. No secret value has been printed or committed. `.env.vercel.production`, `.env.local`, `.vercel/`, caches and PDFs remain ignored and excluded from upload/archive.
+
+After approval: upload only these two host secrets plus `FINN_AI_CACHE_ONLY=true`; deploy using `npx vercel deploy --prod`; verify anonymous rejection, key exchange/clean redirect/secure cookie, all recorded examples, INFY note with zero model calls, Python authorization/unreadable cases and one cold non-demo ticker. Verify a Neon record from another process/request. Record warm/cold timings separately. A physical-phone HTTPS installation and smooth scroll check must be performed by a person with the device; browser emulation is not a substitute.
 
 ## Local release
 
-`npm run build` creates `dist/finn/` and `dist/finn-prototype.tar.gz` with a SHA-256 manifest. `npm run verify:build` verifies exclusions/checksums and starts the packaged app for briefing/research smoke checks. No command deploys implicitly. Credentials, live caches, downloaded PDFs, Python environments and Git metadata are excluded.
+`npm start` runs on Node 24.16+. Recorded examples need no API key or database. Use `npm ci` for Neon database access. New local PDF collection needs Python 3.12+ and `.venv` with `pip install -r requirements.txt`. `PYTHON_BIN` overrides the interpreter.
 
-Run `npm start` from a checkout/release with Node 24.16+. Recorded examples need only Node. New PDF collection requires Python 3.12+ and `pip install -r requirements.txt` in `.venv`; `PYTHON_BIN` can override it. Browser defaults to Recorded sources. `npm run ingest` manually collects Latest sources; refresh is not ingestion.
+`npm run build` writes `dist/finn-prototype.tar.gz` and per-file SHA-256 manifest; `npm run verify:build` checks secret exclusions, startup, briefing and baked research. Docker remains a local alternative; its engine/image has not been verified. Hosting source credentials, payment, public repository visibility, reviewer repository grants and email are separate from a working web link. No email has been sent.
 
-For local Docker verification use `docker build -t finn:prototype .` then `docker run --rm -p 127.0.0.1:3000:3000 finn:prototype`. No key is baked in. The Docker engine/build and hosted HTTPS have not yet been verified.
-
-## Required hosted evidence
-
-Verify image startup, health, rejected anonymous UI/API calls, private-link exchange/clean redirect, all three recorded evidence examples, immediate reviewed INFY note with zero calls, restart without cache state, source-page links, HTTPS/installation and physical-phone smooth scrolling. Measure cold start and state its limits in the covering note. Local 43-test verification covers gate behavior; it does not establish these hosted/mobile results. Browser automation stopped on Edge URL verification, so the user is supplying the hosting connection.
-
-Private source pushes remain authorized. New account terms/broader GitHub permissions, payment, Gemini key transfer, reviewer GitHub grants and email remain outside the current approval. Historical hosting estimates are in [HOSTING_ASSESSMENT.md](HOSTING_ASSESSMENT.md); actual trial eligibility must be checked.
-
-## Disposable-state implementation
-
-Railway automatically defaults to cache-only (`FINN_AI_LIVE_ENABLED` is not set). Optionally set `FINN_AI_CACHE_ONLY=true` explicitly. Reviewed INFY default note is baked under `data/research/notes`; other demos retain evidence but no reviewed synthesis. Notes must match current evidence hash and pass validation. Lost/corrupt quota or a failed reservation keeps process memory and blocks new calls. A fresh ledger is never created implicitly. A volume is optional. Syntax, all 45 tests and 75-file package smoke checks pass. Browser/phone unverified; Docker engine unavailable.
+User explicitly approved the reviewer token and parser secret for sriak/finn production. Neon persistence verified with a public INFY record written by one Node process and read by a fresh process (3 documents); no credentials displayed. Host deployment and phone checks still pending.

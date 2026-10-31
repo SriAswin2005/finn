@@ -4,16 +4,19 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { dataDirectory, writeJsonAtomic } from '../storage/snapshots.js';
+import { dataDirectory, runtimeCacheDirectory, writeJsonAtomic } from '../storage/snapshots.js';
 import { normalizeTicker, discoverDocuments } from './discovery.js';
 import { downloadPublic } from './download.js';
 import { buildEvidence } from './evidence.js';
+import { createResearchStore } from '../storage/research-store.js';
+import { collectRemoteDocument } from './remote-parser.js';
 import { buildGuidanceComparison } from './guidance.js';
 
 const runFile = promisify(execFile);
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const pending = new Map();
-const cacheDirectory = resolve(dataDirectory, 'cache/research');
+const cacheDirectory = resolve(runtimeCacheDirectory, 'research');
+const researchStore = createResearchStore();
 export class ResearchUnavailable extends Error {}
 async function readJson(path) {
   try { return JSON.parse(await readFile(path, 'utf8')); }
@@ -42,7 +45,8 @@ export async function parseDocument(bytes, source) {
 
 export async function collectResearch(ticker) {
   const fetchedAt = new Date().toISOString();
-  const previous = await readJson(resolve(cacheDirectory, `${ticker}.json`));
+  let previous;
+  try { previous = await researchStore.get(ticker); } catch { previous = null; }
   let discovery;
   for (const suffix of ['consolidated/', '']) {
     try {
@@ -57,8 +61,12 @@ export async function collectResearch(ticker) {
     try {
       const cached = previous?.documents.find(doc => doc.discoveredUrl === source.url && Date.now() - Date.parse(doc.fetchedAt) < 7 * 86400000);
       if (cached) { documents.push(cached); continue; }
-      const response = await downloadPublic(source.url, { maxBytes: source.kind === 'annual_report' ? 50_000_000 : 25_000_000 });
-      const document = await parseDocument(response.bytes, { ...source, url: response.url, discoveredUrl: source.url, fetchedAt });
+      let document;
+      if (process.env.VERCEL) document = await collectRemoteDocument(source, fetchedAt);
+      else {
+        const response = await downloadPublic(source.url, { maxBytes: source.kind === 'annual_report' ? 50_000_000 : 25_000_000 });
+        document = await parseDocument(response.bytes, { ...source, url: response.url, discoveredUrl: source.url, fetchedAt });
+      }
       const opening = document.pages.slice(0, 5).map(p => p.text).join(' ').toLowerCase();
       if (!issuerTerms.length || !issuerTerms.every(term => opening.includes(term))) throw new ResearchUnavailable('The document issuer could not be matched to the selected company.');
       documents.push(document);
@@ -66,17 +74,17 @@ export async function collectResearch(ticker) {
   }
   if (!documents.length) throw new ResearchUnavailable('No primary document could be downloaded and verified for this ticker.');
   const data = { schemaVersion: 1, ticker, company: discovery.company, discoveryUrl: discovery.discoveryUrl, fetchedAt, mode: 'collected', documents, errors };
-  await writeJsonAtomic(resolve(cacheDirectory, `${ticker}.json`), data);
+  try { await researchStore.set(ticker, data); } catch { data.errors.push({ title: 'Research storage', error: 'Collected research could not be saved persistently; this result may need recollection after restart.' }); }
   return data;
 }
 
 export async function getResearch(tickerInput, question = '', { collect = collectResearch } = {}) {
   const ticker = normalizeTicker(tickerInput);
   if (typeof question !== 'string' || question.length > 400) throw new RangeError('Keep research questions to 400 characters.');
-  let data = await readJson(resolve(cacheDirectory, `${ticker}.json`));
+  let data = await readJson(resolve(dataDirectory, `research/${ticker}.json`));
+  if (data) data.mode = 'recorded';
   if (!data) {
-    data = await readJson(resolve(dataDirectory, `research/${ticker}.json`));
-    if (data) data.mode = 'recorded';
+    try { data = await researchStore.get(ticker); } catch { throw new ResearchUnavailable('Persistent research storage is unavailable. Try a recorded example or retry shortly.'); }
   }
   if (!data) {
     if (!pending.has(ticker)) {
@@ -99,7 +107,7 @@ export async function getResearch(tickerInput, question = '', { collect = collec
 
 export async function recordResearch(tickerInput, { cachedOnly = false } = {}) {
   const ticker = normalizeTicker(tickerInput);
-  const data = cachedOnly ? await readJson(resolve(cacheDirectory, `${ticker}.json`)) : await collectResearch(ticker);
+  const data = cachedOnly ? await researchStore.get(ticker) : await collectResearch(ticker);
   if (!data) throw new ResearchUnavailable('No local document cache exists for this ticker. Collect it first.');
   const view = buildEvidence(data.documents); const selected = new Map();
   for (const evidence of view.evidence) {
