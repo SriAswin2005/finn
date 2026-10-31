@@ -30,7 +30,7 @@ Reconciled October 31, 2026 (IST). Deadline November 1. This is bounded feature 
 
 ## M4 — Working hosted product
 
-- [x] Vercel + Neon Free (Singapore) deployment; real Node/Python and source networking verified. Current code: 6703e85, deployment dpl_CKCMPqaNGYwHhXvrT9gthu3njPQu.
+- [x] Vercel + Neon Free (Singapore) deployment; real Node/Python and source networking verified. Current code: 909b988, deployment dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip.
 - [x] Shared reviewer-token exchange, clean redirect, signed 24-hour HttpOnly/Secure/SameSite cookie; UI/assets/APIs gated. Gemini absent and live generation disabled on host.
 - [x] Recorded L&T consolidated results card with Revenue/PBT/PAT and derived EBITDA proxy, QoQ/YoY, verified source columns/page and disclosed limitations.
 - [x] Recorded HDFC Bank succession and appointee profile from original disclosures, with dates/page links and issuer attribution.

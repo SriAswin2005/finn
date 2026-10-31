@@ -19,7 +19,7 @@ Implemented `src/storage/source-snapshot.js` and explicit `src/ingest.js --publi
 
 October 31 at 20:43 IST: published capture `2026-10-31T15:13:09.876Z`, **15/15 October 30 EOD records, 62 filings, both adapters OK**. Fresh-process read verified; recorded October 28 replay unchanged. Syntax/72 tests pass. Deployed and verified: HTTPS Latest 200; browser shows current saved capture/coverage.
 
-Current production is `6703e85`, deployment `dpl_CKCMPqaNGYwHhXvrT9gthu3njPQu`; the local result-flow refinement is pending deployment. The earlier transport failure is superseded by this successful deployment.
+Current production is `909b988`, deployment `dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip`; result-flow refinement is deployed and verified. The earlier transport failure is superseded by this successful deployment.
 
 ## Remaining product limits
 
@@ -50,3 +50,5 @@ October 31 final product verification for 6703e85 / dpl_CKCMPqaNGYwHhXvrT9gthu3n
 ## October 31 — research result clarity
 
 U-002: raw document details pushed reviewed notes down the phone screen, and a generic cache-resting message implied an uncached company had a saved note. Source metadata is now a labelled collapsible list (including warning count), unavailable generation is hidden, and no-note requests explicitly say source excerpts only. Completed requests bring the result into view/focus only if the user is still on Research and has not moved focus elsewhere. Notes/comparison keep direct physical-page links. Syntax/all 74 tests pass. 390 px browser verifies result focus at 74 px below navigation, collapsed source details, four cached claims, explicit TCS no-note state with generation hidden, no overflow and no console errors. Native PDF opening could not be confirmed by the browser tool; page hrefs remain verified.
+
+Final verification 21:36 IST: production research.js SHA-256 matches the locally browser-verified source. Three note requests returned 6/4/4 claims and zero new calls in 558/404/200 ms; Latest is fresh (October31 capture, all15 October30 EOD), two recorded filing details and live refusal pass. All74 tests pass. U-002 resolved: completed mobile results focus is visible below navigation, sources collapsed, TCS explicitly evidence-only, no overflow/console errors. No further submission work performed.

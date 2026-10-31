@@ -1,6 +1,6 @@
 # Vercel + Neon product operations
 
-Current production: https://finn-zeta-one.vercel.app. Code 6703e85, deployment dpl_CKCMPqaNGYwHhXvrT9gthu3njPQu, verified October 31, 2026. User authorized Vercel/Neon Free and explicitly approved the reviewer/parser secrets for sriak/finn production. No Gemini key was uploaded, and no paid plan/payment was added. Earlier Railway planning is superseded.
+Current production: https://finn-zeta-one.vercel.app. Code 909b988, deployment dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip, verified October 31, 2026. User authorized Vercel/Neon Free and explicitly approved the reviewer/parser secrets for sriak/finn production. No Gemini key was uploaded, and no paid plan/payment was added. Earlier Railway planning is superseded.
 
 ## Runtime and access
 
