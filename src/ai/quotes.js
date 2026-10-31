@@ -5,14 +5,9 @@ export function buildQuoteBank(evidence) {
   const segmenter = new Intl.Segmenter('en', { granularity: 'sentence' });
   for (const item of evidence) {
     for (const { segment } of segmenter.segment(item.text)) {
-      let remaining = segment.trim();
-      while (remaining.length) {
-        let end = Math.min(remaining.length, 220);
-        if (end < remaining.length) end = remaining.lastIndexOf(' ', end) || end;
-        const quote = remaining.slice(0, end).trim();
-        if (quote.length >= 20) bank.push({ id: `q${bank.length + 1}`, evidenceId: item.id, quote });
-        remaining = remaining.slice(end).trim();
-      }
+      const quote = segment.trim();
+      // Never cut a long sentence into standalone fragments that can lose its hedge/negation.
+      if (quote.length >= 20 && quote.length <= 220) bank.push({ id: `q${bank.length + 1}`, evidenceId: item.id, quote });
     }
   }
   return bank;

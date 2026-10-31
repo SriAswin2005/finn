@@ -5,6 +5,7 @@ import { dataDirectory, writeJsonAtomic } from '../storage/snapshots.js';
 import { modelInventory, researchModelOrder } from './models.js';
 import { buildQuoteBank, resolveQuoteReferences } from './quotes.js';
 import { createQuotaStore } from './quota.js';
+import { citationContextFailure } from './context.js';
 export { SUPPORTED_GEMINI_MODELS } from './models.js';
 
 export const PROMPT_VERSION = 'cited-primary-research-v6';
@@ -48,6 +49,8 @@ export function validateAnalysis(value, evidence) {
     if (claimTerms.length > 0 && !claimTerms.some(term => combinedQuotes.includes(term))) {
       throw new AiUnavailable('AI citation does not establish the metric context of its claim. No generated analysis has been published.');
     }
+    const contextFailure = citationContextFailure(claim, byId);
+    if (contextFailure) throw new AiUnavailable(`AI citation rejected: ${contextFailure}. No generated analysis has been published.`);
   }
   const covered = new Set(value.claims.map(claim => claim.section));
   return { claims: value.claims, unavailableSections: sections.filter(section => !covered.has(section)) };

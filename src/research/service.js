@@ -35,7 +35,7 @@ export async function parseDocument(bytes, source) {
     try {
       const { stdout } = await runFile(await pythonPath(), [resolve(root, 'scripts/parse_pdf.py'), path], { timeout: 60000, maxBuffer: 8_000_000, windowsHide: true, env: { ...process.env, PYTHONIOENCODING: 'utf-8' } });
       parsed = JSON.parse(stdout); await writeJsonAtomic(parsedPath, parsed);
-    } catch { throw new ResearchUnavailable('PDF text extraction failed or exceeded its limit. Check the Python PDF dependency; scanned PDFs need OCR, which is not enabled.'); }
+    } catch { throw new ResearchUnavailable('Unreadable PDF: text extraction failed, has no usable text layer or exceeded its limit. Check the Python PDF dependency; scanned PDFs need OCR, which is not enabled.'); }
   }
   return { ...source, id: sha256.slice(0, 16), sha256, parser: parsed.parser, pages: parsed.pages, pageCount: parsed.pages.length };
 }

@@ -292,5 +292,5 @@ test('quote bank preserves exact bounded source text and rejects invented IDs', 
   assert.equal(resolveQuoteReferences(wire, quotes).claims[0].references[0].quote, quotes[0].quote);
   assert.throws(() => resolveQuoteReferences({ claims: [{ references: [{ quoteId: 'made-up' }] }] }, quotes), /Unknown source quote/);
   const long = buildQuoteBank([{ id: 'long', text: 'word '.repeat(140) }]);
-  assert.ok(long.length >= 3); assert.ok(long.every(q => q.quote.length <= 220));
+  assert.equal(long.length, 0, 'long sentences are skipped instead of sliced away from their context');
 });
