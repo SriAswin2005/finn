@@ -63,3 +63,5 @@ Initial M2 capture had 43 announcements and missing latest closes. Later October
 
 ## Decisions needed later
 Gemini free quota ONLY is approved; the manually corrected local `.env` key is accepted by Google and all six configured text models are listed. One INFY AI note is reviewed and cached. Gemma inference remains unverified because both hosted candidates timed out; no low-latency guarantee is claimed. The user authorized private GitHub creation/publication; https://github.com/SriAswin2005/finn now contains the preserved source history. Railway and shared-token access were authorized October 31; the user is supplying the hosting connection. Docker CLI exists but its engine is not running; the container image is prepared but unbuilt. This does not block the tested Node release archive. No email has been sent and no app has been deployed externally.
+
+- [x] October 31 disposable-demo gate: baked reviewed INFY note, immediate GET cache, Railway cache-only and fail-closed lost quota implemented; syntax, all 45 tests and packaged smoke checks pass.

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { normalizeTicker, discoverDocuments, directDocumentUrl } from '../src/research/discovery.js';
@@ -11,6 +11,12 @@ import { createGeminiProvider, validateAnalysis, selectEligibleModel, retryDeadl
 import { mergeGeminiEnvironment } from '../src/config/ai-env.js';
 import { modelInventory, researchModelOrder } from '../src/ai/models.js';
 import { buildQuoteBank, resolveQuoteReferences } from '../src/ai/quotes.js';
+
+async function fundedTestDirectory(prefix) {
+  const directory = await mkdtemp(join(tmpdir(), prefix));
+  await writeFile(join(directory, 'quota.json'), JSON.stringify({ entries: [], cooldowns: {} }));
+  return directory;
+}
 
 test('discovery accepts arbitrary NSE symbols but only report/transcript evidence links', () => {
   assert.equal(normalizeTicker(' m&m.ns '), 'M&M');
@@ -172,7 +178,7 @@ test('Q-001 regression: citation that shares a number but omits the claimed metr
 });
 
 test('Gemini uses cached results, bounded model fallback and durable local quota', async t => {
-  const directory = await mkdtemp(join(tmpdir(), 'finn-ai-')); t.after(() => rm(directory, { recursive: true, force: true }));
+  const directory = await fundedTestDirectory('finn-ai-'); t.after(() => rm(directory, { recursive: true, force: true }));
   let calls = 0;
   const env = { GEMINI_API_KEY: 'test-only-not-a-real-key', FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_GEMINI_MODELS: 'gemini-3.5-flash-lite,gemini-3.1-flash-lite' };
   const provider = createGeminiProvider({ env, directory, fetchImpl: async () => {
@@ -183,13 +189,13 @@ test('Gemini uses cached results, bounded model fallback and durable local quota
   const research = { evidenceHash: 'abc', evidence, documents: [], company: 'Owned test company', question: '' };
   const first = await provider.generate(research); assert.equal(first.model, 'gemini-3.1-flash-lite'); assert.equal(calls, 2);
   const cached = await provider.generate(research); assert.equal(cached.cached, true); assert.equal(calls, 2);
-  await assert.rejects(createGeminiProvider({ env: {}, directory }).generate(research), AiUnavailable);
+  assert.equal((await createGeminiProvider({ env: { ...env, GEMINI_API_KEY: '' }, directory }).generate(research)).cached, true);
   assert.equal(selectEligibleModel(['m'], { entries: [{ model: 'm', at: 1000 }], cooldowns: {} }, 1100, { total: 20, daily: 20, hourly: 5 }), undefined);
 });
 
 test('Gemini does not rotate around ambiguous project quotas or bad credentials', async t => {
   for (const status of [403, 429]) {
-    const directory = await mkdtemp(join(tmpdir(), 'finn-ai-stop-')); t.after(() => rm(directory, { recursive: true, force: true }));
+    const directory = await fundedTestDirectory('finn-ai-stop-'); t.after(() => rm(directory, { recursive: true, force: true }));
     let calls = 0;
     const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => { calls++; return new Response('{}', { status }); } });
     await assert.rejects(provider.generate({ evidenceHash: `stop-${status}`, evidence, documents: [], company: 'Test', question: '' }), AiUnavailable);
@@ -205,7 +211,7 @@ test('Gemini does not rotate around ambiguous project quotas or bad credentials'
 });
 
 test('invalid API keys give actionable setup guidance without leaking provider text or rotating', async t => {
-  const directory = await mkdtemp(join(tmpdir(), 'finn-invalid-key-')); t.after(() => rm(directory, { recursive: true, force: true }));
+  const directory = await fundedTestDirectory('finn-invalid-key-'); t.after(() => rm(directory, { recursive: true, force: true }));
   let calls = 0;
   const secret = 'test-only-secret-not-for-display';
   const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: secret, FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_GEMINI_MODELS: userModels }, fetchImpl: async () => {
@@ -220,7 +226,7 @@ test('invalid API keys give actionable setup guidance without leaking provider t
 });
 
 test('Gemma uses prompt JSON, filters thinking, and falls back to Flash-Lite after transport failure', async t => {
-  const directory = await mkdtemp(join(tmpdir(), 'finn-gemma-')); t.after(() => rm(directory, { recursive: true, force: true }));
+  const directory = await fundedTestDirectory('finn-gemma-'); t.after(() => rm(directory, { recursive: true, force: true }));
   const calls = [];
   const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_GEMINI_MODELS: userModels }, fetchImpl: async (url, options) => {
     calls.push(url);
@@ -241,7 +247,7 @@ test('Gemma uses prompt JSON, filters thinking, and falls back to Flash-Lite aft
 
 test('large inventory never expands three-attempt bound and invalid evidence is not retried', async t => {
   for (const invalidOutput of [false, true]) {
-    const directory = await mkdtemp(join(tmpdir(), 'finn-attempts-')); t.after(() => rm(directory, { recursive: true, force: true }));
+    const directory = await fundedTestDirectory('finn-attempts-'); t.after(() => rm(directory, { recursive: true, force: true }));
     let calls = 0;
     const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_GEMINI_MODELS: userModels }, fetchImpl: async () => {
       calls++;
@@ -264,7 +270,7 @@ test('Gemini cooldown honors HTTP dates, long delays and structured retry guidan
 
 test('Flash uses its supported thinking level and rejects truncated notes even with valid JSON', async t => {
   for (const model of ['gemini-3.8-flash', 'gemini-3.6-flash']) {
-    const directory = await mkdtemp(join(tmpdir(), 'finn-thinking-')); t.after(() => rm(directory, { recursive: true, force: true }));
+    const directory = await fundedTestDirectory('finn-thinking-'); t.after(() => rm(directory, { recursive: true, force: true }));
     let calls = 0;
     const provider = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_GEMINI_MODELS: model }, fetchImpl: async (_url, options) => {
       calls++; const config = JSON.parse(options.body).generationConfig;

@@ -22,7 +22,7 @@ Remaining: if a live demo run generates a new ASIANPAINT or PERSISTENT note befo
 
 **Partially implemented October 31.** The user authorized Railway deployment, shared-token access and disposable storage. `src/access.js` protects UI/assets/APIs and exchanges `?key=` for a signed 24-hour HttpOnly, Secure, SameSite=Lax cookie before redirecting to a URL without the key. Token comparison uses fixed-size digests and `crypto.timingSafeEqual`; missing token fails Railway startup. Health alone remains public. `railway.toml` selects the existing Dockerfile and one replica. Syntax check and all 43 tests pass, including key exchange, rejected key/cookie, expiry, rotation and protected generation.
 
-Deployment is not complete: no usable hosting CLI/session yet; Computer Use stopped because it could not verify Edge's browser URL. User is signing in and connecting the private repository. No Gemini secret will be transferred. Next slice bakes reviewed notes and makes missing/unwritable quota storage fail closed to cached evidence. Durable storage is optional, not an acceptance requirement. Keep new AI calls disabled on host.
+Deployment is not complete: Railway CLI installed; browserless login pending; Computer Use stopped because it could not verify Edge's browser URL. User is signing in and connecting the private repository. No Gemini secret will be transferred. Reviewed INFY note is baked; missing/unwritable quota storage retains memory and fails closed to cached evidence (45 tests and package smoke pass). Durable storage is optional, not an acceptance requirement. Keep new AI calls disabled on host.
 
 ## D-002 — Hosted/mobile/container and submission gates
 
@@ -48,3 +48,5 @@ For an approved analysis slice: acquire comparable primary periods, normalize me
 | Older logs show 16 or 34 tests | Historical checkpoints. Latest observed suite is 41 total (38 pass; 3 server.test.js require a running server and fail in sandbox); run current checks before claiming a new result. |
 | Merge/document conflicts | No unmerged Git files at handoff. Older summaries were reconciled; any new discrepancy should be recorded with evidence. Never reset or discard user changes. |
 | Q-001 ASIANPAINT citation gap | Fixed October 30: metric-term check added to validateAnalysis; regression test passes. Quarantined cache entry remains absent from Git. |
+
+D-001 update: reviewed INFY note now baked in image/archive and returned before credential/quota checks; main demo needs no model request. Quota load/reservation failure retains memory and closes new calls. ASIANPAINT/PERSISTENT have evidence only, no reviewed synthesis. All 45 tests, syntax and 75-file packaged smoke checks pass.

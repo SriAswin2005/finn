@@ -83,3 +83,5 @@ Open http://127.0.0.1:3000. A fresh checkout's recorded briefing/research needs 
 5. Send email to assessment@enam.com only after all above are done.
 
 Per slice: run relevant checks, record verification limits, update status/issues/milestones, commit and push to the approved private origin. Keep `PROGRESS.md` current rather than appending contradictory status forever. Read historical logs/original PDFs or code only where the next slice needs them.
+
+October 31 cache slice: `src/ai/quota.js` retains best-effort memory and closes generation when ledger is lost/corrupt/unwritable. `data/research/notes/INFY.json` is explicitly curated public research, included by existing Docker/build data copy. GET attaches matching validated notes for immediate UI display. Railway cache-only by default; no Gemini secret transfer. Syntax and all 45 tests pass; 75-file packaged startup/secret exclusions/recorded-note smoke check pass. Browser/phone and Docker image remain unverified.

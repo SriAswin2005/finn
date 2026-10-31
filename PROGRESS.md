@@ -6,7 +6,7 @@ Standing workflow is explicit in [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.m
 
 ## Verified working
 - Local Today / Portfolio / Ask FINN / Alerts prototype, 15 NSE companies, configurable in-app preferences, source links and explicit data modes. Mobile/navigation/offline browser checks were performed October 28; no fresh complete browser or physical-phone run October 30.
-- October 30: syntax, all **41 tests** (38 pass; 3 server.test.js tests require a live HTTP server and fail in the sandbox — pre-existing, not a new regression). Build archive: 70 files, `.env` excluded, checksums verified.
+- October 31: syntax and all **45 tests** pass with local HTTP/temp-file access. Build archive: 75 files, credentials excluded; packaged research includes the immediate reviewed INFY note without runtime cache or credentials.
 - Manual live ingestion succeeded October 30 at 15:59 IST: 15/15 October 29 EOD records and 55 portfolio filings. Recorded replay is deliberately separate: October 28 capture, October 27 closes, 44 filings.
 - Three recorded primary-document examples: INFY, ASIANPAINT, PERSISTENT. Generic cold HCLTECH and TCS retrieval verified.
 - One INFY six-claim AI example reviewed; exact server-owned quotes, PDF pages, conditional cases and cache reuse verified.
@@ -17,7 +17,7 @@ Standing workflow is explicit in [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.m
 - Submission draft updated: [docs/SUBMISSION_DRAFT.md](docs/SUBMISSION_DRAFT.md).
 
 ## Open / incomplete
-- **Deployment (D-001/D-002):** Railway deployment and shared-token gate authorized October 31. Gate implemented: signed 24-hour HttpOnly/Secure/SameSite cookie, clean redirect, protected UI/APIs; public health check only. Syntax check and all 43 tests pass (elevated rerun after sandbox restrictions). Railway CLI/account connection pending; browser tool stopped because it could not verify Edge URL. Docker/HTTPS/physical-phone verification remain open. Reviewer GitHub access not granted. AI conversation exports, covering note links and final demo tag are incomplete.
+- **Deployment (D-001/D-002):** Railway deployment and shared-token gate authorized October 31. Gate verified: signed 24-hour HttpOnly/Secure/SameSite cookie, clean redirect, protected UI/APIs; public health check only. Railway CLI installed; waiting for user browserless login. Railway account connection pending; browser tool stopped because it could not verify Edge URL. Docker/HTTPS/physical-phone verification remain open. Reviewer GitHub access not granted. AI conversation exports, covering note links and final demo tag are incomplete.
 - **Q-002 live demo review:** If ASIANPAINT or PERSISTENT AI is generated before submission, spot-check claims against metric-context criteria.
 - **S-001 deliberate scope gaps:** Quarterly P&L extraction, executive bios, 4-quarter guidance delivery, balance-sheet analysis — absent by design for this P0 milestone. See [full audit](docs/REQUIREMENTS_AUDIT_2026-10-30.md).
 
@@ -31,3 +31,5 @@ Standing workflow is explicit in [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.m
 Free-tier Gemini and ongoing private source pushes are authorized. Railway deployment and shared-token gating are now authorized. Paid use, new account terms/broader repository permissions, Gemini secret transfer and email remain unapproved.
 
 Details: [specification](docs/SPEC.md), [milestones](docs/MILESTONES.md), [verification](docs/VERIFICATION.md), [issues](docs/ISSUES.md), [submission draft](docs/SUBMISSION_DRAFT.md).
+
+October 31 cache slice: reviewed INFY note is now a deliberate public-evidence fixture in `data/research/notes/INFY.json`; matching hashes and validation required. GET research includes saved notes immediately. Railway defaults to cache-only, no key transfer; missing/corrupt/unwritable quota state retains in-memory ledger and closes new calls. Syntax and all 45 tests pass; 75-file packaged startup/secret exclusions/recorded-note smoke check pass. Browser/phone and Docker image remain unverified.

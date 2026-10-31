@@ -1,0 +1,93 @@
+{
+  "claims": [
+    {
+      "section": "business",
+      "text": "Infosys provides end-to-end business solutions to enable clients to enhance business performance across various business segments.",
+      "inference": false,
+      "references": [
+        {
+          "evidenceId": "889ee382d055a528-p356-1050",
+          "quote": "The Group's operations predominantly relate to providing end-to- end business solutions to enable clients to enhance business performance."
+        },
+        {
+          "evidenceId": "889ee382d055a528-p356-1050",
+          "quote": "Accordingly, information has been presented along business segments."
+        }
+      ]
+    },
+    {
+      "section": "financial",
+      "text": "Revenue crosses $20 billion mark with resilient growth in fiscal 2026.",
+      "inference": false,
+      "references": [
+        {
+          "evidenceId": "889ee382d055a528-p17-0",
+          "quote": "Business highlights Performance overview Revenue crosses $20 billion mark with resilient growth in fiscal 2026 In ₹ crore, except per equity share data* FY 2026 FY 2025 FY 2024 FY 2023 FY 2022 Revenues 1,78,650 1,62,990"
+        }
+      ]
+    },
+    {
+      "section": "guidance",
+      "text": "Earlier, the revenue growth guidance for financial year 2027 was 1.5% to 3.5% growth year-on-year in constant currency terms.",
+      "inference": false,
+      "references": [
+        {
+          "evidenceId": "4ac29aca97bbdc1f-p4-1050",
+          "quote": "Our revenue growth guidance for the financial year 2027 is 1.5% to 3.5% growth year -on-year in constant currency terms."
+        }
+      ]
+    },
+    {
+      "section": "guidance",
+      "text": "Later, the revenue growth guidance was changed to 1.5% to 3% Y-on-Y growth in constant currency terms.",
+      "inference": false,
+      "references": [
+        {
+          "evidenceId": "bdc83ce116f13361-p6-0",
+          "quote": "With our Q1 results and a view for the rest of the financial year, we are changing our revenue growth guidance to 1.5% to 3% Y-on-Y growth in constant currency terms."
+        }
+      ]
+    },
+    {
+      "section": "bull",
+      "text": "If client spending and investments continue to move towards AI, it could support transformation objectives during economic uncertainty.",
+      "inference": true,
+      "references": [
+        {
+          "evidenceId": "4ac29aca97bbdc1f-p4-1050",
+          "quote": "With our clear AI strategic roadmap and our real-world toolkit of Topaz Fabric, we are well positioned to support our clients' transformation, technology and operations objectives."
+        },
+        {
+          "evidenceId": "889ee382d055a528-p76-1050",
+          "quote": "We expect client spending and investments to continue to move towards AI in the near term."
+        }
+      ]
+    },
+    {
+      "section": "bear",
+      "text": "If competitive intensity and AI productivity impact persist, they could weigh on traditional IT services.",
+      "inference": true,
+      "references": [
+        {
+          "evidenceId": "4ac29aca97bbdc1f-p4-1050",
+          "quote": "We also see continued competitive intensity and we see an AI productivity impact, a combination of these things."
+        },
+        {
+          "evidenceId": "889ee382d055a528-p76-1050",
+          "quote": "Radical transformation in technology led by AI is shifting the dynamics of discretionary spending and mounting pressure on traditional IT services."
+        }
+      ]
+    }
+  ],
+  "unavailableSections": [],
+  "model": "gemini-3.5-flash-lite",
+  "provider": "Gemini",
+  "promptVersion": "cited-primary-research-v6",
+  "evidenceHash": "f7c6c7ff0f2944880d5d220175dff112c7fa4fd87e6c4fa67debe13076047b44",
+  "generatedAt": "2026-10-28T13:15:33.117Z",
+  "cached": false,
+  "recorded": true,
+  "reviewedAt": "2026-10-28",
+  "generationLatencyMs": 6500,
+  "originalLlmCalls": 1
+}

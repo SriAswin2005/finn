@@ -8,6 +8,17 @@ function citation(document, page) {
   const url = new URL(document.url); if (url.protocol !== 'https:' || url.username || url.password) return node('span', 'muted', 'Source URL unavailable.');
   url.hash = `page=${page}`; link.href = url.href; link.target = '_blank'; link.rel = 'noopener noreferrer'; return link;
 }
+function renderAnalysis(analysis, data) {
+  $('ai-result').replaceChildren(...analysis.claims.map(claim => {
+      const article = node('article', 'ai-claim'); article.append(node('span', 'eyebrow', `${claim.section} · ${claim.inference ? 'AI interpretation' : 'AI summary — verify against source'}`), node('p', '', claim.text));
+      for (const ref of claim.references) {
+        const evidence = data.evidence.find(item => item.id === ref.evidenceId); const doc = data.documents.find(doc => doc.id === evidence.documentId);
+        article.append(node('blockquote', '', ref.quote), citation(doc, evidence.page));
+      }
+      return article;
+    }), node('p', 'muted', 'Guidance versus delivery: not verified. A revised forecast does not establish that an earlier forecast was met or missed; matching periods and reporting basis must be checked.'), node('p', 'muted', `Unsupported sections: ${analysis.unavailableSections.join(', ') || 'none declared'}. Citation and quote checks passed; they do not prove semantic correctness. Read the sources before relying on a claim.`));
+    $('ai-status').textContent = `${analysis.provider} · ${analysis.model} · ${analysis.cached ? 'cached note · 0 LLM calls · ₹0 request spend' : 'new note'} · generated ${new Date(analysis.generatedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST · ${analysis.promptVersion}`;
+}
 let result = null; let request = 0; let controller;
 function render(data) {
   result = data;
@@ -31,8 +42,8 @@ function render(data) {
     return panel;
   }));
   $('research-ai').disabled = !data.ai.configured || !data.evidence.length;
-  $('ai-status').textContent = data.ai.configured ? 'Generate on demand. Repeated notes use the evidence cache; free-quota limits apply.' : 'AI synthesis is not enabled. Verified document retrieval and cited excerpts remain available.';
-  $('ai-result').replaceChildren(); $('research-result').hidden = false;
+  $('ai-status').textContent = data.ai.configured ? 'Generate on demand. Repeated notes use the evidence cache; free-quota limits apply.' : 'AI quota resting; showing cached notes and primary evidence. New model calls are disabled for this demo.';
+  $('ai-result').replaceChildren(); if (data.analysis) renderAnalysis(data.analysis, data); $('research-result').hidden = false;
 }
 async function load() {
   const id = ++request; controller?.abort(); controller = new AbortController();
@@ -63,15 +74,7 @@ $('research-ai').addEventListener('click', async () => {
     const analysis = await response.json(); if (!response.ok) throw new Error(analysis.error || 'AI analysis unavailable.');
     if (id !== request) return;
     if (analysis.evidenceHash !== data.evidenceHash) throw new Error('The source evidence changed. Reload research before generating another note.');
-    $('ai-result').replaceChildren(...analysis.claims.map(claim => {
-      const article = node('article', 'ai-claim'); article.append(node('span', 'eyebrow', `${claim.section} · ${claim.inference ? 'AI interpretation' : 'AI summary — verify against source'}`), node('p', '', claim.text));
-      for (const ref of claim.references) {
-        const evidence = data.evidence.find(item => item.id === ref.evidenceId); const doc = data.documents.find(doc => doc.id === evidence.documentId);
-        article.append(node('blockquote', '', ref.quote), citation(doc, evidence.page));
-      }
-      return article;
-    }), node('p', 'muted', 'Guidance versus delivery: not verified. A revised forecast does not establish that an earlier forecast was met or missed; matching periods and reporting basis must be checked.'), node('p', 'muted', `Unsupported sections: ${analysis.unavailableSections.join(', ') || 'none declared'}. Citation and quote checks passed; they do not prove semantic correctness. Read the sources before relying on a claim.`));
-    $('ai-status').textContent = `${analysis.provider} · ${analysis.model} · ${analysis.cached ? 'cached note; no new generation' : 'new note'} · generated ${new Date(analysis.generatedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST · ${analysis.promptVersion}`;
+    renderAnalysis(analysis, data);
   } catch (error) { if (id === request) $('ai-status').textContent = error.name === 'TimeoutError' ? 'The AI request timed out. Your source evidence remains available; check the connection before retrying.' : error instanceof TypeError ? 'FINN could not be reached. Your loaded evidence remains visible; reconnect before requesting an AI note.' : error.message; }
   finally { if (id === request) $('research-ai').disabled = !data.ai.configured; }
 });

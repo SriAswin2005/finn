@@ -90,3 +90,7 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 ## October 31 — reviewer gate and Railway preparation
 
 User authorized deployment/gating and disposable demo state. Added native Node shared-token exchange with signed expiring secure cookies and HTTP behavior tests; Railway uses Docker and one replica. Hosting connection pending after browser URL verification stopped automation. Syntax and all 43 tests pass; no deployment claimed.
+
+## October 31 — bake reviewed INFY research
+
+Copied only the public, reviewed INFY six-claim note into committed evidence fixtures. Runtime cache remains ignored. Shared UI renderer shows saved note immediately; Railway defaults cache-only. Quota storage is best-effort, with in-memory retention and fail-closed calls on loss. Syntax, all 45 tests and 75-file package smoke checks pass. Browser/phone unverified; Docker engine unavailable.

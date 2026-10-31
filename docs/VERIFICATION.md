@@ -142,3 +142,7 @@ Keyword excerpts are not verified financial conclusions or a comparable-period p
 ## October 31 — shared-token deployment slice
 
 Implemented signed reviewer cookie, clean key redirect, protected assets/APIs, fail-closed Railway token configuration and Docker health-check settings. Syntax check and all 43 tests pass. Computer Use stopped on Edge URL verification; no hosted or physical-phone test completed.
+
+## October 31 — cache-backed disposable demo
+
+Recorded INFY note hash matches recorded evidence; immediate GET notes, no-key reuse, cache-only host and quota loss/write failure syntax, all 45 tests and packaged smoke checks pass. No model call made.

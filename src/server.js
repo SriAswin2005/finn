@@ -42,7 +42,9 @@ export function createAppServer({ datasetProvider = getDataset, researchProvider
             catch { return json(res, 400, { error: 'Invalid JSON.' }); }
           }
           const research = await researchProvider(ticker, question);
-          return json(res, 200, researchPost ? await aiProvider.generate(research) : research);
+          if (researchPost) return json(res, 200, await aiProvider.generate(research));
+          const analysis = aiProvider.getCached ? await aiProvider.getCached(research) : null;
+          return json(res, 200, { ...research, analysis, ai: { ...research.ai, configured: aiProvider.enabled ?? research.ai.configured } });
         } catch (error) {
           if (error instanceof RangeError) return json(res, 400, { error: error.message });
           if (error instanceof ResearchUnavailable || error instanceof AiUnavailable) return json(res, 503, { error: error.message });

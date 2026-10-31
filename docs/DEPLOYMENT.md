@@ -19,3 +19,7 @@ For local Docker verification use `docker build -t finn:prototype .` then `docke
 Verify image startup, health, rejected anonymous UI/API calls, private-link exchange/clean redirect, all three recorded evidence examples, immediate reviewed INFY note with zero calls, restart without cache state, source-page links, HTTPS/installation and physical-phone smooth scrolling. Measure cold start and state its limits in the covering note. Local 43-test verification covers gate behavior; it does not establish these hosted/mobile results. Browser automation stopped on Edge URL verification, so the user is supplying the hosting connection.
 
 Private source pushes remain authorized. New account terms/broader GitHub permissions, payment, Gemini key transfer, reviewer GitHub grants and email remain outside the current approval. Historical hosting estimates are in [HOSTING_ASSESSMENT.md](HOSTING_ASSESSMENT.md); actual trial eligibility must be checked.
+
+## Disposable-state implementation
+
+Railway automatically defaults to cache-only (`FINN_AI_LIVE_ENABLED` is not set). Optionally set `FINN_AI_CACHE_ONLY=true` explicitly. Reviewed INFY default note is baked under `data/research/notes`; other demos retain evidence but no reviewed synthesis. Notes must match current evidence hash and pass validation. Lost/corrupt quota or a failed reservation keeps process memory and blocks new calls. A fresh ledger is never created implicitly. A volume is optional. Syntax, all 45 tests and 75-file package smoke checks pass. Browser/phone unverified; Docker engine unavailable.

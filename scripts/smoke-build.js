@@ -18,5 +18,7 @@ try {
   const briefing = await (await fetch(base + '/api/briefing?mode=recorded')).json(); assert.equal(briefing.portfolio.length, 15);
   const research = await (await fetch(base + '/api/research?ticker=ASIANPAINT')).json(); assert.equal(research.mode, 'recorded'); assert.equal(research.documents.length, 3);
   assert.ok(research.evidence.length); assert.equal((await fetch(base + '/data/research/ASIANPAINT.json')).status, 404);
+  const infy = await (await fetch(base + '/api/research?ticker=INFY')).json();
+  assert.equal(infy.analysis.recorded, true); assert.equal(infy.analysis.requestLlmCalls, 0); assert.equal(infy.analysis.claims.length, 6);
   console.log('Packaged application passed checksums, secret exclusions, HTTP briefing and recorded research smoke checks.');
 } finally { await new Promise(resolve => server.close(resolve)); }
