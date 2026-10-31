@@ -173,8 +173,8 @@ $('alerts-form').addEventListener('submit', event => {
   loadBriefing();
 });
 function showScreen() {
-  const screen = ['today', 'portfolio', 'research', 'alerts'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'today';
-  for (const name of ['today', 'portfolio', 'research', 'alerts']) $(`screen-${name}`).hidden = name !== screen;
+  const screen = ['today', 'portfolio', 'research', 'alerts', 'about'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'today';
+  for (const name of ['today', 'portfolio', 'research', 'alerts', 'about']) $(`screen-${name}`).hidden = name !== screen;
   for (const link of document.querySelectorAll('[data-screen]')) {
     if (link.dataset.screen === screen) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
   }
@@ -185,6 +185,7 @@ function showScreen() {
 }
 window.addEventListener('hashchange', showScreen); showScreen();
 async function loadBriefing() {
+  const started = performance.now();
   const id = ++requestId;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 10000);
@@ -207,6 +208,7 @@ async function loadBriefing() {
     render(data);
     $('status').textContent = data.mode === 'demo' ? `Demo snapshot · ${time(data.asOf)} · All events and figures are fictional.` : `${data.mode === 'recorded' ? 'Recorded replay' : 'Source snapshot'} · collected ${time(data.snapshotAt)}${data.stale ? ' · Source warnings: check freshness below.' : ''} · Exchange metadata, not AI analysis.`;
     $('briefing').hidden = false;
+    $('cost-ledger').textContent = `Digest request: 0 LLM calls · ${Math.round(performance.now() - started)} ms including network/render · ₹0 model spend`;
   } catch (error) {
     if (id !== requestId) return;
     $('status').className = 'status error';
@@ -220,6 +222,16 @@ async function loadBriefing() {
 $('window').addEventListener('change', () => { preferences.hours = Number($('window').value); persist(); loadBriefing(); });
 $('data-mode').addEventListener('change', () => { preferences.mode = $('data-mode').value; persist(); loadBriefing(); });
 $('refresh').addEventListener('click', loadBriefing);
+$('show-refusal').addEventListener('click', async () => {
+  $('show-refusal').disabled = true; $('refusal-status').textContent = 'Checking a synthetic claim against the live validator…';
+  try {
+    const response = await fetch('/api/validation-example', { cache: 'no-store', signal: AbortSignal.timeout(10000) });
+    const data = await response.json(); if (!response.ok) throw new Error(data.error || 'Validator unavailable.');
+    $('refusal-result').replaceChildren(element('p', '', `Synthetic claim: “${data.claim}”`), element('blockquote', '', `Synthetic source: “${data.quote}”`));
+    $('refusal-status').textContent = `${data.rejected ? 'Rejected' : 'Unexpected acceptance'} · ${data.reason} · ${data.llmCalls} LLM calls.`;
+  } catch { $('refusal-status').textContent = 'Validator could not be reached. Reconnect and retry; no cached success is shown.'; }
+  finally { $('show-refusal').disabled = false; }
+});
 $('settings-open').addEventListener('click', () => {
   $('price-threshold').value = preferences.price;
   $('volume-threshold').value = preferences.volume;

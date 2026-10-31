@@ -64,6 +64,7 @@ function render(data) {
   renderComparison(data.guidanceComparison);
 }
 async function load() {
+  const started = performance.now();
   const id = ++request; controller?.abort(); controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 300000);
   $('research-status').className = 'status'; $('research-status').textContent = 'Finding primary documents and page references… Cached examples load faster.';
@@ -74,6 +75,7 @@ async function load() {
     const data = await response.json(); if (!response.ok) throw new Error(data.error || 'Research unavailable.');
     if (id !== request) return; render(data);
     $('research-status').textContent = 'Primary evidence is ready. Open a page reference to inspect the original document.';
+    $('cost-ledger').textContent = `Research retrieval: 0 LLM calls · ${Math.round(performance.now() - started)} ms including network/render · ₹0 model spend${data.analysis ? ' · reviewed note served from cache' : ''}`;
   } catch (error) {
     if (id !== request) return;
     $('research-status').className = 'status error'; $('research-status').textContent = error.name === 'AbortError' ? 'Document collection timed out. Please retry; completed documents may already be cached.' : error instanceof TypeError ? 'FINN could not be reached. Check your connection and that the server is running. The offline app shell does not include research data.' : error.message;

@@ -7,6 +7,7 @@ import { getDataset, DatasetUnavailable } from './providers/snapshot.js';
 import { getResearch, ResearchUnavailable } from './research/service.js';
 import { createGeminiProvider, AiUnavailable } from './ai/gemini.js';
 import { createAccessGate } from './access.js';
+import { refusalExample } from './ai/refusal.js';
 
 const publicDir = fileURLToPath(new URL('../public/', import.meta.url));
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.webmanifest': 'application/manifest+json', '.png': 'image/png', '.svg': 'image/svg+xml' };
@@ -57,6 +58,7 @@ export function createRequestHandler({ datasetProvider = getDataset, researchPro
         }
       }
       if (url.pathname === '/api/health') return json(res, 200, { ok: true, modes: ['live', 'recorded', 'demo'] });
+      if (url.pathname === '/api/validation-example') return json(res, 200, refusalExample());
       if (url.pathname === '/api/briefing') {
         try {
           const options = {

@@ -36,6 +36,8 @@ test('HTTP contract, validation, static isolation and install assets', async t =
     assert.equal(buffer.readUInt32BE(20), size);
   }
   assert.equal((await request('/sw.js')).headers.get('cache-control'), 'no-cache');
+  const refusal = await (await request('/api/validation-example')).json();
+  assert.equal(refusal.rejected, true); assert.equal(refusal.synthetic, true); assert.equal(refusal.llmCalls, 0); assert.match(refusal.reason, /direction mismatch/);
 });
 
 test('research HTTP contract preserves page citations and protects generation requests', async t => {
