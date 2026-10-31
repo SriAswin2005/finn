@@ -1,6 +1,6 @@
 # FINN — start here
 
-Last reconciled: October 30, 2026, Asia/Kolkata. Deadline: November 1, 2026. This is the short handoff for a new person, tool or AI session; do not start with a full repository scan.
+Last reconciled: October 31, 2026, Asia/Kolkata. Deadline: November 1, 2026. This is the short handoff for a new person, tool or AI session; do not start with a full repository scan.
 
 ## Read order and authority
 
@@ -30,16 +30,16 @@ P0 is reliable briefing/portfolio/research/in-app alerts plus a verified deliver
 | Guidance revision | Partial | INFY earlier/later ranges supported. Four-quarter promised-versus-delivered analysis is absent. |
 | Mobile/offline shell | Yes, local checks | October 28 mobile/keyboard/navigation/offline recovery checked. No physical-phone HTTPS installation or fresh complete browser regression on October 30. |
 | Quarterly results, biographies, broader financial analysis | Missing/partial | No standardized Revenue/EBITDA/PBT/PAT QoQ/YoY extraction, incoming-executive bios, dedicated balance-sheet/cash-quality/multi-year analysis. These PDF examples/menu options are not completed features. |
-| Delivery | Partial | Private GitHub source and local release verified (70-file archive, .env excluded). No hosted app, reviewer access control, final history exports/email, or final demo tag. |
+| Delivery | Partial | Private GitHub source and local release verified (70-file archive, .env excluded). Shared-token control passes local HTTP tests; hosting, phone checks, final history exports/email and demo tag remain incomplete. |
 
-41 tests total; 38 pass offline; 3 server.test.js tests require a running HTTP server (pre-existing sandbox restriction). Syntax checks and build archive verified on October 30. Passing tests do not prove semantic financial correctness. No known Git merge conflict at handoff; always inspect current Git status first.
+October 31: 43 tests pass with local HTTP/temp-file access; sandbox-only run fails on loopback/temp rename restrictions. Syntax checks and build archive verified on October 30. Passing tests do not prove semantic financial correctness. No known Git merge conflict at handoff; always inspect current Git status first.
 
 ## Implementation map: inspect only the slice you need
 
 | Area / flow | Files and boundaries |
 | --- | --- |
 | Browser UI, preferences, offline | `public/app.js`, `public/research.js`, `public/index.html`, `public/styles.css`, `public/sw.js`. Browser storage holds preferences; service worker caches shell, never API data. |
-| HTTP contracts | `src/server.js`: `/api/health`, `/api/briefing`, `/api/research`, POST `/api/research/analysis`; built-in Node HTTP. |
+| HTTP contracts | `src/access.js` shared-token gate; `src/server.js`: `/api/health`, `/api/briefing`, `/api/research`, POST `/api/research/analysis`; built-in Node HTTP. |
 | Briefing rules | `src/domain/briefing.js`, `src/domain/announcements.js`: windows/ranking/classification/EOD thresholds, pure and independently testable. |
 | Source collection | `src/ingest.js`, `src/providers/yahoo.js`, `nse.js`, `nse-eod.js`, `http.js`: normalize public data, bound requests, retain provenance/errors. No external scrape during a briefing request. |
 | Stored briefing | `src/providers/snapshot.js`, `src/storage/snapshots.js`: live ignored snapshot versus committed recorded replay; separate fictional demo. Stale/incomplete data pauses applicable signals. |
@@ -72,11 +72,11 @@ Open http://127.0.0.1:3000. A fresh checkout's recorded briefing/research needs 
 - Inventory includes six supported configured text candidates and deferred speech/embedding IDs. Specialists are excluded from research. General concise notes prefer Flash-Lite. Narrow business tasks try Gemma 26B then Flash-Lite; both Gemma candidates previously timed out. Do not assume model availability means low latency or adequate output.
 - Defaults: 20 total reserved attempts/rolling 24h, 20/model/day, 5/model/hour; attempts include failures. Three distinct attempts/request, 20 seconds/attempt inside a shared 45-second network budget. No rotation around shared-project quota errors. Inspect actual configuration/ledger without exposing keys; never reset ledgers to bypass limits.
 - Approved: local work, free-tier Gemini, and ongoing source publication to private https://github.com/SriAswin2005/finn, branch `master`. No rewriting history. New branches use `codex/`.
-- Not approved: application deployment, new host accounts/integrations/secret transfer, reviewer access grants, authentication implementation, paid usage, public repository visibility or email. Hosting has only been assessed. Do not interpret an assessment as permission to deploy.
+- October 31 authorization: Railway deployment (Render fallback), shared-token gate, disposable host state and baked demo notes. Gate implemented in `src/access.js`; `railway.toml` selects Docker/health check/one replica. User is connecting Railway; deployment remains incomplete. Do not transfer the Gemini key; the demo will be cache-only. New account terms/broader integrations, paid use, reviewer repository grants, public repository visibility and email remain outside approval.
 
 ## Continue from here
 
-1. Get deployment approval from user — Railway trial (preferred) or Render (fallback). Verify container, HTTPS phone install, restart persistence, network/source access.
+1. Verify/push gate, bake reviewed notes and fail-closed disposable quota handling, then deploy to authorized Railway using user-supplied connection. Verify container, HTTPS, cold start and phone workflow; record limits honestly.
 2. Arrange reviewer GitHub access to https://github.com/SriAswin2005/finn (currently private).
 3. Export original AI coding-agent conversation history; add share links to [docs/SUBMISSION_DRAFT.md](docs/SUBMISSION_DRAFT.md).
 4. `git tag demo-v1` after hosted verification and all submission gates pass.

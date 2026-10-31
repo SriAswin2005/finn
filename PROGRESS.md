@@ -1,6 +1,6 @@
 # FINN current progress
 
-Last reconciled October 30, 2026 (IST). Deadline: November 1. Start with [HANDOFF.md](HANDOFF.md); working rules are in [AGENTS.md](AGENTS.md). This is current status, not a chronological log.
+Last reconciled October 31, 2026 (IST). Deadline: November 1. Start with [HANDOFF.md](HANDOFF.md); working rules are in [AGENTS.md](AGENTS.md). This is current status, not a chronological log.
 
 Standing workflow is explicit in [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.md), with a human [CONTRIBUTING.md](CONTRIBUTING.md) entry point.
 
@@ -17,17 +17,17 @@ Standing workflow is explicit in [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.m
 - Submission draft updated: [docs/SUBMISSION_DRAFT.md](docs/SUBMISSION_DRAFT.md).
 
 ## Open / incomplete
-- **Deployment (D-001/D-002):** No host approved. Dockerfile exists but container is unbuilt/unverified. HTTPS phone install unverified. Reviewer GitHub access not granted. AI conversation exports, covering note links and final demo tag are incomplete.
+- **Deployment (D-001/D-002):** Railway deployment and shared-token gate authorized October 31. Gate implemented: signed 24-hour HttpOnly/Secure/SameSite cookie, clean redirect, protected UI/APIs; public health check only. Syntax check and all 43 tests pass (elevated rerun after sandbox restrictions). Railway CLI/account connection pending; browser tool stopped because it could not verify Edge URL. Docker/HTTPS/physical-phone verification remain open. Reviewer GitHub access not granted. AI conversation exports, covering note links and final demo tag are incomplete.
 - **Q-002 live demo review:** If ASIANPAINT or PERSISTENT AI is generated before submission, spot-check claims against metric-context criteria.
 - **S-001 deliberate scope gaps:** Quarterly P&L extraction, executive bios, 4-quarter guidance delivery, balance-sheet analysis — absent by design for this P0 milestone. See [full audit](docs/REQUIREMENTS_AUDIT_2026-10-30.md).
 
 ## Continue next
-1. Get deployment approval → Railway or Render → verify container, HTTPS, phone install.
+1. Verify/push token gate, finish baked-note cache-only release, then deploy using the user-supplied Railway connection; verify HTTPS and phone workflow.
 2. Arrange reviewer GitHub access.
 3. Export AI coding-agent conversation history; finalize SUBMISSION_DRAFT.md links.
 4. `git tag demo-v1` after hosted verification and all submission gates pass.
 5. Send email only after all gates pass.
 
-Free-tier Gemini and ongoing private source pushes are authorized. Paid use, external deployment/authentication/access grants, secret transfer and email are not approved without user sign-off.
+Free-tier Gemini and ongoing private source pushes are authorized. Railway deployment and shared-token gating are now authorized. Paid use, new account terms/broader repository permissions, Gemini secret transfer and email remain unapproved.
 
 Details: [specification](docs/SPEC.md), [milestones](docs/MILESTONES.md), [verification](docs/VERIFICATION.md), [issues](docs/ISSUES.md), [submission draft](docs/SUBMISSION_DRAFT.md).

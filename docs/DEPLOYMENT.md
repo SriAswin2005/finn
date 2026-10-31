@@ -1,34 +1,21 @@
-# Local release and deployment preparation
+# Railway reviewer deployment
 
-`npm run build` creates `dist/finn/` and `dist/finn-prototype.tar.gz`. Only selected application files, documentation and recorded public evidence are included. Credentials, live caches, downloaded PDFs, Python environments and Git metadata are excluded. BUILD_MANIFEST.json contains per-file SHA-256 checksums.
+Authorized October 31, 2026. Use only private `SriAswin2005/finn`, branch `master`, and the free trial; no paid plan or payment method. The user is signing in and connecting the repository. No host has been deployed or verified yet.
 
-Run `npm run verify:build` after building. It verifies checksums/exclusions and launches the packaged application on an ephemeral local port to test the briefing and recorded research without source-network calls. The frontend uses browser modules directly, so no compilation/bundler is needed.
+`railway.toml` uses the existing Dockerfile, one replica and `/api/health`. Docker includes Node/Python/pypdf. Set a random 32+ character `FINN_ACCESS_TOKEN` as a host secret and `FINN_REQUIRE_ACCESS_TOKEN=true`. Railway refuses startup without the token. Never commit/log the credential. Open `https://HOST/?key=TOKEN` once: FINN issues a signed 24-hour HttpOnly/Secure/SameSite=Lax cookie and redirects to the clean URL. All UI/assets and research/generation APIs require access; health alone is public. Rotating the token invalidates sessions. The gate also protects the key-backed endpoint if live AI is enabled later.
 
-## Run from a fresh checkout or extracted release
-Node 24.16+ and Python 3.12+ are required for new PDF collection. Reading the captured briefing/research examples only needs Node.
+No Gemini credential is to be uploaded. The next slice bakes reviewed notes and makes AI cache-only by default for this host. State is disposable: a small volume is optional and missing quota storage must fail closed, never create a fresh reviewer allowance. Recorded briefing/evidence are already included in the image. Do not rely on ignored `data/cache` transferring through Git.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-npm start
-```
+## Local release
 
-On Linux use `.venv/bin/python`. `PYTHON_BIN` can override the executable. A new browser defaults to visibly labelled Recorded sources, giving a working first run without scraping. Select Latest sources after running `npm run ingest`.
+`npm run build` creates `dist/finn/` and `dist/finn-prototype.tar.gz` with a SHA-256 manifest. `npm run verify:build` verifies exclusions/checksums and starts the packaged app for briefing/research smoke checks. No command deploys implicitly. Credentials, live caches, downloaded PDFs, Python environments and Git metadata are excluded.
 
-## Container option
-The Dockerfile packages Node plus the single Python dependency. No API key is baked into the image. A local example:
+Run `npm start` from a checkout/release with Node 24.16+. Recorded examples need only Node. New PDF collection requires Python 3.12+ and `pip install -r requirements.txt` in `.venv`; `PYTHON_BIN` can override it. Browser defaults to Recorded sources. `npm run ingest` manually collects Latest sources; refresh is not ingestion.
 
-```powershell
-docker build -t finn:prototype .
-docker run --rm -p 127.0.0.1:3000:3000 --env-file .env finn:prototype
-```
+For local Docker verification use `docker build -t finn:prototype .` then `docker run --rm -p 127.0.0.1:3000:3000 finn:prototype`. No key is baked in. The Docker engine/build and hosted HTTPS have not yet been verified.
 
-Omit `--env-file .env` if AI is disabled. For a hosted deployment, configure server-side secrets and a persistent volume for `/app/data/cache` owned by UID 1000. One instance/collector is assumed; local quotas and atomic JSON storage are not a multi-instance coordination system.
+## Required hosted evidence
 
-Public release needs HTTPS, a chosen hosting account, approved audience and a protected method for AI generation. Same-origin JSON checks and local budgets are present, but anonymous internet access must not expose an unprotected Gemini key-backed generation endpoint. Decide access control or keep AI disabled for the public demo before deployment. Source collection is manual, not a scheduler.
+Verify image startup, health, rejected anonymous UI/API calls, private-link exchange/clean redirect, all three recorded evidence examples, immediate reviewed INFY note with zero calls, restart without cache state, source-page links, HTTPS/installation and physical-phone smooth scrolling. Measure cold start and state its limits in the covering note. Local 43-test verification covers gate behavior; it does not establish these hosted/mobile results. Browser automation stopped on Edge URL verification, so the user is supplying the hosting connection.
 
-Nothing is published by the build command. With user authorization, the private source repository is now https://github.com/SriAswin2005/finn, using master and the configured device account. Source history was scanned for the current key and common credential patterns before publication; no findings. Runtime caches and secrets remain untracked. Reviewers need separately approved access before submission.
-
-External app deployment and email still require the user's approval. A hosting destination has not been chosen. Verify HTTPS installation and a physical-phone workflow after choosing the host. Do not claim these are complete based on the local smoke test.
-
-Free-hosting assessment is recorded in [HOSTING_ASSESSMENT.md](HOSTING_ASSESSMENT.md). Railway's trial is the preferred candidate for the complete demo if account/network eligibility is confirmed, because a persistent volume can retain the existing quota ledger. Render Free is a fallback for a limited demo; its ephemeral filesystem cannot preserve local AI budgets across sleep/restarts. Neither option is approved or deployed yet.
+Private source pushes remain authorized. New account terms/broader GitHub permissions, payment, Gemini key transfer, reviewer GitHub grants and email remain outside the current approval. Historical hosting estimates are in [HOSTING_ASSESSMENT.md](HOSTING_ASSESSMENT.md); actual trial eligibility must be checked.

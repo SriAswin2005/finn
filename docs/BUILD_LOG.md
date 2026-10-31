@@ -86,3 +86,7 @@ This log records decisions only. Preserve the original AI chat exports/share lin
 - User requires future AI/human workers to inherit the established style without repeated instructions. Added WORKING_AGREEMENT.md with targeted read routes, document ownership, immediate status/issue/challenge updates for every small logical change, verification and prompt private commit/push duties.
 - Specified one- or two-sentence commit messages describing the final change, useful at a glance; no vague labels or long paragraphs. Documented how to report failed pushes, interruptions and unresolved conflicts without claiming completion.
 - Linked the agreement from AI/human entry points and the continuation prompt. Added CONTRIBUTING.md to release contents. Q-001 and all runtime feature statuses remain unchanged; these are repository workflow instructions, not universal enforcement on unrelated tools.
+
+## October 31 — reviewer gate and Railway preparation
+
+User authorized deployment/gating and disposable demo state. Added native Node shared-token exchange with signed expiring secure cookies and HTTP behavior tests; Railway uses Docker and one replica. Hosting connection pending after browser URL verification stopped automation. Syntax and all 43 tests pass; no deployment claimed.

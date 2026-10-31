@@ -1,6 +1,6 @@
 # Current issues and continuation register
 
-Last reconciled October 30, 2026. Status is about observed evidence, not an implied promise to implement every PDF example. For all capabilities, see [the requirements audit](REQUIREMENTS_AUDIT_2026-10-30.md). Update this register when resolving or changing scope; retain resolution evidence.
+Last reconciled October 31, 2026. Status is about observed evidence, not an implied promise to implement every PDF example. For all capabilities, see [the requirements audit](REQUIREMENTS_AUDIT_2026-10-30.md). Update this register when resolving or changing scope; retain resolution evidence.
 
 ## Q-001 — AI citation does not establish the claimed metric
 
@@ -18,11 +18,11 @@ Resolution evidence: `src/ai/gemini.js` lines 23–28 (STOP_WORDS + metricTerms)
 
 Remaining: if a live demo run generates a new ASIANPAINT or PERSISTENT note before submission, it must be spot-checked against the same metric-context criteria. Failure/unavailable states are honest. Latency is a measured observation, never a guarantee.
 
-## D-001 — Hosting, access control and durable quota storage
+## D-001 — Hosting, reviewer gate and disposable quota state
 
-**Blocked on user destination/access approval and unimplemented hosted controls.** Private GitHub publication is complete, app deployment is not authorized. No reviewer authentication is implemented. Same-origin checks do not prevent anonymous non-browser API calls. Local quota files assume one instance and durable storage; ephemeral host restarts can erase caps.
+**Partially implemented October 31.** The user authorized Railway deployment, shared-token access and disposable storage. `src/access.js` protects UI/assets/APIs and exchanges `?key=` for a signed 24-hour HttpOnly, Secure, SameSite=Lax cookie before redirecting to a URL without the key. Token comparison uses fixed-size digests and `crypto.timingSafeEqual`; missing token fails Railway startup. Health alone remains public. `railway.toml` selects the existing Dockerfile and one replica. Syntax check and all 43 tests pass, including key exchange, rejected key/cookie, expiry, rotation and protected generation.
 
-See `src/server.js`, `src/storage/snapshots.js`, [DEPLOYMENT.md](DEPLOYMENT.md), [HOSTING_ASSESSMENT.md](HOSTING_ASSESSMENT.md). Acceptance after approval: chosen access mechanism, one instance/durable ledger, write permissions/restart persistence tested, host secrets approved and server-only, no paid upgrade. Keep live AI disabled on a public host until these controls exist.
+Deployment is not complete: no usable hosting CLI/session yet; Computer Use stopped because it could not verify Edge's browser URL. User is signing in and connecting the private repository. No Gemini secret will be transferred. Next slice bakes reviewed notes and makes missing/unwritable quota storage fail closed to cached evidence. Durable storage is optional, not an acceptance requirement. Keep new AI calls disabled on host.
 
 ## D-002 — Hosted/mobile/container and submission gates
 

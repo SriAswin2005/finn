@@ -6,6 +6,7 @@ import { buildBriefing } from './domain/briefing.js';
 import { getDataset, DatasetUnavailable } from './providers/snapshot.js';
 import { getResearch, ResearchUnavailable } from './research/service.js';
 import { createGeminiProvider, AiUnavailable } from './ai/gemini.js';
+import { createAccessGate } from './access.js';
 
 const publicDir = fileURLToPath(new URL('../public/', import.meta.url));
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.webmanifest': 'application/manifest+json', '.png': 'image/png', '.svg': 'image/svg+xml' };
@@ -15,18 +16,19 @@ function json(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
-export function createAppServer({ datasetProvider = getDataset, researchProvider = getResearch, aiProvider = createGeminiProvider() } = {}) {
+export function createAppServer({ datasetProvider = getDataset, researchProvider = getResearch, aiProvider = createGeminiProvider(), accessGate = createAccessGate() } = {}) {
   return createServer(async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'no-referrer');
     res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
-    const researchPost = req.method === 'POST' && req.url === '/api/research/analysis';
+    const url = new URL(req.url, 'http://localhost');
+    if (!accessGate(req, res, url)) return;
+    const researchPost = req.method === 'POST' && url.pathname === '/api/research/analysis';
     if (req.method !== 'GET' && req.method !== 'HEAD' && !researchPost) {
       res.setHeader('Allow', 'GET, HEAD');
       return json(res, 405, { error: 'Method not allowed.' });
     }
     try {
-      const url = new URL(req.url, 'http://localhost');
       if (url.pathname === '/api/research' || researchPost) {
         try {
           let ticker = url.searchParams.get('ticker'); let question = url.searchParams.get('question') ?? '';

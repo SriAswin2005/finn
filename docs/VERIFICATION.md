@@ -138,3 +138,7 @@ Keyword excerpts are not verified financial conclusions or a comparable-period p
 - Build packaging: removed redundant root `SPEC.md` duplicate (`docs/SPEC.md` is the canonical specification) and updated `scripts/build.js`. `npm run build` creates `dist/finn-prototype.tar.gz` with 70 files; verified `.env`, `.venv`, and `data/cache` are strictly excluded.
 - Packaged release verification: `node scripts/smoke-build.js` passes all file checksums, verifies secret exclusion, and verifies HTTP briefing and recorded research smoke endpoints.
 - Current limits: Docker daemon is stopped on host; container image remains prepared but unbuilt. Physical-phone HTTPS installation, hosted deployment, reviewer GitHub access and AI export links remain pending user approval.
+
+## October 31 — shared-token deployment slice
+
+Implemented signed reviewer cookie, clean key redirect, protected assets/APIs, fail-closed Railway token configuration and Docker health-check settings. Syntax check and all 43 tests pass. Computer Use stopped on Edge URL verification; no hosted or physical-phone test completed.
