@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "kind": "results",
+      "symbol": "LT",
+      "filingUrl": "https://nsearchives.nseindia.com/corporate/PAM_27102026171156_LTSep2026.pdf",
+      "title": "L&T: September quarter results",
+      "scope": "consolidated",
+      "currency": "INR",
+      "unit": "crore",
+      "patBasis": "attributable to owners of the company",
+      "source": {
+        "url": "https://nsearchives.nseindia.com/corporate/PAM_27102026171156_LTSep2026.pdf",
+        "page": 11,
+        "sha256": "da335b2be356b8fb865b45c14aa8082b9f232cd218d1cbdea4954947771ebdb4"
+      },
+      "columns": [
+        "2026-09-30",
+        "2026-06-30",
+        "2025-09-30",
+        "H1-2026-09-30",
+        "H1-2025-09-30",
+        "FY-2026-03-31"
+      ],
+      "rows": [
+        {
+          "metric": "revenue",
+          "values": [
+            "78749.94",
+            "67941.74",
+            "67983.53",
+            "146691.68",
+            "131662.45",
+            "285874.36"
+          ]
+        },
+        {
+          "metric": "otherIncome",
+          "values": [
+            "2306.26",
+            "2376.73",
+            "1384.28",
+            "4682.99",
+            "2741.06",
+            "5760.68"
+          ]
+        },
+        {
+          "metric": "financeCost",
+          "values": [
+            "472.94",
+            "538.67",
+            "762.81",
+            "1011.61",
+            "1544.42",
+            "2848.82"
+          ]
+        },
+        {
+          "metric": "depreciation",
+          "values": [
+            "1036.91",
+            "1032.28",
+            "1091.77",
+            "2069.19",
+            "2125.07",
+            "4364.75"
+          ]
+        },
+        {
+          "metric": "pbt",
+          "values": [
+            "7641.06",
+            "6922.26",
+            "6336.11",
+            "14563.32",
+            "12195.64",
+            "25975.81"
+          ]
+        },
+        {
+          "metric": "pat",
+          "values": [
+            "5202.10",
+            "4122.85",
+            "3926.09",
+            "9324.95",
+            "7543.28",
+            "16083.99"
+          ]
+        }
+      ],
+      "reviewedAt": "2026-10-31",
+      "mapping": "Six source columns extracted by row label and checked against the rendered PDF. First three are comparable quarters. No source value repaired by a model.",
+      "notes": [
+        "PAT is attributable to owners of the company, excluding non-controlling interests.",
+        "Derived EBITDA proxy = PBT + general finance-cost row + depreciation row − other income. Finance-service and finance-lease funding costs remain operating expenses. The depreciation row also includes impairment/obsolescence; this proxy is not company-reported EBITDA."
+      ]
+    }
+  ]
+}

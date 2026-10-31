@@ -57,7 +57,28 @@ function openDetail(item) {
   $('detail-why').textContent = item.why;
   $('detail-evidence').textContent = item.source.evidence;
   $('detail-source').replaceChildren(sourceLink(item.source, 'Open original NSE filing ↗'));
+  $('detail-analysis').replaceChildren(...(item.details ? [filingDetail(item.details)] : []));
   $('detail').showModal();
+}
+function filingDetail(data) {
+  const section = element('section', 'filing-detail');
+  if (data.kind !== 'results') return section;
+  section.append(element('p', 'eyebrow', `${data.scope} · INR crore · quarter ended ${data.periods[0]}`));
+  const table = element('table', 'results-table'); const head = element('thead'); const header = element('tr');
+  for (const label of ['Metric', 'Latest', 'QoQ', 'YoY']) header.append(element('th', '', label));
+  head.append(header); const body = element('tbody');
+  const change = item => item.percent === null ? item.label : `${item.percent >= 0 ? '+' : ''}${item.percent.toFixed(1)}%`;
+  for (const row of data.rows) {
+    const tr = element('tr'); const th = element('th', '', row.label); th.scope = 'row';
+    tr.append(th, element('td', '', number(row.value)), element('td', '', change(row.qoq)), element('td', '', change(row.yoy))); body.append(tr);
+  }
+  table.append(head, body); section.append(table, element('p', 'muted', `QoQ vs ${data.periods[1]}; YoY vs ${data.periods[2]}. PAT is attributable to owners.`));
+  const source = { url: `${data.source.url}#page=${data.source.page}` };
+  section.append(sourceLink(source, `Check original results table · PDF p. ${data.source.page} ↗`));
+  const details = element('details'); details.append(element('summary', '', 'Calculation, reporting basis & source values'));
+  for (const note of data.notes) details.append(element('p', 'muted', note));
+  for (const row of data.rows) details.append(element('p', 'muted', `${row.label}: latest ${number(row.value)}, preceding quarter ${number(row.previousQuarter)}, year-ago quarter ${number(row.previousYear)} crore.`));
+  section.append(details); return section;
 }
 function openMarket(company) {
   const eod = company.eod;
@@ -84,6 +105,7 @@ function card(item) {
   button.setAttribute('aria-label', `View ${item.symbol}: ${item.title}`);
   button.addEventListener('click', () => openDetail(item));
   article.append(meta, element('h3', '', item.title), element('p', '', item.summary.length > 280 ? item.summary.slice(0, 280) + '…' : item.summary), why, button);
+  if (item.details) article.insertBefore(filingDetail(item.details), why);
   return article;
 }
 function render(data) {

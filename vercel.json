@@ -6,7 +6,7 @@
   "functions": {
     "api/finn.js": {
       "maxDuration": 300,
-      "includeFiles": "{public/**,data/research/**,data/recorded-snapshot.json}"
+      "includeFiles": "{public/**,data/research/**,data/recorded-snapshot.json,data/filings.json}"
     },
     "api/parse.py": {
       "maxDuration": 60,

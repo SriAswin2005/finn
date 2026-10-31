@@ -12,6 +12,7 @@ COPY scripts ./scripts
 COPY test ./test
 COPY public ./public
 COPY data/recorded-snapshot.json ./data/recorded-snapshot.json
+COPY data/filings.json ./data/filings.json
 COPY data/research ./data/research
 ENV HOST=0.0.0.0 PORT=3000 PYTHON_BIN=/opt/finn-python/bin/python
 RUN mkdir -p data/cache && chown -R node:node /app
