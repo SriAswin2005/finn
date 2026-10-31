@@ -25,3 +25,9 @@ After approval: upload only these two host secrets plus `FINN_AI_CACHE_ONLY=true
 `npm run build` writes `dist/finn-prototype.tar.gz` and per-file SHA-256 manifest; `npm run verify:build` checks secret exclusions, startup, briefing and baked research. Docker remains a local alternative; its engine/image has not been verified. Hosting source credentials, payment, public repository visibility, reviewer repository grants and email are separate from a working web link. No email has been sent.
 
 User explicitly approved the reviewer token and parser secret for sriak/finn production. Neon persistence verified with a public INFY record written by one Node process and read by a fresh process (3 documents); no credentials displayed. Host deployment and phone checks still pending.
+
+## October 31 — first hosted verification and cold-research finding
+
+Production ready: https://finn-zeta-one.vercel.app (deployment `dpl_2PE1UQ9ruymL8yXpmpkfWZqkY9SZ`). Hosted gate/clean 303 redirect/Secure HttpOnly cookie, protected assets, blocked .env, 15-company recorded briefing, all three recorded research examples, immediate six-claim INFY note (0 request model calls), guidance progress and private Python 403 verified. Warm request observations 300–411 ms; first observed health 1,162 ms. No after-idle cold-start or physical-phone result. One transient transport failure on app.js passed on a fresh full run.
+
+D-003: cold hosted TCS returned 503 after 2.8 s. Parser was calling the per-deployment URL, which has Vercel authentication; switch to VERCEL_PROJECT_PRODUCTION_URL alias (our private HMAC endpoint) and retain source failure details. Regression test updated; syntax and all 67 tests pass. Hosted cold retry pending after deployment. Reviewer phone-test request remains pending. Private reviewer URL is only in ignored tmp/reviewer-link.txt.

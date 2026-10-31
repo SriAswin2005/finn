@@ -25,7 +25,7 @@ test('Neon store uses bound values and survives a fresh adapter instance', async
 });
 
 test('remote PDF parser sends signed small metadata and rejects malformed page output', async () => {
-  const env = { VERCEL_URL: 'finn.example', FINN_PARSER_SECRET: 'test-private-parser-secret' };
+  const env = { VERCEL_URL: 'protected-deployment.example', VERCEL_PROJECT_PRODUCTION_URL: 'finn.example', FINN_PARSER_SECRET: 'test-private-parser-secret' };
   let received;
   const fetchImpl = async (url, options) => {
     received = { url, options };

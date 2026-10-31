@@ -72,7 +72,7 @@ export async function collectResearch(ticker) {
       documents.push(document);
     } catch (error) { errors.push({ title: source.title, error: error.message }); }
   }
-  if (!documents.length) throw new ResearchUnavailable('No primary document could be downloaded and verified for this ticker.');
+  if (!documents.length) throw new ResearchUnavailable(`No primary document could be downloaded and verified for this ticker. ${errors.map(error => `${error.title}: ${error.error}`).join(' ')}`);
   const data = { schemaVersion: 1, ticker, company: discovery.company, discoveryUrl: discovery.discoveryUrl, fetchedAt, mode: 'collected', documents, errors };
   try { await researchStore.set(ticker, data); } catch { data.errors.push({ title: 'Research storage', error: 'Collected research could not be saved persistently; this result may need recollection after restart.' }); }
   return data;

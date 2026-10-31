@@ -4,7 +4,9 @@ export async function collectRemoteDocument(source, fetchedAt, { env = process.e
   if (!env.FINN_PARSER_SECRET || !env.VERCEL_URL) throw new Error('Hosted PDF extraction is not configured. Recorded evidence remains available.');
   const body = JSON.stringify({ url: source.url, expires: Math.floor(now() / 1000) + 90, maxBytes: source.kind === 'annual_report' ? 50_000_000 : 25_000_000 });
   const signature = createHmac('sha256', env.FINN_PARSER_SECRET).update(body).digest('hex');
-  const response = await fetchImpl(`https://${env.VERCEL_URL}/api/parse`, {
+  // Deployment URLs can require Vercel login; the production alias uses our own gate.
+  const hostname = env.VERCEL_PROJECT_PRODUCTION_URL ?? env.VERCEL_URL;
+  const response = await fetchImpl(`https://${hostname}/api/parse`, {
     method: 'POST', signal: AbortSignal.timeout(65000),
     headers: { 'Content-Type': 'application/json', 'x-finn-parser-signature': signature,
       ...(env.VERCEL_AUTOMATION_BYPASS_SECRET ? { 'x-vercel-protection-bypass': env.VERCEL_AUTOMATION_BYPASS_SECRET } : {}) }, body,
