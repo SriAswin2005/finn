@@ -7,7 +7,7 @@ export async function getDataset(mode = 'live', { now = new Date(), livePath = l
   if (mode === 'demo') return getDemoDataset();
   if (!['live', 'recorded'].includes(mode)) throw new RangeError('Data mode must be live, recorded or demo.');
   const data = await readSnapshot(mode === 'live' ? livePath : recordedPath);
-  if (!data) throw new DatasetUnavailable(mode === 'live' ? 'No live snapshot yet. Run npm run ingest, then refresh. Recorded sources and fictional demo remain available from Data mode.' : 'No recorded snapshot is available.');
+  if (!data) throw new DatasetUnavailable(mode === 'live' ? 'Latest sources have not been collected for this host. Choose Recorded sources or try again later.' : 'No recorded snapshot is available.');
   const asOf = mode === 'live' ? now.toISOString() : data.asOf;
   const age = Date.parse(asOf) - Date.parse(data.asOf);
   for (const source of Object.values(data.sources)) {

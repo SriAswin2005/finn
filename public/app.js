@@ -236,7 +236,7 @@ async function loadBriefing() {
     }
     if (id !== requestId) return;
     render(data);
-    $('status').textContent = data.mode === 'demo' ? `Demo snapshot · ${time(data.asOf)} · All events and figures are fictional.` : `${data.mode === 'recorded' ? 'Loaded fixed replay' : 'Loaded source snapshot'} · collected ${time(data.snapshotAt)}${data.stale ? ' · Source warnings: check freshness below.' : ''} · Exchange metadata, not AI analysis.`;
+    $('status').textContent = data.mode === 'demo' ? `Demo snapshot · ${time(data.asOf)} · All events and figures are fictional.` : `${data.mode === 'recorded' ? 'Loaded fixed replay' : 'Loaded source snapshot'} · collected ${time(data.snapshotAt)}${data.stale ? ' · Source warnings: check freshness below.' : ''} · Original filings; page-reviewed details where shown.`;
     $('briefing').hidden = false;
     $('cost-ledger').textContent = `Digest request: 0 LLM calls · ${Math.round(performance.now() - started)} ms including network/render · ₹0 model spend`;
   } catch (error) {
