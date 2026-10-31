@@ -1,0 +1,80 @@
+{
+  "claims": [
+    {
+      "section": "business",
+      "text": "The decorative segment offers paint and decor products and services, including painting services.",
+      "inference": false,
+      "references": [
+        {
+          "evidenceId": "b7977d2419ed2e21-p11-0",
+          "quote": "BUSINESS SEGMENTS DECORATIVE India’s leading paint and décor Company offering wide range of products and services along with largest-of-its kind painting service in the world."
+        }
+      ]
+    },
+    {
+      "section": "financial",
+      "text": "International segment revenue for FY 2025-26 came in at ₹ 3,354 Crore and registered growth of 9.4%, led by South Asia.",
+      "inference": false,
+      "references": [
+        {
+          "evidenceId": "b7977d2419ed2e21-p30-6300",
+          "quote": "International segment revenue for FY 2025-26 came in at ₹ 3,354 Crore and registered growth of 9.4%, led by South Asia."
+        }
+      ]
+    },
+    {
+      "section": "guidance",
+      "text": "Management reiterated PBDIT-margin guidance of 18-20% in the later call.",
+      "inference": false,
+      "references": [
+        {
+          "evidenceId": "579a8a98c6eb6bd9-p20-1050",
+          "quote": "We are still garnering around the guidance of 18-20% of our PBDIT margins holds."
+        }
+      ]
+    },
+    {
+      "section": "bear",
+      "text": "If high inflation persists in the international segment’s affected markets, it could continue to pressure demand and profitability there.",
+      "inference": true,
+      "references": [
+        {
+          "evidenceId": "b7977d2419ed2e21-p30-6300",
+          "quote": "International segment revenue for FY 2025-26 came in at ₹ 3,354 Crore and registered growth of 9.4%, led by South Asia."
+        },
+        {
+          "evidenceId": "b7977d2419ed2e21-p30-6300",
+          "quote": "High inflation continued to affect demand and profitability, despite regular pricing actions."
+        }
+      ]
+    }
+  ],
+  "unavailableSections": [
+    "bull"
+  ],
+  "provider": "Gemini",
+  "model": "gemini-3.5-flash-lite",
+  "promptVersion": "cited-primary-research-v6",
+  "evidenceHash": "0bde623480b180bd7beaf5dd4f1763aa0a0ff9f3637765f6f70312308f0702cf",
+  "generatedAt": "2026-10-31T15:21:05.361Z",
+  "recorded": true,
+  "cached": false,
+  "reviewedAt": "2026-10-31T15:29:18.909Z",
+  "reviewStatus": "reviewer-curated",
+  "curationNote": "Reviewed AI draft: unsupported volume guidance and an additional business-level figure were omitted; wording was narrowed to the cited decorative/international businesses. No bull case or annual-delivery verdict is asserted.",
+  "originalLlmCalls": 1,
+  "generationLatencyMs": 2576,
+  "usage": {
+    "promptTokenCount": 4275,
+    "candidatesTokenCount": 551,
+    "totalTokenCount": 4826,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 4275
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "guidanceDeliveryStatus": "not_verified"
+}

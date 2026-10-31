@@ -18,6 +18,10 @@ function renderAnalysis(analysis, data) {
       return article;
     }), node('p', 'muted', 'Guidance versus delivery: not verified. A revised forecast does not establish that an earlier forecast was met or missed; matching periods and reporting basis must be checked.'), node('p', 'muted', `Unsupported sections: ${analysis.unavailableSections.join(', ') || 'none declared'}. Citation and quote checks passed; they do not prove semantic correctness. Read the sources before relying on a claim.`));
     $('ai-status').textContent = `${analysis.provider} · ${analysis.model} · ${analysis.cached ? 'cached note · 0 LLM calls · ₹0 request spend' : 'new note'} · generated ${new Date(analysis.generatedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST · ${analysis.promptVersion}`;
+    if (analysis.curationNote) {
+      $('ai-result').append(node('p', 'muted', analysis.curationNote));
+      $('ai-status').textContent += ' · reviewer-curated draft';
+    }
 }
 function renderComparison(comparison) {
   const target = $('research-comparison'); target.replaceChildren();

@@ -1,0 +1,78 @@
+{
+  "claims": [
+    {
+      "section": "business",
+      "text": "Persistent Systems provides Digital Engineering and Enterprise Modernisation services, assisting clients with future challenges.",
+      "inference": false,
+      "references": [
+        {
+          "evidenceId": "2638a90f6fde5618-p253-1050",
+          "quote": "We provide Digital Engineering and Enterprise Modernisation services, combining technical expertise and industry experience to assist our clients in preparing for future challenges."
+        }
+      ]
+    },
+    {
+      "section": "financial",
+      "text": "Q2 FY27 revenue was USD 487.6 million, up 20% year-on-year.",
+      "inference": false,
+      "references": [
+        {
+          "evidenceId": "ef0001fed05d9e45-p8-0",
+          "quote": "Q2 FY27 revenue stood at USD 487.6 million, registering a year-on-year growth of 20%."
+        }
+      ]
+    },
+    {
+      "section": "financial",
+      "text": "The EBIT margin for Q2 FY27 was 15%, which reflects a 130 basis points decline year-on-year.",
+      "inference": false,
+      "references": [
+        {
+          "evidenceId": "ef0001fed05d9e45-p8-0",
+          "quote": "EBIT margins for Q2 FY27 came in at 15%, 130 basis points declined year-on-year."
+        }
+      ]
+    },
+    {
+      "section": "financial",
+      "text": "Total headcount at the end of Q2 FY27 was 29,598, an increase of 958 from the previous quarter.",
+      "inference": false,
+      "references": [
+        {
+          "evidenceId": "ef0001fed05d9e45-p8-0",
+          "quote": "At the end of Q2 FY27, our total headcount stood at 29,598, an increase of 958 from previous the quarter."
+        }
+      ]
+    }
+  ],
+  "unavailableSections": [
+    "guidance",
+    "bull",
+    "bear"
+  ],
+  "provider": "Gemini",
+  "model": "gemini-3.1-flash-lite",
+  "promptVersion": "cited-primary-research-v6",
+  "evidenceHash": "d5dd66395517186cdd89f5be5e73a7f48a4067cac53165bd91494465a67491a4",
+  "generatedAt": "2026-10-31T15:21:11.320Z",
+  "recorded": true,
+  "cached": false,
+  "reviewedAt": "2026-10-31T15:29:18.916Z",
+  "reviewStatus": "reviewer-curated",
+  "curationNote": "Reviewed AI draft: wording was narrowed to the quoted revenue and margin facts. Unsupported aspiration and bull-case claims were omitted; guidance and bull/bear interpretations remain unavailable.",
+  "originalLlmCalls": 1,
+  "generationLatencyMs": 5954,
+  "usage": {
+    "promptTokenCount": 4708,
+    "candidatesTokenCount": 573,
+    "totalTokenCount": 5281,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 4708
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "guidanceDeliveryStatus": "not_verified"
+}

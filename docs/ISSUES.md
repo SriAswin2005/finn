@@ -10,7 +10,9 @@ Syntax/all 72 tests pass, including separate adapters, mutation isolation, older
 
 ## Q-002 — Reviewed AI coverage remains bounded
 
-**Partial.** INFY has one six-claim reviewed note baked in the release; it passes current validation and displays immediately without a call/key. ASIANPAINT/PERSISTENT have three primary documents each but no reviewed baked note. All future generations require semantic/source review. Hosted live generation remains disabled; no Gemini key uploaded. Fifteen adversarial refusals are evidence for known cases, not general semantic correctness.
+**Three recorded notes reviewed; general model quality remains unverified.** INFY has six claims. Two fresh local drafts for ASIANPAINT/PERSISTENT were rejected; unsupported volume/aspiration/case claims were omitted and wording narrowed by an explicit source review, then revalidated. Each has four claims and visible reviewer-curated/omission disclosure. ASIANPAINT bull case and PERSISTENT guidance/bull/bear remain unavailable. These are deliberate public-evidence fixtures, not automatic partial publication or a guarantee for unseen companies.
+
+Syntax/all 74 tests and 390 px browser checks pass: zero-key/cache-only startup for all three, matching hashes and exact primary quotes/pages, no new model calls, no overflow/console errors. Deployment pending for the two new notes. Two free-tier calls used in this slice; no retry bypassed refusal, no key uploaded. Ordinary plurals and unambiguous shared range units are normalized with positive controls; all 15 attacks remain rejected. Future generations need source review; Gemma/all-model quality is not established.
 
 ## S-001 — Deliberate depth limits
 
@@ -41,3 +43,11 @@ D-004 completed October 31: deployment dpl_EiSGNFY8vqXz9zgcKqRamye8bQ6A (2b617c3
 Two authorized local free-tier calls attempted ASIANPAINT/PERSISTENT; both drafts were rejected and not published. Asian Paints repeated the unsupported-volume citation; Persistent exposed conservative false refusals for margin/margins and a unit shared by a numeric range. Context normalization now recognizes ordinary plurals and unambiguous adjacent shared range units while retaining currency/scale/direction/scope guards. Positive regression cases added; original 15 attacks must still fail. Syntax and all 73 tests pass, including all 15 original refusals and supported plural/range cases. Drafts remain ignored; no Gemini key transferred and no extra retry bypassed validation.
 
 Q-002 follow-up: positive shared-percent-range case initially failed at sentence punctuation. Corrected unit boundary; syntax/all 73 tests pass. All 15 bad-claim attacks continued to be rejected.
+
+## October 31 — reviewed cached notes for all recorded examples
+
+Two local free-tier drafts were rejected as whole outputs. They were not automatically partially published. An explicit source review omitted unsupported claims and narrowed wording before revalidation: ASIANPAINT now has four curated claims (decorative business, international-segment revenue, PBDIT guidance, conditional inflation risk scoped to affected international markets); unsupported 8–10% volume guidance and APPPG figure omitted. PERSISTENT has four claims (business, revenue, EBIT margin decline, headcount); formal guidance/aspiration and bull/bear claims omitted. Original models: Flash-Lite 3.5 and 3.1, one call each, observed draft latency 2.6/6.0 s. Each quote/document/page/period/unit was checked against recorded primary evidence.
+
+Public notes are deliberately baked under data/research/notes, hash-matched and validated at read time, with reviewer-curated wording/omission disclosure in UI. All demo notes need zero new model calls/keys after restart. Syntax and all 74 tests pass. Phone-width browser shows each four-claim curated note, reviewer-curated/omission disclosure, 0 request calls, no overflow and no console errors. Deployment pending. These remain bounded examples, not general semantic proof or annual delivery analysis. No additional model retry was used and no Gemini key transferred.
+
+Curated-note verification: initial curation was refused because “decorative business” did not preserve the quote’s segment scope, so neither note was written. Wording was corrected to “decorative segment”; all claims now pass the unchanged scope check. Two four-claim notes are written, with unavailable sections retained and explicit reviewer-curated disclosure. Syntax/all 74 tests and phone-width browser verification pass; deployment pending.
