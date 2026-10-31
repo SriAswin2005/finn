@@ -8,6 +8,7 @@ import { dataDirectory, writeJsonAtomic } from '../storage/snapshots.js';
 import { normalizeTicker, discoverDocuments } from './discovery.js';
 import { downloadPublic } from './download.js';
 import { buildEvidence } from './evidence.js';
+import { buildGuidanceComparison } from './guidance.js';
 
 const runFile = promisify(execFile);
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -91,6 +92,7 @@ export async function getResearch(tickerInput, question = '', { collect = collec
     stale: Date.now() - Date.parse(data.fetchedAt) > 7 * 86400000,
     documents: data.documents.map(({ pages, ...document }) => document), errors: data.errors,
     ...evidence,
+    guidanceComparison: buildGuidanceComparison(data.documents),
     ai: { configured: Boolean(process.env.GEMINI_API_KEY && process.env.FINN_AI_FREE_TIER_CONFIRMED === 'true'), provider: 'Gemini', state: 'not_requested' },
   };
 }

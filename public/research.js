@@ -19,6 +19,23 @@ function renderAnalysis(analysis, data) {
     }), node('p', 'muted', 'Guidance versus delivery: not verified. A revised forecast does not establish that an earlier forecast was met or missed; matching periods and reporting basis must be checked.'), node('p', 'muted', `Unsupported sections: ${analysis.unavailableSections.join(', ') || 'none declared'}. Citation and quote checks passed; they do not prove semantic correctness. Read the sources before relying on a claim.`));
     $('ai-status').textContent = `${analysis.provider} · ${analysis.model} · ${analysis.cached ? 'cached note · 0 LLM calls · ₹0 request spend' : 'new note'} · generated ${new Date(analysis.generatedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST · ${analysis.promptVersion}`;
 }
+function renderComparison(comparison) {
+  const target = $('research-comparison'); target.replaceChildren();
+  if (!comparison) return;
+  target.append(node('h3', '', 'Management: promised vs observed'), node('p', 'muted', comparison.metric));
+  const grid = node('div', 'comparison-grid');
+  const entries = [
+    ['Earlier full-year promise', comparison.promised, `${comparison.promised.lower}–${comparison.promised.upper}% · FY ${comparison.promised.period}`],
+    ['Later observed quarter', comparison.observed, comparison.observed ? `${comparison.observed.period}: ${comparison.observed.yoy}% YoY · ${comparison.observed.qoq}% QoQ` : 'Comparable actual unavailable'],
+    ['Later full-year forecast', comparison.revised, `${comparison.revised.lower}–${comparison.revised.upper}% · revised guidance`],
+  ];
+  for (const [label, item, value] of entries) {
+    const article = node('article', 'comparison-card'); article.append(node('h4', '', label), node('p', 'comparison-value', value));
+    if (item) article.append(node('blockquote', '', item.quote), citation(item, item.page));
+    grid.append(article);
+  }
+  target.append(grid, node('p', 'muted', comparison.note), node('h4', '', 'What to check'), node('p', 'muted', comparison.whatToCheck));
+}
 let result = null; let request = 0; let controller;
 function render(data) {
   result = data;
@@ -44,12 +61,13 @@ function render(data) {
   $('research-ai').disabled = !data.ai.configured || !data.evidence.length;
   $('ai-status').textContent = data.ai.configured ? 'Generate on demand. Repeated notes use the evidence cache; free-quota limits apply.' : 'AI quota resting; showing cached notes and primary evidence. New model calls are disabled for this demo.';
   $('ai-result').replaceChildren(); if (data.analysis) renderAnalysis(data.analysis, data); $('research-result').hidden = false;
+  renderComparison(data.guidanceComparison);
 }
 async function load() {
   const id = ++request; controller?.abort(); controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 300000);
   $('research-status').className = 'status'; $('research-status').textContent = 'Finding primary documents and page references… Cached examples load faster.';
-  $('research-result').hidden = true; $('research-submit').disabled = true;
+  $('research-result').hidden = true; $('research-submit').disabled = true; $('research-loading').hidden = false;
   try {
     const query = new URLSearchParams({ ticker: $('research-ticker').value, question: $('research-question').value.trim() });
     const response = await fetch(`/api/research?${query}`, { signal: controller.signal, cache: 'no-store' });
@@ -59,7 +77,7 @@ async function load() {
   } catch (error) {
     if (id !== request) return;
     $('research-status').className = 'status error'; $('research-status').textContent = error.name === 'AbortError' ? 'Document collection timed out. Please retry; completed documents may already be cached.' : error instanceof TypeError ? 'FINN could not be reached. Check your connection and that the server is running. The offline app shell does not include research data.' : error.message;
-  } finally { clearTimeout(timeout); if (id === request) $('research-submit').disabled = false; }
+  } finally { clearTimeout(timeout); if (id === request) { $('research-submit').disabled = false; $('research-loading').hidden = true; } }
 }
 $('research-form').addEventListener('submit', event => { event.preventDefault(); load(); });
 export function researchCompany(ticker) {

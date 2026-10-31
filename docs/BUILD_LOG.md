@@ -94,3 +94,7 @@ User authorized deployment/gating and disposable demo state. Added native Node s
 ## October 31 — bake reviewed INFY research
 
 Copied only the public, reviewed INFY six-claim note into committed evidence fixtures. Runtime cache remains ignored. Shared UI renderer shows saved note immediately; Railway defaults cache-only. Quota storage is best-effort, with in-memory retention and fail-closed calls on loss. Syntax, all 45 tests and 75-file package smoke checks pass. Browser/phone unverified; Docker engine unavailable.
+
+## October 31 — management promise and observed progress
+
+`src/research/guidance.js` deterministically pairs complete earlier/later transcript prose with source pages. INFY: FY2027 CC revenue-growth promise 1.5–3.5%, later Q1 actual 2.4% YoY/1% QoQ, later forecast 1.5–3.0%. UI shows all three side by side, labels quarter versus full year non-comparable and gives no met/missed verdict. This is a thin management-progress view; completed annual/four-quarter delivery remains unavailable. Narrow generic extraction returns unavailable for unsupported formats; different explicit years/segment/qualified statements rejected. Added research loading skeleton and removed the remaining dialog blur; editorial theme is the only theme. Syntax and all 47 tests pass, including quote/page membership, unsupported chronology, different fiscal years and qualified/segment refusals. Browser and physical-phone checks remain unavailable.
