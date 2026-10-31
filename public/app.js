@@ -41,7 +41,7 @@ function setModeHeader(mode, asOf) {
   const demo = mode === 'demo'; const recorded = mode === 'recorded';
   $('mode-tag').textContent = demo ? 'DEMO EDITION' : recorded ? 'RECORDED SOURCES' : 'SOURCE SNAPSHOT';
   $('mode-description').textContent = demo ? 'A working briefing with fictional scenarios.' : recorded ? 'Real records. A fixed point in time.' : 'Exchange filings. Closing prices. Evidence in reach.';
-  $('mode-note').textContent = demo ? 'All events and figures are fictional.' : recorded ? 'Replay mode · not current market information.' : 'Cached public sources · not streaming quotes.';
+  $('mode-note').textContent = demo ? 'All events and figures are fictional.' : recorded ? 'Fixed replay · 28 October 2026. Reload keeps this capture date.' : 'Cached public sources · not streaming quotes.';
   $('footer-mode').textContent = `${demo ? 'FICTIONAL DATA' : recorded ? 'RECORDED PUBLIC DATA' : 'PUBLIC SOURCE DATA'} · NOT INVESTMENT ADVICE`;
   $('edition-date').textContent = asOf ? new Intl.DateTimeFormat('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(asOf)).toUpperCase() : 'YOUR DAILY BRIEFING';
 }
@@ -206,7 +206,7 @@ async function loadBriefing() {
     }
     if (id !== requestId) return;
     render(data);
-    $('status').textContent = data.mode === 'demo' ? `Demo snapshot · ${time(data.asOf)} · All events and figures are fictional.` : `${data.mode === 'recorded' ? 'Recorded replay' : 'Source snapshot'} · collected ${time(data.snapshotAt)}${data.stale ? ' · Source warnings: check freshness below.' : ''} · Exchange metadata, not AI analysis.`;
+    $('status').textContent = data.mode === 'demo' ? `Demo snapshot · ${time(data.asOf)} · All events and figures are fictional.` : `${data.mode === 'recorded' ? 'Loaded fixed replay' : 'Loaded source snapshot'} · collected ${time(data.snapshotAt)}${data.stale ? ' · Source warnings: check freshness below.' : ''} · Exchange metadata, not AI analysis.`;
     $('briefing').hidden = false;
     $('cost-ledger').textContent = `Digest request: 0 LLM calls · ${Math.round(performance.now() - started)} ms including network/render · ₹0 model spend`;
   } catch (error) {

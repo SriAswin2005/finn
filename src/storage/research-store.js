@@ -2,8 +2,14 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { runtimeCacheDirectory, writeJsonAtomic } from './snapshots.js';
 
-export function createResearchStore({ env = process.env, query: injectedQuery, directory = resolve(runtimeCacheDirectory, 'research') } = {}) {
+export function createResearchStore({ env = process.env, query: injectedQuery, directory = resolve(runtimeCacheDirectory, 'research'), now = Date.now } = {}) {
   let ready;
+  const memory = new Map();
+  function remember(ticker, record) {
+    if (!record) return;
+    memory.delete(ticker); memory.set(ticker, { record, expires: now() + 300000 });
+    while (memory.size > 5) memory.delete(memory.keys().next().value);
+  }
   async function database() {
     if (!ready) ready = (async () => {
       const query = injectedQuery ?? (await import('@neondatabase/serverless')).neon(env.DATABASE_URL).query;
@@ -16,11 +22,14 @@ export function createResearchStore({ env = process.env, query: injectedQuery, d
   return {
     async get(ticker) {
       validate(ticker);
+      const warm = memory.get(ticker);
+      if (warm?.expires > now()) return warm.record;
+      memory.delete(ticker);
       if (env.DATABASE_URL || injectedQuery) {
         try {
           const query = await database();
           const rows = await query('SELECT record FROM finn_research_cache WHERE ticker = $1', [ticker], { fetchOptions: { signal: AbortSignal.timeout(8000) } });
-          return rows[0]?.record ?? null;
+          const record = rows[0]?.record ?? null; remember(ticker, record); return record;
         } catch { throw new Error('Persistent research storage is unavailable. Recorded examples remain available.'); }
       }
       try { return JSON.parse(await readFile(resolve(directory, `${ticker}.json`), 'utf8')); }
@@ -32,6 +41,7 @@ export function createResearchStore({ env = process.env, query: injectedQuery, d
         try {
           const query = await database();
           await query('INSERT INTO finn_research_cache (ticker, record) VALUES ($1, $2::jsonb) ON CONFLICT (ticker) DO UPDATE SET record = EXCLUDED.record, updated_at = now()', [ticker, JSON.stringify(record)], { fetchOptions: { signal: AbortSignal.timeout(8000) } });
+          remember(ticker, record);
         } catch { throw new Error('Research was collected but persistent storage is unavailable.'); }
       } else await writeJsonAtomic(resolve(directory, `${ticker}.json`), record);
     },

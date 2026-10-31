@@ -17,6 +17,10 @@ test('Neon store uses bound values and survives a fresh adapter instance', async
   const record = { ticker: 'TEST', documents: [{ title: "source's title" }], fetchedAt: '2026-10-31T00:00:00Z' };
   await createResearchStore({ query }).set('TEST', record);
   assert.deepEqual(await createResearchStore({ query }).get('TEST'), record);
+  let now = 0; const warmStore = createResearchStore({ query, now: () => now });
+  await warmStore.get('TEST'); const reads = statements.length;
+  await warmStore.get('TEST'); assert.equal(statements.length, reads, 'repeat public research avoids a database round trip');
+  now = 300001; await warmStore.get('TEST'); assert.equal(statements.length, reads + 1, 'expired memory returns to durable storage');
   assert.ok(statements.some(item => item.text.includes('$1') && item.params[0] === 'TEST'));
   assert.ok(statements.every(item => !item.text.includes("source's title")));
   await assert.rejects(createResearchStore({ query }).get("';DROP TABLE x;"), RangeError);
