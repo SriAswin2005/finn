@@ -2,7 +2,7 @@
 
 A briefing-first, mobile-first financial intelligence PWA for the ENAM AI Engineer challenge.
 
-**New maintainer or AI session:** start with [HANDOFF.md](HANDOFF.md), then [PROGRESS.md](PROGRESS.md) and [current issues](docs/ISSUES.md). They cover intent, implementation map, verified/partial/missing behavior, open failures, permissions and next steps. Use the [copyable continuation prompt](docs/CONTINUATION_PROMPT.md) for tools that do not automatically read AGENTS.md. The [October 30 audit](docs/REQUIREMENTS_AUDIT_2026-10-30.md) contains the full PDF feature matrix. Passing tests do not resolve the open AI citation-context issue.
+**New maintainer or AI session:** start with [HANDOFF.md](HANDOFF.md), then [PROGRESS.md](PROGRESS.md) and [current issues](docs/ISSUES.md). They cover intent, implementation map, verified/partial/missing behavior, open failures, permissions and next steps. Use the [copyable continuation prompt](docs/CONTINUATION_PROMPT.md) for tools that do not automatically read AGENTS.md. The [October 30 audit](docs/REQUIREMENTS_AUDIT_2026-10-30.md) contains the full PDF feature matrix. Passing tests cover known citation attacks, not general semantic correctness.
 
 The user's workflow is preserved in the [standing working agreement](docs/WORKING_AGREEMENT.md) and [contributor entry point](CONTRIBUTING.md): every small logical change updates its documentation immediately, is verified, and is committed/pushed with a clear one- or two-sentence message. Do not wait for another reminder or repeat settled instructions.
 
@@ -28,13 +28,13 @@ npm test
 
 ## Current milestone
 
-Prototype 0.3 has local Today, Portfolio, Ask FINN and Alerts, plus one reviewed AI example; delivery and broader AI quality remain incomplete. Public data travels through normalized snapshots and deterministic ranking/signals to the briefing. Generic research discovers annual reports and earnings-call transcripts, extracts physical PDF pages and returns cited excerpts. Captured examples: INFY, ASIANPAINT and PERSISTENT. HCLTECH and TCS were verified through cold on-demand lookups outside that set. See current handoff/issues rather than treating this milestone label as full completion.
+Prototype 0.3 is hosted on Vercel + Neon with Today, Portfolio, Ask FINN, Alerts and About, three reviewed recorded notes, a cited management-progress view and two captured filing details. Broader automatic analysis remains incomplete. Public data travels through normalized snapshots and deterministic ranking/signals to the briefing. Generic research discovers annual reports and earnings-call transcripts, extracts physical PDF pages and returns cited excerpts. Captured examples: INFY, ASIANPAINT and PERSISTENT. HCLTECH and TCS were verified through cold on-demand lookups outside that set. See current handoff/issues rather than treating this milestone label as full completion.
 
-Neon persistence uses the official `@neondatabase/serverless` driver (run `npm ci` for database access); browser code remains buildless. PDF parsing uses `pypdf==6.10.0`. One live Gemini Flash-Lite INFY note is reviewed and browser verified, with server-resolved source quotes, page citations, balanced cases and cache reuse. A fresh checkout still needs its own authorized free-tier key; runtime caches are not shipped; the reviewed public INFY note is deliberately baked into the demo. Guidance revision is supported; comparable full-year delivery remains unverified. See docs/AI_REVIEW.md.
+Neon persistence uses the official `@neondatabase/serverless` driver (run `npm ci` for database access); browser code remains buildless. PDF parsing uses `pypdf==6.10.0`. Three public-evidence notes are reviewed and deliberately baked into the demo; ASIANPAINT/PERSISTENT are reviewer-curated after refused drafts and disclose omissions. Recorded notes need no key or new model calls; ignored runtime caches are not shipped. Vercel disables live generation and holds no Gemini key. Guidance revision is supported; comparable full-year delivery remains unverified. See docs/AI_REVIEW.md.
 
 Choose a data mode and briefing window, expand routine filings, open original NSE filings, inspect company market records, and change alert thresholds. Preferences remain in this browser.
 
-- **Latest sources** reads the local ingestion snapshot. It never falls back to fictional data. A fresh clone needs an ingestion run before using this mode.
+- **Latest sources** reads the persisted Neon snapshot on the host, or the local ingestion snapshot in development. It never falls back to fictional data. A fresh clone needs an ingestion run before using this mode.
 - **Recorded sources** is the first-run default. It replays the committed real-data capture at its original timestamp; it is not current information. This works without contacting Yahoo/NSE.
 - **Fictional demo** uses the original deterministic scenarios and fixed demo clock, clearly labelled throughout.
 
@@ -52,7 +52,7 @@ npm run ingest -- --record
 
 Also replaces the committed replay snapshot when all configured histories and NSE metadata are available. Inspect and commit that file deliberately. Exit code 1 indicates source errors or comparison warnings; the usable local snapshot is still saved. Raw responses are retained in ignored `data/cache/raw/`, and the live snapshot is atomically replaced in `data/cache/snapshot.json`. Do not run simultaneous ingesters.
 
-The current capture has 15 complete October 27 EOD records and 44 NSE portfolio announcements, collected October 28, 2026, 11:54 IST. NSE's official report completed two missing Yahoo rows; all 15 records are eligible for alert evaluation and two cross the default thresholds. The original incomplete capture was replaced with validated source records, not an intraday quote. Source failures still retain warnings and pause affected alerts.
+The recorded replay capture has 15 complete October 27 EOD records and 44 NSE portfolio announcements, collected October 28, 2026, 11:54 IST. NSE's official report completed two missing Yahoo rows; all 15 records are eligible for alert evaluation and two cross the default thresholds. The original incomplete capture was replaced with validated source records, not an intraday quote. Source failures still retain warnings and pause affected alerts.
 
 ## Research and free-quota AI
 
@@ -84,3 +84,5 @@ The PWA caches its application shell; a failed API request shows offline/unavail
 See [specification](docs/SPEC.md), [milestones](docs/MILESTONES.md), [environment](docs/ENVIRONMENT.md) and [project instructions](AGENTS.md). Keep AI conversation exports/share links for the challenge submission; Git records code checkpoints, not the full build history.
 
 To deliberately publish a fresh source snapshot to the configured Neon host, run `node --env-file=.env.vercel.production src/ingest.js --publish` from the trusted owner checkout. The environment file is ignored and server-only. `npm run ingest` continues to collect locally. The browser Reload control rereads saved data; it never initiates collection.
+
+Current hosted Latest capture: October 31, 2026, 20:43 IST; all 15 October 30 EOD records and 62 filings, both source adapters OK. Recorded replay remains October 28. Hosting/access/persistence details are in docs/DEPLOYMENT.md. The user deferred conversations and submission details until the build is solid.

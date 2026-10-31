@@ -46,7 +46,8 @@ function render(data) {
   $('research-company').textContent = `${data.company} · ${data.ticker}`;
   $('research-mode').textContent = data.mode === 'recorded' ? 'RECORDED PRIMARY EVIDENCE' : 'CACHED PRIMARY DOCUMENTS';
   const kinds = new Set(data.documents.map(doc => doc.kind));
-  $('research-coverage').textContent = `Collected ${new Date(data.fetchedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST. ${data.documents.length} documents.${data.stale ? ' Evidence is over seven days old.' : ''}${!kinds.has('annual_report') ? ' Annual report unavailable.' : ''}${!kinds.has('transcript') ? ' Transcript unavailable.' : ''} Excerpts are selected by keywords; they are not an AI analysis or verified financial comparison.`;
+  $('research-coverage').textContent = `Collected ${new Date(data.fetchedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST.${data.stale ? ' Evidence is over seven days old.' : ''}${!kinds.has('annual_report') ? ' Annual report unavailable.' : ''}${!kinds.has('transcript') ? ' Transcript unavailable.' : ''} ${data.analysis ? 'Reviewed saved note below; source excerpts are separate.' : 'Source excerpts only; no reviewed saved note matches this request.'}`;
+  $('research-source-summary').textContent = `${data.documents.length} primary documents${data.errors.length ? ` · ${data.errors.length} source warnings` : ''} · inspect collection details`;
   $('research-documents').replaceChildren(...data.documents.map(doc => {
     const item = node('div', 'document-item'); item.append(citation(doc, 1), node('span', 'muted', `${doc.kind === 'annual_report' ? 'Annual report' : 'Earnings-call transcript'} · ${doc.pageCount} pages · SHA-256 ${doc.sha256.slice(0, 10)}…`)); return item;
   }), ...data.errors.map(error => node('p', 'muted', `${error.title}: ${error.error}`)));
@@ -63,12 +64,14 @@ function render(data) {
     return panel;
   }));
   $('research-ai').disabled = !data.ai.configured || !data.evidence.length;
-  $('ai-status').textContent = data.ai.configured ? 'Generate on demand. Repeated notes use the evidence cache; free-quota limits apply.' : 'AI quota resting; showing cached notes and primary evidence. New model calls are disabled for this demo.';
+  $('research-ai').hidden = !data.ai.configured;
+  $('ai-status').textContent = data.ai.configured ? 'Generate on demand. Repeated notes use the evidence cache; free-quota limits apply.' : 'No reviewed saved note matches this request. Primary evidence remains available; new model calls are disabled for this demo.';
   $('ai-result').replaceChildren(); if (data.analysis) renderAnalysis(data.analysis, data); $('research-result').hidden = false;
   renderComparison(data.guidanceComparison);
 }
 async function load() {
   const started = performance.now();
+  const trigger = document.activeElement;
   const id = ++request; controller?.abort(); controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 300000);
   $('research-status').className = 'status'; $('research-status').textContent = 'Finding primary documents and page references… Cached examples load faster.';
@@ -80,6 +83,10 @@ async function load() {
     if (id !== request) return; render(data);
     $('research-status').textContent = 'Primary evidence is ready. Open a page reference to inspect the original document.';
     $('cost-ledger').textContent = `Research retrieval: 0 LLM calls · ${Math.round(performance.now() - started)} ms including network/render · ₹0 model spend${data.analysis ? ' · reviewed note served from cache' : ''}`;
+    if (location.hash === '#research' && [trigger, document.body, $('research-submit')].includes(document.activeElement)) {
+      $('research-company').focus({ preventScroll: true });
+      $('research-result').scrollIntoView({ block: 'start' });
+    }
   } catch (error) {
     if (id !== request) return;
     $('research-status').className = 'status error'; $('research-status').textContent = error.name === 'AbortError' ? 'Document collection timed out. Please retry; completed documents may already be cached.' : error instanceof TypeError ? 'FINN could not be reached. Check your connection and that the server is running. The offline app shell does not include research data.' : error.message;
