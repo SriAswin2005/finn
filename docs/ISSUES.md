@@ -4,9 +4,9 @@ Reconciled October 31, 2026 (IST). Current findings override historical logs. Th
 
 ## D-004 — Hosted Latest sources persistence
 
-**Implementation/source publication verified; deployment pending.** `src/storage/source-snapshot.js` persists normalized sources separately in Neon with a 30-second process cache and conditional publication protecting newer captures. `src/ingest.js --publish` is explicit; normal ingestion remains local. `getDataset` preserves source/fetch time, staleness and explicit errors, never substitutes recorded/fictional data.
+**Resolved: implementation, source publication, hosted HTTP and mobile-width browser verified.** `src/storage/source-snapshot.js` persists normalized sources separately in Neon with a 30-second process cache and conditional publication protecting newer captures. `src/ingest.js --publish` is explicit; normal ingestion remains local. `getDataset` preserves source/fetch time, staleness and explicit errors, never substitutes recorded/fictional data.
 
-Syntax/all 72 tests pass, including separate adapters, mutation isolation, older-write rejection, invalid schema and unavailable storage. Real publication October 31 at 20:43 IST: 15/15 October 30 EOD, 62 filings, both adapters OK. A fresh process confirms the saved snapshot is not stale; recorded replay unchanged. Acceptance remaining: deploy/retry, HTTPS Latest 200 with those timestamps/coverage, browser mode switching and explicit failure behavior.
+Syntax/all 72 tests pass, including separate adapters, mutation isolation, older-write rejection, invalid schema and unavailable storage. Real publication October 31 at 20:43 IST: 15/15 October 30 EOD, 62 filings, both adapters OK. A fresh process confirms the saved snapshot is not stale; recorded replay unchanged. Acceptance passed: deployment dpl_EiSGNFY8vqXz9zgcKqRamye8bQ6A, HTTPS Latest 200, fresh saved timestamps/coverage, browser mode switch and explicit failure behavior tests.
 
 ## Q-002 — Reviewed AI coverage remains bounded
 
@@ -33,3 +33,5 @@ Submission details are explicitly deferred: do not finalize covering note, histo
 ## Operations
 
 Latest confirmed production before the pending retry: 5d0f1f4 / dpl_93nzuXroPUVxxNf5KGrEzC2TCP3U at https://finn-zeta-one.vercel.app. f600c15 is pushed but its upload failed with a network fetch error; no successful upload was claimed. Private GitHub auto-link failed; CLI source upload works. Source pushes continue to the approved private origin. Never reset quota state, print/commit secrets, or force-push history.
+
+D-004 completed October 31: deployment dpl_EiSGNFY8vqXz9zgcKqRamye8bQ6A (2b617c3) is READY at https://finn-zeta-one.vercel.app. HTTPS Latest returns 200; fresh saved capture, source status and 15-company coverage verified. Phone-width browser connected to the same Neon source store shows collected 31 Oct, 8:43 pm IST, Saturday Oct31, 15/15 alert coverage and no console errors. Prior failed filing-context upload is superseded; both that fix and persistent Latest are now deployed. Recorded mode remains unchanged. Next product quality gap: other two demo companies have no reviewed baked AI note.

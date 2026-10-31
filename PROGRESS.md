@@ -17,9 +17,9 @@ Reconciled October 31, 2026 (IST). Deadline November 1. Read [HANDOFF.md](HANDOF
 
 Implemented `src/storage/source-snapshot.js` and explicit `src/ingest.js --publish`. Publication preserves newer snapshots and uses separate Neon storage; requests read stored data, never collect sources. Missing/corrupt/unavailable data remains an explicit failure.
 
-October 31 at 20:43 IST: published capture `2026-10-31T15:13:09.876Z`, **15/15 October 30 EOD records, 62 filings, both adapters OK**. Fresh-process read verified; recorded October 28 replay unchanged. Syntax/72 tests pass. Next: commit/push, retry deployment and verify hosted Latest mode/browser.
+October 31 at 20:43 IST: published capture `2026-10-31T15:13:09.876Z`, **15/15 October 30 EOD records, 62 filings, both adapters OK**. Fresh-process read verified; recorded October 28 replay unchanged. Syntax/72 tests pass. Deployed and verified: HTTPS Latest 200; browser shows current saved capture/coverage.
 
-Last attempted deployment of the filing-context fix failed with a transport error; Git push succeeded. Latest confirmed production before this retry is the management-profile build (`5d0f1f4`, deployment `dpl_93nzuXroPUVxxNf5KGrEzC2TCP3U`). Do not call the local Latest adapter deployed yet.
+Current production is `2b617c3`, deployment `dpl_EiSGNFY8vqXz9zgcKqRamye8bQ6A`. The earlier transport failure is superseded by this successful deployment.
 
 ## Remaining product limits
 
@@ -28,3 +28,5 @@ Annual/four-quarter delivery verdict, general table/profile extraction, OCR, aut
 ## Work boundary
 
 The user explicitly deferred conversations and all submission details until they decide the build is solid. Local ignored message snapshots exist, but no history has been shared. Do not continue covering-note packaging, reviewer grants, tagging or email now. Continue product reliability. Source commits/pushes, free hosting/Neon, the two host secrets and billing-disabled local Gemini under existing caps are authorized; no paid use, Gemini secret transfer or email.
+
+D-004 completed October 31: deployment dpl_EiSGNFY8vqXz9zgcKqRamye8bQ6A (2b617c3) is READY at https://finn-zeta-one.vercel.app. HTTPS Latest returns 200; fresh saved capture, source status and 15-company coverage verified. Phone-width browser connected to the same Neon source store shows collected 31 Oct, 8:43 pm IST, Saturday Oct31, 15/15 alert coverage and no console errors. Prior failed filing-context upload is superseded; both that fix and persistent Latest are now deployed. Recorded mode remains unchanged. Next product quality gap: other two demo companies have no reviewed baked AI note.
