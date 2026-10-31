@@ -82,3 +82,5 @@ Produces `dist/finn-prototype.tar.gz` plus a runnable `dist/finn/` directory and
 The PWA caches its application shell; a failed API request shows offline/unavailable status. Source failures preserve older evidence with warnings. Physical-phone installation still requires HTTPS verification. See [data source contracts](docs/DATA_SOURCES.md), [milestones](docs/MILESTONES.md), [progress](PROGRESS.md) and [verification](docs/VERIFICATION.md).
 
 See [specification](docs/SPEC.md), [milestones](docs/MILESTONES.md), [environment](docs/ENVIRONMENT.md) and [project instructions](AGENTS.md). Keep AI conversation exports/share links for the challenge submission; Git records code checkpoints, not the full build history.
+
+To deliberately publish a fresh source snapshot to the configured Neon host, run `node --env-file=.env.vercel.production src/ingest.js --publish` from the trusted owner checkout. The environment file is ignored and server-only. `npm run ingest` continues to collect locally. The browser Reload control rereads saved data; it never initiates collection.

@@ -1,95 +1,30 @@
 # FINN current progress
 
-Last reconciled October 31, 2026 (IST). Deadline: November 1. Start with [HANDOFF.md](HANDOFF.md); working rules are in [AGENTS.md](AGENTS.md). This is current status, not a chronological log.
+Reconciled October 31, 2026 (IST). Deadline November 1. Read [HANDOFF.md](HANDOFF.md) and [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.md).
 
-Standing workflow is explicit in [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.md), with a human [CONTRIBUTING.md](CONTRIBUTING.md) entry point.
+## Verified product
 
-## Verified working
-- Local Today / Portfolio / Ask FINN / Alerts prototype, 15 NSE companies, configurable in-app preferences, source links and explicit data modes. Mobile/navigation/offline browser checks were performed October 28; no fresh complete browser or physical-phone run October 30.
-- October 31: syntax and all **67 tests** pass with local HTTP/temp-file access. Build archive: 92 files, credentials excluded; packaged research includes the immediate reviewed INFY note without runtime cache or credentials.
-- Manual live ingestion succeeded October 30 at 15:59 IST: 15/15 October 29 EOD records and 55 portfolio filings. Recorded replay is deliberately separate: October 28 capture, October 27 closes, 44 filings.
-- Three recorded primary-document examples: INFY, ASIANPAINT, PERSISTENT. Generic cold HCLTECH and TCS retrieval verified.
-- One INFY six-claim AI example reviewed; exact server-owned quotes, PDF pages, conditional cases and cache reuse verified.
-- Private source repository: https://github.com/SriAswin2005/finn, master.
-- **Q-001 fixed October 30:** `validateAnalysis` now requires that each claim's combined quote text contains at least one key metric term from the claim text. Regression test passes.
-- **Q-002 partially resolved October 30:** Both INFY cached AI outputs pass the new metric check. ASIANPAINT (3 docs, 10 evidence chunks) and PERSISTENT (3 docs, 10 evidence chunks) evidence confirmed. No active cached AI output for those two — live generation requires running server + key.
-- **Build verified October 30:** `npm run build` produces 70-file archive; `.env` excluded; `docs/SPEC.md` correctly included; root `SPEC.md` duplicate removed.
-- Submission draft updated: [docs/SUBMISSION_DRAFT.md](docs/SUBMISSION_DRAFT.md).
+- HTTPS reviewer demo: https://finn-zeta-one.vercel.app, Vercel Node/Python functions and Neon Free (Singapore). Shared-token link exchanges for a signed 24-hour HttpOnly/Secure/SameSite=Lax cookie, then redirects cleanly. UI/assets/APIs gated; health public. No Gemini key on host; live generation disabled.
+- Today/Portfolio/configurable in-app Alerts: 15 NSE companies, recorded/live/fictional modes kept distinct. Source/fetch times and stale/error states retained. Reload reads saved data; no automatic collection or OS push.
+- Three recorded annual-report/transcript examples, generic hosted TCS retrieval. TCS cold collection: 47.5 s, 3 documents/10 evidence chunks/no source errors. Neon storage survives deployments and separate processes. After region/cache optimization: first persisted read 1.6 s, immediate repeat 0.5 s (observations).
+- Reviewed INFY note baked into release, displayed immediately with 0 new model calls. Other two examples have evidence only. INFY earlier FY guidance, later Q1 growth and revised forecast shown side by side with full quotes/pages; annual delivery remains unverified.
+- One recorded L&T consolidated results card: Revenue/PBT/PAT and explicitly limited derived EBITDA proxy, QoQ/YoY, reporting basis and physical PDF p.11. One HDFC Bank succession with bank-attributed profile from the referenced disclosure, p.3. Narrow page-reviewed adapters, not a general automatic table/biography engine.
+- Fifteen adversarial citation attacks rejected; full-sentence quote bank, context guards, unreadable-PDF errors. About includes request latency/model-cost ledger and a live synthetic refusal.
+- All **72 tests** and syntax pass. HTTP verifies gate, all recorded examples, results/profile enrichment and refusal. 390×844 browser checks show no horizontal overflow, six cached INFY claims, full comparison quotes, expanded profile/source href, corrected filing context and no console errors.
+- User reports smooth physical-phone load/scroll, saved alerts and successful TCS research. Device/browser unspecified; installation and phone citation opening not confirmed.
 
-## Open / incomplete
-- **Deployment (D-001/D-002):** Railway deployment and shared-token gate authorized October 31. Gate verified: signed 24-hour HttpOnly/Secure/SameSite cookie, clean redirect, protected UI/APIs; public health check only. Railway CLI installed; waiting for user browserless login. Railway account connection pending; browser tool stopped because it could not verify Edge URL. Docker/HTTPS/physical-phone verification remain open. Reviewer GitHub access not granted. AI conversation exports, covering note links and final demo tag are incomplete.
-- **Q-002 live demo review:** If ASIANPAINT or PERSISTENT AI is generated before submission, spot-check claims against metric-context criteria.
-- **S-001 deliberate scope gaps:** Quarterly P&L extraction, executive bios, 4-quarter guidance delivery, balance-sheet analysis — absent by design for this P0 milestone. See [full audit](docs/REQUIREMENTS_AUDIT_2026-10-30.md).
+## Current slice — persistent Latest sources
 
-## Continue next
-1. Verify/push token gate, finish baked-note cache-only release, then deploy using the user-supplied Railway connection; verify HTTPS and phone workflow.
-2. Arrange reviewer GitHub access.
-3. Export AI coding-agent conversation history; finalize SUBMISSION_DRAFT.md links.
-4. `git tag demo-v1` after hosted verification and all submission gates pass.
-5. Send email only after all gates pass.
+Implemented `src/storage/source-snapshot.js` and explicit `src/ingest.js --publish`. Publication preserves newer snapshots and uses separate Neon storage; requests read stored data, never collect sources. Missing/corrupt/unavailable data remains an explicit failure.
 
-Free-tier Gemini and ongoing private source pushes are authorized. Railway deployment and shared-token gating are now authorized. Paid use, new account terms/broader repository permissions, Gemini secret transfer and email remain unapproved.
+October 31 at 20:43 IST: published capture `2026-10-31T15:13:09.876Z`, **15/15 October 30 EOD records, 62 filings, both adapters OK**. Fresh-process read verified; recorded October 28 replay unchanged. Syntax/72 tests pass. Next: commit/push, retry deployment and verify hosted Latest mode/browser.
 
-Details: [specification](docs/SPEC.md), [milestones](docs/MILESTONES.md), [verification](docs/VERIFICATION.md), [issues](docs/ISSUES.md), [submission draft](docs/SUBMISSION_DRAFT.md).
+Last attempted deployment of the filing-context fix failed with a transport error; Git push succeeded. Latest confirmed production before this retry is the management-profile build (`5d0f1f4`, deployment `dpl_93nzuXroPUVxxNf5KGrEzC2TCP3U`). Do not call the local Latest adapter deployed yet.
 
-October 31 cache slice: reviewed INFY note is now a deliberate public-evidence fixture in `data/research/notes/INFY.json`; matching hashes and validation required. GET research includes saved notes immediately. Railway defaults to cache-only, no key transfer; missing/corrupt/unwritable quota state retains in-memory ledger and closes new calls. Syntax and all 45 tests pass; 75-file packaged startup/secret exclusions/recorded-note smoke check pass. Browser/phone and Docker image remain unverified.
+## Remaining product limits
 
-## October 31 — management promise and observed progress
+Annual/four-quarter delivery verdict, general table/profile extraction, OCR, automatic ingestion, background notifications, voice and native packaging remain unavailable/deferred. Citation guards cover known attacks, not general semantic proof. Only INFY has a reviewed baked AI note. Docker image, after-idle cold-start behavior, HTTPS installation and phone PDF opening remain unverified.
 
-`src/research/guidance.js` deterministically pairs complete earlier/later transcript prose with source pages. INFY: FY2027 CC revenue-growth promise 1.5–3.5%, later Q1 actual 2.4% YoY/1% QoQ, later forecast 1.5–3.0%. UI shows all three side by side, labels quarter versus full year non-comparable and gives no met/missed verdict. This is a thin management-progress view; completed annual/four-quarter delivery remains unavailable. Narrow generic extraction returns unavailable for unsupported formats; different explicit years/segment/qualified statements rejected. Added research loading skeleton and removed the remaining dialog blur; editorial theme is the only theme. Syntax and all 47 tests pass, including quote/page membership, unsupported chronology, different fiscal years and qualified/segment refusals. Browser and physical-phone checks remain unavailable.
+## Work boundary
 
-## October 31 — adversarial citation context
-
-Added `test/citation-adversarial.test.js`: 15 synthetic bad claims cover currency/scale, percent/pp/bps, quarter/full-year, segment/subsidiary/peer, sliced negation/conditions, bounds, direction and guidance-as-actual. Extra checks reject ambiguous flattened tables/empty text. `src/ai/context.js` applies conservative deterministic context guards; this is not general semantic proof. Quote bank skips overlong sentences rather than slicing off conditions. PDF parse failures now say Unreadable PDF. Syntax and all 64 tests pass, including all 15 adversarial refusals, qualified positive controls and compatibility of the baked INFY note. Browser verification unavailable.
-
-October 31 hosting steering: the user replaced Railway with Vercel + Neon or Cloudflare Workers + D1 and asked the agent to choose. Vercel + Neon selected to preserve the existing Node/Python research flow; serverless adapter and persistent collected-research storage are next. Railway login cancelled; no Railway deployment occurred. Deployment/phone verification remain incomplete.
-
-## October 31 — Vercel + Neon adapter (in progress)
-
-User selected Vercel/Neon or Workers/D1; Vercel/Neon preserves native Node and Python PDF parsing as two functions. `api/finn.js` reuses the HTTP handler and gate; all assets route through it. `api/parse.py` validates a short-lived HMAC-signed source request, pins public DNS addresses with TLS hostname verification, bounds downloads/redirects/pages/text and returns page-preserving pypdf output. It shares `scripts/pdf_text.py` with the local parser. `src/storage/research-store.js` uses parameterized Neon queries for collected public research; recorded examples load first without database/network/model calls. Official Neon driver 1.2.0 is the first Node runtime dependency, justified by durable serverless PostgreSQL access. Local parser remains subprocess-based; Vercel scratch files move to /tmp. Live Gemini is disabled on Vercel regardless of key. Syntax and all 67 tests pass; deployment/real persistence/phone checks pending; no hosted URL yet. Railway configuration removed, login cancelled.
-
-Vercel adapter verification passed (67 tests): parameterized cross-instance Neon adapter test, signed metadata-only Python request test, real Python HMAC expiry/private-DNS/blank-PDF checks. Build/archive and Docker include the lockfile/runtime dependency. Host accounts and Neon database are not yet connected; no persistence claim is made from simulated queries.
-
-Vercel login confirmed. Initial adapter suite: 66/67 pass; Python unittest import collided with the standard-library test package. Runner changed to targeted discovery; all 67 tests now pass. No hosted deployment yet.
-
-Vercel project `sriak/finn` is linked locally. Automatic private GitHub integration failed; deployment will use CLI source upload without expanding GitHub permissions. Source commits still push to the private origin. Neon Free (Singapore, app auth disabled) provisioning started; host secrets remain server-only. No hosted success/phone test claimed yet.
-
-October 31 Vercel checkpoint: syntax, all 67 tests and 92-file archive smoke/secret exclusions pass. Neon Free provisioned/connected successfully; real cross-process persistence verification pending. Automatic approval review rejected uploading locally generated FINN_ACCESS_TOKEN/FINN_PARSER_SECRET to Vercel; the user explicitly approved both secrets for sriak/finn production; upload is proceeding before a gated deployment. No Gemini key transferred.
-
-User explicitly approved the reviewer token and parser secret for sriak/finn production. Neon persistence verified with a public INFY record written by one Node process and read by a fresh process (3 documents); no credentials displayed. Host deployment and phone checks still pending.
-
-## October 31 — first hosted verification and cold-research finding
-
-Production ready: https://finn-zeta-one.vercel.app (deployment `dpl_2PE1UQ9ruymL8yXpmpkfWZqkY9SZ`). Hosted gate/clean 303 redirect/Secure HttpOnly cookie, protected assets, blocked .env, 15-company recorded briefing, all three recorded research examples, immediate six-claim INFY note (0 request model calls), guidance progress and private Python 403 verified. Warm request observations 300–411 ms; first observed health 1,162 ms. No after-idle cold-start or physical-phone result. One transient transport failure on app.js passed on a fresh full run.
-
-D-003: cold hosted TCS returned 503 after 2.8 s. Parser was calling the per-deployment URL, which has Vercel authentication; switch to VERCEL_PROJECT_PRODUCTION_URL alias (our private HMAC endpoint) and retain source failure details. Regression test updated; syntax and all 67 tests pass. Hosted cold retry pending after deployment. Reviewer phone-test request remains pending. Private reviewer URL is only in ignored tmp/reviewer-link.txt.
-
-## October 31 — reviewer path, ledger and refusal
-
-Added About navigation with three-step reviewer path, exact scope/omissions, historical measured timings and free-tier/cache behavior. Current digest/research request latency is measured in the browser with 0 retrieval model calls/₹0 model spend. Live synthetic refusal endpoint runs the actual direction validator; no fake cached success. Mobile hero spacing reduced so priority content appears earlier. Syntax and all 67 tests pass, including live refusal HTTP contract. Browser/device verification pending; results/profile extraction still absent.
-
-## October 31 — physical-phone report and research latency
-
-User reports the hosted app loads/scrolls smoothly, alert preferences save, recorded examples become quick after the first load, and non-demo TCS returns in about 2–3 seconds. Device/browser unspecified; installation and PDF citation opening not confirmed. Recorded October 27–28 dates are expected, not a loading failure; button now says Reload saved snapshot and fixed capture date is explicit. Vercel region is moved to sin1 beside Neon; five public research records may be cached in process for five minutes, with persistent storage on expiry/restart. Syntax and all 67 tests pass, including repeat-read reuse and expiry back to durable storage. Hosted timings pending for this optimization.
-
-D-003 resolved: hosted TCS cold retrieval succeeded with annual report (361 pages), October/July transcripts (29/25 pages), ten evidence chunks, no source errors in 47.5 s. After a new deployment, TCS reloaded from Neon in 3.3 s; another fresh Node process confirmed three persisted documents. No model call made.
-
-## October 31 — recorded results extraction (in progress)
-
-Visually reviewed L&T consolidated results on physical PDF page 11 of the recorded October 27 filing. Six rows are parsed deterministically, six source columns are checked explicitly, first three are quarter/preceding quarter/year-ago quarter, INR crore. Revenue/PBT/PAT and derived EBITDA proxy comparisons preserve negative/zero/missing-base refusal. D&A row includes impairment/obsolescence, so proxy limitation is explicit. Standalone page 16 was rejected because its text layer misread negative parentheses as digits. Consolidated page 11 values match the rendered page; finance-service funding remains operating expense in the explicitly limited EBITDA proxy. PAT is attributable to owners, excluding non-controlling interests. `src/domain/results.js` separates calculations; `src/providers/filings.js` enriches only the exact recorded source URL/symbol. Today card/modal and edge-case tests implemented; syntax and all 69 tests pass. No generalized automatic PDF table claim. PDFs remain ignored.
-
-Results verification finding: initial ownership-label match selected comprehensive income rather than net profit; a source-value test caught it (68/69 tests passed). Extraction now anchors ownership to net-profit row 9 and checks its label/6 columns against the reviewed PDF hash. `scripts/record-lt-results.py` reproduces the narrow adapter. No bad result was committed or deployed. Corrected rerun: syntax and all 69 tests pass.
-
-Hosted latency after optimization: TCS first persistent read 1,612 ms, immediate repeat 513 ms from the test machine, both HTTP 200 with ten evidence chunks/no source errors. These are request observations, not guarantees.
-
-## October 31 — source-backed appointment profile
-
-HDFC Bank recorded October 27 MD/CEO succession is enriched with effective date, outgoing tenure completion and a concise appointee background from its referenced October 1 appointment disclosure (physical PDF p.3, visually inspected). Page links/hashes and profile-as-of date retained. No LinkedIn, secondary-source biography or model call. Profile is bank-attributed, not independently verified. Syntax and all 70 tests pass; UI includes event/profile page links and profile-as-of date.
-
-October 31 submission export: original user/assistant messages from three related Codex chats exported locally under ignored `tmp/session-history/` (144 messages, all available turn pages). Credential redactions applied; reasoning, tool/command outputs and attachment bytes excluded. Current chat is an in-progress snapshot. Other-app/Antigravity history is not accessible. No history uploaded or share link claimed. Covering note update pending.
-
-User steering: defer conversations and submission details until the user decides the build is solid. Current next work is deployed results/profile verification, mobile interaction quality and the hosted Latest sources path. Existing local history snapshots stay ignored and are not a submission-ready claim.
-
-## October 31 — product browser follow-up
-
-Hosted 72-hour briefing returns the L&T results and HDFC Bank profile; live refusal returns rejected/direction mismatch. Local browser at 390×844 shows no horizontal overflow (results table right edge 344 px). Management modal/profile expansion and page-3 href verified. U-001 found: enriched cards retained obsolete “not extracted/no biography verified” context. Provider now supplies accurate reviewed-results/bank-attributed-profile context, global status describes selected page-reviewed details, and About reflects the user’s smooth-phone report. Missing Latest sources gives a user-facing choice without a server command. U-001 resolved: syntax and all 70 tests pass; refreshed 390 px browser verifies both corrected card contexts, expanded profile page link and live direction refusal. Browser error log is empty. Hosted Latest currently 503 because no persistent snapshot is connected; next product slice.
+The user explicitly deferred conversations and all submission details until they decide the build is solid. Local ignored message snapshots exist, but no history has been shared. Do not continue covering-note packaging, reviewer grants, tagging or email now. Continue product reliability. Source commits/pushes, free hosting/Neon, the two host secrets and billing-disabled local Gemini under existing caps are authorized; no paid use, Gemini secret transfer or email.

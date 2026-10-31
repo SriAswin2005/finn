@@ -116,7 +116,7 @@ test('snapshot reads are explicit, atomic, stale-aware and never fall back to fi
   const path = join(directory, 'snapshot.json');
   assert.equal(await readSnapshot(path), null);
   await assert.rejects(getDataset('live', { livePath: path }), DatasetUnavailable);
-  const snapshot = { schemaVersion: 1, asOf: '2026-10-24T12:00:00Z', portfolio: [], announcements: [], sources: { prices: { status: 'ok', fetchedAt: '2026-10-24T12:00:00Z' } } };
+  const snapshot = { schemaVersion: 1, asOf: '2026-10-24T12:00:00Z', portfolio: [], announcements: [], sources: { prices: { status: 'ok', fetchedAt: '2026-10-24T12:00:00Z' }, announcements: { status: 'ok', fetchedAt: '2026-10-24T12:00:00Z' } } };
   await writeJsonAtomic(path, snapshot);
   await writeJsonAtomic(path, snapshot); // Replacement works on Windows too.
   const live = await getDataset('live', { livePath: path, now: new Date('2026-10-28T12:00:00Z') });

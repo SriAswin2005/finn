@@ -6,6 +6,7 @@ import { fetchPrices } from './providers/yahoo.js';
 import { fetchAnnouncements } from './providers/nse.js';
 import { fetchNseEod, completeEod } from './providers/nse-eod.js';
 import { readSnapshot, writeJsonAtomic, liveSnapshotPath, recordedSnapshotPath, dataDirectory } from './storage/snapshots.js';
+import { createSourceSnapshotStore } from './storage/source-snapshot.js';
 
 // Independent source failures preserve the last good records with their original fetch times.
 export async function collectSnapshot({ previous = null, now = new Date(), companies = portfolio, prices = fetchPrices, announcements = fetchAnnouncements, closingReport = fetchNseEod } = {}) {
@@ -64,13 +65,17 @@ export async function collectSnapshot({ previous = null, now = new Date(), compa
 
 async function run() {
   const record = process.argv.includes('--record');
-  const previous = await readSnapshot(liveSnapshotPath);
+  const publish = process.argv.includes('--publish');
+  if (publish && !process.env.DATABASE_URL) throw new Error('Configure Neon DATABASE_URL server-side before publishing sources.');
+  const persistent = publish ? createSourceSnapshotStore() : null;
+  const previous = publish ? await persistent.get() : await readSnapshot(liveSnapshotPath);
   const { snapshot, raw } = await collectSnapshot({ previous });
   const rawHash = createHash('sha256').update(JSON.stringify(raw)).digest('hex');
   snapshot.rawSha256 = rawHash;
   const rawPath = resolve(dataDirectory, `cache/raw/${rawHash}.json`);
   await writeJsonAtomic(rawPath, raw);
   await writeJsonAtomic(liveSnapshotPath, snapshot);
+  if (publish) console.log(await persistent.set(snapshot) ? 'Published Latest sources to persistent storage.' : 'Kept a newer hosted snapshot; this collection was not published over it.');
   if (record) {
     if (snapshot.sources.announcements.status === 'ok' && snapshot.portfolio.every(company => company.eod && !company.dataError)) await writeJsonAtomic(recordedSnapshotPath, { ...snapshot, mode: 'recorded' });
     else console.error('Live snapshot saved with source errors; recorded snapshot was not replaced.');
