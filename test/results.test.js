@@ -28,3 +28,11 @@ test('financial parsing refuses uncertain units, shifted columns and mixed perio
   assert.equal(financialChange(10, -10).label, 'Loss → profit');
   assert.equal(financialChange(null, 10).percent, null);
 });
+
+test('management background retains the primary profile page and its historical disclosure date', async () => {
+  const data = await getDataset('recorded'); const event = data.announcements.find(item => item.symbol === 'HDFCBANK' && item.details?.kind === 'management_change');
+  assert.equal(event.details.incoming, 'Anup Bagchi'); assert.equal(event.details.effectiveDate, '2026-10-27');
+  assert.equal(event.details.profileAsOf, '2026-10-01'); assert.equal(event.details.profileSource.page, 3);
+  assert.match(event.details.profileSource.url, /^https:\/\/nsearchives\.nseindia\.com\//);
+  assert.equal(event.details.background.length, 3); assert.match(event.details.note, /not independently verified/);
+});

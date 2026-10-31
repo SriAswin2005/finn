@@ -62,6 +62,14 @@ function openDetail(item) {
 }
 function filingDetail(data) {
   const section = element('section', 'filing-detail');
+  if (data.kind === 'management_change') {
+    section.append(element('p', 'eyebrow', `Effective ${data.effectiveDate} · recorded disclosure`), element('p', '', `${data.incoming} · ${data.role}`), element('p', 'muted', data.reason));
+    section.append(sourceLink({ url: `${data.eventSource.url}#page=${data.eventSource.page}` }, `Check the change · PDF p. ${data.eventSource.page} ↗`));
+    const background = element('details'); background.append(element('summary', '', `Appointee background · filing dated ${data.profileAsOf}`));
+    for (const fact of data.background) background.append(element('p', 'muted', fact));
+    background.append(sourceLink({ url: `${data.profileSource.url}#page=${data.profileSource.page}` }, `Read the filed profile · PDF p. ${data.profileSource.page} ↗`), element('p', 'muted', data.note));
+    section.append(background); return section;
+  }
   if (data.kind !== 'results') return section;
   section.append(element('p', 'eyebrow', `${data.scope} · INR crore · quarter ended ${data.periods[0]}`));
   const table = element('table', 'results-table'); const head = element('thead'); const header = element('tr');

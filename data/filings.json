@@ -97,6 +97,35 @@
         "PAT is attributable to owners of the company, excluding non-controlling interests.",
         "Derived EBITDA proxy = PBT + general finance-cost row + depreciation row − other income. Finance-service and finance-lease funding costs remain operating expenses. The depreciation row also includes impairment/obsolescence; this proxy is not company-reported EBITDA."
       ]
+    },
+    {
+      "kind": "management_change",
+      "symbol": "HDFCBANK",
+      "title": "HDFC Bank: MD & CEO succession",
+      "filingUrl": "https://nsearchives.nseindia.com/corporate/HDFCBANK_27102026080232_SEIntimation_appt_of_AB.pdf",
+      "incoming": "Anup Bagchi",
+      "role": "Managing Director & Chief Executive Officer",
+      "effectiveDate": "2026-10-27",
+      "outgoing": "Sashidhar Jagdishan",
+      "reason": "The October 27 filing says the outgoing MD & CEO completed his tenure at close of business on October 26.",
+      "eventSource": {
+        "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK_27102026080232_SEIntimation_appt_of_AB.pdf",
+        "page": 1,
+        "sha256": "56627eb392aa8a544bbce439cb537452c540351844c9cc42636798696a0f81c3"
+      },
+      "profileSource": {
+        "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK3_01102026182319_SE_Intimation-_Anup_Bagchi.pdf",
+        "page": 3,
+        "sha256": "698ec5d2b6ddf71d1cb42045fc2bb90d3ea511090398025eb4c88ea37457f875"
+      },
+      "profileAsOf": "2026-10-01",
+      "background": [
+        "The appointment disclosure describes over three decades across banking, capital markets, wealth management and insurance.",
+        "Past leadership roles named in the filing include ICICI Securities CEO & MD, ICICI Bank Executive Director (2017–2023), and ICICI Prudential Life Insurance MD & CEO.",
+        "Education reported in the filing: engineering at IIT Kanpur and management at IIM Bangalore."
+      ],
+      "note": "Background is attributed to the bank’s October 1 appointment disclosure, referenced by its October 27 filing. It is not independently verified or scraped from LinkedIn.",
+      "reviewedAt": "2026-10-31"
     }
   ]
 }
