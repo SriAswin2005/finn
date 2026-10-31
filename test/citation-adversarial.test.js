@@ -38,3 +38,11 @@ test('qualified facts and direction survive when the complete claim preserves th
     assert.doesNotThrow(() => validateAnalysis({ claims: [{ section: 'guidance', text, inference: false, references: [{ evidenceId: 'e', quote: text }] }], unavailableSections: [] }, [{ id: 'e', text }]));
   }
 });
+
+test('ordinary plurals and a shared range unit do not make supported claims unavailable', () => {
+  for (const [text, quote] of [
+    ['EBIT margin in Q2 FY27 was 15%, a decline of 130 basis points year-on-year.', 'EBIT margins for Q2 FY27 came in at 15%, 130 basis points declined year-on-year.'],
+    ['Revenue growth guidance is 16% to 17%.', 'Revenue growth guidance is 16 to 17%.'],
+    ['The international segments reported revenue of 100 million.', 'The international segments reported revenue of 100 million.'],
+  ]) assert.doesNotThrow(() => validateAnalysis({ claims: [{ section: 'guidance', text, inference: false, references: [{ evidenceId: 'e', quote }] }], unavailableSections: [] }, [{ id: 'e', text: quote }]));
+});
