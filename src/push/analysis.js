@@ -5,6 +5,15 @@ import { reserveAttempt, finishAttempt, classifyFailure, Deferred } from './quot
 import { extractFinancialMetrics } from './metrics.js';
 import { randomUUID } from 'node:crypto';
 
+export function pushGenerationState(env = process.env) {
+  const configured = Boolean(env.GEMINI_API_KEY);
+  const freeTierConfirmed = env.FINN_AI_FREE_TIER_CONFIRMED === 'true';
+  const hostedApproved = !env.VERCEL || env.FINN_PUSH_HOSTED_APPROVED === 'true';
+  const enabled = env.FINN_PUSH_ENABLED === 'true' && configured && freeTierConfirmed && hostedApproved;
+  const reason = !configured ? 'Model credentials are not configured.' : !freeTierConfirmed ? 'Billing-disabled project confirmation is missing.' : !hostedApproved ? 'Hosted generation is disabled pending quality acceptance.' : !enabled ? 'Push generation is disabled.' : null;
+  return { enabled, configured, freeTierConfirmed, hostedApproved, reason };
+}
+
 function publishedResult(analysis, { doc, financials, complexityReasons, model, at }) {
   if (analysis.eventType === 'results') {
     if (!financials.rows.some(r => /revenue/i.test(r.label) && Number.isFinite(r.value))) analysis.missing.push('financial_table');
@@ -18,8 +27,8 @@ function publishedResult(analysis, { doc, financials, complexityReasons, model, 
 }
 
 export async function processAnalysis({ store, env = process.env, now = Date.now, fetchImpl = fetch, random = Math.random, eventId } = {}) {
-  if (env.FINN_PUSH_ENABLED !== 'true' || !env.GEMINI_API_KEY || env.FINN_AI_FREE_TIER_CONFIRMED !== 'true') return { disabled: true };
-  if (env.VERCEL && env.FINN_PUSH_HOSTED_APPROVED !== 'true') return { disabled: true, reason: 'Hosted Gemini transfer/activation is not approved.' };
+  const generation = pushGenerationState(env);
+  if (!generation.enabled) return { disabled: true, reason: generation.reason };
   const job = await claimAnalysis(store, now(), { eventId }); if (!job) return { skipped: true };
   let attemptId; let draft; let observedTokens;
   try {

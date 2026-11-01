@@ -10,6 +10,7 @@ import { buildBriefing } from '../src/domain/briefing.js';
 import { mkdtemp } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { processAnalysis } from '../src/push/analysis.js';
 
 const at = Date.parse('2026-11-01T10:00:00Z');
 const base = { mode: 'live', asOf: new Date(at).toISOString(), portfolio: [{ symbol: 'ABC', name: 'Example', eod: null }], announcements: [], sources: { prices: { status: 'unavailable' }, announcements: { status: 'ok' } } };
@@ -51,6 +52,21 @@ test('HTTP opens and source refresh make zero model calls; signed worker route i
   const body = JSON.stringify({ expires: Math.floor(Date.now() / 1000) + 60, runId: 'test' });
   const signature = createHmac('sha256', secret).update(`push-worker\n${body}`).digest('hex');
   assert.equal((await fetch(url + '/api/push/worker', { method: 'POST', headers: { 'x-finn-worker-signature': signature }, body })).status, 200); assert.equal(ticks, 1); assert.equal(generated, 0);
+});
+
+test('hosted status verifies credential presence without disclosure or calls and shares the generation gate', async t => {
+  const secret = 'synthetic-gemini-key-never-return-to-client';
+  const env = { VERCEL: '1', GEMINI_API_KEY: secret, FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_PUSH_ENABLED: 'true', FINN_PUSH_HOSTED_APPROVED: 'false' };
+  const store = { read: async () => initialPushState(), mutate: async () => { throw new Error('Disabled generation must not claim jobs or reserve attempts.'); } };
+  const pushService = createPushService({ store, env });
+  const server = createAppServer({ accessGate: () => true, aiProvider: {}, pushService });
+  server.listen(0, '127.0.0.1'); await once(server, 'listening'); t.after(() => new Promise(resolve => server.close(resolve)));
+  const text = await (await fetch(`http://127.0.0.1:${server.address().port}/api/push/status`)).text();
+  const status = JSON.parse(text); assert.equal(text.includes(secret), false);
+  assert.equal(status.generation.configured, true); assert.equal(status.generation.enabled, false); assert.equal(status.generation.freeTierConfirmed, true);
+  const result = await processAnalysis({ store, env, fetchImpl: async () => { throw new Error('No model call allowed.'); } });
+  assert.equal(result.disabled, true); assert.equal(result.reason, status.generation.reason);
+  delete env.GEMINI_API_KEY; assert.equal((await pushService.status()).generation.configured, false);
 });
 
 test('source and analysis cadences are independent configuration and unchanged time skips generation checks', async () => {

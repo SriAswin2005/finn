@@ -273,3 +273,9 @@ November1 approved migration attempt stopped before any Neon operation: producti
 
 
 November1 migration verified: explicit local source path fixes production-env cache selection. Syntax/all108 tests pass. Actual Neon migration copied10 documents/76 events/16 quota entries; fresh deep structural comparison matches documents and events/jobs/collection/quota. JSON string ordering was rejected as an invalid comparator for JSONB. One early old-snapshot Polycab evaluation is now tagged captured with an audit reason in both stores, preserving all IDs/jobs/attempts and its separate current NSE observation. No calls/refunds/new allowance. Local .env bound to same ledger; backup retained. Vercel authenticated; Cloudflare login requested from user, not yet authorized.
+
+
+November1 approved Vercel secret setup: original local Gemini key + separate generated worker secret sent only through stdin to production sriak/finn; CLI accepted7 settings, metadata confirms sensitive credential types. FINN_PUSH_ENABLED/HOSTED_APPROVED both false; free-tier confirmation true, cadences15. No secret values printed. Added shared generation-gate status booleans/reason for runtime verification with zero calls; HTTP no-disclosure/no-reservation regression passes with syntax/all109 tests. Cloudflare sign-in handed to user; no service activated.
+
+
+November1 hosted-status checkpoint: syntax/all109 tests pass. Safe status distinguishes credential absence from the disabled quality gate and never returns values or reserves/calls models. Cloudflare OAuth timed out before user completion; activation remains pending and fresh login will be needed. Vercel deployment/runtime verification next.

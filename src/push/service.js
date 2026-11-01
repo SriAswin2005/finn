@@ -2,7 +2,7 @@ import { createHmac, timingSafeEqual, randomUUID } from 'node:crypto';
 import { createPushStore } from './store.js';
 import { collectPush } from './collection.js';
 import { processDocument } from './jobs.js';
-import { processAnalysis } from './analysis.js';
+import { processAnalysis, pushGenerationState } from './analysis.js';
 import { presentationAnalysis } from './interpretation.js';
 
 export function workerAuthorized(body, signature, secret, now = Date.now()) {
@@ -55,7 +55,7 @@ export function decoratePushDataset(dataset, state, at = Date.now()) {
 export function createPushService({ store = createPushStore(), env = process.env, now = Date.now, collect = collectPush, document = processDocument, analyse = processAnalysis } = {}) {
   const minutes = name => { const n = Number(env[name] ?? 15); if (!Number.isInteger(n) || n < 1 || n > 1440) throw new Error('Push cadence must be an integer from 1 to 1440 minutes.'); return n; };
   const targetMinutes = minutes('FINN_PUSH_COLLECTION_MINUTES'); const analysisMinutes = minutes('FINN_PUSH_ANALYSIS_MINUTES');
-  const status = state => pushStatus(state, now(), { targetMinutes, analysisMinutes });
+  const status = state => ({ ...pushStatus(state, now(), { targetMinutes, analysisMinutes }), generation: pushGenerationState(env) });
   return {
     store,
     async decorate(dataset) {

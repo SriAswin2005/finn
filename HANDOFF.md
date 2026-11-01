@@ -8,7 +8,7 @@ FINN is a mobile briefing PWA for a 15-company mock NSE portfolio. November 1 sc
 
 Local pipeline is implemented and passes syntax/all 108 tests at f214b9c. Real local catch-up collected66 filings. Ten captured disclosures/14 model attempts yielded two partial briefs with substantive quality limits; see [evaluation](docs/PUSH_EVALUATION.md). This is **not complete hosted Push**. Local Latest defaults/Refresh/evidence/error behavior were browser-checked at 390 px; physical-device offline/install/PDF opening unconfirmed.
 
-Production remains October 31 code 909b988 / dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip, https://finn-zeta-one.vercel.app, Vercel + Neon Free Singapore. Reviewer token gates UI/assets/APIs; private link is ignored tmp/reviewer-link.txt. No Gemini key is hosted. Existing three zero-call Research notes (6/4/4 claims), reviewed L&T results/HDFC profile and saved Latest remain deployed. November 1 changes are pushed source only.
+Production remains October 31 code 909b988 / dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip, https://finn-zeta-one.vercel.app, Vercel + Neon Free Singapore. Reviewer token gates UI/assets/APIs; private link is ignored tmp/reviewer-link.txt. Approved original Gemini key and separate worker secret are now stored as production Vercel Secrets; generation remains disabled and the new deployment is pending. Existing three zero-call Research notes (6/4/4 claims), reviewed L&T results/HDFC profile and saved Latest remain deployed. November 1 changes are pushed source only.
 
 ## Targeted implementation map
 

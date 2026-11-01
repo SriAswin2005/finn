@@ -16,7 +16,7 @@ Source review: **14 model attempts over 10 captured disclosures**, including fou
 
 ## Production and approved rollout
 
-Production remains October 31 code 909b988 / dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip at https://finn-zeta-one.vercel.app. November1 Neon migration is verified; Vercel deployment/key transfer and Cloudflare activation are still pending. Existing reviewer gate, Neon Latest snapshot (October 31 20:43 IST; 15 EOD/62 filings), Recorded fixtures and Research notes remain deployed.
+Production remains October 31 code 909b988 / dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip at https://finn-zeta-one.vercel.app. November1 Neon migration is verified; Original Gemini key and separate worker secret are now stored as production Vercel Secrets; deployment and Cloudflare authentication/activation remain pending. Both generation gates are false. Existing reviewer gate, Neon Latest snapshot (October 31 20:43 IST; 15 EOD/62 filings), Recorded fixtures and Research notes remain deployed.
 
 The user explicitly approved the explained Neon migration/local shared-ledger binding, server-only original Gemini key transfer to sriak/finn and Free Cloudflare dispatcher activation on November1 (“okay go ahead”). Generation remains disabled until quality gates pass; no paid plan, extra allowance or new terms acceptance is approved. The earlier automatic-review migration rejection is historical; the requested specific authorization is now present. Migration now verified:10 immutable documents,76 events (66 collected/10 captured),16 quota entries; fresh Neon structural equality for events/jobs/collection/quota/documents. Local `.env` now binds the same Neon ledger; source SQLite and ignored backup retained.
 
@@ -33,3 +33,9 @@ November1 approved migration attempt stopped before any Neon operation: producti
 
 
 Migration checkpoint: source-path correction passes syntax/all108 tests. Initial string-order comparison was invalid for JSONB; deep structural comparison passes. One early Polycab evaluation used an older saved snapshot before capture tags existed; it is now explicitly captured in both stores, retaining ID/job/attempt and the separate current NSE observation. No model call/reset. Cloudflare CLI is unauthenticated; user sign-in/authorization tab opened with account/user read + Workers write. Vercel authenticated. No hosted generation enabled.
+
+
+Hosted-secret checkpoint: CLI accepted all7 production settings; metadata confirms both credentials are sensitive Secrets (values intentionally unreadable). Added non-secret generation status from the same enablement function used by analysis, so deployment can verify actual nonempty key presence and disabled quality gate with zero calls. HTTP/no-disclosure/no-reservation regression and syntax/all109 tests pass. No model call or scheduler activation.
+
+
+November1 hosted-status checkpoint: syntax/all109 tests pass. Safe status distinguishes credential absence from the disabled quality gate and never returns values or reserves/calls models. Cloudflare OAuth timed out before user completion; activation remains pending and fresh login will be needed. Vercel deployment/runtime verification next.

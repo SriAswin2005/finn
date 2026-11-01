@@ -1,6 +1,6 @@
 # Billing-disabled Gemini and shared workflow policy
 
-Reconciled November 1,2026. One Gemini key is sufficient; no ChatGPT/Sarvam key. Keep the original key in ignored backend `.env`; never print, commit or request it in chat. No hosted Gemini transfer has occurred. Local calls under existing caps are authorized; hosted transfer/activation needs explicit approval in [DEPLOYMENT.md](DEPLOYMENT.md).
+Reconciled November 1,2026. One Gemini key is sufficient; no ChatGPT/Sarvam key. Keep the original key in ignored backend `.env`; never print, commit or request it in chat. User approved the exact hosted transfer November1; original key is now a Vercel production Secret, with generation disabled pending quality. Local calls under existing caps are authorized; hosted transfer/activation needs explicit approval in [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Configurable versions and separate roles
 
@@ -51,3 +51,6 @@ Push uses one 30s request/invocation, maximum 3 attempts per content job. A fail
 Public document excerpts go to Google; explicit Research questions do too. Credentials/user preferences/portfolio account data do not. Structured output/server-owned quote IDs and number/context/name/action guards reduce known errors but do not prove semantic entailment or omission-free financial interpretation. Manual source review remains required. See [PUSH_EVALUATION.md](PUSH_EVALUATION.md) and [AI_REVIEW.md](AI_REVIEW.md).
 
 Official references checked November 1: [models](https://ai.google.dev/gemini-api/docs/models), [rate limits](https://ai.google.dev/gemini-api/docs/rate-limits), [pricing](https://ai.google.dev/gemini-api/docs/pricing), [structured output](https://ai.google.dev/gemini-api/docs/structured-output), [thinking](https://ai.google.dev/gemini-api/docs/thinking), [API keys](https://ai.google.dev/gemini-api/docs/api-key). Historical invalid-key issue resolved October 28 after local editing/metadata 200; do not diagnose it as a current blocker.
+
+
+Hosted generation status now reports only configured/enabled/free-tier/hosted-gate flags and reason from the same gate used by analysis. It cannot expose a key/fingerprint and makes no model request. Syntax/all109 tests pass; approved key stored, runtime deployment verification pending.
