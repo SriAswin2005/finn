@@ -2,6 +2,12 @@
 
 ## November 1 — active Push mission
 
+Document identity verified: syntax/all 104 tests pass. Mobile captured-only component preview verifies accepted-note evidence keyboard expansion, physical p.1 links, generic metric table + matching p.9/p.8 row/scope links, applicable contract uncertainty, no overflow or component console errors. Preview explicitly labels captured/metrics-only data and makes no model/collection calls. Production still unchanged; no hosted completion claim.
+
+Added duplicate-record/concurrent single-reservation, grouped-card, legacy-key/capture-separation and applicable-uncertainty tests. A changed mutable URL also withholds stale analysis for its other observations; explicit correction of a known shared document supersedes that document's aliases only. Required checks running.
+
+Document-identity slice saved: same issuer + full content hashes now share one accepted job across exchange observation IDs, with evaluation/live namespaces separate and old keys reused (no archive regeneration). Every observation follows accepted status; UI groups equivalent attachments. Event-specific uncertainty presentation removes unrelated profile fields from contract/results cards while retaining raw codes and every validated claim. Tests pending; no model call made.
+
 Quality checkpoint verified/pending commit: syntax/all 101 pass; L&T p.3 classification grid visually confirms the documented omitted band. 14 model attempts, no additional retries beyond4, two partial outputs with disclosed limitations. Next: shared-document deduplication, completed-card browser checks and final deployment/handoff reconciliation.
 
 Captured evaluation results are in [PUSH_EVALUATION.md](docs/PUSH_EVALUATION.md): 14 calls/10 cases, two partial briefs (CDSL retirement, L&T contract); ordinary refusals, complex timeouts/server failures and omissions are explicit. No general financial/profile/routine quality pass. New result/profile attempts remain durably deferred; no unsuitable fallback. Source collection caught 66 current-window filings; hosted migration still unexecuted/rejected. Current checks 101 pass; short-profile routing final recheck pending.

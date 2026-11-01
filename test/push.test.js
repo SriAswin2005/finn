@@ -6,10 +6,11 @@ import { join } from 'node:path';
 import { createPushStore } from '../src/push/store.js';
 import { collectPush, collectionWindow, mergeFilings } from '../src/push/collection.js';
 import { normalizeNse } from '../src/providers/nse.js';
-import { processDocument, claimAnalysis, settleJob } from '../src/push/jobs.js';
+import { processDocument, claimAnalysis, settleJob, acceptDocumentJob } from '../src/push/jobs.js';
 import { reserveAttempt, finishAttempt, classifyFailure, nextPacificReset } from '../src/push/quota.js';
 import { filingEvidence } from '../src/push/evidence.js';
-import { validatePush } from '../src/push/interpretation.js';
+import { validatePush, presentationAnalysis, missingContext } from '../src/push/interpretation.js';
+import { decoratePushDataset } from '../src/push/service.js';
 import { processAnalysis, revalidateRejected } from '../src/push/analysis.js';
 import { researchAssignments } from '../src/ai/workflows.js';
 
@@ -160,6 +161,34 @@ test('Pacific reset never grants a fresh local allowance inside the approved rol
     s.quota.attempts.push({ id: 'prior-day', model: 'gemini-3.1-flash-lite', workflow: 'push', at: midnight - 1000, estimatedTokens: 100, retry: false, outcome: 'timeout_unknown' });
   });
   await assert.rejects(reserveAttempt(store, { workflow: 'push', model: 'gemini-3.1-flash-lite', estimatedTokens: 100, now: midnight + 1000 }), error => error.kind === 'daily' && error.until >= midnight - 1000 + 86400000);
+});
+
+test('different exchange IDs with identical issuer/content share one model reservation and one card', async () => {
+  const { store } = await temporaryStore();
+  const alias = { ...filing, id: 'second-exchange-record', source: { url: 'https://nsearchives.nseindia.com/alias.pdf' } };
+  await store.mutate(s => { mergeFilings(s, [filing, alias], new Date(at).toISOString()); s.quota.initialized = true; s.quota.policy = { ...policy, models: { 'gemini-3.1-flash-lite': { ...policy.models['gemini-3.1-flash-lite'], capability: 'ordinary' } } }; });
+  await processDocument({ store, now: () => at, collectDocument: async () => managerDoc });
+  await processDocument({ store, now: () => at, collectDocument: async () => managerDoc });
+  let calls = 0;
+  const options = { store, now: () => at, env: { FINN_PUSH_ENABLED: 'true', GEMINI_API_KEY: 'fake', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => { calls++; return new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(managerWire()) }] } }] })); } };
+  await Promise.all([processAnalysis(options), processAnalysis(options)]);
+  const state = await store.read(); assert.equal(calls, 1); assert.equal(Object.keys(state.jobs).length, 1); assert.equal(state.events[filing.id].status, 'partial'); assert.equal(state.events[alias.id].status, 'partial'); assert.equal(state.quota.attempts.length, 1);
+  const data = decoratePushDataset({ announcements: [], sources: { announcements: {} } }, state, at);
+  assert.equal(data.announcements.length, 1); assert.equal(data.announcements[0].disclosures.length, 2);
+});
+test('document dedup preserves accepted legacy keys and keeps captured evaluation separate', async () => {
+  const { store } = await temporaryStore();
+  await store.mutate(s => {
+    mergeFilings(s, [filing], 'now'); s.events[filing.id].documentHash = doc.sha256; s.events[filing.id].processingKey = 'old-accepted-key';
+    s.jobs['old-accepted-key'] = { key: 'old-accepted-key', eventId: filing.id, documentHash: doc.sha256, status: 'complete', analysis: { unchanged: true } };
+    mergeFilings(s, [{ ...filing, id: 'duplicate' }, { ...filing, id: 'capture', evidenceMode: 'captured_evaluation' }], 'later');
+    for (const id of ['duplicate', 'capture']) { s.events[id].documentHash = doc.sha256; acceptDocumentJob(s, s.events[id], at); }
+  });
+  const state = await store.read(); assert.equal(state.events.duplicate.processingKey, 'old-accepted-key'); assert.equal(state.events.duplicate.status, 'complete'); assert.notEqual(state.events.capture.processingKey, 'old-accepted-key'); assert.equal(Object.keys(state.jobs).length, 2);
+});
+test('event-specific uncertainty presentation retains every claim/raw code and preserves relevant missing impact', () => {
+  const source = { eventType: 'contract', claims: [{ text: 'An unchanged supported fact' }], missing: ['management_profile', 'order_impact'], uncertainties: [missingContext.management_profile, missingContext.order_impact] };
+  const view = presentationAnalysis(source); assert.deepEqual(view.claims, source.claims); assert.deepEqual(view.reportedMissing, source.missing); assert.deepEqual(view.missing, ['order_impact']); assert.deepEqual(view.uncertainties, [missingContext.order_impact]);
 });
 
 const doc = { id: 'abc', sha256: 'a'.repeat(64), url: filing.source.url, pages: [{ page: 1, text: 'The company appointed a chief financial officer effective immediately.' }] };

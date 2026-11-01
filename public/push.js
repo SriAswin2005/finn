@@ -6,6 +6,7 @@ export function pushAnalysis(item) {
   const section = el('section', undefined, 'push-brief');
   section.append(el('p', `${labels[item.analysisStatus] ?? item.analysisStatus}${item.delayed ? ' · delayed coverage' : ''}`, 'eyebrow'));
   section.append(el('p', `Collected ${date(item.collectedAt ?? item.fetchedAt)}${item.analysisPublishedAt ? ` · briefing published ${date(item.analysisPublishedAt)}` : ''}`, 'muted'));
+  if (item.disclosures?.length > 1) section.append(el('p', `${item.disclosures.length} exchange records share this attachment and one saved analysis.`, 'muted'));
   if (item.correction) section.append(el('p', item.correction, 'muted'));
   if (!item.analysis) { if (item.analysisError) section.append(el('p', item.analysisError, 'muted')); return section; }
   const a = item.analysis;

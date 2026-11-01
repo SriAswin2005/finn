@@ -3,6 +3,7 @@ import { createPushStore } from './store.js';
 import { collectPush } from './collection.js';
 import { processDocument } from './jobs.js';
 import { processAnalysis } from './analysis.js';
+import { presentationAnalysis } from './interpretation.js';
 
 export function workerAuthorized(body, signature, secret, now = Date.now()) {
   if (!secret || secret.length < 32 || typeof body !== 'string' || Buffer.byteLength(body) > 1024 || !/^[a-f0-9]{64}$/.test(signature ?? '')) return false;
@@ -28,14 +29,19 @@ export function decoratePushDataset(dataset, state, at = Date.now()) {
   for (const e of Object.values(state.events)) {
     if (e.filing.evidenceMode === 'captured_evaluation') continue;
     if (e.replacedBy) { byUrl.delete(e.filing.source.url ?? e.filing.id); continue; }
-    const job = state.jobs[e.processingKey]; const analysis = ['complete', 'partial'].includes(job?.status) ? job.analysis : null;
+    const job = state.jobs[e.processingKey]; const analysis = ['complete', 'partial'].includes(job?.status) ? presentationAnalysis(job.analysis) : null;
     const eventClaim = analysis?.claims.find(c => c.role === 'event'); const significance = analysis?.claims.find(c => c.role === 'significance');
     const priorityReason = analysis?.claims.find(c => c.role === 'priority')?.text ?? 'Awaiting document analysis; significance has not been established.';
     const delayed = at - Date.parse(e.filing.publishedAt) > 86400000 && (!analysis || Date.parse(analysis.generatedAt) - Date.parse(e.filing.publishedAt) > 86400000);
     const keepDelayed = delayed && (!analysis || analysis.priority !== 'low' && at - Date.parse(analysis.generatedAt) < 3 * 86400000);
     const level = analysis?.priority ?? 'normal'; const ageHours = Math.max(0, (at - Date.parse(e.filing.publishedAt)) / 3600000);
     const priority = ({ high: 80, normal: 45, low: 10 }[level]) + Math.max(0, 10 - ageHours / 12) + (analysis?.missing.length ? 2 : 0);
-    byUrl.set(e.filing.source.url ?? e.filing.id, { ...e.filing, title: eventClaim?.text ?? e.filing.title, summary: analysis?.claims.filter(c => c.role === 'fact').map(c => c.text).join(' ') ?? e.filing.summary,
+    const documentKey = e.processingKey ? `document:${e.processingKey}` : e.filing.source.url ?? e.filing.id;
+    byUrl.delete(e.filing.source.url ?? e.filing.id);
+    const old = byUrl.get(documentKey);
+    const disclosures = [...(old?.disclosures ?? []), { id: e.filing.id, publishedAt: e.filing.publishedAt, url: e.filing.source.url }];
+    if (old && Date.parse(old.publishedAt) > Date.parse(e.filing.publishedAt)) { old.disclosures = disclosures; continue; }
+    byUrl.set(documentKey, { ...e.filing, disclosures, title: eventClaim?.text ?? e.filing.title, summary: analysis?.claims.filter(c => c.role === 'fact').map(c => c.text).join(' ') ?? e.filing.summary,
       category: analysis?.eventType === 'routine' ? 'unclassified' : analysis?.eventType ?? e.filing.category,
       why: significance?.text ?? 'Document interpretation is pending; the exchange title alone does not establish significance.', analysis, analysisStatus: e.status, analysisError: job?.error ?? e.error ?? null,
       collectedAt: e.firstCollectedAt, analysisPublishedAt: analysis ? job.publishedAt ?? analysis.generatedAt : null, delayed, keepDelayed, correction: e.correction,

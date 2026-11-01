@@ -184,6 +184,12 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — define the Push completion contract
 
+Dedup checkpoint:104 tests pass; captured-only mobile evidence/table components and keyboard/page links verified. Preview never enters Latest or generates. No hosted change. Remaining work is final numeric/cadence bounds and current-state/deployment handoff reconciliation.
+
+Added cross-ID single-reservation/old-key/capture-separation regressions and applicable uncertainty tests. Shared mutable URL changes withhold stale aliases; exact correction supersedes only known same-document aliases. Full checks next.
+
+Added issuer+content identity across exchange observations, preserving old job keys/capture separation. Observations follow one result and duplicate cards group. Event-specific uncertainty display retains raw codes/all validated claims. Verification next, no model requests.
+
 Recorded actual captured evaluation and source review in PUSH_EVALUATION.md: 14 calls across10 cases, two partial briefs, remaining quality/availability gaps explicit. No hosted activation; rejected external migration remains blocked. Next local reliability slice is document-identity deduplication across exchange observations.
 
 CDSL complex alternative completed a partial four-claim brief. Added rolling-window protection across Pacific midnight and rebalanced internal evaluation allocations within unchanged20 total (Research6/Push14, retries4). Prompt v6 leads with actual events and allows necessary financial facts. No regeneration of accepted archives or hosted activation.

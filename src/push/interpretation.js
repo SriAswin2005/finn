@@ -14,6 +14,20 @@ export const missingContext = Object.freeze({
   full_document_text: 'Parts of the original document have no usable text layer.',
 });
 const roles = ['event', 'fact', 'significance', 'priority'];
+const relevantMissing = {
+  results: ['comparatives', 'financial_table', 'reported_ebitda', 'full_document_text'],
+  management_change: ['management_profile', 'effective_date', 'reason', 'full_document_text'],
+  'M&A': ['deal_conditions', 'order_impact', 'full_document_text'],
+  contract: ['deal_conditions', 'order_impact', 'full_document_text'],
+  capital_allocation: ['deal_conditions', 'order_impact', 'full_document_text'],
+  litigation: ['effective_date', 'reason', 'full_document_text'], regulatory: ['effective_date', 'reason', 'full_document_text'],
+  routine: ['effective_date', 'full_document_text'],
+};
+export function presentationAnalysis(analysis) {
+  const allowed = relevantMissing[analysis.eventType]; if (!allowed) return analysis;
+  const irrelevant = new Set((analysis.missing ?? []).filter(code => !allowed.includes(code)).map(code => missingContext[code]));
+  return { ...analysis, reportedMissing: analysis.reportedMissing ?? analysis.missing, missing: (analysis.missing ?? []).filter(code => allowed.includes(code)), uncertainties: (analysis.uncertainties ?? []).filter(message => !irrelevant.has(message)) };
+}
 export const pushSchema = {
   type: 'object', additionalProperties: false, required: ['eventType', 'claims', 'priority', 'missing', 'needsComplex'],
   properties: {

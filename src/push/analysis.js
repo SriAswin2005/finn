@@ -1,6 +1,6 @@
 import { claimAnalysis, settleJob } from './jobs.js';
 import { filingEvidence } from './evidence.js';
-import { pushSchema, pushPrompt, validatePush, ANALYSIS_VERSION, missingContext } from './interpretation.js';
+import { pushSchema, pushPrompt, validatePush, ANALYSIS_VERSION, missingContext, presentationAnalysis } from './interpretation.js';
 import { reserveAttempt, finishAttempt, classifyFailure, Deferred } from './quota.js';
 import { extractFinancialMetrics } from './metrics.js';
 import { randomUUID } from 'node:crypto';
@@ -14,7 +14,7 @@ function publishedResult(analysis, { doc, financials, complexityReasons, model, 
   const missingMetrics = analysis.eventType === 'results' ? ['Revenue', 'PBT', 'PAT', 'EBITDA'].filter(metric => !financials.rows.some(r => metric === 'PAT' ? /^(?:reported )?PAT$|^net profit$|^profit after tax$/i.test(r.label) : new RegExp(`^(?:total )?${metric}(?: from operations)?$`, 'i').test(r.label))) : [];
   const uncertainties = [...new Set(analysis.missing)].map(code => missingContext[code]);
   if (missingMetrics.length) uncertainties.push(`Verified structured values unavailable: ${missingMetrics.join(', ')}. Narrative figures, if present, remain separately cited.`);
-  return { ...analysis, missing: [...new Set(analysis.missing)], uncertainties, model, analysisVersion: ANALYSIS_VERSION, documentHash: doc.sha256, generatedAt: new Date(at).toISOString(), metrics: financials.rows, complexityReasons };
+  return presentationAnalysis({ ...analysis, missing: [...new Set(analysis.missing)], uncertainties, model, analysisVersion: ANALYSIS_VERSION, documentHash: doc.sha256, generatedAt: new Date(at).toISOString(), metrics: financials.rows, complexityReasons });
 }
 
 export async function processAnalysis({ store, env = process.env, now = Date.now, fetchImpl = fetch, random = Math.random, eventId } = {}) {

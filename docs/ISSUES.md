@@ -2,6 +2,12 @@
 
 ## P-001 — Automatic Push workflow (active, November 1)
 
+Same-document cross-ID reuse now passes concurrent single-call/reservation and legacy-key/capture-separation tests (104 total). Captured-only mobile component preview verifies evidence/metric page links and applicable contract uncertainty without generation. Quality/hosted activation gates remain open; dedup local contract issue resolved.
+
+Dedup regressions added: two exchange IDs/URLs with one issuer/hash must reserve once and display one card; old accepted keys survive, captured evidence stays isolated. Changed shared URL withholds old aliases; explicit correction expands only within that known document group. Tests pending.
+
+Cross-observation document deduplication and type-specific uncertainty display implemented, tests pending. Same issuer/content reuses old keys/results; capture-only notes never become a live fallback. All observations remain durable; equivalent cards group. Need duplicate-ID/old-key/status-propagation regressions.
+
 Actual evaluation: 14 model calls/10 captured cases, two partial accepted briefs, important headline/omission/reading-effort gaps. See PUSH_EVALUATION.md; do not close this issue. Financial/incoming-profile/routine cases are refused/deferred, not passed. Intended-host migration remains blocked by automatic approval review; no secret or scheduler activated. Remaining local reliability item: deduplicate equivalent document hashes across distinct exchange observations without regenerating existing jobs.
 
 CDSL final complex attempt produced a validated four-claim partial briefing. Direct facts match reviewed pp.1/3, but source/usefulness review must distinguish boilerplate headline/name artifacts from semantic support. Broader financial/profile/routine evaluation remains open. Internal allocations rebalanced within existing total20 (6 Research/14 Push, retry4), preserving rolling24h and Pacific restrictions; no new spending/allowance authorized or reset.

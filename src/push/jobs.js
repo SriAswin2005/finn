@@ -2,13 +2,20 @@ import { randomUUID } from 'node:crypto';
 import { hash } from './collection.js';
 import { collectFilingDocument, referencedFilings } from './evidence.js';
 
-function acceptDocumentJob(state, current, at) {
+export function acceptDocumentJob(state, current, at) {
   const hashes = [current.documentHash, ...(current.relatedHashes ?? [])];
-  const key = hash(`${current.filing.id}|${hashes.join('|')}`);
+  const namespace = filing => filing.evidenceMode === 'captured_evaluation' ? 'evaluation' : 'collected';
+  const existing = Object.values(state.jobs).find(job => {
+    const original = state.events[job.eventId];
+    return original && original.filing.symbol === current.filing.symbol && namespace(original.filing) === namespace(current.filing)
+      && (job.documentHashes ?? [job.documentHash]).join('|') === hashes.join('|');
+  });
+  const key = existing?.key ?? hash(`${namespace(current.filing)}|${current.filing.symbol}|${hashes.join('|')}`);
   const priorKey = current.processingKey ?? current.previousKey;
   current.processingKey = key; current.lease = null; current.documentAttempts = 0; current.error = null;
   const previous = state.jobs[key];
-  if (!previous) state.jobs[key] = { key, eventId: current.filing.id, documentHash: hashes[0], documentHashes: hashes, status: 'pending', attempts: 0, nextAt: 0, createdAt: new Date(at).toISOString(), revision: current.revision, evidenceWarnings: current.evidenceWarnings ?? [] };
+  if (!previous) state.jobs[key] = { key, eventId: current.filing.id, documentHash: hashes[0], documentHashes: hashes, observations: [current.filing.id], status: 'pending', attempts: 0, nextAt: 0, createdAt: new Date(at).toISOString(), revision: current.revision, evidenceWarnings: current.evidenceWarnings ?? [] };
+  else previous.observations = [...new Set([...(previous.observations ?? [previous.eventId]), current.filing.id])];
   current.status = state.jobs[key].status;
   if (priorKey && priorKey !== key) { current.previousKey = priorKey; current.correction = 'Attachment or referenced evidence changed; previous analysis superseded for this event.'; }
   return { key, unchanged: Boolean(previous) };
@@ -34,12 +41,20 @@ export async function processDocument({ store, now = Date.now, collectDocument =
       if (relatedUrl) {
         current.relatedHashes = [...new Set([...(current.relatedHashes ?? []), document.sha256])]; current.relatedUrls.shift();
       } else {
+        const priorHash = current.documentHash;
+        if (priorHash && priorHash !== document.sha256) for (const other of Object.values(state.events)) {
+          if (other.filing.id !== current.filing.id && other.filing.source.url === current.filing.source.url && other.documentHash === priorHash && !other.replacedBy) {
+            other.previousKey = other.processingKey; other.processingKey = null; other.status = 'pending_document'; other.nextAt = 0;
+            other.correction = 'The shared source attachment changed; previous analysis is withheld pending processing.';
+          }
+        }
         current.documentHash = document.sha256; current.relatedHashes = []; current.relatedUrls = referencedFilings(document); current.evidenceWarnings = [];
         current.documentCheckedAt = new Date(at).toISOString(); current.nextCheckAt = at + 86400000;
         const correction = /\bcorrected\b|\brevised\b|\bsupersed/i.test(document.pages.map(p => p.text).join(' '));
         if (correction) {
           const exactReplaced = Object.values(state.events).filter(other => other.filing.id !== current.filing.id && other.filing.symbol === current.filing.symbol && current.relatedUrls.includes(other.filing.source.url));
-          for (const other of exactReplaced) { other.status = 'superseded'; other.replacedBy = current.filing.id; }
+          const replacedKeys = new Set(exactReplaced.map(e => e.processingKey).filter(Boolean));
+          for (const other of Object.values(state.events)) if (exactReplaced.includes(other) || other.filing.id !== current.filing.id && replacedKeys.has(other.processingKey)) { other.status = 'superseded'; other.replacedBy = current.filing.id; }
           if (!exactReplaced.length) current.evidenceWarnings.push('Correction/revision language is present, but the exact earlier filing was not identified. Earlier records are not silently invalidated.');
         }
       }
@@ -66,11 +81,13 @@ export async function processDocument({ store, now = Date.now, collectDocument =
 export async function claimAnalysis(store, at = Date.now(), { eventId } = {}) {
   const token = randomUUID();
   return store.mutate(state => {
-    const job = Object.values(state.jobs).filter(j => (!eventId || j.eventId === eventId) && !state.events[j.eventId]?.replacedBy && ['pending', 'deferred', 'processing'].includes(j.status) && j.nextAt <= at && !(j.lease?.until > at) && state.events[j.eventId]?.processingKey === j.key)
+    const active = j => Object.values(state.events).find(e => e.processingKey === j.key && !e.replacedBy && (!eventId || e.filing.id === eventId));
+    const job = Object.values(state.jobs).filter(j => active(j) && ['pending', 'deferred', 'processing'].includes(j.status) && j.nextAt <= at && !(j.lease?.until > at))
       .sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt))[0];
     if (!job) return null;
+    const event = active(job); job.eventId = event.filing.id;
     job.lease = { token, until: at + 90000 }; job.status = 'processing';
-    return { ...structuredClone(job), filing: structuredClone(state.events[job.eventId].filing) };
+    return { ...structuredClone(job), filing: structuredClone(event.filing) };
   });
 }
 export async function settleJob(store, job, update) {
@@ -78,8 +95,7 @@ export async function settleJob(store, job, update) {
     const current = state.jobs[job.key];
     if (current?.lease?.token !== job.lease.token) return false;
     Object.assign(current, update, { lease: null });
-    const event = state.events[job.eventId];
-    if (event?.processingKey === job.key) event.status = current.status;
+    for (const event of Object.values(state.events)) if (event.processingKey === job.key && !event.replacedBy) event.status = current.status;
     return true;
   });
 }
