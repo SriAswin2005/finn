@@ -1,11 +1,12 @@
 {
   "totalDaily": 20,
-  "allocations": { "research": 10, "push": 10 },
+  "allocations": { "research": 6, "push": 14 },
   "retryDaily": 4,
   "limitsSource": "User-reported AI Studio limits, November 1, 2026; application allocations are separate",
   "models": {
-    "gemini-3.5-flash-lite": { "workflow": "research", "capability": "research", "rpm": 15, "tpm": 250000, "rpd": 500, "appRpd": 10, "thinkingLevel": "minimal" },
-    "gemini-3.1-flash-lite": { "workflow": "push", "capability": "ordinary", "rpm": 15, "tpm": 250000, "rpd": 500, "appRpd": 6 },
-    "gemini-3.8-flash": { "workflow": "push", "capability": "complex", "rpm": 5, "tpm": 250000, "rpd": 20, "appRpd": 4, "thinkingLevel": "low" }
+    "gemini-3.5-flash-lite": { "workflow": "research", "capability": "research", "rpm": 15, "tpm": 250000, "rpd": 500, "appRpd": 6, "thinkingLevel": "minimal" },
+    "gemini-3.1-flash-lite": { "workflow": "push", "capability": "ordinary", "rpm": 15, "tpm": 250000, "rpd": 500, "appRpd": 8 },
+    "gemini-3.8-flash": { "workflow": "push", "capability": "complex", "rpm": 5, "tpm": 250000, "rpd": 20, "appRpd": 2, "thinkingLevel": "low" },
+    "gemini-3.6-flash": { "workflow": "push", "capability": "complex", "rpm": 5, "tpm": 250000, "rpd": 20, "appRpd": 4, "thinkingLevel": "minimal", "evaluationOnly": true }
   }
 }

@@ -27,8 +27,17 @@ export async function reserveAttempt(store, { workflow, model, jobKey, leaseToke
     if ((q.cooldowns[model] ?? 0) > now) throw new Deferred('Model capacity is cooling down.', q.cooldowns[model]);
     if (jobKey && (!state.jobs[jobKey] || state.jobs[jobKey].lease?.token !== leaseToken || state.jobs[jobKey].lease.until <= now)) throw new Error('Job lease is no longer owned; no model call allowed.');
     const today = q.attempts.filter(a => pacificDay(a.at) === pacificDay(now));
+    const rolling = q.attempts.filter(a => now - a.at < 86400000);
     const modelDay = today.filter(a => a.model === model);
-    if (today.length >= policy.totalDaily || today.filter(a => a.workflow === workflow).length >= policy.allocations[workflow] || modelDay.length >= Math.min(cap.rpd, cap.appRpd ?? cap.rpd) || retry && today.filter(a => a.retry).length >= policy.retryDaily) throw new Deferred('Daily local/model allowance exhausted; pending work is retained.', nextPacificReset(now), 'daily');
+    const rollingOwn = rolling.filter(a => a.workflow === workflow); const rollingRetries = rolling.filter(a => a.retry);
+    const dailyExhausted = today.length >= policy.totalDaily || today.filter(a => a.workflow === workflow).length >= policy.allocations[workflow] || modelDay.length >= Math.min(cap.rpd, cap.appRpd ?? cap.rpd) || retry && today.filter(a => a.retry).length >= policy.retryDaily;
+    const resets = [now + 1000];
+    if (dailyExhausted) resets.push(nextPacificReset(now));
+    const rollingReset = entries => Math.min(...entries.map(a => a.at)) + 86400000;
+    if (rolling.length >= policy.totalDaily) resets.push(rollingReset(rolling));
+    if (rollingOwn.length >= policy.allocations[workflow]) resets.push(rollingReset(rollingOwn));
+    if (retry && rollingRetries.length >= policy.retryDaily) resets.push(rollingReset(rollingRetries));
+    if (resets.length > 1) throw new Deferred('Daily local/model allowance exhausted; pending work is retained.', Math.max(...resets), 'daily');
     const minute = q.attempts.filter(a => a.at > now - 60000 && a.model === model);
     if (minute.length >= cap.rpm || minute.reduce((sum, a) => sum + Math.max(a.estimatedTokens, a.observedTokens ?? 0), estimatedTokens) > cap.tpm) throw new Deferred('Minute request/token allowance unavailable.', now + 60000, 'minute');
     const own = q.attempts.filter(a => jobKey && a.jobKey === jobKey);

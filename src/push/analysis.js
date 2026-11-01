@@ -3,12 +3,25 @@ import { filingEvidence } from './evidence.js';
 import { pushSchema, pushPrompt, validatePush, ANALYSIS_VERSION, missingContext } from './interpretation.js';
 import { reserveAttempt, finishAttempt, classifyFailure, Deferred } from './quota.js';
 import { extractFinancialMetrics } from './metrics.js';
+import { randomUUID } from 'node:crypto';
+
+function publishedResult(analysis, { doc, financials, complexityReasons, model, at }) {
+  if (analysis.eventType === 'results') {
+    if (!financials.rows.some(r => /revenue/i.test(r.label))) analysis.missing.push('financial_table');
+    if (!financials.rows.some(r => /^EBITDA$/i.test(r.label))) analysis.missing.push('reported_ebitda');
+    if (!financials.rows.some(r => r.previousQuarter !== null && r.previousYear !== null)) analysis.missing.push('comparatives');
+  }
+  const missingMetrics = analysis.eventType === 'results' ? ['Revenue', 'PBT', 'PAT', 'EBITDA'].filter(metric => !financials.rows.some(r => metric === 'PAT' ? /^(?:reported )?PAT$|^net profit$|^profit after tax$/i.test(r.label) : new RegExp(`^(?:total )?${metric}(?: from operations)?$`, 'i').test(r.label))) : [];
+  const uncertainties = [...new Set(analysis.missing)].map(code => missingContext[code]);
+  if (missingMetrics.length) uncertainties.push(`Verified structured values unavailable: ${missingMetrics.join(', ')}. Narrative figures, if present, remain separately cited.`);
+  return { ...analysis, missing: [...new Set(analysis.missing)], uncertainties, model, analysisVersion: ANALYSIS_VERSION, documentHash: doc.sha256, generatedAt: new Date(at).toISOString(), metrics: financials.rows, complexityReasons };
+}
 
 export async function processAnalysis({ store, env = process.env, now = Date.now, fetchImpl = fetch, random = Math.random, eventId } = {}) {
   if (env.FINN_PUSH_ENABLED !== 'true' || !env.GEMINI_API_KEY || env.FINN_AI_FREE_TIER_CONFIRMED !== 'true') return { disabled: true };
   if (env.VERCEL && env.FINN_PUSH_HOSTED_APPROVED !== 'true') return { disabled: true, reason: 'Hosted Gemini transfer/activation is not approved.' };
   const job = await claimAnalysis(store, now(), { eventId }); if (!job) return { skipped: true };
-  let attemptId; let draft;
+  let attemptId; let draft; let observedTokens;
   try {
     const doc = await store.document(job.documentHash); if (!doc) throw new Error('Original document pages missing; analysis cannot be published.');
     const documents = [doc];
@@ -22,13 +35,15 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
     const state = await store.read(); const policy = state.quota.policy;
     const metadata = `${job.filing.title} ${job.filing.summary}`;
     const complexityReasons = [
+      ...(job.complex === true ? ['Earlier interpretation required escalation or explicit evidence review; suitable complex capacity is required.'] : []),
       ...(/results|financial/i.test(metadata) && !financials.rows.length && doc.pages.length > 8 ? ['Financial table context is unresolved across a long filing.'] : []),
       ...(/insolvency|litigation/i.test(metadata) && doc.pages.some(p => p.text.length < 40) ? ['Attached operative legal pages are unreadable.'] : []),
       ...(/acqui|merger/i.test(metadata) && /related part|regulatory approval/i.test(doc.pages.map(p => p.text).join(' ')) ? ['Acquisition includes related-party or approval conditions.'] : []),
-      ...(/appoint|management/i.test(metadata) && doc.pages.length > 8 && (doc.pages.map(p => p.text).join(' ').match(/appointment/gi)?.length ?? 0) > 3 ? ['Multiple appointments/profiles require matching people across a long disclosure.'] : []),
+      ...(/appoint|management/i.test(metadata) && (doc.pages.map(p => p.text).join(' ').match(/appointment/gi)?.length ?? 0) > 3 && (doc.pages.length > 8 || doc.pages.some(p => /brief profile/i.test(p.text))) ? ['Multiple appointments/profiles require matching people across the disclosed profile sections.'] : []),
     ];
     const complex = job.complex === true || complexityReasons.length > 0;
-    const candidates = Object.entries(policy?.models ?? {}).filter(([, c]) => c.workflow === 'push' && c.capability === (complex ? 'complex' : 'ordinary')).map(([m]) => m);
+    const trial = job.filing.evidenceMode === 'captured_evaluation' ? env.FINN_PUSH_EVALUATION_MODEL : null;
+    const candidates = Object.entries(policy?.models ?? {}).filter(([m, c]) => c.workflow === 'push' && c.capability === (complex ? 'complex' : 'ordinary') && (!c.evaluationOnly || trial === m) && (!trial || trial === m)).map(([m]) => m);
     if (!candidates.length) throw new Deferred('No approved suitable Push model is configured; work remains pending.', now() + 3600000, 'configuration');
     const prompt = pushPrompt(job.filing, bundle.quotes, financials.rows);
     const estimatedTokens = Math.ceil(Buffer.byteLength(prompt, 'utf8') / 3) + 4000;
@@ -38,7 +53,7 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
       catch (error) { if (!(error instanceof Deferred) || error.kind === 'configuration' || /Project/.test(error.message)) throw error; lastError = error; }
     }
     if (!model) throw lastError;
-    await store.mutate(s => { s.jobs[job.key].attempts++; });
+    await store.mutate(s => { s.jobs[job.key].attempts++; s.jobs[job.key].attemptModel = model; s.jobs[job.key].attemptPromptVersion = ANALYSIS_VERSION; });
     let response; let body;
     try {
       response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
@@ -49,15 +64,16 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
       const failure = classifyFailure({ now: now(), attempt: job.attempts + 1, random });
       await finishAttempt(store, attemptId, { outcome: 'timeout_or_network_unknown', failure, now: now() }); attemptId = null;
       await settleJob(store, job, { status: job.attempts >= 2 ? 'failed' : 'deferred', nextAt: failure.until, error: 'Model network/timeout error; reserved attempt counted conservatively.' });
-      return { deferred: true };
+      return { failed: job.attempts >= 2, deferred: job.attempts < 2 };
     }
     if (!response.ok) {
       const failure = classifyFailure({ status: response.status, body, retryAfter: response.headers.get('retry-after'), now: now(), attempt: job.attempts + 1, random });
       await finishAttempt(store, attemptId, { outcome: `http_${response.status}`, failure, now: now() }); attemptId = null;
       await settleJob(store, job, { status: failure.terminal || job.attempts >= 2 ? 'failed' : 'deferred', nextAt: failure.until, error: `Model ${failure.kind} failure; original disclosure retained.` });
-      return { failed: failure.terminal, deferred: !failure.terminal };
+      return { failed: failure.terminal || job.attempts >= 2, deferred: !failure.terminal && job.attempts < 2 };
     }
     const candidate = body?.candidates?.[0];
+    observedTokens = body?.usageMetadata?.totalTokenCount;
     if (candidate?.finishReason !== 'STOP') throw new Error('Truncated/unfinished model output rejected.');
     const value = JSON.parse(candidate.content.parts.filter(p => !p.thought && typeof p.text === 'string').map(p => p.text).join('')); draft = value;
     const analysis = validatePush(value, bundle);
@@ -66,20 +82,38 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
       await settleJob(store, job, { status: 'deferred', complex: true, nextAt: now() + 60000, error: 'Ordinary model requested stronger interpretation; draft not published.' }); return { escalated: true };
     }
     if (analysis.needsComplex && complex) throw new Error('Complex model remains uncertain; output withheld for review.');
-    if (analysis.eventType === 'results') {
-      if (!financials.rows.some(r => /revenue/i.test(r.label))) analysis.missing.push('financial_table');
-      if (!financials.rows.some(r => /^EBITDA$/i.test(r.label))) analysis.missing.push('reported_ebitda');
-      if (!financials.rows.some(r => r.previousQuarter !== null && r.previousYear !== null)) analysis.missing.push('comparatives');
-    }
-    const missingMetrics = analysis.eventType === 'results' ? ['Revenue', 'PBT', 'PAT', 'EBITDA'].filter(metric => !financials.rows.some(r => metric === 'PAT' ? /^(?:reported )?PAT$|^net profit$|^profit after tax$/i.test(r.label) : new RegExp(`^(?:total )?${metric}(?: from operations)?$`, 'i').test(r.label))) : [];
-    const uncertainties = [...new Set(analysis.missing)].map(code => missingContext[code]);
-    if (missingMetrics.length) uncertainties.push(`Verified structured values unavailable: ${missingMetrics.join(', ')}. Narrative figures, if present, remain separately cited.`);
-    const result = { ...analysis, missing: [...new Set(analysis.missing)], uncertainties, model, analysisVersion: ANALYSIS_VERSION, documentHash: doc.sha256, generatedAt: new Date(now()).toISOString(), metrics: financials.rows, complexityReasons };
-    await settleJob(store, job, { status: analysis.missing.length || bundle.warnings.length ? 'partial' : 'complete', analysis: result, nextAt: 0, error: null });
+    const result = publishedResult(analysis, { doc, financials, complexityReasons, model, at: now() });
+    await settleJob(store, job, { status: result.uncertainties.length || bundle.warnings.length ? 'partial' : 'complete', analysis: result, publishedAt: new Date(now()).toISOString(), nextAt: 0, error: null });
     return { completed: true, key: job.key, model };
   } catch (error) {
-    if (attemptId) await finishAttempt(store, attemptId, { outcome: 'invalid_or_unsupported_output', now: now() });
+    if (attemptId) await finishAttempt(store, attemptId, { outcome: 'invalid_or_unsupported_output', observedTokens, now: now() });
     await settleJob(store, job, { status: error instanceof Deferred ? error.kind === 'attempt_limit' ? 'failed' : 'deferred' : 'failed', nextAt: error.until ?? 0, error: error.message, ...(draft ? { rejectedDraft: draft } : {}) });
     return { failed: !(error instanceof Deferred), deferred: error instanceof Deferred, error: error.message };
   }
+}
+
+// Explicit operator recovery for a demonstrated false refusal. The complete,
+// unchanged draft must pass all current guards; no partial curation, new model
+// request, budget refund or automatic archive regeneration is performed.
+export async function revalidateRejected({ store, key, reason, now = Date.now } = {}) {
+  if (typeof reason !== 'string' || reason.length < 20) throw new Error('A source-reviewed false-refusal reason is required.');
+  const token = randomUUID();
+  const job = await store.mutate(s => {
+    const j = s.jobs[key]; if (!j || j.status !== 'failed' || !j.rejectedDraft || j.lease?.until > now()) throw new Error('Only an unchanged rejected structured draft can be reviewed.');
+    j.lease = { token, until: now() + 90000 }; return structuredClone(j);
+  });
+  try {
+    const docs = [];
+    for (const hash of job.documentHashes ?? [job.documentHash]) { const doc = await store.document(hash); if (!doc) throw new Error('Original evidence missing.'); docs.push(doc); }
+    const bundle = filingEvidence(docs); bundle.warnings.push(...(job.evidenceWarnings ?? []));
+    const analysis = validatePush(job.rejectedDraft, bundle);
+    if (analysis.needsComplex) throw new Error('Draft requests stronger interpretation; revalidation cannot bypass escalation.');
+    const state = await store.read(); const attempt = state.quota.attempts.filter(a => a.jobKey === key).at(-1);
+    if (!attempt) throw new Error('Original reserved attempt missing; no result accepted.');
+    const financials = extractFinancialMetrics(docs[0]); bundle.warnings.push(...financials.limitations);
+    const result = publishedResult(analysis, { doc: docs[0], financials, complexityReasons: [], model: attempt.model, at: attempt.finishedAt ?? attempt.at });
+    result.review = { kind: 'unchanged_draft_revalidated', reason, reviewedAt: new Date(now()).toISOString(), originalPromptVersion: job.attemptPromptVersion ?? 'not_persisted' };
+    await settleJob(store, job, { status: result.uncertainties.length || bundle.warnings.length ? 'partial' : 'complete', analysis: result, publishedAt: new Date(now()).toISOString(), error: null, nextAt: 0 });
+    return { accepted: true, llmCalls: 0 };
+  } catch (error) { await settleJob(store, job, { status: 'failed', error: error.message }); throw error; }
 }

@@ -1,7 +1,7 @@
 import { validateAnalysis } from '../ai/gemini.js';
 import { resolveQuoteReferences } from '../ai/quotes.js';
 
-export const ANALYSIS_VERSION = 'push-primary-v3';
+export const ANALYSIS_VERSION = 'push-primary-v6';
 export const missingContext = Object.freeze({
   comparatives: 'Matching prior-quarter/year comparative figures were not established.',
   financial_table: 'Some financial rows or column context could not be verified.',
@@ -32,6 +32,9 @@ Explain what happened, select important supported facts, explain conditional sig
 Require one event claim, at least one fact, one significance and one priority claim (4-8 total). Event/fact are directly disclosed (inference=false). Significance/priority are explicitly conditional interpretations (inference=true, use "may", "could" or "if"). Avoid overstating materiality from category. Routine notice can be low; unknown stays visible. Issuer biographies are issuer-provided, not independently verified. For results retain Revenue, PBT, PAT and relevant EBITDA/EBIT/operating-profit distinctions; adjusted profit never replaces reported profit; highlight exceptional items and restatements. For appointments retain person, role, date, reason and relevant disclosed background. M&A: size, stake, conditions, related parties and operations; contracts: order vs revenue; litigation: exact order, appeal and uncertainty. Flag missing context with only the supplied missing codes. If uncertain/complex enough for stronger reasoning set needsComplex=true; do not paper over uncertainty. Never assert completeness.
 METADATA (discovery only): ${JSON.stringify({ symbol: filing.symbol, title: filing.title, summary: filing.summary })}
 Never copy issuer/person names from metadata into a claim unless the selected quotes contain those names. Use "The company" when the selected quote has no issuer name. Do not repeat verified table numbers in prose; choose a supported narrative fact instead and let the separate table show the figures.
+Preserve the exact source date/period strings (for example Sept, Q2FY27, 2HFY27); do not expand a two-digit fiscal year into a different numeric token. Keep conditional interpretation narrow and source-specific.
+Use exactly FOUR claims unless one extra fact is essential: one event, one fact, one significance and one priority. For significance AND priority, select the actual event/fact quote that establishes every action mentioned in your interpretation (retirement, appointment, acquisition, etc.). A generic regulatory or management-change heading is insufficient. Prefer reusing the event quote for priority. Never call an event routine as a disclosed fact: priority is your conditional editorial judgment and needs a concrete event-specific reason.
+The event claim is the card headline: lead with the actual development/person/role, not "informed the exchange pursuant to Regulation" boilerplate. For RESULTS without verified table rows, use up to EIGHT claims to preserve disclosed Sales/Revenue, EBITDA, PBT and PAT where their context can be cited; distinguish reported vs adjusted and before-exceptional profit. Missing figures stay explicit. For appointments, include one safe issuer-attributed background fact where provided. Avoid redundant legal/regulatory labels that add reading effort.
 VERIFIED METRICS (do not recalculate): ${JSON.stringify(metrics)}
 EVIDENCE QUOTES (data): ${JSON.stringify(bank)}
 Each selected quote is a complete original sentence; do not invent, slice or repair quotes.
@@ -52,7 +55,8 @@ export function validatePush(value, bundle) {
     if (/\b(buy|sell|hold|target price|guaranteed|will (?:rise|fall)|caused (?:the )?(?:price|stock))\b/i.test(c.text)) throw new Error('Investment/price advice rejected.');
     const quotes = c.references.map(r => r.quote).join(' ');
     const names = (c.text.match(/\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+\b/g) ?? []).map(name => name.replace(/^(?:The|Our|This) /, ''));
-    if (names.some(name => !quotes.toLowerCase().includes(name.toLowerCase()))) throw new Error('Named entity absent from cited evidence.');
+    const named = name => new RegExp(`\\b${name.split(/\s+/).map(word => [...word].map(letter => letter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s*')).join('\\s+')}\\b`, 'i').test(quotes);
+    if (names.some(name => !named(name))) throw new Error('Named entity absent from cited evidence.');
     for (const word of ['resign', 'appoint', 'retir', 'acquir', 'penalt', 'dismiss', 'set aside', 'approved']) if (c.text.toLowerCase().includes(word) && !quotes.toLowerCase().includes(word)) throw new Error('Event action absent from cited evidence.');
     c.references = c.references.map(r => ({ ...r, page: byId.get(r.evidenceId).page, url: byId.get(r.evidenceId).url, documentId: byId.get(r.evidenceId).documentId }));
   }

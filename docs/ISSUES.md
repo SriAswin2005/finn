@@ -2,6 +2,20 @@
 
 ## P-001 — Automatic Push workflow (active, November 1)
 
+Actual evaluation: 14 model calls/10 captured cases, two partial accepted briefs, important headline/omission/reading-effort gaps. See PUSH_EVALUATION.md; do not close this issue. Financial/incoming-profile/routine cases are refused/deferred, not passed. Intended-host migration remains blocked by automatic approval review; no secret or scheduler activated. Remaining local reliability item: deduplicate equivalent document hashes across distinct exchange observations without regenerating existing jobs.
+
+CDSL final complex attempt produced a validated four-claim partial briefing. Direct facts match reviewed pp.1/3, but source/usefulness review must distinguish boilerplate headline/name artifacts from semantic support. Broader financial/profile/routine evaluation remains open. Internal allocations rebalanced within existing total20 (6 Research/14 Push, retry4), preserving rolling24h and Pacific restrictions; no new spending/allowance authorized or reset.
+
+CDSL second draft correctly remains refused under current conservative action guard: conditional appointment of a successor is not disclosed. Two ordinary attempts have failed contextual precision; final permitted attempt may use the reserved complex alternative. Remaining Flash slot transferred within the unchanged four-slot cap; 3.6 remains capture-only. No accepted unseen briefing yet.
+
+CDSL unchanged recovery correctly refused a second, genuine priority-citation issue after font fix. No accepted unseen brief yet. 100 checks pass; prompt v5 requests four claims and action-specific priority references, with no validation relaxation. A reviewed fresh retry is pending. Hosted migration remains rejected/unexecuted.
+
+CDSL physical pp.1/3 visually confirm the unchanged draft's person/role/retirement date; profile marked Not Applicable. Revalidation cannot proceed without an original matching reserved attempt (test caught missing synthetic jobKey). Added explicit Push output/cap regression coverage; full rerun pending before actual unchanged-draft acceptance.
+
+APL final capped 3.6 attempt returned transient server failure; no completed results summary. CDSL management draft refused only because native text splits Ashish inside a word; narrow letter-preserving comparison + wrong-surname test saved. Complete unchanged draft can be explicitly revalidated after source review; no manual partial publication/budget reset. Real source catch-up reached November1, 66 filings across three windows. Checks pending.
+
+APL retry failed again: Sept/September name alias and narrative “delivered” caused concrete false refusals; period expansion remains invalid. Narrow regressions added, original attacks still required. Optional 3.6 actual metadata access verified; captured-only trial can consume one existing complex slot, not expand the approved local total. Any further APL attempt is its final capped attempt and requires explicit reviewed escalation. Hosted migration still rejected/unexecuted.
+
 Recovery implementation passes 95 tests. **External migration blocked by automatic approval review:** request to copy local public queue/documents/all quota history to existing Neon and bind local workers was rejected for missing explicit external-write/destination authorization. No migration or binding occurred; do not retry indirectly. Prepare local work first, then request exact Neon migration + hosted secret/scheduler approvals. Source-backed output evaluation remains incomplete independently of that gate.
 
 Referenced attachments/corrections implemented, tests pending. Follows at most two explicit official NSE PDF URLs over resumable steps; does not invent absent profile/comparative links. Exact linked earlier filing may be superseded only with explicit correction language. Ambiguous revision remains warned. Need mutation/recovery regressions and real persistence.

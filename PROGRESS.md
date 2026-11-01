@@ -2,6 +2,26 @@
 
 ## November 1 — active Push mission
 
+Quality checkpoint verified/pending commit: syntax/all 101 pass; L&T p.3 classification grid visually confirms the documented omitted band. 14 model attempts, no additional retries beyond4, two partial outputs with disclosed limitations. Next: shared-document deduplication, completed-card browser checks and final deployment/handoff reconciliation.
+
+Captured evaluation results are in [PUSH_EVALUATION.md](docs/PUSH_EVALUATION.md): 14 calls/10 cases, two partial briefs (CDSL retirement, L&T contract); ordinary refusals, complex timeouts/server failures and omissions are explicit. No general financial/profile/routine quality pass. New result/profile attempts remain durably deferred; no unsuitable fallback. Source collection caught 66 current-window filings; hosted migration still unexecuted/rejected. Current checks 101 pass; short-profile routing final recheck pending.
+
+Final distinct evaluation cases prepared under unchanged total20 (no retries beyond daily4): result/appointment-profile cases use explicit capture-only complex evaluation; notice/contract cases use ordinary capacity. Multi-person profile tables now demonstrate complexity even in short filings. All prior attempts remain counted; hosted gate unchanged.
+
+First successful real model result: CDSL final 3.6 attempt saved four cited claims as partial; source/usefulness review pending. Rebalanced the unchanged approved total 20 attempts to Research6/Push14 for Push-focused evaluation (ordinary8/complex6; retries4 unchanged). Enforce BOTH rolling-24h local caps and Pacific provider reset, so midnight cannot grant a second local allowance. Prompt v6 removes boilerplate headlines and permits essential result metrics; existing accepted briefs do not regenerate.
+
+CDSL v5 retry still refused: its conditional significance introduced a successor-appointment action absent from the selected retirement evidence. No guard relaxed and no output published. Moved the one remaining complex evaluation slot from unavailable 3.8 to project-verified 3.6 (2+2 slots, same four complex/ten Push/twenty total). Final capped CDSL attempt will require complex review; no additional ordinary retry or quota reset.
+
+Full 100 tests pass. Actual unchanged CDSL revalidation still refused: priority described retirement but selected only a generic heading, a genuine support error beyond the fixed font spacing. Nothing published, no extra call made by revalidation. Prompt v5 narrows to four claims and requires the actual action quote for significance/priority; one reviewed retry remains within the per-job cap.
+
+Visually reviewed CDSL pp.1/3: Ashish Bhatt, Senior VP Operations, retirement effective close October30; no incoming profile applies. Revalidation test caught a missing jobKey in its synthetic prior-attempt setup, corrected. Added Push truncation/unsupported-output/token-accounting and final-transient-cap regressions. Full rerun pending; no cached draft accepted yet.
+
+CDSL draft isolated a real font-spacing false refusal (Ashi sh/Ash ish vs Ashish); added Push-only letter-preserving intra-word spacing comparison with wrong-surname refusal. Explicit full-draft revalidation shares publication guards and retains every original attempt; no curation/new generation/refund. Fixed final-transient return status to agree with failed job state, and retain observed token counts for rejected bodies. Checks/source visual review pending.
+
+Added an explicit reviewed `--complex` retry control: failed outputs may be escalated only under the same per-job/daily caps, with a durable review reason. It does not reset attempts or automatically retry failures. Required recheck and final bounded APL alternative evaluation pending.
+
+Quality slice in progress: actual APL reviewed retry remained rejected. Source review found concrete false flags for September vs Sept and a clearly narrative “delivered” sentence treated as a flattened table; narrow positive/wrong-month controls added, original table guard retained. Fiscal-year expansion in draft remains a valid refusal, prompt v4 preserves exact strings. Project metadata confirms optional 3.6 Flash access; reserved one of the four complex slots for captured-only evaluation (ordinary 6 + complex 3+1, total Push 10 unchanged). No automatic failed-job retry or hosted activation.
+
 Recovery checkpoint: syntax/all 95 tests pass, including explicit referenced-document supersession and strict corrupt-ledger refusal. Browser with the verifier stopped keeps all 63 saved cards visible and restores Refresh controls, with a clear connection error. Automatic approval review rejected the prepared Neon migration/local rebinding for missing explicit destination/write approval; no migration/config mutation occurred. Hosted unattended completion remains blocked on approval, local quality evaluation continues.
 
 Added reference-step/supersession and corrupt-ledger regressions. Superseded events cannot consume further processing capacity. Prompt v3 addresses the concrete APL issuer-citation failure by requiring names inside selected quotes and leaving validated table figures to the separate display; existing accepted work is never regenerated by this version change. Full checks running before Neon preparation.

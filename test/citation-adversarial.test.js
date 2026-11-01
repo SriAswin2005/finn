@@ -53,3 +53,13 @@ test('grammatical If/This are not named entities in supported conditional financ
   }
   assert.throws(() => validateAnalysis({ claims: [{ section: 'financial', text: 'If Apollo demand improves, the company may benefit.', inference: true, references: [{ evidenceId: 'conditional', quote: source[0].text }] }], unavailableSections: [] }, source), /named entity/);
 });
+
+test('captured APL narrative and equivalent month abbreviation are supported; different month/table/issuer remain refused', () => {
+  const source = [{ id: 'apl', text: 'APL Apollo Tubes Limited announced financial results for the quarter ending Sept 30, 2026. APL Apollo Tubes delivered its strongest-ever quarterly performance, with Q2FY27 sales volumes, EBITDA and PAT growing 13%, 29% and 27%, respectively.' }];
+  const claim = (text, quote) => ({ claims: [{ section: 'financial', text, inference: false, references: [{ evidenceId: 'apl', quote }] }], unavailableSections: [] });
+  const first = 'APL Apollo Tubes Limited announced financial results for the quarter ending Sept 30, 2026.';
+  assert.doesNotThrow(() => validateAnalysis(claim('APL Apollo Tubes Limited announced financial results for the quarter ending September 30, 2026.', first), source));
+  assert.throws(() => validateAnalysis(claim('APL Apollo Tubes Limited announced financial results for the quarter ending June 30, 2026.', first), source), /named entity/);
+  const second = source[0].text.slice(first.length + 1);
+  assert.doesNotThrow(() => validateAnalysis(claim('The company delivered its strongest-ever quarterly performance, with growth in sales volumes, EBITDA and PAT.', second), source));
+});

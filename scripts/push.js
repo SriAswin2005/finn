@@ -5,7 +5,7 @@ import { runtimeCacheDirectory } from '../src/storage/snapshots.js';
 import { workflowPolicy } from '../src/ai/workflows.js';
 import { collectPush } from '../src/push/collection.js';
 import { processDocument } from '../src/push/jobs.js';
-import { processAnalysis } from '../src/push/analysis.js';
+import { processAnalysis, revalidateRejected } from '../src/push/analysis.js';
 
 const store = createPushStore(); const command = process.argv[2] ?? 'status';
 try {
@@ -26,13 +26,20 @@ try {
     });
     console.log('Push state initialized; previous Research attempts imported, no model call made.');
   } else if (command === 'collect') console.log(JSON.stringify(await collectPush({ store })));
+  else if (command === 'revalidate') console.log(JSON.stringify(await revalidateRejected({ store, key: process.argv[3], reason: process.argv.slice(4).join(' ') })));
+  else if (command === 'policy') {
+    const policy = workflowPolicy();
+    await store.mutate(s => { if (!s.quota.initialized) throw new Error('Quota missing; policy cannot recreate it.'); s.quota.policy = policy; });
+    console.log('Applied configured roles/limits; every existing attempt/cooldown preserved.');
+  }
   else if (command === 'retry') {
-    const key = process.argv[3]; const reason = process.argv.slice(4).join(' ');
+    const key = process.argv[3]; const reason = process.argv.slice(4).filter(value => value !== '--complex').join(' ');
     if (reason.length < 20 || reason.length > 500) throw new Error('An explicit operator review/fix reason (20–500 characters) is required.');
     await store.mutate(s => {
       const job = s.jobs[key];
       if (!job || job.status !== 'failed' || job.attempts >= 3 || s.quota.attempts.filter(a => a.jobKey === key).length >= 3) throw new Error('Only reviewed failed jobs below the attempt cap may be retried. Completed analysis/allowance are never reset.');
       job.reviewRetries ??= []; job.reviewRetries.push({ at: new Date().toISOString(), reason }); job.status = 'deferred'; job.nextAt = 0;
+      if (process.argv.includes('--complex')) job.complex = true;
       if (s.events[job.eventId]?.processingKey === key) s.events[job.eventId].status = 'deferred';
     });
     console.log('Reviewed job requeued; attempts, cooldowns and all quota limits preserved.');

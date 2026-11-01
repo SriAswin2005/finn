@@ -10,7 +10,7 @@ import { processDocument, claimAnalysis, settleJob } from '../src/push/jobs.js';
 import { reserveAttempt, finishAttempt, classifyFailure, nextPacificReset } from '../src/push/quota.js';
 import { filingEvidence } from '../src/push/evidence.js';
 import { validatePush } from '../src/push/interpretation.js';
-import { processAnalysis } from '../src/push/analysis.js';
+import { processAnalysis, revalidateRejected } from '../src/push/analysis.js';
 import { researchAssignments } from '../src/ai/workflows.js';
 
 export async function temporaryStore() {
@@ -113,6 +113,53 @@ test('corrupt quota entries/cooldowns fail closed before mutation and never crea
   await assert.rejects(store.mutate(s => { s.quota.cooldowns['model'] = 'invalid'; }), /corrupt/);
   await assert.rejects(store.mutate(s => { s.quota.attempts.push({ model: 'm', at: 1 }); }), /corrupt/);
   assert.equal((await store.read()).quota.attempts.length, 0);
+});
+
+test('font-inserted spaces inside a person name do not change its letters or allow a different surname', () => {
+  const source = { ...managerDoc, pages: [{ page: 1, text: managerDoc.pages[0].text.replaceAll('Maya Rao', 'Ma ya Rao') }] };
+  assert.doesNotThrow(() => validatePush(managerWire(), filingEvidence([source])));
+  const bad = managerWire(); bad.claims[0].text = bad.claims[0].text.replace('Maya Rao', 'Maya Ray');
+  assert.throws(() => validatePush(bad, filingEvidence([source])), /Named entity/);
+});
+test('explicit unchanged-draft revalidation keeps original reservations and rejects an unsupported draft', async () => {
+  const { store } = await temporaryStore();
+  await store.saveDocument(managerDoc); await store.mutate(s => {
+    mergeFilings(s, [filing], 'now'); s.events[filing.id].processingKey = 'review';
+    s.jobs.review = { key: 'review', eventId: filing.id, documentHash: managerDoc.sha256, status: 'failed', rejectedDraft: managerWire() };
+    s.quota.attempts.push({ id: 'original', model: 'test', workflow: 'push', jobKey: 'review', at, estimatedTokens: 1000, retry: false, outcome: 'original_rejection' });
+  });
+  const result = await revalidateRejected({ store, key: 'review', reason: 'Original source reviewed; only font spacing caused the false refusal.', now: () => at });
+  assert.equal(result.llmCalls, 0); assert.equal((await store.read()).quota.attempts.length, 1); assert.equal((await store.read()).jobs.review.analysis.claims.length, 4);
+  await assert.rejects(revalidateRejected({ store, key: 'review', reason: 'Cannot change a completed accepted analysis.', now: () => at }), /Only an unchanged/);
+});
+
+test('Push truncation/unsupported output is not published and records observed tokens without automatic retry', async () => {
+  for (const truncated of [true, false]) {
+    const { store } = await temporaryStore();
+    await store.mutate(s => { mergeFilings(s, [filing], 'now'); s.quota.initialized = true; s.quota.policy = { ...policy, models: { 'gemini-3.1-flash-lite': { ...policy.models['gemini-3.1-flash-lite'], capability: 'ordinary' } } }; });
+    await processDocument({ store, now: () => at, collectDocument: async () => managerDoc });
+    let calls = 0; const wire = managerWire(); if (!truncated) wire.claims[0].text = wire.claims[0].text.replace('2026', '2099');
+    const result = await processAnalysis({ store, now: () => at, env: { FINN_PUSH_ENABLED: 'true', GEMINI_API_KEY: 'fake', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => { calls++; return new Response(JSON.stringify({ candidates: [{ finishReason: truncated ? 'MAX_TOKENS' : 'STOP', content: { parts: [{ text: JSON.stringify(wire) }] } }], usageMetadata: { totalTokenCount: 1234 } })); } });
+    assert.equal(result.failed, true); await processAnalysis({ store, now: () => at + 1000, env: { FINN_PUSH_ENABLED: 'true', GEMINI_API_KEY: 'fake', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => { calls++; } });
+    const state = await store.read(); assert.equal(calls, 1); assert.equal(Object.values(state.jobs)[0].analysis, undefined); assert.equal(state.quota.attempts[0].observedTokens, 1234);
+  }
+});
+test('third transient attempt reports failed consistently and does not silently exceed the per-job cap', async () => {
+  const { store } = await temporaryStore();
+  await store.mutate(s => { mergeFilings(s, [filing], 'now'); s.quota.initialized = true; s.quota.policy = { ...policy, models: { 'gemini-3.1-flash-lite': { ...policy.models['gemini-3.1-flash-lite'], capability: 'ordinary' } } }; });
+  await processDocument({ store, now: () => at, collectDocument: async () => managerDoc });
+  await store.mutate(s => { const job = Object.values(s.jobs)[0]; job.attempts = 2; for (let i = 0; i < 2; i++) s.quota.attempts.push({ id: `prior${i}`, jobKey: job.key, model: 'gemini-3.1-flash-lite', workflow: 'push', at: at - 120000 - i, estimatedTokens: 1000, retry: i > 0, outcome: 'transient' }); });
+  const result = await processAnalysis({ store, now: () => at, env: { FINN_PUSH_ENABLED: 'true', GEMINI_API_KEY: 'fake', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => new Response('{}', { status: 503 }) });
+  assert.equal(result.failed, true); assert.equal(result.deferred, false); assert.equal(Object.values((await store.read()).jobs)[0].status, 'failed'); assert.equal((await store.read()).quota.attempts.length, 3);
+});
+
+test('Pacific reset never grants a fresh local allowance inside the approved rolling 24-hour cap', async () => {
+  const { store } = await temporaryStore(); const midnight = Date.parse('2026-11-01T07:00:00Z');
+  await store.mutate(s => {
+    s.quota.initialized = true; s.quota.policy = { ...policy, totalDaily: 2, allocations: { push: 1, research: 1 } };
+    s.quota.attempts.push({ id: 'prior-day', model: 'gemini-3.1-flash-lite', workflow: 'push', at: midnight - 1000, estimatedTokens: 100, retry: false, outcome: 'timeout_unknown' });
+  });
+  await assert.rejects(reserveAttempt(store, { workflow: 'push', model: 'gemini-3.1-flash-lite', estimatedTokens: 100, now: midnight + 1000 }), error => error.kind === 'daily' && error.until >= midnight - 1000 + 86400000);
 });
 
 const doc = { id: 'abc', sha256: 'a'.repeat(64), url: filing.source.url, pages: [{ page: 1, text: 'The company appointed a chief financial officer effective immediately.' }] };

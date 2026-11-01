@@ -184,6 +184,20 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — define the Push completion contract
 
+Recorded actual captured evaluation and source review in PUSH_EVALUATION.md: 14 calls across10 cases, two partial briefs, remaining quality/availability gaps explicit. No hosted activation; rejected external migration remains blocked. Next local reliability slice is document-identity deduplication across exchange observations.
+
+CDSL complex alternative completed a partial four-claim brief. Added rolling-window protection across Pacific midnight and rebalanced internal evaluation allocations within unchanged20 total (Research6/Push14, retries4). Prompt v6 leads with actual events and allows necessary financial facts. No regeneration of accepted archives or hosted activation.
+
+CDSL second attempt still failed action support. Kept refusal and reserved final capped attempt for explicit complex review. Shifted one existing complex slot to the verified 3.6 alternative after 3.8 timeouts; overall limits unchanged and alternative remains capture-only.
+
+100 tests pass. CDSL unchanged review made zero calls but exposed a true priority-citation error; preserved refusal. Prompt v5 requires four narrow claims and an action-specific quote for editorial priority. No partial curation or quota reset.
+
+CDSL visual source review confirms name/role/effective retirement date; unchanged draft facts supported. Recovery test correctly refused a synthetic attempt without jobKey; corrected setup and added Push truncation/numeric/token/cap tests. No model retries or publication yet for this recovery.
+
+APL final capped alternative hit transient provider failure. CDSL revealed native intra-word name spaces, so added narrow character-preserving comparison and unchanged whole-draft revalidation with no extra calls/refund. Also fixed capped-failure return status and rejected-token accounting. Source catch-up reached current day; checks/source review next.
+
+Captured APL retry remained refused. Reviewed concrete false calendar/narrative flags and added narrow controls; period-token mismatch remains rejected. Configured one captured-only 3.6 alternative slot after actual access verification, preserving four complex/ten Push/twenty total slots. Prompt v4 preserves original period strings. Verification/evaluation next.
+
 Recovery checkpoint: 95 tests pass; browser retains 63 saved cards on server connection failure. Automatic approval review rejected Neon migration/rebinding for missing explicit external write/destination authorization. No command executed and no migration occurred; do not bypass. Hosted approval request will follow independently authorized local preparation/evaluation.
 
 Added corruption and explicit-supersession recovery tests; superseded work cannot consume quota. Prompt v3 addresses the actual metadata-only issuer citation error while preserving all validation. Full checks precede Neon preparation.

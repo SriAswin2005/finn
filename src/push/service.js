@@ -38,7 +38,7 @@ export function decoratePushDataset(dataset, state, at = Date.now()) {
     byUrl.set(e.filing.source.url ?? e.filing.id, { ...e.filing, title: eventClaim?.text ?? e.filing.title, summary: analysis?.claims.filter(c => c.role === 'fact').map(c => c.text).join(' ') ?? e.filing.summary,
       category: analysis?.eventType === 'routine' ? 'unclassified' : analysis?.eventType ?? e.filing.category,
       why: significance?.text ?? 'Document interpretation is pending; the exchange title alone does not establish significance.', analysis, analysisStatus: e.status, analysisError: job?.error ?? e.error ?? null,
-      collectedAt: e.firstCollectedAt, analysisPublishedAt: analysis?.generatedAt ?? null, delayed, keepDelayed, correction: e.correction,
+      collectedAt: e.firstCollectedAt, analysisPublishedAt: analysis ? job.publishedAt ?? analysis.generatedAt : null, delayed, keepDelayed, correction: e.correction,
       priority, priorityReason, routine: analysis?.eventType === 'routine' && level === 'low',
       source: { ...e.filing.source, evidence: analysis ? 'AI interpretation of original filing evidence; disclosed facts and conditional interpretation are separated. Issuer-provided background is not independently verified.' : 'Original disclosure collected; document analysis is pending or unavailable. Exchange metadata is not completed analysis.' },
     });

@@ -19,6 +19,7 @@
   Latest-first cards/status/evidence/uncertainty UI implemented, verification pending.
   Delivery/worker contracts pass (93 tests); mobile Latest/pending/Refresh no overflow/console errors. Real successful output and unattended host gates remain open.
 - [ ] Unseen outputs source-reviewed; failures/concurrency/restarts verified.
+  Fourteen calls/ten captured cases reviewed in PUSH_EVALUATION.md; two partial briefs, remaining quality gates open. 101 tests pass before final routing recheck.
 - [ ] Unattended new-event collection and analysis verified on intended host.
 
 Reconciled October 31, 2026 (IST). Deadline November 1. This is bounded feature evidence, not a universal financial/model correctness claim. Current limitations are in [ISSUES.md](ISSUES.md).

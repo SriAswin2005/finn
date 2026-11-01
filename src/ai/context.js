@@ -2,6 +2,7 @@ const normalize = text => text.replace(/\s+/g, ' ').trim();
 const future = /\b(?:guidance|expects?|expected|forecasts?|targets?|plans?|aims?|intends?|estimates?|will|would|could|may|might)\b/i;
 const metrics = ['revenue', 'ebitda', 'pbt', 'pat', 'profit', 'volume', 'margin', 'cash flow', 'headcount'];
 const genericNames = new Set(['Revenue', 'Reported', 'The', 'Company', 'Management', 'Profit', 'Annual', 'Quarterly', 'Earlier', 'Later', 'Operating', 'Consolidated', 'Our', 'This', 'If']);
+const calendarWords = text => text.replace(/\b(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\b\.?/gi, word => ({ jan: 'January', feb: 'February', mar: 'March', apr: 'April', jun: 'June', jul: 'July', aug: 'August', sep: 'September', sept: 'September', oct: 'October', nov: 'November', dec: 'December' })[word.toLowerCase().replace('.', '')]);
 
 function facts(text) {
   return [...text.matchAll(/\d[\d,]*(?:\.\d+)?/g)].map(match => {
@@ -46,9 +47,9 @@ export function citationContextFailure(claim, evidenceById) {
   if ((up.test(stated) && down.test(quotes) && !up.test(quotes)) || (down.test(stated) && up.test(quotes) && !down.test(quotes))) return 'direction mismatch';
   if (['financial', 'guidance'].includes(claim.section)) {
     const names = stated.match(/\b[A-Z][a-z]+(?:[A-Z][A-Za-z]*)?\b/g) ?? [];
-    if (names.some(name => !genericNames.has(name) && !quotes.toLowerCase().includes(name.toLowerCase()))) return 'named entity absent from quote';
+    if (names.some(name => !genericNames.has(name) && !calendarWords(quotes).toLowerCase().includes(calendarWords(name).toLowerCase()))) return 'named entity absent from quote';
     const tableLabels = ['revenue', 'ebitda', 'pbt', 'pat'].filter(label => new RegExp(`\\b${label}\\b`, 'i').test(quotes));
-    if (tableLabels.length >= 2 && quoteFacts.length >= 3 && !/\b(?:was|reported|grew|declined|crosses)\b/i.test(quotes)) return 'flattened table requires verified row and column mapping';
+    if (tableLabels.length >= 2 && quoteFacts.length >= 3 && !/\b(?:was|reported|grew|declined|crosses|delivered)\b/i.test(quotes)) return 'flattened table requires verified row and column mapping';
   }
   return null;
 }
