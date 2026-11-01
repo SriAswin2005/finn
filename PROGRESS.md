@@ -14,17 +14,17 @@ Two concurrent signed hosted workers accepted exactly one active invocation. It 
 
 ## Remaining gates
 
-Cloudflare dispatcher is now uploaded and its15-minute cron active (7,22,37,52 each hour). Corrected limited OAuth includes Scripts write/Tail read. Cloudflare required an initial Workers namespace; created only the previously absent finn-briefings-12ed6cd6 namespace, then applied triggers. API confirms only origin/auth-secret bindings, public HTTP and previews disabled. No paid plan/terms change. First actual cron invocation is being observed; no unattended success claim yet.
+Cloudflare dispatcher is now uploaded and its15-minute cron active (7,22,37,52 each hour). Corrected limited OAuth includes Scripts write/Tail read. Cloudflare required an initial Workers namespace; created only the previously absent finn-briefings-12ed6cd6 namespace, then applied triggers. API confirms only origin/auth-secret bindings, public HTTP and previews disabled. No paid plan/terms change. First actual cron verified November 1 at 22:07IST: outcome ok,CPU 1ms/wall 4650ms; successful no-new collection and two additional PDF jobs persisted,67 source records/all 16 attempts unchanged. This proves unattended collection/document processing, not analysis.
 
 Model quality remains open:14 previous Push attempts/10 captured disclosures yielded2 partial briefs with material omissions/usefulness limits. Results/incoming-profile/routine/complex acceptance is not passed. No rejected draft was partially published. Shared total 20, Research 6/Push 14 and retry 4/lifetime 3 caps remain unchanged; do not reset or expand allowance to pass evaluation. See [PUSH_EVALUATION.md](docs/PUSH_EVALUATION.md).
 
-Completion still requires source-reviewed unseen quality, then enabled new-event analysis from an actual scheduled tick, persistence/recovery and measured free-tier usage/freshness. Approval/deployment/tests alone do not complete this mission.
+Unattended collection/document processing is verified. Completion still requires source-reviewed unseen quality, then enabled new-event analysis from an actual scheduled tick and broader recovery/free-capacity/freshness evidence. Approval/deployment/tests alone do not complete this mission.
 
 ## Verification and continuation
 
 Syntax/all 110 tests pass at ff124de, including HTTP credential-presence without disclosure/reservation, shared gates, quota/concurrency/corrections/captures and all original 15 adversarial refusals. Prior 390px browser checks remain bounded local evidence; deployed client hashes match that source. No new physical-phone offline/install/PDF-opening claim. No new runtime dependency, model call, paid plan, extra allowance, submission materials or OS notifications.
 
-Private implementation pushes verified through ff124de; current handoff/rollout evidence passes relative-link and diff/consistency checks; runtime code is unchanged from the verified deployment. Next: observe active Cloudflare cron reaching FINN while generation stays disabled, and continue quality work only within genuinely available persisted allowance.
+Private implementation pushes verified through ff124de; current handoff/rollout evidence passes relative-link and diff/consistency checks; runtime code is unchanged from the verified deployment. Next: continue source-reviewed quality work within genuinely available persisted allowance before enabling hosted analysis; all three approved external setup actions are complete. Temporary log observer stopped; recurring dispatcher remains active.
 
 
 Backlog-age fix saved while cron propagates: aggregate oldestPendingAt/delayed now includes unparsed/reference/retry collected filings, not only already-created analysis jobs. Captured/superseded records remain excluded and failed documents are not falsely pending. Syntax/all 110 tests pass and hosted HTTPS verifies pending 67/oldest October24/delayed=true with generation disabled. No new model call or manual worker invocation.

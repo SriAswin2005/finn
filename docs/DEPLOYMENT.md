@@ -1,6 +1,6 @@
 # Vercel + Neon operations and Push rollout
 
-Reconciled November 1,2026 (IST). **Approved rollout in progress.** Current production https://finn-zeta-one.vercel.app is READY at code ff124de / dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd (November 1). HTTPS runtime verification passed (details below). Both generation gates false; Cloudflare dispatcher active, first scheduled invocation under observation.
+Reconciled November 1,2026 (IST). **Approved rollout in progress.** Current production https://finn-zeta-one.vercel.app is READY at code ff124de / dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd (November 1). HTTPS runtime verification passed (details below). Both generation gates false; Cloudflare dispatcher active and first scheduled collection/PDF processing verified 22:07IST.
 
 ## Exact actions explicitly approved November 1
 
@@ -82,16 +82,16 @@ Two simultaneous signed worker POSTs: exactly one busy, one accepted; accepted r
 Cloudflare first OAuth expired without user completion. Dispatcher/source/secret prepared, not activated. Finish user login with `npx wrangler@4.156.0 login --scopes account:read user:read workers:write workers_scripts:write workers_tail:read`, then deploy only Free configuration. Never use suggested temporary/public preview accounts or accept new terms for the user. Scope excludes the default Pages/D1/R2 additions. Once authenticated, complete the already-approved secret/deploy steps and observe actual cron ticks. Approval remains valid; do not ask again.
 
 
-November1 Cloudflare authentication completed after fresh request. CLI confirms account/user read + Workers write plus the subsequently required Scripts-write/Tail-read authorization; unrelated default scopes deliberately absent. `wrangler deploy --dry-run --config scheduler/wrangler.jsonc --secrets-file tmp/cloudflare-worker-secrets.json` passes (1.17KiB); JSON contains only the independent worker-auth secret, never Gemini/Neon credentials. Use atomic secret-at-deploy support rather than starting a secretless cron. Subscription read is403 with current token; account settings readable. Final Free check/deployment/real cron verification pending; no plan change/new terms accepted.
+November 1 Cloudflare authentication completed after fresh request. CLI confirms account/user read + Workers write plus the subsequently required Scripts-write/Tail-read authorization; unrelated default scopes deliberately absent. `wrangler deploy --dry-run --config scheduler/wrangler.jsonc --secrets-file tmp/cloudflare-worker-secrets.json` passes (1.17KiB); JSON contains only the independent worker-auth secret, never Gemini/Neon credentials. Use atomic secret-at-deploy support rather than starting a secretless cron. Subscription read is403 with current token; account settings readable. Final Free check/deployment/real cron verification pending; no plan change/new terms accepted.
 
 
-November1 Cloudflare deployment attempt failed before upload at the deployments API with “No access to the specified resource”. Generic workers:write OAuth did not include Workers Scripts access. A corrected limited OAuth request now asks for workers_scripts:write and read-only workers_tail:read (plus existing account/user read + Workers write), so the user can authorize the actual deployment/log observation. No unrelated default service scopes requested. No dispatcher activated, no plan/terms changed, no credential reset/model call. Dry-run remains passed; runtime code unchanged.
+November 1 Cloudflare deployment attempt failed before upload at the deployments API with “No access to the specified resource”. Generic workers:write OAuth did not include Workers Scripts access. A corrected limited OAuth request now asks for workers_scripts:write and read-only workers_tail:read (plus existing account/user read + Workers write), so the user can authorize the actual deployment/log observation. No unrelated default service scopes requested. No dispatcher activated, no plan/terms changed, no credential reset/model call. Dry-run remains passed; runtime code unchanged.
 
 
-November1 corrected OAuth succeeded. Dispatcher + separate auth secret uploaded (startup1ms), but cron activation was only partially applied: Cloudflare10063 requires an initial workers.dev account namespace even with workers_dev=false. No HTTP targets enabled. Inspecting absent namespace before initializing this routine prerequisite of the approved Free dispatcher; no existing domain will be renamed, no terms/plan change accepted. Scheduler remains unverified/inactive until trigger API confirms.
+November 1 corrected OAuth succeeded. Dispatcher + separate auth secret uploaded (startup1ms), but cron activation was only partially applied: Cloudflare10063 requires an initial workers.dev account namespace even with workers_dev=false. No HTTP targets enabled. Inspecting absent namespace before initializing this routine prerequisite of the approved Free dispatcher; no existing domain will be renamed, no terms/plan change accepted. Scheduler remains unverified/inactive until trigger API confirms.
 
 
-## November1 dispatcher activation
+## November 1 dispatcher activation
 
 Corrected OAuth completed (Workers Scripts write + Worker Tail read alongside existing read/Workers scopes). Worker/secret uploaded; initial cron application failed10063 because this new account lacked a workers.dev namespace. Read confirmed40410007; created only absent finn-briefings-12ed6cd6 namespace with the approved service setup. Reapplied triggers successfully. API confirms7,22,37,52 hourly, only FINN_ORIGIN plain text + FINN_PUSH_WORKER_SECRET secret text, HTTP/previews both disabled. No billing-plan or agreement change. Subscriptions remain unreadable with limited OAuth; account settings standard and entitlements empty. No paid plan selected/enabled. First actual scheduled invocation under observation; do not claim it from upload alone.
 
@@ -102,3 +102,8 @@ Current deployed Cloudflare version:86d3c18c-3027-4e6f-9996-4bc505740a46, upload
 
 
 Current Vercel code ff124de / dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd READY: backlog age now covers unparsed filings. Syntax/all 110 tests pass; HTTPS status verifies pending 67, oldest2026-10-24T08:16:13Z, delayed=true, configured/free-tier true, generation/hosted-quality false. Fresh Neon16 attempts and lastWorker16:00:22UTC unchanged; no manual worker during cron observation. Deployed state survives this second deployment; source/job data retained. First actual cron pending16:37UTC after propagation.
+
+
+## November 1 first scheduled run verified
+
+Cloudflare version86d3c18c-3027-4e6f-9996-4bc505740a46 emitted a genuine cron event at16:37:34.677UTC (22:07IST), outcome ok, CPU 1ms/wall 4650ms, no exceptions. Fresh Neon confirms source collection16:37:37.056UTC and worker completion16:37:40.243UTC; no new/changed filings, source count 67, live PDF jobs4 (up from2), all 16 quota entries unchanged. No manual worker was invoked during observation. This verifies unattended source checks/document processing and matching worker secret; it does not verify new-event analysis while generation is disabled. Temporary tail process stopped; recurring15-minute schedule remains active. All three approved external setup actions complete; quality acceptance still gates generation. No paid plan or new terms were selected/accepted; full account billing/headroom remains unverified with limited OAuth.
