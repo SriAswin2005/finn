@@ -1,16 +1,16 @@
 # Vercel + Neon operations and Push rollout
 
-Reconciled November 1,2026 (IST). **Prepared, not activated.** Current website remains https://finn-zeta-one.vercel.app, code 909b988 / dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip (October 31). November 1 source pushes are not deployments.
+Reconciled November 1,2026 (IST). **Approved November1, execution pending.** Current website remains https://finn-zeta-one.vercel.app, code 909b988 / dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip (October 31). November 1 source pushes are not deployments.
 
-## Exact actions still needing approval
+## Exact actions explicitly approved November1
 
 | Action | Destination/data and effect | Status |
 | --- | --- | --- |
-| Push state migration + local shared-ledger binding | Existing FINN Neon database in ignored `.env.vercel.production`: public filing metadata, extracted pages, jobs/results and every quota attempt/cooldown into `finn_push_state`/`finn_push_documents`; add that same server-only DATABASE_URL to ignored local `.env`, preserving original Gemini key | Automatic approval review rejected before execution for missing explicit external-write/destination approval. No migration/binding occurred. Do not retry indirectly. |
-| Hosted Gemini transfer/enablement | Original local Gemini key to server-only production environment of Vercel project `sriak/finn`, to analyse public NSE evidence with billing disabled and unchanged shared caps | Not transferred. Requires explicit approval; keep generation disabled until source-review gates pass. Research stays cache-only. |
-| Frequent Free dispatcher | Cloudflare Workers Free `finn-push-dispatcher`, only approved FINN origin and a separate worker-auth secret; recurring signed HTTPS calls to Vercel | Not created/activated. New service activation/secret transfer requires approval; user handles any new binding terms. No Gemini/Neon credential goes to Cloudflare. No paid plan. |
+| Push state migration + local shared-ledger binding | Existing FINN Neon database in ignored `.env.vercel.production`: public filing metadata, extracted pages, jobs/results and every quota attempt/cooldown into `finn_push_state`/`finn_push_documents`; add that same server-only DATABASE_URL to ignored local `.env`, preserving original Gemini key | Explicitly approved by the user after explanation (“okay go ahead”). Earlier automatic-review rejection occurred before execution; migration/binding now pending normal execution and verification. |
+| Hosted Gemini transfer/enablement | Original local Gemini key to server-only production environment of Vercel project `sriak/finn`, to analyse public NSE evidence with billing disabled and unchanged shared caps | Transfer approved, pending execution. Keep generation disabled until source-review gates pass. Research stays cache-only. |
+| Frequent Free dispatcher | Cloudflare Workers Free `finn-push-dispatcher`, only approved FINN origin and a separate worker-auth secret; recurring signed HTTPS calls to Vercel | Free service activation/separate-secret transfer approved, pending authentication/execution. User still handles any new binding terms. No Gemini/Neon credential goes to Cloudflare. No paid plan. |
 
-The migration's rejected command was `node --env-file=.env.vercel.production scripts/prepare-push-host.js`. Its reviewed script refuses existing initialized hosted state, preserves every attempt/document/job and refuses a conflicting local DATABASE_URL. If migration partly succeeds later, inspect durable state rather than resetting/retrying initialization. No independent hosted allowance is permitted.
+The migration command previously rejected before this explicit approval was `node --env-file=.env.vercel.production scripts/prepare-push-host.js`. Its reviewed script refuses existing initialized hosted state, preserves every attempt/document/job and refuses a conflicting local DATABASE_URL. If migration partly succeeds later, inspect durable state rather than resetting/retrying initialization. No independent hosted allowance is permitted.
 
 ## Prepared runtime
 
@@ -44,7 +44,7 @@ Changing the collection cadence also requires changing the dispatch cron if a fa
 6. **After Gemini transfer approval and quality acceptance**, put the original key server-side on Vercel, set explicit free-tier/Push approval gates, deploy and observe a genuinely new event through scheduled collection→analysis→saved card. No browser/manual call may substitute for unattended acceptance. Confirm unchanged opens make 0 calls, duplicate workers reserve once, and accepted results survive restart/deployment.
 7. Measure source/model failure recovery, delayed backlog, retries/cooldowns, cold runtime and actual account usage. Keep pending work, publish honest limitations. Only then close P-001. Roll back generation by disabling the Push gate; preserve state/attempts/results. Disable dispatcher if repeated failures need operator attention.
 
-This task has not run any of these external steps. Approval does not waive model-quality or host-verification gates.
+User authorization is now present for all three explained actions. No external step has yet run in this resumed turn. Approval does not waive model-quality/host-verification gates or authorize new terms/spending.
 
 ## Free infrastructure evidence and capacity
 

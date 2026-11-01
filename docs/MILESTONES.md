@@ -12,7 +12,7 @@ Reconciled November 1,2026 (IST). These checks distinguish local engineering fro
 - [x] Cached local Latest default, zero-call opens/source Refresh, pending/delayed/partial/error/priority/evidence display; captured evaluations isolated from normal workers and Latest.
 - [x] Syntax/all 108 tests: concurrency/restart reuse, content corrections, references, missing/corrupt quota, retry/cooldown/token accounting, truncation, stale leases and separate cadence. 390px browser checks verify relevant behavior; no physical-device offline/install claim.
 - [ ] Source-reviewed unseen results, incoming-manager biography, routine/complex summaries, important omissions, fair priority and reading effort.14 calls/10 captured cases yielded2 partial briefs; [evaluation](PUSH_EVALUATION.md) records failures/limits.
-- [ ] Approved Neon migration, one shared intended-host ledger, credential/dispatcher activation. Prepared; automatic approval review rejected migration before execution. No key transfer/activation.
+- [ ] Approved Neon migration, one shared intended-host ledger, credential/dispatcher activation. All three external actions explicitly approved November1 after explanation; migration/key transfer/activation pending execution. Quality gate retained.
 - [ ] Observed unattended new-event collection→analysis→saved card in production, cross-deployment/restart/concurrency recovery and measured free-tier capacity/freshness. Production remains October 31 code 909b988.
 
 ## M0–M2 — Environment and briefing spine

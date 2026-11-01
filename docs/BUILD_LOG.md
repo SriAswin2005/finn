@@ -262,3 +262,8 @@ Capture boundary checkpoint verified: syntax/all 108 pass. No live/capture allow
 ## November 1 — final current-state and rollout reconciliation
 
 Replaced contradictory progress/handoff/issue summaries with current local evidence and explicit open acceptance. Documented configured future model versions, Research6/Push14 under total20, capture-only alternative, exact external approvals, blocked migration, bounded dispatcher and free-capacity limits. Added missing routine source links and preserved historical verification/build entries. README/SPEC now distinguish local automatic Push from unchanged production. Build copy list includes scheduler so its syntax-check input ships; no submission archive generated. All45 relative links resolve; diff/consistency/secret-cache exclusions checked; syntax/all 108 tests pass. Archive generation remains deferred. No further model call, hosted write or activation.
+
+
+## November1 — user approves explained external Push actions
+
+The user said “okay go ahead” after Neon data migration/local ledger binding, server-only original Gemini transfer and Free Cloudflare dispatch were explained. Recorded the exact approval across current status/runbook/agreement; generation remains quality-gated. External execution/verification pending, no new terms/spending/extra allowance authorized. Documentation-only authorization checkpoint; runtime unchanged.

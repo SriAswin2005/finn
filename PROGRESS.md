@@ -14,15 +14,15 @@ Source review: **14 model attempts over 10 captured disclosures**, including fou
 
 390px browser checks verified pending/source-refresh states, saved cards after connection failure, evidence keyboard expansion/page links and captured-only metric components without overflow/component errors. The QA server is stopped and temporary browser settings restored. Physical-phone offline/install/PDF opening and intended-host recovery remain unverified.
 
-## Production and approval gate
+## Production and approved rollout
 
 Production remains October 31 code 909b988 / dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip at https://finn-zeta-one.vercel.app. No November 1 deployment, Gemini key transfer, Push migration or Cloudflare activation occurred. Existing reviewer gate, Neon Latest snapshot (October 31 20:43 IST; 15 EOD/62 filings), Recorded fixtures and Research notes remain deployed.
 
-Automatic approval review rejected the prepared migration to the existing FINN Neon database and local `.env` ledger rebinding before execution, for missing explicit approval of that external write/destination. Do not retry indirectly. [DEPLOYMENT.md](docs/DEPLOYMENT.md) specifies the exact migration, hosted Gemini credential transfer and Free Cloudflare dispatcher activation needing approval. Configuration is ready for review; generation remains disabled until approval and quality gates pass.
+The user explicitly approved the explained Neon migration/local shared-ledger binding, server-only original Gemini key transfer to sriak/finn and Free Cloudflare dispatcher activation on November1 (“okay go ahead”). Generation remains disabled until quality gates pass; no paid plan, extra allowance or new terms acceptance is approved. The earlier automatic-review migration rejection is historical; the requested specific authorization is now present. Actions are pending execution and verification.
 
 ## Next work
 
-1. Obtain only the missing external-action approvals in the deployment runbook. Keep public-source state, credentials and all quota history server-side.
+1. Execute the now-approved rollout in the deployment runbook: verify migration and one ledger, deploy collection with generation disabled, transfer approved secrets server-side and activate Free dispatch if authenticated. Keep all history and credentials server-side.
 2. Within genuinely available persisted allowance, review new distinct results/profile/routine/complex cases and fix only demonstrated support/omission problems. Never partially publish rejected drafts or reset capped jobs.
 3. After approved migration/deployment, measure unattended scheduler collection and new-event analysis, shared-ledger concurrency, restart/deployment persistence, failures and free-tier usage. These are required before closing P-001 or claiming completion/freshness.
 

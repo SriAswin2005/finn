@@ -1,3 +1,7 @@
+# November1 — approved hosted rollout, execution pending
+
+User approved the three explained actions (“okay go ahead”): existing-Neon public Push migration/all-quota history plus local binding, original Gemini key server-only to sriak/finn, and Free Cloudflare dispatcher with separate auth secret. Approval is recorded in WORKING_AGREEMENT/DEPLOYMENT; previous rejection is historical. No runtime change or external action in this authorization checkpoint. Generation remains disabled pending quality; actual migration/host/auth checks next. No new terms/spending/allowance approved.
+
 # Current verification — November 1,2026
 
 At f214b9c, `npm run check` and all 108 tests pass. This covers local HTTP/store/domain contracts, shared quota/cadence/leases, content reuse/references/corrections, numeric ambiguity, whole-output rejection and captured-evaluation isolation. Original15 citation attacks still fail. Full checks need normal permissions for loopback/SQLite; sandbox failures were rerun successfully. Synthetic successes are not real model-quality proof.
