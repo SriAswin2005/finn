@@ -1,6 +1,6 @@
 # Vercel + Neon operations and Push rollout
 
-Reconciled November 1,2026 (IST). **Approved rollout in progress.** Current production https://finn-zeta-one.vercel.app is READY at code 7b0afda / dpl_C5Bq1Ykbodrre4r57ei8gtTpkx6m (November 1). HTTPS runtime verification passed (details below). Both generation gates false; Cloudflare dispatcher active, first scheduled invocation under observation.
+Reconciled November 1,2026 (IST). **Approved rollout in progress.** Current production https://finn-zeta-one.vercel.app is READY at code ff124de / dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd (November 1). HTTPS runtime verification passed (details below). Both generation gates false; Cloudflare dispatcher active, first scheduled invocation under observation.
 
 ## Exact actions explicitly approved November 1
 
@@ -99,3 +99,6 @@ Future deploy uses atomic secret-at-upload: `wrangler deploy --config scheduler/
 
 
 Current deployed Cloudflare version:86d3c18c-3027-4e6f-9996-4bc505740a46, uploaded16:19:30UTC; cron applied16:21:08UTC. Official cron documentation allows up to15minutes for trigger propagation, so the first eligible16:22 tick was not yet observed. Next configured tick16:37UTC (22:07IST); monitoring only, no manual invocation masquerading as scheduled evidence.
+
+
+Current Vercel code ff124de / dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd READY: backlog age now covers unparsed filings. Syntax/all 110 tests pass; HTTPS status verifies pending 67, oldest2026-10-24T08:16:13Z, delayed=true, configured/free-tier true, generation/hosted-quality false. Fresh Neon16 attempts and lastWorker16:00:22UTC unchanged; no manual worker during cron observation. Deployed state survives this second deployment; source/job data retained. First actual cron pending16:37UTC after propagation.

@@ -304,3 +304,6 @@ November1 scheduler activation: corrected OAuth succeeded,1.17KiB worker uploade
 November1 pending-age slice: aggregate delayed age previously ignored unparsed filings despite counting them pending. Include active collected pending documents/references/retries plus analysis jobs, with captured/superseded/failed exclusions; behavior regression/checks pending. No model/manual-worker call; first scheduled event still under observation.
 
 Pending-age checkpoint verified: npm run check and all110 tests pass. Captured/superseded/failed document exclusions and old unparsed age pass;0 calls or manual workers. Ready for the approved hosted deployment while waiting for real cron.
+
+
+November1 backlog hosted verification: ff124de/dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd READY, syntax/all110 tests. HTTPS correctly reports pending67/oldestOctober24/delayed=true, key configured/free-tier true, generation disabled. Shared state/all16 attempts persisted across deployment; no manual invocation since16:00 baseline. Dispatcher cron first eligible after propagation16:37UTC/22:07IST; actual event still under observation.

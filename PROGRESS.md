@@ -6,7 +6,7 @@ Reconciled November 1,2026 (IST). Current status overrides historical logs.
 
 The user explicitly approved the three explained actions. Existing-Neon migration/local shared-ledger binding succeeded:10 original immutable documents,76 records (66 collected/10 captured),all 16 quota entries preserved. Fresh structural comparison matched evidence/events/jobs/collection/quota. Original SQLite and ignored backup retained. One early saved-snapshot evaluation received a capture marker with all IDs/jobs/attempts retained; its separate current NSE observation remains collected.
 
-Production **7b0afda / dpl_C5Bq1Ykbodrre4r57ei8gtTpkx6m** is READY and HTTPS verified at https://finn-zeta-one.vercel.app. The approved original Gemini key and independent worker-auth secret are server-only Vercel Secrets. Non-secret runtime status confirms key present, billing-disabled confirmation true, generation disabled, hosted quality gate false. Neither checked client assets nor status expose credentials. Research remains cache-only.
+Production **ff124de / dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd** is READY and HTTPS verified at https://finn-zeta-one.vercel.app. The approved original Gemini key and independent worker-auth secret are server-only Vercel Secrets. Non-secret runtime status confirms key present, billing-disabled confirmation true, generation disabled, hosted quality gate false. Neither checked client assets nor status expose credentials. Research remains cache-only.
 
 HTTPS checks pass: public health, reviewer gate for app/assets/.env, secure-cookie exchange, unsigned worker refusal, saved Latest with no captured analyses, Research notes6/4/4 with generation disabled, and served app.js/push.js/sw.js hashes matching source. First transport probe hit ECONNRESET; bounded read-only retries passed.
 
@@ -22,9 +22,9 @@ Completion still requires source-reviewed unseen quality, then enabled new-event
 
 ## Verification and continuation
 
-Syntax/all 109 tests pass at 7b0afda, including HTTP credential-presence without disclosure/reservation, shared gates, quota/concurrency/corrections/captures and all original 15 adversarial refusals. Prior 390px browser checks remain bounded local evidence; deployed client hashes match that source. No new physical-phone offline/install/PDF-opening claim. No new runtime dependency, model call, paid plan, extra allowance, submission materials or OS notifications.
+Syntax/all 110 tests pass at ff124de, including HTTP credential-presence without disclosure/reservation, shared gates, quota/concurrency/corrections/captures and all original 15 adversarial refusals. Prior 390px browser checks remain bounded local evidence; deployed client hashes match that source. No new physical-phone offline/install/PDF-opening claim. No new runtime dependency, model call, paid plan, extra allowance, submission materials or OS notifications.
 
-Private implementation pushes verified through 7b0afda; current handoff/rollout evidence passes relative-link and diff/consistency checks; runtime code is unchanged from the verified deployment. Next: observe active Cloudflare cron reaching FINN while generation stays disabled, and continue quality work only within genuinely available persisted allowance.
+Private implementation pushes verified through ff124de; current handoff/rollout evidence passes relative-link and diff/consistency checks; runtime code is unchanged from the verified deployment. Next: observe active Cloudflare cron reaching FINN while generation stays disabled, and continue quality work only within genuinely available persisted allowance.
 
 
-Backlog-age fix saved while cron propagates: aggregate oldestPendingAt/delayed now includes unparsed/reference/retry collected filings, not only already-created analysis jobs. Captured/superseded records remain excluded and failed documents are not falsely pending. Syntax/all110 tests pass; no new model call or manual worker invocation.
+Backlog-age fix saved while cron propagates: aggregate oldestPendingAt/delayed now includes unparsed/reference/retry collected filings, not only already-created analysis jobs. Captured/superseded records remain excluded and failed documents are not falsely pending. Syntax/all 110 tests pass and hosted HTTPS verifies pending 67/oldest October24/delayed=true with generation disabled. No new model call or manual worker invocation.

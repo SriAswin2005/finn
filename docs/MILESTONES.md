@@ -43,7 +43,7 @@ Reconciled November 1,2026 (IST). These checks distinguish local engineering fro
 
 ## M4 — Working hosted product
 
-- [x] Vercel + Neon Free (Singapore) deployment; real Node/Python and source networking verified. Current code:7b0afda, deployment dpl_C5Bq1Ykbodrre4r57ei8gtTpkx6m READY November 1; new runtime checks pending.
+- [x] Vercel + Neon Free (Singapore) deployment; real Node/Python and source networking verified. Current code:ff124de, deployment dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd READY November 1; new runtime checks pending.
 - [x] Shared reviewer-token exchange, clean redirect, signed 24-hour HttpOnly/Secure/SameSite cookie; UI/assets/APIs gated. Gemini absent and live generation disabled on host.
 - [x] Recorded L&T consolidated results card with Revenue/PBT/PAT and derived EBITDA proxy, QoQ/YoY, verified source columns/page and disclosed limitations.
 - [x] Recorded HDFC Bank succession and appointee profile from original disclosures, with dates/page links and issuer attribution.
@@ -76,4 +76,6 @@ November1 corrected OAuth succeeded. Dispatcher + separate auth secret uploaded 
 
 Current dispatcher status: uploaded and configured15-minute cron active; origin/auth-secret only, HTTP/previews disabled. Real scheduled execution under observation; full quality/unattended-analysis gates remain unchecked.
 
-Pending-age reporting now includes unparsed collected filings; source/capture/supersession/failure regression passes with all110 tests. This does not close model-quality/unattended-analysis gates.
+Pending-age reporting now includes unparsed collected filings; source/capture/supersession/failure regression passes with all 110 tests. This does not close model-quality/unattended-analysis gates.
+
+Backlog correction deployed as ff124de: HTTPS pending/oldest/delayed verified with preserved state/all 16 attempts; all 110 tests pass. First cron under observation, no analysis enabled.

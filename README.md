@@ -88,4 +88,4 @@ To deliberately publish a fresh source snapshot to the configured Neon host, run
 Base hosted EOD/source snapshot: October 31, 2026, 20:43 IST; all 15 October 30 EOD records and 62 filings, both source adapters OK. Recorded replay remains October 28. Hosting/access/persistence details are in docs/DEPLOYMENT.md. The user deferred conversations and submission details until the build is solid.
 
 
-November 1 Push production is7b0afda, HTTPS verified:67 collected filings after one manual hosted worker run,2 attachments parsed, all 16 prior attempts unchanged. Both model generation gates false. Free dispatcher activation is approved but needs user Cloudflare login; no unattended-analysis claim.
+November 1 Push production is ff124de, HTTPS verified:67 collected filings after one manual hosted worker run,2 attachments parsed, all 16 prior attempts unchanged. Both model generation gates false. Free dispatcher is active at minutes7/22/37/52 with HTTP/previews disabled; first cron is under observation; no unattended-analysis claim.
