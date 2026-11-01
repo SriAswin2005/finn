@@ -30,6 +30,8 @@ Later source contracts must carry stable IDs, NSE symbol, category, event/fetch 
 M2 implements live snapshot, recorded-source replay and fictional demo as separate selectable modes. Live windows advance with the current clock; recorded windows stay fixed at capture time. Exchange titles/descriptions are displayed as metadata, with original filing links and rule-based category labels. Document analysis and page citations remain M3. A results meeting notice is not an actual results release; unknown categories remain visible. Data fetches older than 24 hours, sessions over four calendar days old, failed updates, newer incomplete source rows and split-affected comparisons pause applicable alerts. This conservative freshness rule is explicit and does not pretend to be a full exchange-holiday calendar.
 
 ## Scope boundaries
+November 1 superseding scope: [PUSH_WORKFLOW.md](PUSH_WORKFLOW.md) defines automatic NSE collection, generic attachment interpretation and durable cached Push delivery. The older manual-only/deferred-scheduling descriptions below are historical. OS notifications and Research expansion remain deferred. Hosted Gemini transfer/new scheduler activation still need applicable approval.
+
 Push means an in-app briefing and refresh initially; OS push and background scheduling are deferred. Pull may use a model behind a replaceable server-side adapter after document retrieval and citations work. Results extraction (Revenue, EBITDA, PBT, PAT with QoQ/YoY) and promised-vs-delivered analysis are candidates for one strong demonstration, not a commitment to all eight research outputs. No authentication, trading, portfolio accounting, native app, voice or elaborate chat shell for this prototype.
 
 ## October 28 briefing reconciliation

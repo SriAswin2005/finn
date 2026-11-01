@@ -1,5 +1,9 @@
 # FINN current progress
 
+## November 1 — active Push mission
+
+The user requests the complete automatic source-to-briefing workflow. Acceptance/evaluation and staged implementation are in [PUSH_WORKFLOW.md](docs/PUSH_WORKFLOW.md). Entry tree is clean at 3a49e50. Existing snapshot/Research capabilities are preserved. Implementation and hosted unattended verification are pending; no scheduler or Gemini transfer is authorized by this checkpoint.
+
 Reconciled October 31, 2026 (IST). Deadline November 1. Read [HANDOFF.md](HANDOFF.md) and [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.md).
 
 ## Verified product

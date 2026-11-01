@@ -1,5 +1,14 @@
 # Milestones and acceptance gates
 
+## November 1 — Push completion (active scope)
+
+- [x] Read original Push examples and define acceptance/evaluation in PUSH_WORKFLOW.md.
+- [ ] Durable overlapping collection, checkpoints, deduplication and corrections.
+- [ ] Generic source-backed Push interpretation with independent models and quota.
+- [ ] Cached Latest, zero-call opens, pending/delayed recovery and mobile evidence.
+- [ ] Unseen outputs source-reviewed; failures/concurrency/restarts verified.
+- [ ] Unattended new-event collection and analysis verified on intended host.
+
 Reconciled October 31, 2026 (IST). Deadline November 1. This is bounded feature evidence, not a universal financial/model correctness claim. Current limitations are in [ISSUES.md](ISSUES.md).
 
 ## M0–M2 — Environment and briefing spine

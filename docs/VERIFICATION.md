@@ -234,3 +234,6 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 ## October31 — final product checkpoint (21:36 IST)
 
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
+# November 1 — Push acceptance checkpoint
+
+Read both original assessment PDFs (4 + 3 physical pages), targeted entry documents and current pipeline/model/parser code. Working tree initially clean. Official Google/Vercel/Cloudflare documentation checked; active project quotas not yet verified. Documentation-only acceptance checkpoint: relative links checked; no runtime change or new model call. Implementation/evaluation/hosted unattended checks remain pending in PUSH_WORKFLOW.md.

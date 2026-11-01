@@ -1,5 +1,9 @@
 # Current issues and verification limits
 
+## P-001 — Automatic Push workflow (active, November 1)
+
+Latest is a saved snapshot; Refresh does not collect. Recorded enrichments are bounded examples. Need durable collection/correction recovery, generic evidence-backed interpretation, shared quota/queue, cached delivery and real unattended deployment verification. Acceptance and evaluation matrix: [PUSH_WORKFLOW.md](PUSH_WORKFLOW.md). Hosted Gemini transfer/frequent scheduler activation remain approval boundaries. Existing research caps are local policy, not verified provider quota.
+
 Reconciled October 31, 2026 (IST). Current findings override historical logs. The user deferred conversations/submission until the build is solid.
 
 ## D-004 — Hosted Latest sources persistence
