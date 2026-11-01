@@ -1,13 +1,13 @@
 # Vercel + Neon operations and Push rollout
 
-Reconciled November 1,2026 (IST). **Approved November1, execution pending.** Current website remains https://finn-zeta-one.vercel.app, code 909b988 / dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip (October 31). November 1 source pushes are not deployments.
+Reconciled November 1,2026 (IST). **Approved rollout in progress.** Current production https://finn-zeta-one.vercel.app is READY at code 7b0afda / dpl_C5Bq1Ykbodrre4r57ei8gtTpkx6m (November 1). HTTPS runtime verification passed (details below). Both generation gates false; dispatcher pending user authentication.
 
-## Exact actions explicitly approved November1
+## Exact actions explicitly approved November 1
 
 | Action | Destination/data and effect | Status |
 | --- | --- | --- |
 | Push state migration + local shared-ledger binding | Existing FINN Neon database in ignored `.env.vercel.production`: public filing metadata, extracted pages, jobs/results and every quota attempt/cooldown into `finn_push_state`/`finn_push_documents`; add that same server-only DATABASE_URL to ignored local `.env`, preserving original Gemini key | Explicitly approved by the user after explanation (“okay go ahead”). Earlier automatic-review rejection occurred before execution; migration/binding completed and fresh-process verified:10 documents,76 events,16 preserved attempts; future local workers use the same Neon ledger. |
-| Hosted Gemini transfer/enablement | Original local Gemini key to server-only production environment of Vercel project `sriak/finn`, to analyse public NSE evidence with billing disabled and unchanged shared caps | Original key and separate worker secret stored via stdin as Vercel production Secrets; metadata verified. Deployment/runtime presence verification pending. Keep generation disabled until source-review gates pass. Research stays cache-only. |
+| Hosted Gemini transfer/enablement | Original local Gemini key to server-only production environment of Vercel project `sriak/finn`, to analyse public NSE evidence with billing disabled and unchanged shared caps | Original key and separate worker secret stored via stdin as Vercel production Secrets; metadata verified. Deployed runtime confirms nonempty key present and generation disabled; reviewer/cache/worker/parser checks passed with 0 model calls. Keep generation disabled until source-review gates pass. Research stays cache-only. |
 | Frequent Free dispatcher | Cloudflare Workers Free `finn-push-dispatcher`, only approved FINN origin and a separate worker-auth secret; recurring signed HTTPS calls to Vercel | Free service activation/separate-secret transfer approved, pending authentication/execution. User still handles any new binding terms. No Gemini/Neon credential goes to Cloudflare. No paid plan. |
 
 Migration source is explicit local data/cache/push.sqlite (optional FINN_PUSH_MIGRATION_SOURCE), independent of VERCEL runtime cache. The first newly approved attempt stopped locally before Neon because the old source selection inherited production VERCEL; source/backup remain intact. Source-path correction passes all108 tests; actual migration completed and deep structural equality passed for documents/events/jobs/collection/quota. One early saved-snapshot evaluation received an explicit capture tag with its original ID/job/attempt preserved (66 collected/10 captured).
@@ -67,7 +67,16 @@ Existing reviewer token exchanges `?key=TOKEN` for a signed24-hour HttpOnly/Secu
 October 31 hosted checks: access/refusal/evidence and source persistence, cold TCS 47.5s then saved retrieval 0.5s. November 1 local syntax/all 108 tests and390px Push browser checks pass; no hosted Push inference/cold recovery/free-usage measurement. Physical install/PDF opening unconfirmed. Current submission archive/Docker work remains deferred, as do conversations/grants/tag/email.
 
 
-`GET /api/push/status` and saved briefing status now include non-secret generation configured/enabled/free-tier/hosted-gate flags and reason, derived from the exact analysis enablement function. No credential or fingerprint is exposed. Regression and syntax/all109 tests pass. Vercel credential types are sensitive, values intentionally unreadable through metadata.
+`GET /api/push/status` and saved briefing status now include non-secret generation configured/enabled/free-tier/hosted-gate flags and reason, derived from the exact analysis enablement function. No credential or fingerprint is exposed. Regression and syntax/all 109 tests pass. Vercel credential types are sensitive, values intentionally unreadable through metadata.
 
 
-November1 hosted-status checkpoint: syntax/all109 tests pass. Safe status distinguishes credential absence from the disabled quality gate and never returns values or reserves/calls models. Cloudflare OAuth timed out before user completion; activation remains pending and fresh login will be needed. Vercel deployment/runtime verification next.
+November 1 hosted-status checkpoint: syntax/all 109 tests pass. Safe status distinguishes credential absence from the disabled quality gate and never returns values or reserves/calls models. Cloudflare OAuth timed out before user completion; activation remains pending and fresh login will be needed. Vercel deployment/runtime verification next.
+
+
+## November 1 verified rollout evidence
+
+Production7b0afda / dpl_C5Bq1Ykbodrre4r57ei8gtTpkx6m READY, HTTPS verified. Reviewer UI/assets/.env gate, secure-cookie exchange, unsigned worker403, non-secret configured=true/freeTierConfirmed=true/enabled=false/hostedApproved=false, Latest excludes captured analyses, three Research caches6/4/4 with live generation disabled, and served JS hashes match source. No actual credential value/fingerprint exposed. Initial ECONNRESET recovered with bounded read-only retries.
+
+Two simultaneous signed worker POSTs: exactly one busy, one accepted; accepted run collected 1 new filing, parsed 2 original attachments and persisted jobs/checkpoint. Fresh Neon process confirms67 source filings/2 live document jobs/all 16 quota entries; no model request. This is manually invoked hosted acceptance, not scheduled/unattended evidence. Both generation gates remain false pending quality.
+
+Cloudflare first OAuth expired without user completion. Dispatcher/source/secret prepared, not activated. Finish user login with `npx wrangler@4.156.0 login --scopes account:read user:read workers:write`, then deploy only Free configuration. Never use suggested temporary/public preview accounts or accept new terms for the user. Scope excludes the default Pages/D1/R2 additions. Once authenticated, complete the already-approved secret/deploy steps and observe actual cron ticks. Approval remains valid; do not ask again.

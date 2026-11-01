@@ -12,8 +12,8 @@ Reconciled November 1,2026 (IST). These checks distinguish local engineering fro
 - [x] Cached local Latest default, zero-call opens/source Refresh, pending/delayed/partial/error/priority/evidence display; captured evaluations isolated from normal workers and Latest.
 - [x] Syntax/all 108 tests: concurrency/restart reuse, content corrections, references, missing/corrupt quota, retry/cooldown/token accounting, truncation, stale leases and separate cadence. 390px browser checks verify relevant behavior; no physical-device offline/install claim.
 - [ ] Source-reviewed unseen results, incoming-manager biography, routine/complex summaries, important omissions, fair priority and reading effort.14 calls/10 captured cases yielded2 partial briefs; [evaluation](PUSH_EVALUATION.md) records failures/limits.
-- [ ] Approved Neon migration, one shared intended-host ledger, credential/dispatcher activation. All three external actions explicitly approved November1 after explanation; migration/source-path fix verified (108 tests + fresh structural equality), all16 attempts retained and local workers bound to Neon. Approved key/worker Secrets stored; generation disabled. Runtime presence/deployment checks and dispatcher authentication/activation pending. Quality gate retained.
-- [ ] Observed unattended new-event collection→analysis→saved card in production, cross-deployment/restart/concurrency recovery and measured free-tier capacity/freshness. Production remains October 31 code 909b988.
+- [ ] Approved Neon migration, one shared intended-host ledger, credential/dispatcher activation. All three external actions explicitly approved November 1 after explanation; migration/source-path fix verified (108 tests + fresh structural equality), all 16 attempts retained and local workers bound to Neon. Approved key/worker Secrets stored; generation disabled. Runtime presence/deployment/collection/parser/concurrent-worker checks pass with 0 model calls. Dispatcher user login/activation pending. Quality gate retained.
+- [ ] Observed unattended new-event collection→analysis→saved card in production, cross-deployment/restart/concurrency recovery and measured free-tier capacity/freshness. Production code 7b0afda now READY, generation disabled; runtime collection/parser/cache checks passed; dispatcher login/unattended verification pending.
 
 ## M0–M2 — Environment and briefing spine
 
@@ -43,7 +43,7 @@ Reconciled November 1,2026 (IST). These checks distinguish local engineering fro
 
 ## M4 — Working hosted product
 
-- [x] Vercel + Neon Free (Singapore) deployment; real Node/Python and source networking verified. Current code: 909b988, deployment dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip.
+- [x] Vercel + Neon Free (Singapore) deployment; real Node/Python and source networking verified. Current code:7b0afda, deployment dpl_C5Bq1Ykbodrre4r57ei8gtTpkx6m READY November 1; new runtime checks pending.
 - [x] Shared reviewer-token exchange, clean redirect, signed 24-hour HttpOnly/Secure/SameSite cookie; UI/assets/APIs gated. Gemini absent and live generation disabled on host.
 - [x] Recorded L&T consolidated results card with Revenue/PBT/PAT and derived EBITDA proxy, QoQ/YoY, verified source columns/page and disclosed limitations.
 - [x] Recorded HDFC Bank succession and appointee profile from original disclosures, with dates/page links and issuer attribution.
@@ -64,4 +64,7 @@ Conversations and all submission details wait until the user decides the build i
 U-002: raw document details pushed reviewed notes down the phone screen, and a generic cache-resting message implied an uncached company had a saved note. Source metadata is now a labelled collapsible list (including warning count), unavailable generation is hidden, and no-note requests explicitly say source excerpts only. Completed requests bring the result into view/focus only if the user is still on Research and has not moved focus elsewhere. Notes/comparison keep direct physical-page links. Syntax/all 74 tests pass. 390 px browser verifies result focus at 74 px below navigation, collapsed source details, four cached claims, explicit TCS no-note state with generation hidden, no overflow and no console errors. Native PDF opening could not be confirmed by the browser tool; page hrefs remain verified.
 
 
-November1 hosted-status checkpoint: syntax/all109 tests pass. Safe status distinguishes credential absence from the disabled quality gate and never returns values or reserves/calls models. Cloudflare OAuth timed out before user completion; activation remains pending and fresh login will be needed. Vercel deployment/runtime verification next.
+November 1 hosted-status checkpoint: syntax/all 109 tests pass. Safe status distinguishes credential absence from the disabled quality gate and never returns values or reserves/calls models. Cloudflare OAuth timed out before user completion; activation remains pending and fresh login will be needed. Vercel deployment/runtime verification next.
+
+
+November 1 host acceptance: syntax/all 109 pass; real HTTPS gate/key-presence/cache/source hashes and two-concurrent-worker lease pass. Hosted manual run collected 1 new filing/parsed 2 attachments, fresh Neon persisted records,16 attempts unchanged. Cloudflare login/cron and model quality remain open; no full completion checkbox changed.

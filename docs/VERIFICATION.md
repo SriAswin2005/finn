@@ -1,4 +1,11 @@
-# November1 — approved hosted rollout, execution pending
+# Current hosted verification — November 1,2026
+
+
+November 1 hosted verification passed: deployment 7b0afda/dpl_C5Bq1Ykbodrre4r57ei8gtTpkx6m. HTTPS gate/cookie/unsigned-worker refusal, safe nonempty key presence + disabled generation, saved Latest excluding captured analyses, Research 6/4/4 with 0 live generation, and app/push/sw source hashes verified. Two simultaneous signed POSTs accepted one worker; added 1 NSE filing/parsed 2 real PDFs, fresh Neon shows 67 source events/2 live jobs/all 16 attempts unchanged. Zero model calls; manual hosted checks only, not unattended. Initial ECONNRESET recovered via bounded read-only transport retries. Cloudflare OAuth expired before user completion; login/activation remains pending. No new code beyond already-tested7b0afda in this documentation checkpoint.
+
+---
+
+# November 1 — approved hosted rollout, execution pending
 
 User approved the three explained actions (“okay go ahead”): existing-Neon public Push migration/all-quota history plus local binding, original Gemini key server-only to sriak/finn, and Free Cloudflare dispatcher with separate auth secret. Approval is recorded in WORKING_AGREEMENT/DEPLOYMENT; previous rejection is historical. No runtime change or external action in this authorization checkpoint. Generation remains disabled pending quality; actual migration/host/auth checks next. No new terms/spending/allowance approved.
 
@@ -266,7 +273,7 @@ Quality/evaluation checkpoint: syntax/all 101 pass. Visually checked L&T contrac
 
 Captured evaluation report records 14 actual calls/10 cases: 2 partial accepted outputs, remaining refusals/deferred provider errors. Source review explicitly records L&T order-band omission and CDSL boilerplate/name artifacts; no universal quality claim. Incoming-profile/financial/routine acceptance remains open. Source catch-up observed 66 filings through current day. Final routing recheck pending before checkpoint.
 
-101 tests passed for rolling cap/internal allocation changes. Multi-person profile table routing broadened to short documents with explicit profile sections; ordinary single-person fixtures stay ordinary. Distinct remaining evaluation cases use first attempts under existing total 20 and retry4; verification/evaluation pending.
+101 tests passed for rolling cap/internal allocation changes. Multi-person profile table routing broadened to short documents with explicit profile sections; ordinary single-person fixtures stay ordinary. Distinct remaining evaluation cases use first attempts under existing total 20 and retry 4; verification/evaluation pending.
 
 CDSL final 3.6 attempt completed with four claims, partial for missing profile (source says not applicable). Needs manual usefulness/omission review; no general model-quality claim. Added rolling24h/Pacific-boundary cap regression. Rebalanced only internal share of existing total 20 to 6/14 for remaining distinct captured cases; no retry-budget increase. Prompt v6 targets actual-event headlines/result metrics. Full checks pending.
 
@@ -340,18 +347,24 @@ November 1 final worker bounds: numeric/cadence suite passes 106. Stale lease pu
 
 November 1 final bounds verified: npm run check and all107 tests pass, including replaced-lease no-publication/reporting with counted request, missing/malformed cells and independent cadence. QA server stopped, temporary browser viewport reset/tab closed. No new browser behavior or hosted completion claimed.
 
-November 1 capture boundary: normal document/analysis selectors exclude captured_evaluation jobs; explicit eventId evaluation remains possible. Regression and syntax/all109 tests pass. No model call or remote write.
+November 1 capture boundary: normal document/analysis selectors exclude captured_evaluation jobs; explicit eventId evaluation remains possible. Regression and syntax/all 109 tests pass. No model call or remote write.
 
 Capture boundary verified: npm run check and all 108 tests pass, including no normal document download or analysis claim for captured events and explicit evaluation claim availability.
 
 
-November1 approved migration attempt stopped before any Neon operation: production environment sets VERCEL and redirected the supposed local source to temporary cache. Actual source ledger/backup are intact (16 attempts). Migration now uses explicit workspace data/cache/push.sqlite, with FINN_PUSH_MIGRATION_SOURCE override; verification pending. No init/reset, Gemini transfer or dispatcher activation. Vercel CLI authenticated; Wrangler not installed/cached, authentication pending.
+November 1 approved migration attempt stopped before any Neon operation: production environment sets VERCEL and redirected the supposed local source to temporary cache. Actual source ledger/backup are intact (16 attempts). Migration now uses explicit workspace data/cache/push.sqlite, with FINN_PUSH_MIGRATION_SOURCE override; verification pending. No init/reset, Gemini transfer or dispatcher activation. Vercel CLI authenticated; Wrangler not installed/cached, authentication pending.
 
 
-November1 migration verified: explicit local source path fixes production-env cache selection. Syntax/all108 tests pass. Actual Neon migration copied10 documents/76 events/16 quota entries; fresh deep structural comparison matches documents and events/jobs/collection/quota. JSON string ordering was rejected as an invalid comparator for JSONB. One early old-snapshot Polycab evaluation is now tagged captured with an audit reason in both stores, preserving all IDs/jobs/attempts and its separate current NSE observation. No calls/refunds/new allowance. Local .env bound to same ledger; backup retained. Vercel authenticated; Cloudflare login requested from user, not yet authorized.
+November 1 migration verified: explicit local source path fixes production-env cache selection. Syntax/all108 tests pass. Actual Neon migration copied10 documents/76 events/16 quota entries; fresh deep structural comparison matches documents and events/jobs/collection/quota. JSON string ordering was rejected as an invalid comparator for JSONB. One early old-snapshot Polycab evaluation is now tagged captured with an audit reason in both stores, preserving all IDs/jobs/attempts and its separate current NSE observation. No calls/refunds/new allowance. Local .env bound to same ledger; backup retained. Vercel authenticated; Cloudflare login requested from user, not yet authorized.
 
 
-November1 approved Vercel secret setup: original local Gemini key + separate generated worker secret sent only through stdin to production sriak/finn; CLI accepted7 settings, metadata confirms sensitive credential types. FINN_PUSH_ENABLED/HOSTED_APPROVED both false; free-tier confirmation true, cadences15. No secret values printed. Added shared generation-gate status booleans/reason for runtime verification with zero calls; HTTP no-disclosure/no-reservation regression passes with syntax/all109 tests. Cloudflare sign-in handed to user; no service activated.
+November 1 approved Vercel secret setup: original local Gemini key + separate generated worker secret sent only through stdin to production sriak/finn; CLI accepted7 settings, metadata confirms sensitive credential types. FINN_PUSH_ENABLED/HOSTED_APPROVED both false; free-tier confirmation true, cadences15. No secret values printed. Added shared generation-gate status booleans/reason for runtime verification with zero calls; HTTP no-disclosure/no-reservation regression passes with syntax/all 109 tests. Cloudflare sign-in handed to user; no service activated.
 
 
-November1 hosted-status checkpoint: syntax/all109 tests pass. Safe status distinguishes credential absence from the disabled quality gate and never returns values or reserves/calls models. Cloudflare OAuth timed out before user completion; activation remains pending and fresh login will be needed. Vercel deployment/runtime verification next.
+November 1 hosted-status checkpoint: syntax/all 109 tests pass. Safe status distinguishes credential absence from the disabled quality gate and never returns values or reserves/calls models. Cloudflare OAuth timed out before user completion; activation remains pending and fresh login will be needed. Vercel deployment/runtime verification next.
+
+
+November 1 production rollout: approved code 7b0afda deployed READY as dpl_C5Bq1Ykbodrre4r57ei8gtTpkx6m, alias https://finn-zeta-one.vercel.app. Both generation gates false; original key/worker secret set as Secrets, shared Neon history retained. Actual HTTPS gate/cache/key-presence and concurrent signed-worker/parser checks are running, not yet claimed passed. Dispatcher awaits user authentication; no unattended claim.
+
+
+November 1 hosted verification passed: deployment 7b0afda/dpl_C5Bq1Ykbodrre4r57ei8gtTpkx6m. HTTPS gate/cookie/unsigned-worker refusal, safe nonempty key presence + disabled generation, saved Latest excluding captured analyses, Research 6/4/4 with 0 live generation, and app/push/sw source hashes verified. Two simultaneous signed POSTs accepted one worker; added 1 NSE filing/parsed 2 real PDFs, fresh Neon shows 67 source events/2 live jobs/all 16 attempts unchanged. Zero model calls; manual hosted checks only, not unattended. Initial ECONNRESET recovered via bounded read-only transport retries. Cloudflare OAuth expired before user completion; login/activation remains pending. No new code beyond already-tested7b0afda in this documentation checkpoint.

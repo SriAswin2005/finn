@@ -1,6 +1,6 @@
 # Billing-disabled Gemini and shared workflow policy
 
-Reconciled November 1,2026. One Gemini key is sufficient; no ChatGPT/Sarvam key. Keep the original key in ignored backend `.env`; never print, commit or request it in chat. User approved the exact hosted transfer November1; original key is now a Vercel production Secret, with generation disabled pending quality. Local calls under existing caps are authorized; hosted transfer/activation needs explicit approval in [DEPLOYMENT.md](DEPLOYMENT.md).
+Reconciled November 1,2026. One Gemini key is sufficient; no ChatGPT/Sarvam key. Keep the original key in ignored backend `.env`; never print, commit or request it in chat. User approved the exact hosted transfer November 1; original key is now a Vercel production Secret, with generation disabled pending quality. Local calls under existing caps are authorized; hosted transfer/activation needs explicit approval in [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Configurable versions and separate roles
 
@@ -33,7 +33,7 @@ Changing environment JSON alone does not replace persisted quota policy. After r
 | collect |Bounded source refresh/catch-up;0 model calls |
 | tick |Shared awaited orchestration: one collection, up to2 document steps, up to1 eligible model call |
 | policy |Apply reviewed configuration, preserve all ledger history |
-| retry KEY REVIEW_REASON [--complex] |Explicit reviewed failed-job recovery,20–500 character reason; lifetime3-attempt/daily-retry caps retained |
+| retry KEY REVIEW_REASON [--complex] |Explicit reviewed failed-job recovery,20–500 character reason; lifetime 3-attempt/daily-retry caps retained |
 | revalidate KEY REVIEW_REASON |Whole unchanged rejected draft through all current guards; original reservation required;0 calls/refunds, no partial curation |
 
 Local model enablement also needs FINN_PUSH_ENABLED=true, GEMINI_API_KEY and FINN_AI_FREE_TIER_CONFIRMED=true. Hosted Push additionally needs FINN_PUSH_HOSTED_APPROVED=true; `.env.example` keeps safe false defaults. Hosted Research remains disabled. Do not enable production generation merely because tests pass.
@@ -53,4 +53,4 @@ Public document excerpts go to Google; explicit Research questions do too. Crede
 Official references checked November 1: [models](https://ai.google.dev/gemini-api/docs/models), [rate limits](https://ai.google.dev/gemini-api/docs/rate-limits), [pricing](https://ai.google.dev/gemini-api/docs/pricing), [structured output](https://ai.google.dev/gemini-api/docs/structured-output), [thinking](https://ai.google.dev/gemini-api/docs/thinking), [API keys](https://ai.google.dev/gemini-api/docs/api-key). Historical invalid-key issue resolved October 28 after local editing/metadata 200; do not diagnose it as a current blocker.
 
 
-Hosted generation status now reports only configured/enabled/free-tier/hosted-gate flags and reason from the same gate used by analysis. It cannot expose a key/fingerprint and makes no model request. Syntax/all109 tests pass; approved key stored, runtime deployment verification pending.
+Hosted generation status now reports only configured/enabled/free-tier/hosted-gate flags and reason from the same gate used by analysis. It cannot expose a key/fingerprint and makes no model request. Syntax/all 109 tests pass; approved key stored, deployed runtime confirms key present/free-tier true/generation false; no model call.
