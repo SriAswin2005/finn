@@ -267,3 +267,9 @@ Replaced contradictory progress/handoff/issue summaries with current local evide
 ## November1 — user approves explained external Push actions
 
 The user said “okay go ahead” after Neon data migration/local ledger binding, server-only original Gemini transfer and Free Cloudflare dispatch were explained. Recorded the exact approval across current status/runbook/agreement; generation remains quality-gated. External execution/verification pending, no new terms/spending/extra allowance authorized. Documentation-only authorization checkpoint; runtime unchanged.
+
+
+November1 approved migration attempt stopped before any Neon operation: production environment sets VERCEL and redirected the supposed local source to temporary cache. Actual source ledger/backup are intact (16 attempts). Migration now uses explicit workspace data/cache/push.sqlite, with FINN_PUSH_MIGRATION_SOURCE override; verification pending. No init/reset, Gemini transfer or dispatcher activation. Vercel CLI authenticated; Wrangler not installed/cached, authentication pending.
+
+
+November1 migration verified: explicit local source path fixes production-env cache selection. Syntax/all108 tests pass. Actual Neon migration copied10 documents/76 events/16 quota entries; fresh deep structural comparison matches documents and events/jobs/collection/quota. JSON string ordering was rejected as an invalid comparator for JSONB. One early old-snapshot Polycab evaluation is now tagged captured with an audit reason in both stores, preserving all IDs/jobs/attempts and its separate current NSE observation. No calls/refunds/new allowance. Local .env bound to same ledger; backup retained. Vercel authenticated; Cloudflare login requested from user, not yet authorized.

@@ -343,3 +343,9 @@ November 1 final bounds verified: npm run check and all107 tests pass, including
 November 1 capture boundary: normal document/analysis selectors exclude captured_evaluation jobs; explicit eventId evaluation remains possible. Regression/checks pending. No model call or remote write.
 
 Capture boundary verified: npm run check and all 108 tests pass, including no normal document download or analysis claim for captured events and explicit evaluation claim availability.
+
+
+November1 approved migration attempt stopped before any Neon operation: production environment sets VERCEL and redirected the supposed local source to temporary cache. Actual source ledger/backup are intact (16 attempts). Migration now uses explicit workspace data/cache/push.sqlite, with FINN_PUSH_MIGRATION_SOURCE override; verification pending. No init/reset, Gemini transfer or dispatcher activation. Vercel CLI authenticated; Wrangler not installed/cached, authentication pending.
+
+
+November1 migration verified: explicit local source path fixes production-env cache selection. Syntax/all108 tests pass. Actual Neon migration copied10 documents/76 events/16 quota entries; fresh deep structural comparison matches documents and events/jobs/collection/quota. JSON string ordering was rejected as an invalid comparator for JSONB. One early old-snapshot Polycab evaluation is now tagged captured with an audit reason in both stores, preserving all IDs/jobs/attempts and its separate current NSE observation. No calls/refunds/new allowance. Local .env bound to same ledger; backup retained. Vercel authenticated; Cloudflare login requested from user, not yet authorized.

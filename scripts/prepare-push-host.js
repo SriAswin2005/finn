@@ -2,10 +2,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { createPushStore } from '../src/push/store.js';
-import { runtimeCacheDirectory } from '../src/storage/snapshots.js';
 
 if (!process.env.DATABASE_URL) throw new Error('Load the existing approved Neon environment before preparing Push.');
-const local = createPushStore({ env: {}, path: resolve(runtimeCacheDirectory, 'push.sqlite') });
+// A production env pull sets VERCEL; the migration source is still the owner's
+// durable local ledger, never Vercel's disposable runtime cache directory.
+const local = createPushStore({ env: {}, path: resolve(process.env.FINN_PUSH_MIGRATION_SOURCE ?? 'data/cache/push.sqlite') });
 const remote = createPushStore(); const state = await local.read();
 if (!state.quota.initialized) throw new Error('Reconcile/import local attempt history first; no fresh hosted allowance is inferred.');
 await remote.initialize();
