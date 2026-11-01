@@ -236,6 +236,20 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — Push acceptance checkpoint
 
+Delivery checkpoint final: syntax/all 93 pass. Actual 390×844 browser shows Latest default, delayed/pending content, no horizontal overflow and no console errors. During explicit Refresh, saved cards remain rendered while NSE check runs; model counter remains 5 current attempts plus 2 imported. Source catch-up is distinct from pending analysis. New completed-brief/evidence UI and offline error branches still need browser verification with accepted output.
+
+390×844 Latest/pending/delayed UI: no horizontal overflow. Status counter/overload wording fixes saved after inspection. Actual NSE collection first window: 35 new/0 changed, checkpoint October28 (not current catch-up). APL results draft refused (one true issuer-citation error plus false If/This named flags); narrow grammatical regression added while invented-company refusal retained. Acquisition complex attempt timed out; reservation counted/deferred. Full recheck pending.
+
+Worker/delivery full run passed syntax/all 91 tests before evaluator/prompt edits. Actual models API 200 confirms assigned IDs support generation. Two new free-tier attempts: Elecon/Bharti rejected and retained as rejected drafts only. Manual source review confirms omitted qualifications; no validation relaxation. Added abbreviation-context regression and prompt v2; final recheck pending.
+
+Captured evaluator uses explicit evaluation IDs, shared global quota and ignored outputs; captured rows are excluded from Latest. Rejected structured drafts retained only for operational source review, never accepted analysis. Tests/evaluation pending.
+
+Added behavior tests for awaited concurrent whole-tick leases, signed worker/auth boundary, zero-model repeated opens/Refresh, old pending/unknown visibility, capture-only exclusion, explicit delayed-complete expiry and overload. New push UI shell module cached; APIs remain network-only. Required full checks running.
+
+Latest-first mobile UI/cache retention and evidence display saved. HTTP/browser validation pending. Open/navigation/reload remain GET cache reads; only explicit source Refresh POST collects and never calls a model. Dispatcher remains unactivated.
+
+Visually reviewed captured APL physical pp.8–9: source unit Rs Mn, Revenue 70,017/56,067/52,063, EBITDA 5,778/4,113/4,470, Net Profit 3,824/2,631/3,015; consolidated note p.8. All extracted columns match. PBT absent from this table, not inferred. Worker/HTTP/cache delivery saved, tests pending; dispatcher not activated.
+
 Financial/parser final checks: syntax/all 87 pass. Actual Polycab 3.8 Flash request timed out at bounded 30s, reservation counted, job deferred/no analysis saved. This verifies one real failure path, not successful semantic interpretation. APL original-page visual review and further evaluation pending.
 
 Captured APL Apollo p.9 table now yields Revenue 70,017 / EBITDA 5,778 / Net Profit 3,824 INR million Q2FY27, scope p.8, with exact same-table QoQ/YoY. Original page visual review still required. Sun Pharma malformed rows unavailable. Full suite exposed blank-page layout KeyError; bounded fallback added, rerun pending.

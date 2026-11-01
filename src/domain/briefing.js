@@ -25,8 +25,8 @@ export function buildBriefing(dataset, { hours = 24, priceThreshold = 3, volumeT
   const symbols = new Set(dataset.portfolio.map(c => c.symbol));
   const announcements = dataset.announcements.filter(a => {
     const time = Date.parse(a.publishedAt);
-    return symbols.has(a.symbol) && time <= now && time >= now - hours * 3600000;
-  }).map(a => ({ ...a, priority: priorities[a.category] ?? 30, routine: routineCategories.has(a.category) }))
+    return symbols.has(a.symbol) && time <= now && (time >= now - hours * 3600000 || a.keepDelayed);
+  }).map(a => ({ ...a, priority: a.priority ?? priorities[a.category] ?? 30, routine: a.routine ?? routineCategories.has(a.category) }))
     .sort((a, b) => b.priority - a.priority || Date.parse(b.publishedAt) - Date.parse(a.publishedAt) || a.id.localeCompare(b.id));
   const portfolio = dataset.portfolio.map(company => ({ ...company, market: evaluateEod(company, dataset.asOf, dataset.mode) }));
   const signals = portfolio.flatMap(company => {
@@ -38,7 +38,7 @@ export function buildBriefing(dataset, { hours = 24, priceThreshold = 3, volumeT
     return reasons.length ? [{ symbol: company.symbol, name: company.name, priceChange, volumeRatio, reasons, session: company.eod.session, source: company.eod.source }] : [];
   });
   return {
-    mode: dataset.mode, asOf: dataset.asOf, snapshotAt: dataset.snapshotAt ?? dataset.asOf, sources: dataset.sources ?? null, stale: dataset.stale ?? false, hours,
+    mode: dataset.mode, asOf: dataset.asOf, snapshotAt: dataset.snapshotAt ?? dataset.asOf, sources: dataset.sources ?? null, stale: dataset.stale ?? false, push: dataset.push ?? null, hours,
     thresholds: { price: priceThreshold, volume: volumeThreshold },
     portfolio,
     announcements, signals,

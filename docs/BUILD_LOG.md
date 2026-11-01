@@ -184,6 +184,18 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — define the Push completion contract
 
+Delivery checkpoint verified: 93 tests, mobile Latest/pending/Refresh with no overflow/console errors. Source refresh continues overlapping catch-up and does not generate. Prepared signed worker/Cloudflare config without activation. Real evaluated drafts are still refused/deferred; quality and intended-host unattended acceptance remain open.
+
+Mobile check found capture-only counts/delay wording issues and corrected them. Actual NSE first catch-up window collected 35 filings. APL draft exposed a grammatical If/This false-name flag alongside an actual issuer-citation error; added narrow pronoun positive/negative regression without accepting draft. Another complex attempt timed out and remains durable. Required checks pending.
+
+Actual metadata confirms model access. Captured Elecon/Bharti attempts produced unsupported/underqualified drafts and were rejected; no auto retry/publication. Tightened prompt and preserves whole filing sentences across Mr/Rs abbreviations (Research bank unchanged). Worker/delivery checks passed 91 tests before these follow-ups; final recheck pending.
+
+Added operating HTTP/domain tests and service-worker shell inclusion for new UI module. Repeated opens/Refresh explicitly assert zero model generation; signed worker is separately authenticated and fully awaited. Unread delayed events remain visible, capture-only tests stay out of Latest. Full verification pending.
+
+Implemented Latest-first saved Push cards with disclosed facts, conditional interpretation, computed metrics, physical-page evidence, uncertainty/priority and source/analysis times. Refresh reads saved results first and then checks NSE, never generating analysis. Same-mode failures preserve visible cards. Browser/HTTP checks next.
+
+Added cached Push decoration, delayed-event retention, transparent ranking, zero-model Refresh and signed awaited bounded worker route. Prepared Cloudflare scheduled dispatcher without activation/credentials. Source-reviewed APL pp.8–9 metrics match original visual columns; PBT remains unavailable. HTTP/browser checks next.
+
 Financial/parser checkpoint: syntax/all 87 pass. First captured Polycab attempt hit bounded timeout and remains durably deferred/counting against allowance. No successful unseen briefing claimed. Next: operating worker/cache delivery and source review.
 
 Captured generic APL extraction succeeds (three metrics, correct comparative columns); parser regression found blank /Contents layout KeyError and now retains original text/standard unreadable refusal. Shared local allowance initialized by importing old Research attempts. First captured Polycab model evaluation started; result pending.

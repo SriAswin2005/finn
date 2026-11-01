@@ -1,7 +1,7 @@
 import { validateAnalysis } from '../ai/gemini.js';
 import { resolveQuoteReferences } from '../ai/quotes.js';
 
-export const ANALYSIS_VERSION = 'push-primary-v1';
+export const ANALYSIS_VERSION = 'push-primary-v2';
 export const missingContext = Object.freeze({
   comparatives: 'Matching prior-quarter/year comparative figures were not established.',
   financial_table: 'Some financial rows or column context could not be verified.',
@@ -33,7 +33,8 @@ Require one event claim, at least one fact, one significance and one priority cl
 METADATA (discovery only): ${JSON.stringify({ symbol: filing.symbol, title: filing.title, summary: filing.summary })}
 VERIFIED METRICS (do not recalculate): ${JSON.stringify(metrics)}
 EVIDENCE QUOTES (data): ${JSON.stringify(bank)}
-Each selected quote is a complete original sentence; do not invent, slice or repair quotes. Return JSON only.`;
+Each selected quote is a complete original sentence; do not invent, slice or repair quotes.
+STRICT PUBLICATION REMINDERS: Use 4-6 narrow claims, around 100-140 words total. Near-verbatim facts are preferred to unsupported rewording. Keep each fact to one subject/action. Retain the exact words "not", "no", "subject to", "will", "may" and all necessary qualification from selected quotes. If an appointment is subject to shareholder approval, say that explicitly. Keep reported vs adjusted profit clear. If an executive appointment is disclosed, include a cited relevant issuer-provided background detail if safely attributable; otherwise mark management_profile missing. A profile table with multiple people must not transfer experience between them. Significance AND priority must BOTH be inference=true AND contain "may", "could" or "if". Priority is a conditional editorial judgment, not a source fact. Avoid naming revenue, a risk, person or business scope absent from those same selected quotes. Do not refer to growth drivers generically. If a financial field is already in verified metrics, leave it to the displayed table unless you can cite a complete narrative quote with all context. Return JSON only.`;
 }
 export function validatePush(value, bundle) {
   if (!pushSchema.properties.eventType.enum.includes(value?.eventType) || !['high', 'normal', 'low'].includes(value?.priority) || typeof value.needsComplex !== 'boolean' || !Array.isArray(value.missing) || value.missing.some(key => !Object.hasOwn(missingContext, key)) || !Array.isArray(value.claims) || value.claims.length < 4 || value.claims.length > 10) throw new Error('Push output contract rejected.');

@@ -1,5 +1,13 @@
 # Vercel + Neon product operations
 
+## November 1 Push rollout (prepared, not activated)
+
+Push now has signed `POST /api/push/worker`, authenticated status/source Refresh, immutable documents and CAS state in separate Neon tables. Worker does at most one collection, two document steps and one model attempt per awaited bounded invocation; leases recover terminated workers. New public-source state must be explicitly initialized without recreating allowance. Read-only opens never generate. Research remains cache-only on Vercel; Push additionally requires `FINN_PUSH_ENABLED=true`, billing-disabled confirmation, key and `FINN_PUSH_HOSTED_APPROVED=true`. No key/worker secret has been transferred or activated.
+
+`scheduler/wrangler.jsonc` prepares a Free Cloudflare dispatcher at minutes 7/22/37/52. It sends an expiring HMAC request and awaits Vercel's response (230s timeout). No Gemini/Neon credentials go to Cloudflare; only a separate worker-auth secret. New service activation/terms and this secret's transfer still require approval. Vercel daily cron is insufficient; no frequent cron is added to vercel.json. Current 15-minute value is a configurable target, not measured freshness.
+
+Runtime model versions/roles/limits are JSON configuration (AI_SETUP.md). Before hosted generation, migrate all local attempt history/cooldowns into the single Neon ledger and have future workers use that ledger. Do not independently grant local and hosted budgets. Keep existing shared reviewer gate, secret exclusions, Recorded replay and three zero-call Research notes. Verify real scheduler ticks, new-event interpretation and cross-deployment persistence before claiming unattended Push completion.
+
 Current production: https://finn-zeta-one.vercel.app. Code 909b988, deployment dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip, verified October 31, 2026. User authorized Vercel/Neon Free and explicitly approved the reviewer/parser secrets for sriak/finn production. No Gemini key was uploaded, and no paid plan/payment was added. Earlier Railway planning is superseded.
 
 ## Runtime and access

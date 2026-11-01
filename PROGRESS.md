@@ -2,6 +2,20 @@
 
 ## November 1 — active Push mission
 
+Delivery checkpoint verified: syntax/all 93 tests pass; 390×844 Latest default, no overflow/console errors, explicit delayed/pending cards, Refresh retains saved cards while checking NSE. Real first collection 35 filings; Refresh advances catch-up. Generation attempts remain 5 (plus 2 imported prior attempts): two timeouts, three refused drafts. No unseen completed briefing yet. Dispatcher/hosted-secret rollout is prepared but inactive; next slice is output-quality/recovery and durable host preparation.
+
+Browser 390×844 verifies Latest default and visible delayed/pending status with no horizontal overflow. Found/refined two telemetry issues: captured evaluations inflated normal status counts; age delay was worded as overload even below capacity. Status now excludes captures and distinguishes delay from incoming overload. Captured APL draft exposed false named-entity rejection of grammatical “If”/“This”; added only those pronouns to existing context stop set with positive and invented-company negative regression. The draft also has an unsupported issuer citation and remains rejected.
+
+Model access verified by actual metadata API (200, generateContent for assigned IDs). Elecon/Bharti captured drafts rejected for omitted conditions/changed forward wording; not published or automatically retried. Tightened prompt (v2) and joined filing-only Mr/Rs sentence abbreviations so source subject/action/currency stay together, with positive regression; Research defaults unchanged. UI/worker checkpoint full recheck pending.
+
+Added explicit captured evaluator using the same shared allowance, capture-only event labels and durable rejected-draft audit (never delivered as completed analysis). Optional event selection is an operator/evaluation control, not a browser generation route. Verification/evaluation running.
+
+Latest-first UI now renders saved event-specific facts, computed metric rows, uncertainty/evidence expanders, collection/publication times and pending/delayed/error states. Refresh first shows saved data then checks sources with zero model calls. Same-mode refresh failures retain visible saved cards. Existing display preferences preserved; old implicit Recorded default migrates to Latest. Browser/HTTP checks pending.
+
+Added worker/HTTP/delayed-priority/overload behavior tests and cached new UI module in the offline shell; API responses remain network-only. Required check running. Existing UI help text/deployment instructions still need reconciliation before commit.
+
+Delivery/worker slice in progress: signed awaited worker route, durable worker lease, zero-LLM source Refresh/status, saved Push decoration, delayed pending events and evidence-based priority reasons. Cloudflare 15-minute dispatcher config prepared only (not activated). Complexity routing now uses unresolved tables/legal pages/transaction conditions rather than category alone. HTTP/domain/browser verification pending.
+
 Financial/parser checkpoint: syntax/all 87 tests pass. Captured APL p.9 yields three generic metric rows and comparisons; malformed Sun rows remain unavailable. Blank-page parser refusal fixed. Local quota imported safely. One Polycab complex-model attempt timed out, counted and deferred without publication. Source visual review/remaining pipeline integration next.
 
 Financial-evidence slice in progress: shared parser preserves original and aligned text (existing Research normalized text unchanged). Generic quarterly table gate requires explicit scope/currency/scale, unambiguous header and exact column count. Deterministic QoQ/YoY preserve absent/negative/zero bases and withhold regrouped/restated comparisons. Never repairs OCR digits. Tests/captured table review pending.

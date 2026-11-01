@@ -39,10 +39,10 @@ export async function processDocument({ store, now = Date.now, collectDocument =
     return { failed: true, error: error.message };
   }
 }
-export async function claimAnalysis(store, at = Date.now()) {
+export async function claimAnalysis(store, at = Date.now(), { eventId } = {}) {
   const token = randomUUID();
   return store.mutate(state => {
-    const job = Object.values(state.jobs).filter(j => ['pending', 'deferred', 'processing'].includes(j.status) && j.nextAt <= at && !(j.lease?.until > at) && state.events[j.eventId]?.processingKey === j.key)
+    const job = Object.values(state.jobs).filter(j => (!eventId || j.eventId === eventId) && ['pending', 'deferred', 'processing'].includes(j.status) && j.nextAt <= at && !(j.lease?.until > at) && state.events[j.eventId]?.processingKey === j.key)
       .sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt))[0];
     if (!job) return null;
     job.lease = { token, until: at + 90000 }; job.status = 'processing';

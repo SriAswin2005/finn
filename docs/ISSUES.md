@@ -2,6 +2,16 @@
 
 ## P-001 — Automatic Push workflow (active, November 1)
 
+Delivery/worker checkpoint: 93 tests and mobile Latest/pending/Refresh verified. Initial collection caught 35 filings; mobile source Refresh starts next catch-up window, zero model calls. No successful real unseen briefing yet. Shared quota counts 5 current evaluation attempts plus 2 imported attempts. Need quality/recovery, supporting-document handling, Neon/deployment checks and hosted activation approval; full mission remains open.
+
+Captured APL results draft rejected: company name not in attached quote (valid rejection); also false proper-name flags on grammatical “If”/“This” (narrow fix/regression added). No automatic retry/publication. Acquisition attempt also timed out (second complex timeout). Real collection succeeded for first overlapping window: 35 new filings, checkpoint October 28; catch-up still needed. Mobile status counters corrected to exclude captured evaluations and distinguish age delay from capacity overload.
+
+Real unseen evaluation: Polycab timeout; Elecon and Bharti drafts refused for omitted appointment qualifications/forward wording. No successful real Push briefing yet. API confirms project model access. Prompt v2 reinforces exact qualifications/conditional editorial priority. Push quote bank now joins Mr/Rs abbreviations (Research unchanged); regression pending. Failed jobs are not automatically regenerated.
+
+Mobile cached Push presentation implemented; pending browser/HTTP verification. No published claim of active hosted scheduler. Runtime startup still needs durable initialized Push state, and no Gemini credential has been transferred. Verify source failures differ from no-new/pending and saved cards survive refresh/offline failures.
+
+Worker/status/refresh/cache delivery routes and dispatcher configuration saved, not verified/deployed. Hosted worker secret and Gemini activation remain absent. Capture-only evaluation events are excluded from Latest. Priority uses accepted significance + recency + uncertainty, with unknowns visible. Need mobile UI, failures/HTTP checks and actual unattended environment acceptance.
+
 Financial/parser checks now pass (87 total). Real Polycab complex attempt timed out; durable reservation retained, deferred job preserved, no output published. Model quality remains unverified. PBT missing in accepted APL presentation table must remain explicit; no substitution from adjusted/operating profit.
 
 Financial/parser regression found blank pages lack /Contents in pypdf layout mode; caught without replacing original text, pending rerun. Captured generic APL table succeeds; malformed Sun table correctly unavailable. Local shared quota initialized with prior Research attempt import, no reset; real Polycab interpretation attempt in progress.

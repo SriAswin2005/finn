@@ -46,3 +46,10 @@ test('ordinary plurals and a shared range unit do not make supported claims unav
     ['The international segments reported revenue of 100 million.', 'The international segments reported revenue of 100 million.'],
   ]) assert.doesNotThrow(() => validateAnalysis({ claims: [{ section: 'guidance', text, inference: false, references: [{ evidenceId: 'e', quote }] }], unavailableSections: [] }, [{ id: 'e', text: quote }]));
 });
+test('grammatical If/This are not named entities in supported conditional financial claims', () => {
+  const source = [{ id: 'conditional', text: 'The company expects demand to improve over the coming quarters.' }];
+  for (const text of ['If demand improves, the company may benefit.', 'This demand may improve over the coming quarters.']) {
+    assert.doesNotThrow(() => validateAnalysis({ claims: [{ section: 'financial', text, inference: true, references: [{ evidenceId: 'conditional', quote: source[0].text }] }], unavailableSections: [] }, source));
+  }
+  assert.throws(() => validateAnalysis({ claims: [{ section: 'financial', text: 'If Apollo demand improves, the company may benefit.', inference: true, references: [{ evidenceId: 'conditional', quote: source[0].text }] }], unavailableSections: [] }, source), /named entity/);
+});

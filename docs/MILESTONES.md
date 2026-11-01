@@ -13,6 +13,9 @@
   Generic aligned quarterly metrics and deterministic comparisons implemented, verification pending.
   Financial/parser regression passes (87 tests); one captured APL table extracts generically. Broader layouts/real output quality and hosted automation still open.
 - [ ] Cached Latest, zero-call opens, pending/delayed recovery and mobile evidence.
+  Service/routes/delayed-window/ranking implemented; UI/HTTP/browser verification pending.
+  Latest-first cards/status/evidence/uncertainty UI implemented, verification pending.
+  Delivery/worker contracts pass (93 tests); mobile Latest/pending/Refresh no overflow/console errors. Real successful output and unattended host gates remain open.
 - [ ] Unseen outputs source-reviewed; failures/concurrency/restarts verified.
 - [ ] Unattended new-event collection and analysis verified on intended host.
 

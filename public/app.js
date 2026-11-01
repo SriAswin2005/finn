@@ -1,7 +1,8 @@
 import { researchCompany } from './research.js';
+import { pushAnalysis, pushStatusText } from './push.js';
 const $ = id => document.getElementById(id);
 const alertCategories = ['results', 'M&A', 'management_change', 'litigation', 'fund_raise', 'capex', 'credit_rating', 'dividend', 'pledging', 'other'];
-const defaults = { hours: 24, price: 3, volume: 2, mode: 'recorded', delivery: 'inapp', categories: ['results', 'M&A', 'management_change', 'litigation', 'fund_raise', 'capex'] };
+const defaults = { version: 2, hours: 24, price: 3, volume: 2, mode: 'live', delivery: 'inapp', categories: ['results', 'M&A', 'management_change', 'litigation', 'fund_raise', 'capex'] };
 let preferences = { ...defaults };
 let requestId = 0;
 let pendingInstall;
@@ -10,7 +11,7 @@ let currentBriefing;
 try {
   const saved = JSON.parse(localStorage.getItem('finn.preferences.v1'));
   if ([24, 72, 168].includes(saved?.hours)) preferences.hours = saved.hours;
-  if (['live', 'recorded', 'demo'].includes(saved?.mode)) preferences.mode = saved.mode;
+  if (saved?.version === 2 && ['live', 'recorded', 'demo'].includes(saved?.mode)) preferences.mode = saved.mode;
   if (['inapp', 'paused'].includes(saved?.delivery)) preferences.delivery = saved.delivery;
   if (Array.isArray(saved?.categories)) preferences.categories = saved.categories.filter(category => alertCategories.includes(category));
   if (Number.isFinite(saved?.price) && saved.price >= 0.1 && saved.price <= 50) preferences.price = saved.price;
@@ -57,7 +58,7 @@ function openDetail(item) {
   $('detail-why').textContent = item.why;
   $('detail-evidence').textContent = item.source.evidence;
   $('detail-source').replaceChildren(sourceLink(item.source, 'Open original NSE filing ↗'));
-  $('detail-analysis').replaceChildren(...(item.details ? [filingDetail(item.details)] : []));
+  $('detail-analysis').replaceChildren(...(item.analysisStatus ? [pushAnalysis(item)] : item.details ? [filingDetail(item.details)] : []));
   $('detail').showModal();
 }
 function filingDetail(data) {
@@ -112,13 +113,16 @@ function card(item) {
   const button = element('button', 'detail-button', currentMode === 'demo' ? 'View scenario & evidence status →' : 'View disclosure & original filing →');
   button.setAttribute('aria-label', `View ${item.symbol}: ${item.title}`);
   button.addEventListener('click', () => openDetail(item));
-  article.append(meta, element('h3', '', item.title), element('p', '', item.summary.length > 280 ? item.summary.slice(0, 280) + '…' : item.summary), why, button);
+  article.append(meta, element('h3', '', item.title), element('p', '', !item.analysis && item.summary.length > 280 ? item.summary.slice(0, 280) + '…' : item.summary), why, button);
+  if (item.analysisStatus) article.insertBefore(pushAnalysis(item), button);
   if (item.details) article.insertBefore(filingDetail(item.details), why);
   return article;
 }
 function render(data) {
   currentBriefing = data;
   setModeHeader(data.mode, data.asOf);
+  $('push-status').hidden = data.mode !== 'live';
+  if (data.mode === 'live') $('push-status').textContent = data.push ? pushStatusText(data.push) : 'Automatic Push status has not been loaded.';
   $('material-count').textContent = data.counts.material;
   $('signal-count').textContent = data.counts.signals;
   $('portfolio-count').textContent = data.portfolio.length;
@@ -222,10 +226,12 @@ async function loadBriefing() {
   $('status').className = 'status';
   $('status').textContent = 'Loading your briefing…';
   setModeHeader(preferences.mode);
-  $('briefing').hidden = true;
-  currentBriefing = null;
-  $('portfolio-grid').replaceChildren(); $('portfolio-mode').textContent = 'Loading selected data source…';
-  $('alert-matches').replaceChildren(); $('alerts-mode').textContent = 'Loading selected data source…';
+  const keepSaved = currentBriefing?.mode === preferences.mode;
+  if (!keepSaved) {
+    $('briefing').hidden = true; currentBriefing = null;
+    $('portfolio-grid').replaceChildren(); $('portfolio-mode').textContent = 'Loading selected data source…';
+    $('alert-matches').replaceChildren(); $('alerts-mode').textContent = 'Loading selected data source…';
+  }
   $('refresh').disabled = true;
   try {
     const query = new URLSearchParams({ hours: preferences.hours, price: preferences.price, volume: preferences.volume, mode: preferences.mode });
@@ -251,7 +257,18 @@ async function loadBriefing() {
 }
 $('window').addEventListener('change', () => { preferences.hours = Number($('window').value); persist(); loadBriefing(); });
 $('data-mode').addEventListener('change', () => { preferences.mode = $('data-mode').value; persist(); loadBriefing(); });
-$('refresh').addEventListener('click', loadBriefing);
+$('refresh').addEventListener('click', async () => {
+  await loadBriefing();
+  if (preferences.mode !== 'live') return;
+  $('refresh').disabled = true; $('push-status').hidden = false;
+  $('push-status').textContent = 'Checking NSE freshness; saved briefings remain available…';
+  try {
+    const response = await fetch('/api/push/refresh', { method: 'POST', signal: AbortSignal.timeout(20000) });
+    const result = await response.json(); if (!response.ok) throw new Error(result.error);
+    await loadBriefing(); $('push-status').textContent = pushStatusText(result.status);
+  } catch (error) { $('push-status').textContent = `${error.message || 'Source freshness check failed.'} Saved briefings remain visible; collection has not been confirmed.`; }
+  finally { $('refresh').disabled = false; }
+});
 $('show-refusal').addEventListener('click', async () => {
   $('show-refusal').disabled = true; $('refusal-status').textContent = 'Checking a synthetic claim against the live validator…';
   try {

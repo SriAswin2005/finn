@@ -1,0 +1,8 @@
+{
+  "name": "finn-push-dispatcher",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": false,
+  "vars": { "FINN_ORIGIN": "https://finn-zeta-one.vercel.app" },
+  "triggers": { "crons": ["7,22,37,52 * * * *"] }
+}

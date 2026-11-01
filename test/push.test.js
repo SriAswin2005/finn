@@ -83,6 +83,12 @@ test('workflow assignments support configured model upgrades and exclude all Pus
   assert.deepEqual(researchAssignments({ FINN_MODEL_POLICY_JSON: JSON.stringify(future) }).text, ['gemini-4.0-flash-lite']);
 });
 
+test('Push keeps subject and action together across Mr/Rs abbreviations without slicing away qualifiers', () => {
+  const text = 'The board approved the appointment of Mr. Aayush Shah as Executive Director, subject to shareholder approval. Revenue was Rs. 100 million for the quarter.';
+  const bundle = filingEvidence([{ ...managerDoc, pages: [{ page: 1, text }] }]);
+  assert.equal(bundle.quotes.length, 2); assert.equal(bundle.quotes[0].quote, text.split(' Revenue')[0]); assert.match(bundle.quotes[1].quote, /Revenue was Rs\. 100 million/);
+});
+
 const doc = { id: 'abc', sha256: 'a'.repeat(64), url: filing.source.url, pages: [{ page: 1, text: 'The company appointed a chief financial officer effective immediately.' }] };
 const policy = { totalDaily: 20, allocations: { push: 10, research: 10 }, retryDaily: 2, models: { 'gemini-3.1-flash-lite': { workflow: 'push', rpm: 2, tpm: 10000, rpd: 10 }, 'gemini-3.8-flash': { workflow: 'push', rpm: 1, tpm: 10000, rpd: 2 } } };
 test('generic attachment hashes share one analysis job and correction invalidates only changed content', async () => {

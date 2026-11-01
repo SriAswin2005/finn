@@ -22,7 +22,7 @@ export function filingEvidence(documents) {
     evidence.push({ id: `${doc.id}-p${page.page}`, documentId: doc.id, page: page.page, url: doc.url, text: page.text });
   }
   // Preserve full pages in storage; selected complete sentence quotes are bounded.
-  const all = buildQuoteBank(evidence, { maxLength: 1000 });
+  const all = buildQuoteBank(evidence, { maxLength: 1000, joinAbbreviations: true });
   const score = q => /appoint|resign|effective|acquir|consideration|contract|order|tribunal|penalt|appeal|revenue|profit|ebit|quarter|consolidat|crore|million|billion|experience|served|subject to|not |meeting|record date/i.test(q.quote) ? 2 : 0;
   const quotes = all.map((q, i) => ({ ...q, index: i })).sort((a, b) => score(b) - score(a) || a.index - b.index).slice(0, 120).sort((a, b) => a.index - b.index).map(({ index, ...q }) => q);
   const warnings = [];

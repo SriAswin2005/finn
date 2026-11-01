@@ -1,7 +1,7 @@
 const normalize = text => text.replace(/\s+/g, ' ').trim();
 const future = /\b(?:guidance|expects?|expected|forecasts?|targets?|plans?|aims?|intends?|estimates?|will|would|could|may|might)\b/i;
 const metrics = ['revenue', 'ebitda', 'pbt', 'pat', 'profit', 'volume', 'margin', 'cash flow', 'headcount'];
-const genericNames = new Set(['Revenue', 'Reported', 'The', 'Company', 'Management', 'Profit', 'Annual', 'Quarterly', 'Earlier', 'Later', 'Operating', 'Consolidated', 'Our']);
+const genericNames = new Set(['Revenue', 'Reported', 'The', 'Company', 'Management', 'Profit', 'Annual', 'Quarterly', 'Earlier', 'Later', 'Operating', 'Consolidated', 'Our', 'This', 'If']);
 
 function facts(text) {
   return [...text.matchAll(/\d[\d,]*(?:\.\d+)?/g)].map(match => {
