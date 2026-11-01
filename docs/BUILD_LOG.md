@@ -184,6 +184,14 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — define the Push completion contract
 
+Financial/parser checkpoint: syntax/all 87 pass. First captured Polycab attempt hit bounded timeout and remains durably deferred/counting against allowance. No successful unseen briefing claimed. Next: operating worker/cache delivery and source review.
+
+Captured generic APL extraction succeeds (three metrics, correct comparative columns); parser regression found blank /Contents layout KeyError and now retains original text/standard unreadable refusal. Shared local allowance initialized by importing old Research attempts. First captured Polycab model evaluation started; result pending.
+
+Added explicit local Push initialization/import and bounded ticks/status. Added generic financial behavior cases, including the APL Apollo wrapped Rs/Mn table header. No model call or hosted activation; required checks pending.
+
+Added generic conservative aligned quarterly tables and deterministic matching-quarter arithmetic. Shared parser retains original/physical page/layout text; prior research records are untouched. Ambiguous numeric cells/units/scope and restatement context block unsafe comparisons. Verification pending.
+
 Interpreter checkpoint verified: syntax/all 85 pass after compatibility/cleanup/positive-control fixes. Research old cache/refusal/fallback contracts pass under explicit test assignments; production uses disjoint roles. No real model call/hosted activation in this checkpoint.
 
 Integration caught Windows SQLite handle cleanup and direct quotaId compatibility, plus a test setup TDZ. Fixed by closing bounded local database operations and preserving both supported Google quota shapes. Full rerun pending; no validation loosening or publication.

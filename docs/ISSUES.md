@@ -2,6 +2,12 @@
 
 ## P-001 — Automatic Push workflow (active, November 1)
 
+Financial/parser checks now pass (87 total). Real Polycab complex attempt timed out; durable reservation retained, deferred job preserved, no output published. Model quality remains unverified. PBT missing in accepted APL presentation table must remain explicit; no substitution from adjusted/operating profit.
+
+Financial/parser regression found blank pages lack /Contents in pypdf layout mode; caught without replacing original text, pending rerun. Captured generic APL table succeeds; malformed Sun table correctly unavailable. Local shared quota initialized with prior Research attempt import, no reset; real Polycab interpretation attempt in progress.
+
+Generic financial table acceptance added conservatively; original/layout text preserved. Complex malformed/spaced cells fail explicitly. Metrics/tests/manual review pending; no claim of universal table coverage. Need supporting-document/profile retrieval and UI/worker integration.
+
 Interpreter/shared Research integration now passes syntax/all 85 tests. Prior integration failures are fixed. Real semantic evaluation, generic financial rows, cached UI and hosted scheduling remain open; synthetic contract success is not model-quality proof.
 
 Integration failures found/fixed pending rerun: direct quotaId error shape was treated project-wide; persistent SQLite connections blocked Windows temp cleanup; test fixture declared before dependency. Connections now close per operation; CAS still provides atomic reservations. Original 15 citation attacks remain rejected.

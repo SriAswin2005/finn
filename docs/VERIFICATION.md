@@ -236,6 +236,14 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — Push acceptance checkpoint
 
+Financial/parser final checks: syntax/all 87 pass. Actual Polycab 3.8 Flash request timed out at bounded 30s, reservation counted, job deferred/no analysis saved. This verifies one real failure path, not successful semantic interpretation. APL original-page visual review and further evaluation pending.
+
+Captured APL Apollo p.9 table now yields Revenue 70,017 / EBITDA 5,778 / Net Profit 3,824 INR million Q2FY27, scope p.8, with exact same-table QoQ/YoY. Original page visual review still required. Sun Pharma malformed rows unavailable. Full suite exposed blank-page layout KeyError; bounded fallback added, rerun pending.
+
+Added metrics behavior cases for wrapped unit headers, explicit consolidated scope locator, matching-quarter deterministic calculations, EBIT vs EBITDA/reported vs adjusted profit, corrupt/ambiguous cells, missing units/scope, restatements and nonpositive bases. Local CLI requires prior quota import before calls. Full checks pending.
+
+Parser v2 preserves normalized text plus original/layout text and layout limits; existing stored Research evidence stays unchanged. Generic table gate and calculations saved; tests and captured-source review pending. Sun Pharma source illustrates why corrupted cells are not repaired.
+
 Final interpreter/shared-reservation result: syntax/all 85 pass. Original 15 adversarial refusals preserved. Synthetic generic management, concurrency, restart, configuration-only model upgrades and complete legal sentence positive controls pass. Real Push outputs/financial values/hosted automation remain unverified.
 
 New Push name guard positive control revealed leading “The” was included in a role name. Narrow determiner normalization added; changed-person negative control retained. Existing Research/adversarial guards unchanged.

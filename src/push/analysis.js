@@ -2,6 +2,7 @@ import { claimAnalysis, settleJob } from './jobs.js';
 import { filingEvidence } from './evidence.js';
 import { pushSchema, pushPrompt, validatePush, ANALYSIS_VERSION } from './interpretation.js';
 import { reserveAttempt, finishAttempt, classifyFailure, Deferred } from './quota.js';
+import { extractFinancialMetrics } from './metrics.js';
 
 export async function processAnalysis({ store, env = process.env, now = Date.now, fetchImpl = fetch, random = Math.random } = {}) {
   if (env.FINN_PUSH_ENABLED !== 'true' || !env.GEMINI_API_KEY || env.FINN_AI_FREE_TIER_CONFIRMED !== 'true') return { disabled: true };
@@ -11,12 +12,16 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
   try {
     const doc = await store.document(job.documentHash); if (!doc) throw new Error('Original document pages missing; analysis cannot be published.');
     const bundle = filingEvidence([doc]);
+    const financials = extractFinancialMetrics(doc);
+    bundle.warnings.push(...financials.limitations);
+    if (doc.pages.some(p => p.text.length < 40)) bundle.warnings.push('Some physical pages have no usable text; unreadable content is not interpreted.');
+    if (doc.pages.some(p => p.layoutLimited)) bundle.warnings.push('Some page layouts could not be extracted safely; financial cells remain unavailable there.');
     if (!bundle.quotes.length) throw new Error('No usable complete original quotes; analysis unavailable.');
     const state = await store.read(); const policy = state.quota.policy;
     const complex = job.complex === true || /results|financial|insolvency|litigation|acqui|merger/i.test(`${job.filing.title} ${job.filing.summary}`);
     const candidates = Object.entries(policy?.models ?? {}).filter(([, c]) => c.workflow === 'push' && c.capability === (complex ? 'complex' : 'ordinary')).map(([m]) => m);
     if (!candidates.length) throw new Deferred('No approved suitable Push model is configured; work remains pending.', now() + 3600000, 'configuration');
-    const prompt = pushPrompt(job.filing, bundle.quotes, []);
+    const prompt = pushPrompt(job.filing, bundle.quotes, financials.rows);
     const estimatedTokens = Math.ceil(Buffer.byteLength(prompt, 'utf8') / 3) + 4000;
     let model; let lastError;
     for (const candidate of candidates) {
@@ -52,7 +57,12 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
       await settleJob(store, job, { status: 'deferred', complex: true, nextAt: now() + 60000, error: 'Ordinary model requested stronger interpretation; draft not published.' }); return { escalated: true };
     }
     if (analysis.needsComplex && complex) throw new Error('Complex model remains uncertain; output withheld for review.');
-    const result = { ...analysis, model, analysisVersion: ANALYSIS_VERSION, documentHash: doc.sha256, generatedAt: new Date(now()).toISOString(), metrics: [] };
+    if (analysis.eventType === 'results') {
+      if (!financials.rows.some(r => /revenue/i.test(r.label))) analysis.missing.push('financial_table');
+      if (!financials.rows.some(r => /^EBITDA$/i.test(r.label))) analysis.missing.push('reported_ebitda');
+      if (!financials.rows.some(r => r.previousQuarter !== null && r.previousYear !== null)) analysis.missing.push('comparatives');
+    }
+    const result = { ...analysis, missing: [...new Set(analysis.missing)], model, analysisVersion: ANALYSIS_VERSION, documentHash: doc.sha256, generatedAt: new Date(now()).toISOString(), metrics: financials.rows };
     await settleJob(store, job, { status: analysis.missing.length || bundle.warnings.length ? 'partial' : 'complete', analysis: result, nextAt: 0, error: null });
     return { completed: true, key: job.key, model };
   } catch (error) {

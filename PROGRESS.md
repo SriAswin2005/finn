@@ -2,6 +2,14 @@
 
 ## November 1 — active Push mission
 
+Financial/parser checkpoint: syntax/all 87 tests pass. Captured APL p.9 yields three generic metric rows and comparisons; malformed Sun rows remain unavailable. Blank-page parser refusal fixed. Local quota imported safely. One Polycab complex-model attempt timed out, counted and deferred without publication. Source visual review/remaining pipeline integration next.
+
+Financial-evidence slice in progress: shared parser preserves original and aligned text (existing Research normalized text unchanged). Generic quarterly table gate requires explicit scope/currency/scale, unambiguous header and exact column count. Deterministic QoQ/YoY preserve absent/negative/zero bases and withhold regrouped/restated comparisons. Never repairs OCR digits. Tests/captured table review pending.
+
+Added wrapped-unit-header regression matching the unseen APL Apollo presentation format, comparison/ambiguity tests, and local push init/collect/tick/status CLI. Initialization imports previous Research attempts and cannot reset initialized quota. Verification pending; no hosted credential transfer.
+
+Captured APL Apollo p.9 generic extraction succeeds: Revenue/EBITDA/Net Profit with quarter/year comparatives, INR million and consolidated scope p.8. Sun Pharma malformed table remains unavailable. Parser blank-page regression caught missing /Contents in layout mode; fallback preserves original text and existing unreadable refusal. First local Polycab interpretation attempt running under imported shared caps.
+
 Interpreter checkpoint verified: syntax/all 85 tests pass, including all 15 original adversarial refusals, Research fallback/cache/quota/truncation contracts and new Push management/concurrency/restart/model-upgrade controls. No real Push model call yet; financial extraction and hosted unattended acceptance remain incomplete.
 
 Interpretation slice saved in progress: independent structured Push prompt/output, server quote selection, existing citation-context guards, conditional significance/priority, explicit missing context, rejection/escalation and bounded reserved model attempts. Longer complete filing sentences are accepted only by Push (Research defaults unchanged). Need evidence-backed regression for that admission, generic financial rows, shared Research integration and full tests/source review.

@@ -10,6 +10,8 @@
   Structured Push interpreter added; whole-sentence/claim validation and real output review pending.
   Research uses shared reservations; configurable disjoint assignments implemented, regression pending.
   Interpreter/shared Research regression passed (85 tests); captured output/financial/hosted acceptance still open.
+  Generic aligned quarterly metrics and deterministic comparisons implemented, verification pending.
+  Financial/parser regression passes (87 tests); one captured APL table extracts generically. Broader layouts/real output quality and hosted automation still open.
 - [ ] Cached Latest, zero-call opens, pending/delayed recovery and mobile evidence.
 - [ ] Unseen outputs source-reviewed; failures/concurrency/restarts verified.
 - [ ] Unattended new-event collection and analysis verified on intended host.

@@ -31,7 +31,7 @@ export async function parseDocument(bytes, source) {
   if (bytes.toString('utf8', 0, 5) !== '%PDF-') throw new ResearchUnavailable('The source did not return a PDF.');
   const sha256 = createHash('sha256').update(bytes).digest('hex');
   const path = resolve(cacheDirectory, `${sha256}.pdf`);
-  const parsedPath = resolve(cacheDirectory, `${sha256}-pypdf-6.10.0-v1.json`);
+  const parsedPath = resolve(cacheDirectory, `${sha256}-pypdf-6.10.0-v2.json`);
   let parsed = await readJson(parsedPath);
   if (!parsed) {
     await mkdir(cacheDirectory, { recursive: true }); await writeFile(path, bytes);
