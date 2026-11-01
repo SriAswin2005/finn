@@ -2,6 +2,20 @@
 
 ## November 1 — active Push mission
 
+Interpreter checkpoint verified: syntax/all 85 tests pass, including all 15 original adversarial refusals, Research fallback/cache/quota/truncation contracts and new Push management/concurrency/restart/model-upgrade controls. No real Push model call yet; financial extraction and hosted unattended acceptance remain incomplete.
+
+Interpretation slice saved in progress: independent structured Push prompt/output, server quote selection, existing citation-context guards, conditional significance/priority, explicit missing context, rejection/escalation and bounded reserved model attempts. Longer complete filing sentences are accepted only by Push (Research defaults unchanged). Need evidence-backed regression for that admission, generic financial rows, shared Research integration and full tests/source review.
+
+Research now reserves through the same atomic ledger as Push while retaining its local fail-closed ledger/cache/citation rules. Configurable model-policy JSON assigns each model to exactly one workflow/capability. Production Research is deliberately 3.5 Lite only: former 3.1/Flash fallbacks are assigned to Push; Gemma remains unevaluated and excluded from default policy. Tests explicitly configure disjoint Research-only fallback fixtures. Full verification pending.
+
+Added generic management publication/restart/concurrency tests, named-person/action/advice refusals, whole legal sentence regression and configuration-only future-model test. Required checks running; real unseen model output review follows.
+
+Integration run exposed direct-quotaId compatibility and Windows SQLite cleanup failures, plus a test declaration-order mistake. Fixed quota shape handling, close each SQLite connection after its bounded operation, and corrected the test setup. Full rerun pending; no output published.
+
+Rerun passed 83/85; shared Research regressions all pass. Two new synthetic Push cases used an interpretation without source-identifying terms (appointment vs appointed). Narrowed the test claims to the disclosed role; guards unchanged. Final recheck pending.
+
+New Push-only name guard also treated the grammatical leading “The” as part of “Chief Financial Officer”; strip that determiner only. Changed-person/action/advice regressions retained. Focused and full rerun pending.
+
 Next saved slice in progress: generic official-attachment extraction, immutable hash-keyed jobs, document retries/rechecks and atomic per-workflow/model token/request reservations with Pacific reset and failure classification. Tests/source review pending. Existing Research is not yet connected to shared reservations; hosted activation remains blocked.
 
 Queue/quota behavior tests added, including real SQLite restart/concurrency and Pacific DST reset. Full check pending before this checkpoint. Same-URL content changes now retain previous processing identity for correction disclosure.

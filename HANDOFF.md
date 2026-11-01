@@ -22,6 +22,7 @@ User's latest steering: **continue product work; defer conversations and all sub
 | Slice | Files |
 | --- | --- |
 | Automatic Push (November 1 active work) | docs/PUSH_WORKFLOW.md; src/push/store.js (SQLite/Neon CAS + documents), collection.js (overlap/checkpoint/lease); test/push.test.js. Not deployed/complete. |
+| Push interpretation/quota | src/push/evidence.js, jobs.js, interpretation.js, analysis.js, quota.js; src/ai/workflows.js and src/config/model-policy.json configure versions/roles/limits. Research shares atomic reservations. 85 tests pass; real evaluation/metrics/hosted automation pending. |
 | UI/navigation/offline | public/app.js, research.js, index.html, styles.css, sw.js; browser preferences local, shell cache excludes APIs. Editorial theme, no blur. |
 | HTTP/access | src/server.js exports shared handler; src/access.js signs/computes token comparisons; api/finn.js and vercel.json route every asset/API through it. |
 | Briefing/domain | src/domain/briefing.js, announcements.js, results.js. Pure rules and comparison arithmetic. |

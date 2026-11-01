@@ -33,12 +33,18 @@ export function createPushStore({ env = process.env, path = resolve(runtimeCache
       await mkdir(dirname(path), { recursive: true });
       const { DatabaseSync } = await import('node:sqlite');
       const db = new DatabaseSync(path); db.exec('PRAGMA busy_timeout=5000; PRAGMA journal_mode=WAL; CREATE TABLE IF NOT EXISTS state (id INTEGER PRIMARY KEY CHECK(id=1), revision INTEGER NOT NULL, record TEXT NOT NULL); CREATE TABLE IF NOT EXISTS documents (hash TEXT PRIMARY KEY, record TEXT NOT NULL)');
+      db.close();
+      const statement = (sql, args, kind = 'get') => {
+        const connection = new DatabaseSync(path);
+        try { connection.exec('PRAGMA busy_timeout=5000'); return connection.prepare(sql)[kind](...args); }
+        finally { connection.close(); }
+      };
       return {
-        read: async () => { const row = db.prepare('SELECT revision,record FROM state WHERE id=1').get(); return row && { revision: row.revision, record: JSON.parse(row.record) }; },
-        initialize: async () => db.prepare('INSERT OR IGNORE INTO state VALUES (1,0,?)').run(JSON.stringify(initialPushState())),
-        cas: async (revision, record) => db.prepare('UPDATE state SET revision=revision+1,record=? WHERE id=1 AND revision=?').run(JSON.stringify(record), revision).changes > 0,
-        document: async hash => { const row = db.prepare('SELECT record FROM documents WHERE hash=?').get(hash); return row ? JSON.parse(row.record) : null; },
-        saveDocument: async doc => db.prepare('INSERT OR IGNORE INTO documents VALUES (?,?)').run(doc.sha256, JSON.stringify(doc)),
+        read: async () => { const row = statement('SELECT revision,record FROM state WHERE id=1', []); return row && { revision: row.revision, record: JSON.parse(row.record) }; },
+        initialize: async () => statement('INSERT OR IGNORE INTO state VALUES (1,0,?)', [JSON.stringify(initialPushState())], 'run'),
+        cas: async (revision, record) => statement('UPDATE state SET revision=revision+1,record=? WHERE id=1 AND revision=?', [JSON.stringify(record), revision], 'run').changes > 0,
+        document: async hash => { const row = statement('SELECT record FROM documents WHERE hash=?', [hash]); return row ? JSON.parse(row.record) : null; },
+        saveDocument: async doc => statement('INSERT OR IGNORE INTO documents VALUES (?,?)', [doc.sha256, JSON.stringify(doc)], 'run'),
       };
     })().catch(error => { ready = null; throw error; });
     return ready;

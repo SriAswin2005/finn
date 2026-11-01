@@ -27,7 +27,7 @@ export async function reserveAttempt(store, { workflow, model, jobKey, leaseToke
     if (jobKey && (!state.jobs[jobKey] || state.jobs[jobKey].lease?.token !== leaseToken || state.jobs[jobKey].lease.until <= now)) throw new Error('Job lease is no longer owned; no model call allowed.');
     const today = q.attempts.filter(a => pacificDay(a.at) === pacificDay(now));
     const modelDay = today.filter(a => a.model === model);
-    if (today.length >= policy.totalDaily || today.filter(a => a.workflow === workflow).length >= policy.allocations[workflow] || modelDay.length >= cap.rpd || retry && today.filter(a => a.retry).length >= policy.retryDaily) throw new Deferred('Daily local/model allowance exhausted; pending work is retained.', nextPacificReset(now), 'daily');
+    if (today.length >= policy.totalDaily || today.filter(a => a.workflow === workflow).length >= policy.allocations[workflow] || modelDay.length >= Math.min(cap.rpd, cap.appRpd ?? cap.rpd) || retry && today.filter(a => a.retry).length >= policy.retryDaily) throw new Deferred('Daily local/model allowance exhausted; pending work is retained.', nextPacificReset(now), 'daily');
     const minute = q.attempts.filter(a => a.at > now - 60000 && a.model === model);
     if (minute.length >= cap.rpm || minute.reduce((sum, a) => sum + Math.max(a.estimatedTokens, a.observedTokens ?? 0), estimatedTokens) > cap.tpm) throw new Deferred('Minute request/token allowance unavailable.', now + 60000, 'minute');
     const own = q.attempts.filter(a => jobKey && a.jobKey === jobKey);
@@ -43,7 +43,7 @@ export function classifyFailure({ status, body, retryAfter, now = Date.now(), at
   const delay = Math.max(headerDelay, ...details.map(d => /^\d+(?:\.\d+)?s$/.test(d.retryDelay ?? '') ? parseFloat(d.retryDelay) * 1000 : 0), 0);
   if ([400, 401, 403, 404].includes(status)) return { kind: 'configuration', until: now + 86400000, terminal: true };
   if (status === 429) {
-    const violations = details.flatMap(d => Array.isArray(d.violations) ? d.violations : []);
+    const violations = details.flatMap(d => Array.isArray(d.violations) ? d.violations : typeof d.quotaId === 'string' ? [d] : []);
     const ids = violations.map(v => v.quotaId ?? '');
     const perModel = ids.length && ids.every(id => /permodel/i.test(id));
     const daily = ids.some(id => /perday/i.test(id));

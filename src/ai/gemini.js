@@ -6,6 +6,9 @@ import { modelInventory, researchModelOrder } from './models.js';
 import { buildQuoteBank, resolveQuoteReferences } from './quotes.js';
 import { createQuotaStore } from './quota.js';
 import { citationContextFailure } from './context.js';
+import { createPushStore } from '../push/store.js';
+import { reserveAttempt, finishAttempt, classifyFailure } from '../push/quota.js';
+import { researchAssignments, workflowPolicy } from './workflows.js';
 export { SUPPORTED_GEMINI_MODELS } from './models.js';
 
 export const PROMPT_VERSION = 'cited-primary-research-v6';
@@ -29,7 +32,7 @@ function metricTerms(text) {
   return [...new Set((text.match(/[a-zA-Z]{5,}/g) ?? []).map(w => w.toLowerCase()).filter(w => !STOP_WORDS.has(w)))];
 }
 
-export function validateAnalysis(value, evidence) {
+export function validateAnalysis(value, evidence, { maxQuoteLength = 220 } = {}) {
   if (!value || !Array.isArray(value.claims) || !Array.isArray(value.unavailableSections) || value.claims.length > 8 || value.unavailableSections.some(section => !sections.includes(section))) throw new AiUnavailable('AI output did not match the research contract.');
   const byId = new Map(evidence.map(item => [item.id, item]));
   for (const claim of value.claims) {
@@ -37,7 +40,7 @@ export function validateAnalysis(value, evidence) {
     if (!claim.text.trim()) throw new AiUnavailable('AI output contained an empty claim.');
     if (['bull', 'bear'].includes(claim.section) && !claim.inference) throw new AiUnavailable('Bull and bear cases must be labelled as interpretations.');
     for (const ref of claim.references) {
-      if (typeof ref.quote !== 'string' || ref.quote.length < 20 || ref.quote.length > 220 || !byId.has(ref.evidenceId) || !normalized(byId.get(ref.evidenceId).text).includes(normalized(ref.quote))) throw new AiUnavailable('AI citation validation failed. No generated analysis has been published.');
+      if (typeof ref.quote !== 'string' || ref.quote.length < 20 || ref.quote.length > maxQuoteLength || !byId.has(ref.evidenceId) || !normalized(byId.get(ref.evidenceId).text).includes(normalized(ref.quote))) throw new AiUnavailable('AI citation validation failed. No generated analysis has been published.');
     }
     const quoteNumbers = new Set((claim.references.map(ref => ref.quote).join(' ').match(/\d[\d,.]*/g) ?? []).map(number => number.replaceAll(',', '').replace(/\.$/, '')));
     const numbers = (claim.text.match(/\d[\d,.]*/g) ?? []).map(number => number.replaceAll(',', '').replace(/\.$/, ''));
@@ -89,13 +92,13 @@ function isModelQuota(body) {
   const violations = details.flatMap(detail => Array.isArray(detail?.violations) ? detail.violations : detail?.quotaId ? [detail] : []);
   return violations.length > 0 && violations.every(violation => typeof violation.quotaId === 'string' && /permodel/i.test(violation.quotaId));
 }
-export function createGeminiProvider({ env = process.env, fetchImpl = fetch, directory = resolve(runtimeCacheDirectory, 'ai'), recordedDirectory = resolve(dataDirectory, 'research/notes'), now = Date.now } = {}) {
+export function createGeminiProvider({ env = process.env, fetchImpl = fetch, directory = resolve(runtimeCacheDirectory, 'ai'), recordedDirectory = resolve(dataDirectory, 'research/notes'), now = Date.now, sharedStore = createPushStore({ env }) } = {}) {
   let active = null;
   const cacheOnly = env.FINN_AI_CACHE_ONLY === 'true' || Boolean(env.VERCEL) || (Boolean(env.RAILWAY_ENVIRONMENT) && env.FINN_AI_LIVE_ENABLED !== 'true');
   const enabled = !cacheOnly && Boolean(env.GEMINI_API_KEY && env.FINN_AI_FREE_TIER_CONFIRMED === 'true');
   const quota = createQuotaStore({ path: resolve(directory, 'quota.json') });
   function cachePathFor(research) {
-    const models = researchModelOrder(modelInventory(env.FINN_GEMINI_MODELS), research.question);
+    const models = researchModelOrder(researchAssignments(env), research.question);
     const key = createHash('sha256').update(JSON.stringify({ evidenceHash: research.evidenceHash, models, prompt: PROMPT_VERSION })).digest('hex');
     return { key, models, cachePath: resolve(directory, `${key}.json`) };
   }
@@ -149,6 +152,9 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
         const model = selectEligibleModel(models.filter(model => !attempted.has(model)), ledger, now(), limits);
         if (!model) break;
         attempted.add(model);
+        let sharedAttempt;
+        try { sharedAttempt = await reserveAttempt(sharedStore, { workflow: 'research', model, estimatedTokens: 30000, retry: attempt > 0, now: now() }); }
+        catch (error) { throw new AiUnavailable(`Shared AI quota resting: ${error.message}`); }
         ledger.entries.push({ model, at: now() });
         await saveLedger(); // Reserve before the request; storage failure closes generation.
         let response, body;
@@ -158,8 +164,8 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
           : { responseMimeType: 'application/json', responseJsonSchema: schema, maxOutputTokens: 3200, temperature: 0.2 };
         // Thinking and visible output share the token limit. Avoid exhausting it
         // before the short evidence summary is emitted; levels vary by model.
-        if (model === 'gemini-3.8-flash') generationConfig.thinkingConfig = { thinkingLevel: 'low' };
-        if (['gemini-3.6-flash', 'gemini-3.5-flash-lite'].includes(model)) generationConfig.thinkingConfig = { thinkingLevel: 'minimal' };
+        const thinkingLevel = workflowPolicy(env).models[model]?.thinkingLevel;
+        if (!gemma && thinkingLevel) generationConfig.thinkingConfig = { thinkingLevel };
         try {
           response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
             method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY }, signal: AbortSignal.timeout(Math.min(20000, remaining)),
@@ -167,11 +173,13 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
           });
           body = await response.json().catch(error => { if (error.name === 'AbortError' || error.name === 'TimeoutError') throw error; return null; });
         } catch {
+          await finishAttempt(sharedStore, sharedAttempt, { outcome: 'network_timeout_unknown', failure: classifyFailure({ now: now(), attempt: attempt + 1 }), now: now() });
           ledger.cooldowns[model] = now() + 60000;
           await saveLedger();
           continue;
         }
         if (!response.ok) {
+          await finishAttempt(sharedStore, sharedAttempt, { outcome: `http_${response.status}`, failure: classifyFailure({ status: response.status, body, retryAfter: response.headers.get('retry-after'), now: now(), attempt: attempt + 1 }), now: now() });
           const invalidKey = body?.error?.details?.some?.(detail => detail.reason === 'API_KEY_INVALID')
             || /API key not valid/i.test(body?.error?.message ?? '');
           if (invalidKey) throw new AiUnavailable('Google rejected the Gemini API key as invalid. Run npm run configure:ai with a valid key from your billing-disabled Google AI Studio project, then restart FINN.');
@@ -184,6 +192,7 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
           if (modelQuota || response.status === 404 || response.status >= 500) continue;
           throw new AiUnavailable('Gemini quota is unavailable. Project-level or unclear limits are not bypassed with model rotation. Please try later.');
         }
+        await finishAttempt(sharedStore, sharedAttempt, { outcome: 'response_received_validation_pending', observedTokens: body?.usageMetadata?.totalTokenCount, now: now() });
         if (body?.candidates?.[0]?.finishReason && body.candidates[0].finishReason !== 'STOP') throw new AiUnavailable('The model did not finish the research note. No partial analysis was published or automatically retried.');
         let value;
         try { value = JSON.parse(body?.candidates?.[0]?.content?.parts?.filter(part => typeof part.text === 'string' && !part.thought).map(part => part.text).join('') ?? ''); }
@@ -192,6 +201,7 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
         try { resolved = resolveQuoteReferences(value, quotes); }
         catch { throw new AiUnavailable('AI selected an invalid source quote. No generated analysis has been published.'); }
         const validated = validateAnalysis(resolved, evidence);
+        await finishAttempt(sharedStore, sharedAttempt, { outcome: 'validated', observedTokens: body?.usageMetadata?.totalTokenCount, now: now() });
         const result = { ...validated, guidanceDeliveryStatus: 'not_verified', model, provider: 'Gemini', promptVersion: PROMPT_VERSION, evidenceHash: research.evidenceHash, generatedAt: new Date(now()).toISOString(), cached: false };
         try { await writeJsonAtomic(cachePath, result); } catch { /* a validated result can be returned without durable caching */ }
         return result;

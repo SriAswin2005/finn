@@ -236,6 +236,20 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — Push acceptance checkpoint
 
+Final interpreter/shared-reservation result: syntax/all 85 pass. Original 15 adversarial refusals preserved. Synthetic generic management, concurrency, restart, configuration-only model upgrades and complete legal sentence positive controls pass. Real Push outputs/financial values/hosted automation remain unverified.
+
+New Push name guard positive control revealed leading “The” was included in a role name. Narrow determiner normalization added; changed-person negative control retained. Existing Research/adversarial guards unchanged.
+
+Second integration run: 83/85 pass; Research fallback/quota/truncation tests pass. Two synthetic Push failures came from source-context guard rejecting generic wording; test interpretation now names the disclosed role. Guards unchanged; final rerun pending.
+
+First interpreter integration run failed (75 tests, seven failures): test TDZ, quotaId compatibility and SQLite EBUSY cleanup. Fixes saved, rerun pending. Existing 15 adversarial citation refusals passed in that run; do not describe full suite as passing yet.
+
+Added simulated unseen management publication (four supported claims), single-call concurrent/restart reuse, person/action/advice refusals, complete long legal sentence and configurable future-model tests. These are synthetic contracts, not captured model quality evidence. Full checks running.
+
+Shared Research reservations/configurable assignment change saved; existing fallback tests now explicitly supply Research-only test policy. Default production fallback separation is deliberate/documented. Full regression, whole-sentence Push examples and unseen output review pending.
+
+Interpreter saved; checks pending. Push-specific full-sentence length admission motivated by captured Polycab appeal sentence; default Research quotation limits remain unchanged. No rejected/malformed draft is published. Generic financial values not yet implemented; no completion claim.
+
 Document/queue/quota implementation saved, tests pending. Downloaded an unseen Sun Pharma original results attachment into ignored evaluation cache; 34 physical pages/hash preserved. Further downloads in progress; no live/unattended or model quality claim.
 
 Added behavior coverage for generic hash reuse, concurrent jobs, content-only invalidation, unreadable refusal, expired leases/stale worker refusal, atomic request/token/retry reservations, distinct quota failures and DST reset. Required full checks running.

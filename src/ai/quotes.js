@@ -1,13 +1,13 @@
 // Quote text is selected before generation; a model may reference IDs but cannot
 // write, lengthen or repair its own supporting quotations.
-export function buildQuoteBank(evidence) {
+export function buildQuoteBank(evidence, { maxLength = 220 } = {}) {
   const bank = [];
   const segmenter = new Intl.Segmenter('en', { granularity: 'sentence' });
   for (const item of evidence) {
     for (const { segment } of segmenter.segment(item.text)) {
       const quote = segment.trim();
       // Never cut a long sentence into standalone fragments that can lose its hedge/negation.
-      if (quote.length >= 20 && quote.length <= 220) bank.push({ id: `q${bank.length + 1}`, evidenceId: item.id, quote });
+      if (quote.length >= 20 && quote.length <= maxLength) bank.push({ id: `q${bank.length + 1}`, evidenceId: item.id, quote });
     }
   }
   return bank;

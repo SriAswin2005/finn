@@ -1,5 +1,11 @@
 # Gemini: free-quota-only setup
 
+## November 1 superseding model/allowance configuration
+
+Runtime assignments are in `src/config/model-policy.json`, overridable server-side with `FINN_MODEL_POLICY_JSON`. IDs/roles/thinking levels/provider-reported RPM/TPM/RPD and separate application allocations are data; upgrading a model requires configuration and evaluation, never code edits or archive regeneration. Defaults: Research 3.5 Lite only; ordinary Push 3.1 Lite; complex Push 3.8 Flash. Optional 3.6 can be configured after evaluation. One model cannot belong to both workflows. Research's former 3.1/Flash fallbacks now belong to Push; Gemma default fallback is deliberately disabled pending quality/capacity evaluation. Existing baked notes survive unchanged. Legacy inventory is retained and intersects the Research assignments.
+
+User reported AI Studio November 1: Lite 15 RPM/250k input TPM/500 RPD; Flash 5 RPM/250k input TPM/20 RPD. These are project-reported limits, not invented public allowances. The existing approved local total remains 20 attempts/day, split 10 Research/10 Push (ordinary 6, complex 4), with 4 retries/day; uncertain attempts count. Shared SQLite/Neon ledger must be explicitly initialized/import old local attempts before new calls. Both workflows atomically reserve from it. Missing/corrupt state fails closed. Hosted Research remains disabled; Push hosted activation/credential transfer needs approval.
+
 FINN currently needs ONE Gemini API key only. ChatGPT and Sarvam are not used by this implementation. Create/manage the key through Google's official guide: https://ai.google.dev/gemini-api/docs/api-key
 
 Recommended local setup:

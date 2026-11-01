@@ -2,6 +2,14 @@
 
 ## P-001 — Automatic Push workflow (active, November 1)
 
+Interpreter/shared Research integration now passes syntax/all 85 tests. Prior integration failures are fixed. Real semantic evaluation, generic financial rows, cached UI and hosted scheduling remain open; synthetic contract success is not model-quality proof.
+
+Integration failures found/fixed pending rerun: direct quotaId error shape was treated project-wide; persistent SQLite connections blocked Windows temp cleanup; test fixture declared before dependency. Connections now close per operation; CAS still provides atomic reservations. Original 15 citation attacks remain rejected.
+
+Research shared-reservation and disjoint configurable-model integration saved, full regression pending. Deliberate fallback change is documented in AI_SETUP: 3.1/Flash are Push-only; unevaluated Gemma is not a production default. Reviewed/baked Research unaffected. No hosted credential transfer.
+
+Push interpreter wired to queue/reservations; not verified yet. Long legal sentences need whole-sentence Push quotes up to 1000 characters (no fragments); Research remains 220. Concrete support: Polycab appeal/operative-order sentence exceeds 220. Regression and semantic source review pending. Metrics/table context and deployed workflow incomplete.
+
 Generic document/job and shared quota modules added; integration/tests pending. Three-attempt job limit, local allocations within approved total, per-minute tokens, daily retry budget, cooldown/circuit/configuration stops are implemented but not yet verified. Active project quotas requested from user; public catalogue cannot establish them.
 
 November 1: syntax/all 82 pass including four new queue/quota behavior tests. User reports AI Studio Lite limits 15/250k/500 and Flash 5/250k/20 (RPM/TPM/RPD). Shared Research integration remains pending. User requires model upgrades via configuration; policy roles accept explicitly configured model versions, with no auto-upgrade or shared fallback.

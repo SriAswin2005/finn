@@ -7,6 +7,9 @@
   Collection/store behavior verified (78 total tests); real/hosted collection and attachment correction stage pending.
 - [ ] Generic source-backed Push interpretation with independent models and quota.
   Document/job/quota modules in progress; Research reservation integration and evaluation pending.
+  Structured Push interpreter added; whole-sentence/claim validation and real output review pending.
+  Research uses shared reservations; configurable disjoint assignments implemented, regression pending.
+  Interpreter/shared Research regression passed (85 tests); captured output/financial/hosted acceptance still open.
 - [ ] Cached Latest, zero-call opens, pending/delayed recovery and mobile evidence.
 - [ ] Unseen outputs source-reviewed; failures/concurrency/restarts verified.
 - [ ] Unattended new-event collection and analysis verified on intended host.

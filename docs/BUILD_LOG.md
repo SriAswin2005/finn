@@ -184,6 +184,14 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — define the Push completion contract
 
+Interpreter checkpoint verified: syntax/all 85 pass after compatibility/cleanup/positive-control fixes. Research old cache/refusal/fallback contracts pass under explicit test assignments; production uses disjoint roles. No real model call/hosted activation in this checkpoint.
+
+Integration caught Windows SQLite handle cleanup and direct quotaId compatibility, plus a test setup TDZ. Fixed by closing bounded local database operations and preserving both supported Google quota shapes. Full rerun pending; no validation loosening or publication.
+
+Connected Research to shared atomic capacity before every attempt and moved production assignments/thinking/limits to JSON configuration. Former Push-candidate Research fallbacks are deliberately removed from production; cached notes and existing validation remain. Contract tests retain explicit isolated Research-only fallback configurations. No automatic model upgrade or archive regeneration.
+
+Implemented independent Push structured interpretation over shared server quote/context infrastructure, conditional priority/significance, uncertainty codes, bounded attempts and explicit complex escalation. Version IDs come from quota policy configuration. Added optional max quote length, default unchanged, for complete long filing sentences. Tests/evaluation next.
+
 Added generic official-document ingestion and content-key jobs; same hash reuses analysis across metadata/prompt changes. Added shared atomic request/token reservations and error classification without SDK retries. Missing policy/state fails closed. Next: behavior tests, Research integration and real output review.
 
 Queue/quota tests pass (82 total). User supplied project RPM/TPM/RPD and requested configurable model upgrades. Removed fixed-version quota eligibility; explicit configured model roles remain disjoint. Recorded limits are provider-reported; local allocations remain within existing approval. No hosted activation.

@@ -1,0 +1,11 @@
+{
+  "totalDaily": 20,
+  "allocations": { "research": 10, "push": 10 },
+  "retryDaily": 4,
+  "limitsSource": "User-reported AI Studio limits, November 1, 2026; application allocations are separate",
+  "models": {
+    "gemini-3.5-flash-lite": { "workflow": "research", "capability": "research", "rpm": 15, "tpm": 250000, "rpd": 500, "appRpd": 10, "thinkingLevel": "minimal" },
+    "gemini-3.1-flash-lite": { "workflow": "push", "capability": "ordinary", "rpm": 15, "tpm": 250000, "rpd": 500, "appRpd": 6 },
+    "gemini-3.8-flash": { "workflow": "push", "capability": "complex", "rpm": 5, "tpm": 250000, "rpd": 20, "appRpd": 4, "thinkingLevel": "low" }
+  }
+}

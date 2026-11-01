@@ -7,14 +7,24 @@ import { normalizeTicker, discoverDocuments, directDocumentUrl } from '../src/re
 import { isPublicAddress, publicUrl, downloadPublic } from '../src/research/download.js';
 import { buildEvidence } from '../src/research/evidence.js';
 import { getResearch, parseDocument, ResearchUnavailable } from '../src/research/service.js';
-import { createGeminiProvider, validateAnalysis, selectEligibleModel, retryDeadline, AiUnavailable } from '../src/ai/gemini.js';
+import { createGeminiProvider as realGeminiProvider, validateAnalysis, selectEligibleModel, retryDeadline, AiUnavailable } from '../src/ai/gemini.js';
+import { createPushStore } from '../src/push/store.js';
 import { mergeGeminiEnvironment } from '../src/config/ai-env.js';
 import { modelInventory, researchModelOrder } from '../src/ai/models.js';
 import { buildQuoteBank, resolveQuoteReferences } from '../src/ai/quotes.js';
 
+// Contract fixtures intentionally assign these candidates to Research only.
+// Production uses its independently configured, disjoint workflow policy.
+const testPolicy = { totalDaily: 20, allocations: { research: 10, push: 10 }, retryDaily: 4, models: Object.fromEntries(['gemini-3.8-flash', 'gemini-3.6-flash', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-2.5-flash-lite', 'gemma-4-26b-a4b-it', 'gemma-4-31b-it'].map(id => [id, { workflow: 'research', rpm: 15, tpm: 250000, rpd: 20, thinkingLevel: id === 'gemini-3.8-flash' ? 'low' : 'minimal' }])) };
+function createGeminiProvider(options) {
+  return realGeminiProvider({ ...options, env: { ...options.env, FINN_MODEL_POLICY_JSON: JSON.stringify(testPolicy) }, sharedStore: createPushStore({ env: {}, path: join(options.directory, 'push.sqlite') }) });
+}
+
 async function fundedTestDirectory(prefix) {
   const directory = await mkdtemp(join(tmpdir(), prefix));
   await writeFile(join(directory, 'quota.json'), JSON.stringify({ entries: [], cooldowns: {} }));
+  const store = createPushStore({ env: {}, path: join(directory, 'push.sqlite') }); await store.initialize();
+  await store.mutate(s => { s.quota.initialized = true; s.quota.policy = testPolicy; });
   return directory;
 }
 

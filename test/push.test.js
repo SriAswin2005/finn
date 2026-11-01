@@ -8,6 +8,10 @@ import { collectPush, collectionWindow, mergeFilings } from '../src/push/collect
 import { normalizeNse } from '../src/providers/nse.js';
 import { processDocument, claimAnalysis, settleJob } from '../src/push/jobs.js';
 import { reserveAttempt, finishAttempt, classifyFailure, nextPacificReset } from '../src/push/quota.js';
+import { filingEvidence } from '../src/push/evidence.js';
+import { validatePush } from '../src/push/interpretation.js';
+import { processAnalysis } from '../src/push/analysis.js';
+import { researchAssignments } from '../src/ai/workflows.js';
 
 export async function temporaryStore() {
   const directory = await mkdtemp(join(tmpdir(), 'finn-push-'));
@@ -44,6 +48,39 @@ test('exchange sequence ID is stable across URL and timestamp corrections', () =
   const row = { symbol: 'TCS', seq_id: '123', an_dt: '01-Nov-2026 15:00:00', desc: 'Appointment', attchmntText: 'CFO', attchmntFile: filing.source.url };
   const normalize = r => normalizeNse([r], ['TCS'], new Date(at).toISOString(), 'feed').announcements[0];
   assert.equal(normalize(row).id, normalize({ ...row, an_dt: '01-Nov-2026 15:01:00', attchmntFile: filing.source.url + '?v=2' }).id);
+});
+
+const managerDoc = { id: 'abc', sha256: 'a'.repeat(64), url: filing.source.url, pages: [{ page: 1, text: 'The company appointed Maya Rao as Chief Financial Officer effective 1 November 2026. Maya Rao previously served as finance director with 12 years of experience.' }] };
+const managerWire = () => ({ eventType: 'management_change', priority: 'normal', needsComplex: false, missing: ['reason'], claims: [
+  { role: 'event', text: 'The company appointed Maya Rao as Chief Financial Officer effective 1 November 2026.', inference: false, references: [{ quoteId: 'q1' }] },
+  { role: 'fact', text: 'Maya Rao previously served as finance director with 12 years of experience.', inference: false, references: [{ quoteId: 'q2' }] },
+  { role: 'significance', text: 'The Chief Financial Officer may affect financial leadership.', inference: true, references: [{ quoteId: 'q1' }] },
+  { role: 'priority', text: 'The Chief Financial Officer may deserve attention during the transition.', inference: true, references: [{ quoteId: 'q1' }] },
+] });
+test('Push validates supported management claims, rejects advice/action/person substitutions and preserves complete long legal sentences', () => {
+  const bundle = filingEvidence([managerDoc]); const result = validatePush(managerWire(), bundle); assert.equal(result.claims[0].references[0].page, 1);
+  for (const bad of ['The company appointed Elena Rao as Chief Financial Officer effective 1 November 2026.', 'The company resigned Maya Rao as Chief Financial Officer effective 1 November 2026.', 'Buy the company after this appointment.']) {
+    const value = managerWire(); value.claims[0].text = bad; assert.throws(() => validatePush(value, bundle));
+  }
+  const legalText = 'In continuation of the earlier intimations dated October 07, 2026, October 08, 2026, October 09, 2026, October 14, 2026, October 16, 2026 and October 28, 2026, the company informs that the Honorable NCLAT has allowed the appeal filed by the company and set aside the order of the National Company Law Tribunal dated October 07, 2026.';
+  const legal = filingEvidence([{ ...doc, pages: [{ page: 1, text: legalText }] }]);
+  assert.equal(legal.quotes.length, 1); assert.equal(legal.quotes[0].quote, legalText); assert.ok(legal.quotes[0].quote.length > 220);
+  assert.throws(() => validatePush({ ...managerWire(), claims: managerWire().claims.map(c => ({ ...c, references: [{ quoteId: 'invented' }] })) }, bundle), /Unknown/);
+});
+test('unseen generic management analysis persists once; repeated/concurrent jobs use zero new calls', async () => {
+  const { store, path } = await temporaryStore(); await store.mutate(s => { mergeFilings(s, [filing], 'now'); s.quota.initialized = true; s.quota.policy = { ...policy, models: { ...policy.models, 'gemini-3.1-flash-lite': { ...policy.models['gemini-3.1-flash-lite'], capability: 'ordinary' } } }; });
+  await processDocument({ store, now: () => at, collectDocument: async () => managerDoc });
+  let calls = 0; const env = { FINN_PUSH_ENABLED: 'true', GEMINI_API_KEY: 'fake', FINN_AI_FREE_TIER_CONFIRMED: 'true' };
+  const fetchImpl = async () => { calls++; return new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(managerWire()) }] } }], usageMetadata: { totalTokenCount: 1234 } })); };
+  const results = await Promise.all(Array.from({ length: 5 }, () => processAnalysis({ store, now: () => at, env, fetchImpl })));
+  assert.equal(calls, 1); assert.equal(results.filter(r => r.completed).length, 1);
+  const restarted = createPushStore({ env: {}, path }); await processAnalysis({ store: restarted, now: () => at + 1000, env, fetchImpl });
+  assert.equal(calls, 1); const state = await restarted.read(); const job = Object.values(state.jobs)[0]; assert.equal(job.status, 'partial'); assert.equal(job.analysis.claims.length, 4); assert.equal(state.quota.attempts[0].observedTokens, 1234);
+});
+test('workflow assignments support configured model upgrades and exclude all Push models from Research', () => {
+  assert.deepEqual(researchAssignments({}).text, ['gemini-3.5-flash-lite']);
+  const future = { ...policy, models: { 'gemini-4.0-flash-lite': { workflow: 'research', rpm: 1, tpm: 10000, rpd: 1 }, 'gemini-4.0-flash': { workflow: 'push', capability: 'complex', rpm: 1, tpm: 10000, rpd: 1 } } };
+  assert.deepEqual(researchAssignments({ FINN_MODEL_POLICY_JSON: JSON.stringify(future) }).text, ['gemini-4.0-flash-lite']);
 });
 
 const doc = { id: 'abc', sha256: 'a'.repeat(64), url: filing.source.url, pages: [{ page: 1, text: 'The company appointed a chief financial officer effective immediately.' }] };
