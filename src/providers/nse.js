@@ -20,9 +20,9 @@ export function filingUrl(value) {
     return url.protocol === 'https:' && ['nsearchives.nseindia.com', 'archives.nseindia.com'].includes(url.hostname) && !url.username && !url.password ? url.href : null;
   } catch { return null; }
 }
-export function nseUrl(now) {
+export function nseUrl(now, { from, to } = {}) {
   const format = date => marketDate(date).split('-').reverse().join('-');
-  const query = new URLSearchParams({ index: 'equities', from_date: format(new Date(now).getTime() - 7 * 86400000), to_date: format(now) });
+  const query = new URLSearchParams({ index: 'equities', from_date: format(from ?? new Date(now).getTime() - 7 * 86400000), to_date: format(to ?? now) });
   return `https://www.nseindia.com/api/corporate-announcements?${query}`;
 }
 export function normalizeNse(rows, symbols, fetchedAt, requestUrl) {
@@ -33,7 +33,8 @@ export function normalizeNse(rows, symbols, fetchedAt, requestUrl) {
     const publishedAt = parseNseTime(row.an_dt);
     if (!publishedAt || typeof row.desc !== 'string' || typeof row.attchmntText !== 'string') { rejected++; continue; }
     const url = filingUrl(row.attchmntFile);
-    const id = `nse-${createHash('sha256').update(`${row.symbol}|${row.seq_id ?? ''}|${publishedAt}|${url ?? row.attchmntText}`).digest('hex').slice(0, 24)}`;
+    const identity = row.seq_id ? `${row.symbol}|seq:${row.seq_id}` : `${row.symbol}|${publishedAt}|${url ?? row.attchmntText}`;
+    const id = `nse-${createHash('sha256').update(identity).digest('hex').slice(0, 24)}`;
     if (seen.has(id)) continue;
     seen.add(id);
     const category = classifyAnnouncement(row.desc, row.attchmntText);
@@ -46,7 +47,7 @@ export function normalizeNse(rows, symbols, fetchedAt, requestUrl) {
   }
   return { announcements, rejected, totalSourceRows: rows.length };
 }
-export async function fetchAnnouncements(symbols, fetchedAt, options) {
-  const requestUrl = nseUrl(fetchedAt); const raw = await fetchJson(requestUrl, options);
+export async function fetchAnnouncements(symbols, fetchedAt, options = {}) {
+  const requestUrl = nseUrl(fetchedAt, options); const raw = await fetchJson(requestUrl, options);
   return { raw, ...normalizeNse(raw, symbols, fetchedAt, requestUrl), requestUrl };
 }

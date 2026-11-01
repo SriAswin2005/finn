@@ -21,6 +21,7 @@ User's latest steering: **continue product work; defer conversations and all sub
 
 | Slice | Files |
 | --- | --- |
+| Automatic Push (November 1 active work) | docs/PUSH_WORKFLOW.md; src/push/store.js (SQLite/Neon CAS + documents), collection.js (overlap/checkpoint/lease); test/push.test.js. Not deployed/complete. |
 | UI/navigation/offline | public/app.js, research.js, index.html, styles.css, sw.js; browser preferences local, shell cache excludes APIs. Editorial theme, no blur. |
 | HTTP/access | src/server.js exports shared handler; src/access.js signs/computes token comparisons; api/finn.js and vercel.json route every asset/API through it. |
 | Briefing/domain | src/domain/briefing.js, announcements.js, results.js. Pure rules and comparison arithmetic. |

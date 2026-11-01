@@ -2,6 +2,8 @@
 
 ## P-001 — Automatic Push workflow (active, November 1)
 
+Collection/store behavior passes four new tests; full syntax/all 78 pass outside sandbox (loopback/temp-rename restrictions caused the first run to fail). Durable quota remains uninitialized by default and missing state fails closed. Real collection/full pipeline/hosted acceptance remains open.
+
 Latest is a saved snapshot; Refresh does not collect. Recorded enrichments are bounded examples. Need durable collection/correction recovery, generic evidence-backed interpretation, shared quota/queue, cached delivery and real unattended deployment verification. Acceptance and evaluation matrix: [PUSH_WORKFLOW.md](PUSH_WORKFLOW.md). Hosted Gemini transfer/frequent scheduler activation remain approval boundaries. Existing research caps are local policy, not verified provider quota.
 
 Reconciled October 31, 2026 (IST). Current findings override historical logs. The user deferred conversations/submission until the build is solid.

@@ -2,6 +2,8 @@
 
 ## November 1 — active Push mission
 
+Collection slice verified: syntax and all 78 tests pass, including four new SQLite persistence/concurrency/checkpoint/correction tests. Restricted-sandbox run could not use HTTP loopback/atomic temp renames; authorized unrestricted rerun passed. SQLite locally / Neon CAS state and immutable documents, stable sequence IDs, overlapping windows and collector lease implemented. Explicit initialization grants no model allowance. Next: generic document/jobs; hosted unattended work remains unverified.
+
 The user requests the complete automatic source-to-briefing workflow. Acceptance/evaluation and staged implementation are in [PUSH_WORKFLOW.md](docs/PUSH_WORKFLOW.md). Entry tree is clean at 3a49e50. Existing snapshot/Research capabilities are preserved. Implementation and hosted unattended verification are pending; no scheduler or Gemini transfer is authorized by this checkpoint.
 
 Reconciled October 31, 2026 (IST). Deadline November 1. Read [HANDOFF.md](HANDOFF.md) and [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.md).

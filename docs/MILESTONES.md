@@ -4,6 +4,7 @@
 
 - [x] Read original Push examples and define acceptance/evaluation in PUSH_WORKFLOW.md.
 - [ ] Durable overlapping collection, checkpoints, deduplication and corrections.
+  Collection/store behavior verified (78 total tests); real/hosted collection and attachment correction stage pending.
 - [ ] Generic source-backed Push interpretation with independent models and quota.
 - [ ] Cached Latest, zero-call opens, pending/delayed recovery and mobile evidence.
 - [ ] Unseen outputs source-reviewed; failures/concurrency/restarts verified.
