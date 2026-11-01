@@ -1,33 +1,19 @@
 # Milestones and acceptance gates
 
+Reconciled November 1,2026 (IST). These checks distinguish local engineering from full product acceptance; historical sections retain their original dated scope. Current findings: [ISSUES.md](ISSUES.md). Final source/runbook reconciliation: 45 relative links resolve; syntax/all 108 tests pass; dispatcher sources included in the build-copy list, archive generation deferred.
+
 ## November 1 — Push completion (active scope)
 
-Normal-worker capture exclusion saved during rollout review; syntax/all108 tests pass. Normal workers skip captures; explicit evaluation remains isolated.
-
-- [x] Read original Push examples and define acceptance/evaluation in PUSH_WORKFLOW.md.
-- [ ] Durable overlapping collection, checkpoints, deduplication and corrections.
-  Referenced attachments and exact-URL supersession added; tests/integration pending.
-  Local reference/corruption/recovery tests pass (95 total); real Neon migration was blocked by automatic approval review, no hosted claim.
-  Collection/store behavior verified (78 total tests); real/hosted collection and attachment correction stage pending.
-- [ ] Generic source-backed Push interpretation with independent models and quota.
-  Null/malformed-cell, separate cadence and stale-worker settlement checks pass (107 total); CLI shares bounded service orchestration. This does not close model-quality acceptance.
-  Document/job/quota modules in progress; Research reservation integration and evaluation pending.
-  Structured Push interpreter added; whole-sentence/claim validation and real output review pending.
-  Research uses shared reservations; configurable disjoint assignments implemented, regression pending.
-  Interpreter/shared Research regression passed (85 tests); captured output/financial/hosted acceptance still open.
-  Generic aligned quarterly metrics and deterministic comparisons implemented, verification pending.
-  Financial/parser regression passes (87 tests); one captured APL table extracts generically. Broader layouts/real output quality and hosted automation still open.
-- [ ] Cached Latest, zero-call opens, pending/delayed recovery and mobile evidence.
-  Cross-observation same-content job/card grouping and applicable uncertainty display added, verification pending.
-  Verified (104 tests): one analysis/reservation across duplicate IDs, old accepted key preserved, captures isolated. Captured mobile evidence/table components verified; hosted/quality gates still open.
-  Service/routes/delayed-window/ranking implemented; UI/HTTP/browser verification pending.
-  Latest-first cards/status/evidence/uncertainty UI implemented, verification pending.
-  Delivery/worker contracts pass (93 tests); mobile Latest/pending/Refresh no overflow/console errors. Real successful output and unattended host gates remain open.
-- [ ] Unseen outputs source-reviewed; failures/concurrency/restarts verified.
-  Fourteen calls/ten captured cases reviewed in PUSH_EVALUATION.md; two partial briefs, remaining quality gates open. 101 tests pass before final routing recheck.
-- [ ] Unattended new-event collection and analysis verified on intended host.
-
-Reconciled October 31, 2026 (IST). Deadline November 1. This is bounded feature evidence, not a universal financial/model correctness claim. Current limitations are in [ISSUES.md](ISSUES.md).
+- [x] Original Push examples read; acceptance/evaluation defined before implementation.
+- [x] Local durable overlapping NSE collection/checkpoints/leases,66 real filings caught through November 1; failure preserves checkpoint/prior evidence.
+- [x] Generic physical-page extraction/content identity, referenced official PDFs, explicit corrections/ambiguity, unchanged-content and duplicate-observation reuse; behavior tests pass.
+- [x] Independent Push structured prompt/cache/jobs/model assignments, shared atomic Research/Push quotas, configurable future versions and whole-output validation; old15 attacks preserved.
+- [x] Conservative aligned quarterly rows, deterministic matching-scope/unit/period comparisons, explicit missing/malformed/nonpositive/restated values; actual APL table reviewed. This is bounded layout evidence.
+- [x] Cached local Latest default, zero-call opens/source Refresh, pending/delayed/partial/error/priority/evidence display; captured evaluations isolated from normal workers and Latest.
+- [x] Syntax/all 108 tests: concurrency/restart reuse, content corrections, references, missing/corrupt quota, retry/cooldown/token accounting, truncation, stale leases and separate cadence. 390px browser checks verify relevant behavior; no physical-device offline/install claim.
+- [ ] Source-reviewed unseen results, incoming-manager biography, routine/complex summaries, important omissions, fair priority and reading effort.14 calls/10 captured cases yielded2 partial briefs; [evaluation](PUSH_EVALUATION.md) records failures/limits.
+- [ ] Approved Neon migration, one shared intended-host ledger, credential/dispatcher activation. Prepared; automatic approval review rejected migration before execution. No key transfer/activation.
+- [ ] Observed unattended new-event collection→analysis→saved card in production, cross-deployment/restart/concurrency recovery and measured free-tier capacity/freshness. Production remains October 31 code 909b988.
 
 ## M0–M2 — Environment and briefing spine
 
@@ -71,7 +57,7 @@ Reconciled October 31, 2026 (IST). Deadline November 1. This is bounded feature 
 
 ## Deferred by the user
 
-Conversations and all submission details wait until the user decides the build is solid: covering note, export/share links, reviewer repository grants, final tag and email remain unchecked. Do not work on them now. Voice, OS/background notifications, further PWA work and native/on-device packaging remain P1/P2. Broad automatic table/profile extraction and deeper financial history are outside these bounded examples.
+Conversations and all submission details wait until the user decides the build is solid: covering note, export/share links, reviewer repository grants, final tag and email remain unchecked. Do not work on them now. Voice, OS/background notifications, further PWA work and native/on-device packaging remain P1/P2. Push table/profile acceptance is now active P-001 work; broad layout quality remains open. Deeper Research history remains outside these bounded examples.
 
 ## October 31 — research result clarity
 

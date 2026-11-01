@@ -1,41 +1,65 @@
-# Vercel + Neon product operations
+# Vercel + Neon operations and Push rollout
 
-## November 1 Push rollout (prepared, not activated)
+Reconciled November 1,2026 (IST). **Prepared, not activated.** Current website remains https://finn-zeta-one.vercel.app, code 909b988 / dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip (October 31). November 1 source pushes are not deployments.
 
-`scripts/prepare-push-host.js` prepares the one-time migration and shared local binding, preserving every attempt/document/job. Automatic approval review rejected its first invocation before execution: explicit approval for migration to the existing Neon destination is still required. Do not retry via another command/workaround. No Gemini credential or dispatcher secret has been transferred. This gate is separate from local model quality, which still needs successful unseen output review.
+## Exact actions still needing approval
 
-Push now has signed `POST /api/push/worker`, authenticated status/source Refresh, immutable documents and CAS state in separate Neon tables. Worker does at most one collection, two document steps and one model attempt per awaited bounded invocation; leases recover terminated workers. New public-source state must be explicitly initialized without recreating allowance. Read-only opens never generate. Research remains cache-only on Vercel; Push additionally requires `FINN_PUSH_ENABLED=true`, billing-disabled confirmation, key and `FINN_PUSH_HOSTED_APPROVED=true`. No key/worker secret has been transferred or activated.
+| Action | Destination/data and effect | Status |
+| --- | --- | --- |
+| Push state migration + local shared-ledger binding | Existing FINN Neon database in ignored `.env.vercel.production`: public filing metadata, extracted pages, jobs/results and every quota attempt/cooldown into `finn_push_state`/`finn_push_documents`; add that same server-only DATABASE_URL to ignored local `.env`, preserving original Gemini key | Automatic approval review rejected before execution for missing explicit external-write/destination approval. No migration/binding occurred. Do not retry indirectly. |
+| Hosted Gemini transfer/enablement | Original local Gemini key to server-only production environment of Vercel project `sriak/finn`, to analyse public NSE evidence with billing disabled and unchanged shared caps | Not transferred. Requires explicit approval; keep generation disabled until source-review gates pass. Research stays cache-only. |
+| Frequent Free dispatcher | Cloudflare Workers Free `finn-push-dispatcher`, only approved FINN origin and a separate worker-auth secret; recurring signed HTTPS calls to Vercel | Not created/activated. New service activation/secret transfer requires approval; user handles any new binding terms. No Gemini/Neon credential goes to Cloudflare. No paid plan. |
 
-`scheduler/wrangler.jsonc` prepares a Free Cloudflare dispatcher at minutes 7/22/37/52. It sends an expiring HMAC request and awaits Vercel's response (230s timeout). No Gemini/Neon credentials go to Cloudflare; only a separate worker-auth secret. New service activation/terms and this secret's transfer still require approval. Vercel daily cron is insufficient; no frequent cron is added to vercel.json. Current 15-minute value is a configurable target, not measured freshness.
+The migration's rejected command was `node --env-file=.env.vercel.production scripts/prepare-push-host.js`. Its reviewed script refuses existing initialized hosted state, preserves every attempt/document/job and refuses a conflicting local DATABASE_URL. If migration partly succeeds later, inspect durable state rather than resetting/retrying initialization. No independent hosted allowance is permitted.
 
-Runtime model versions/roles/limits are JSON configuration (AI_SETUP.md). Before hosted generation, migrate all local attempt history/cooldowns into the single Neon ledger and have future workers use that ledger. Do not independently grant local and hosted budgets. Keep existing shared reviewer gate, secret exclusions, Recorded replay and three zero-call Research notes. Verify real scheduler ticks, new-event interpretation and cross-deployment persistence before claiming unattended Push completion.
+## Prepared runtime
 
-Current production: https://finn-zeta-one.vercel.app. Code 909b988, deployment dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip, verified October 31, 2026. User authorized Vercel/Neon Free and explicitly approved the reviewer/parser secrets for sriak/finn production. No Gemini key was uploaded, and no paid plan/payment was added. Earlier Railway planning is superseded.
+`scheduler/wrangler.jsonc` dispatches at minutes 7/22/37/52 hourly. `scheduler/worker.js` signs a 90s HMAC payload, awaits the full Vercel response with a 290s timeout, and does no parsing/model work. `POST /api/push/worker` independently verifies the separate worker secret before the reviewer gate; ordinary UI/assets/APIs remain gated. Bad/expired signatures fail. Normal workers exclude captured evaluation events.
 
-## Runtime and access
+`src/push/service.js` awaits at most one source window, two document steps and one model attempt. Durable worker lease 300s, document lease 120s, analysis lease 180s; document starts stop after 120s and analysis starts stop after 90s, reserving persistence time within configured Vercel 300s. Actual database/CPU/cold-start duration still needs host measurement; a killed invocation resumes only after leases expire, with unknown attempts still counted. No fire-and-forget work.
 
-`vercel.json` runs Node/Python functions in Singapore. Every UI/asset/API request passes through `api/finn.js` and the shared Node handler; health alone is public. `FINN_ACCESS_TOKEN` exchanges `?key=TOKEN` for a signed 24-hour HttpOnly/Secure/SameSite=Lax cookie and redirects cleanly. Rotating it invalidates sessions. Private reviewer URL is in ignored tmp/reviewer-link.txt; never print/commit it. Live Gemini is always disabled on Vercel.
+Server configuration:
 
-Three reviewed notes and recorded evidence are baked into the release. GET returns matching validated notes immediately, with 0 new calls/₹0 request model spend. ASIANPAINT/PERSISTENT are explicitly reviewer-curated and disclose omitted/unsupported sections. Original drafts were refused rather than automatically partially published.
+| Variable | Prepared value/purpose |
+| --- | --- |
+| DATABASE_URL | Existing shared Neon only; never browser/Cloudflare |
+| FINN_PUSH_WORKER_SECRET | New independent random 32+ character secret, same value on Vercel/dispatcher; never print/commit |
+| FINN_PUSH_COLLECTION_MINUTES |15 initial target, integer1–1440 |
+| FINN_PUSH_ANALYSIS_MINUTES |15 independent target, integer1–1440 |
+| FINN_PUSH_ENABLED |false until approved quality/activation |
+| FINN_PUSH_HOSTED_APPROVED |false until explicit approval |
+| FINN_AI_FREE_TIER_CONFIRMED |true only for the user's billing-disabled project |
+| GEMINI_API_KEY |Server-only, only after explicit transfer approval |
+| FINN_MODEL_POLICY_JSON |Optional validated JSON; persisted ledger policy must also be applied without resetting attempts |
 
-`api/parse.py` accepts only short-lived HMAC-signed metadata from Node using `FINN_PARSER_SECRET`. It downloads the source itself, validates/pins public DNS addresses with TLS hostname verification, and bounds redirects/bytes/time/pages/text. Calls use the production alias so per-deployment Vercel authentication does not block the internal parser. No oversized PDF upload body is needed. Local parsing shares scripts/pdf_text.py. No OCR.
+Changing the collection cadence also requires changing the dispatch cron if a faster target is wanted. Browser Refresh may request bounded catch-up after a 60s per-source cooldown; it never generates. Normal opens read cached state only. A 15-minute target is not a freshness guarantee. Push covers NSE disclosures, not automatic EOD-price ingestion.
 
-## Persistent and disposable state
+## Approval-gated activation sequence
 
-Neon supplies server-only `DATABASE_URL`. Parameterized queries store collected public research in finn_research_cache and the latest normalized briefing in finn_source_snapshots. Research may stay in process for five minutes/five records; source snapshots for 30 seconds. Durable records survive new processes/deployments; memory and /tmp are disposable. Stored timestamps/freshness are preserved. No user accounts/preferences, credentials or full PDFs are in these tables. Device preferences remain browser-local.
+1. Stop task-owned local workers/evaluation processes so migration cannot fork state. Inspect initialized local ledger, current counts and durable pending work without displaying credentials. Preserve a private local backup; do not reset anything.
+2. **After explicit migration approval**, run the reviewed command above. Verify source/doc/job/attempt counts/hashes from a fresh Neon-backed process; confirm future local workers bind to the same ledger. Never run init against existing allowance.
+3. Deploy the source to existing `sriak/finn` using the linked Vercel CLI with Push generation disabled. Keep existing reviewer/parser secrets and recorded/Research evidence. Confirm READY and HTTPS reviewer gate, saved reads, signed worker rejection/acceptance, collection/parser behavior and capture isolation. A Git push alone is insufficient.
+4. **After dispatcher approval**, configure only FINN_ORIGIN and the separate worker-auth secret in Cloudflare Free; use `wrangler secret put FINN_PUSH_WORKER_SECRET --config scheduler/wrangler.jsonc` via hidden/piped secret input, then `wrangler deploy --config scheduler/wrangler.jsonc`. Do not echo secrets or accept new terms for the user. Measure scheduled collection with generation still disabled.
+5. Complete source-reviewed unseen quality gates in [PUSH_EVALUATION.md](PUSH_EVALUATION.md) within actually available shared allowance. The3.6 alternative remains capture-only; two partial outputs do not authorize it as a production fallback. Choose/evaluate explicit configuration before promotion.
+6. **After Gemini transfer approval and quality acceptance**, put the original key server-side on Vercel, set explicit free-tier/Push approval gates, deploy and observe a genuinely new event through scheduled collection→analysis→saved card. No browser/manual call may substitute for unattended acceptance. Confirm unchanged opens make 0 calls, duplicate workers reserve once, and accepted results survive restart/deployment.
+7. Measure source/model failure recovery, delayed backlog, retries/cooldowns, cold runtime and actual account usage. Keep pending work, publish honest limitations. Only then close P-001. Roll back generation by disabling the Push gate; preserve state/attempts/results. Disable dispatcher if repeated failures need operator attention.
 
-Normal `npm run ingest` is local. Deliberate publication uses `node --env-file=.env.vercel.production src/ingest.js --publish` in the trusted owner checkout. It collects/saves locally, then publishes without overwriting a newer hosted capture. Browser Reload only rereads stored data; no source scheduler exists. Recorded replay stays unchanged unless --record is deliberately used.
+This task has not run any of these external steps. Approval does not waive model-quality or host-verification gates.
 
-October 31 at 20:43 IST: published 15/15 October 30 EOD and 62 portfolio filings, both adapters OK. Hosted Latest 200 and mobile-width browser collection date/coverage verified. Failures/missing/unreadable state remain explicit; never substitute recorded/fictional data as live.
+## Free infrastructure evidence and capacity
 
-## Verification and limits
+Official documentation checked November 1: [Vercel Hobby cron](https://vercel.com/docs/cron-jobs/usage-and-pricing) is daily/hour-level, insufficient for frequent collection; [function limits](https://vercel.com/docs/functions/limitations) support the configured 300s bound. [Cloudflare Free limits](https://developers.cloudflare.com/workers/platform/limits/) list 100,000 requests/day,10ms CPU/invocation and 5 cron triggers; scheduled wall time15minutes. Waiting for network is not CPU, but HMAC/dispatch CPU must be measured. [Cron configuration](https://developers.cloudflare.com/workers/configuration/cron-triggers/) supports the prepared schedule.
 
-Syntax/all 74 tests pass. Real HTTPS checks confirm gate, secure cookie/clean redirect, blocked .env, three zero-call notes, two recorded filing enrichments, fresh Latest and live synthetic refusal. Cold TCS collected a 361-page annual report and 29/25-page transcripts in 47.5 s, then persisted to Neon; optimized repeated retrieval observed 0.5 s. Final recorded note requests observed 0.2–0.8 s. First health request observed about 1.2 s. These are test-machine observations, not after-idle cold-start guarantees.
+[Neon Free](https://neon.com/docs/introduction/plans) lists100 CU-hours/project,1GB storage/project,5GB public transfer and5-minute idle suspension. Actual account remaining usage is **not verified**. Current local extracted documents are roughly 0.73 MB and mutable queue/quota state 0.12 MB; these are a small sample, not a90-day capacity forecast. CAS rewrites the mutable JSON state, so growth, transfer, contention and suspension latency need measurement. No automatic deletion currently ages pending work out; retention duration/free-tier headroom remains unverified at scale.
 
-390 px browser checks: no overflow, source/profile expansion and page hrefs, six/four/four claims, management comparison, curation disclosure, no console errors. User reports smooth physical-phone load/scroll, saved alerts and TCS success. Phone install and PDF page opening are unconfirmed. Docker image unverified; actual Vercel runtimes are verified.
+App allowance 20 is deliberately far below quoted provider RPD; overload is possible even if the hosting cron can dispatch 96 times/day. Default allocation 14 Push includes 4 capture-only complex evaluation slots; production-eligible per-model allocations total 10 until reviewed reconfiguration. UI indicates delayed/pending/overload; do not promise all filings will be interpreted within 15 minutes.
 
-## Publish and local development
+## Existing hosted product and local commands
 
-Source commits push to the approved private GitHub origin. Automatic GitHub linking failed; deploy via the locally linked `npx vercel deploy --prod --yes`, wait for READY, then verify HTTPS. A push alone is not a web deployment. One earlier transport failure was superseded by successful deployments.
+Existing reviewer token exchanges `?key=TOKEN` for a signed24-hour HttpOnly/Secure/SameSite=Lax cookie and clean redirect. Only health and independently signed internal routes bypass reviewer access. Never print ignored tmp/reviewer-link.txt or commit environment files. Vercel Research remains cache-only with three baked validated notes (6/4/4 claims), two curator-labelled.
 
-`npm start` uses Node 24.16+. Recorded examples need no key/database. `npm ci` installs the Neon driver for persistent access; new local PDFs need Python 3.12+ and pinned requirements in .venv. All .env files, .vercel/, caches, PDFs, tmp/ and dist/ stay ignored. Do not transfer the local Gemini key or reset quota ledgers. Submission packaging/conversations, reviewer grants, final tagging and email remain deferred by the user until build approval.
+`api/parse.py` accepts expiring HMAC metadata using existing FINN_PARSER_SECRET, downloads public sources with DNS pinning/TLS verification and bounds redirects/bytes/time/pages/text. Node uses the production alias. Python/pypdf 6.10.0 is shared with local extraction; no OCR. Research persists in `finn_research_cache`; saved Latest in `finn_source_snapshots`. Push adds separate state/document tables only after approved initialization/migration.
+
+`npm start` uses Node 24.16+ and ignored `.env`; `npm ci` installs the sole Neon driver; new local PDFs require Python 3.12+/pinned requirements. `npm run ingest` is manual local EOD/source snapshot collection. Deliberate old snapshot publication is `node --env-file=.env.vercel.production src/ingest.js --publish`; it is separate from Push. Recorded capture changes require deliberate `--record`.
+
+October 31 hosted checks: access/refusal/evidence and source persistence, cold TCS 47.5s then saved retrieval 0.5s. November 1 local syntax/all 108 tests and390px Push browser checks pass; no hosted Push inference/cold recovery/free-usage measurement. Physical install/PDF opening unconfirmed. Current submission archive/Docker work remains deferred, as do conversations/grants/tag/email.

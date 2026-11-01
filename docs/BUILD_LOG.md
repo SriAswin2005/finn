@@ -256,4 +256,9 @@ November 1 final bounds checkpoint: syntax/all107 pass. CLI uses the same bounde
 
 November 1 rollout review found hidden evaluation jobs could still be claimed by normal workers. Excluded them from normal selectors and added behavior coverage; explicit evaluator retained. Required checks pending.
 
-Capture boundary checkpoint verified: syntax/all108 pass. No live/capture allowance split or model call; only selection isolation changed.
+Capture boundary checkpoint verified: syntax/all 108 pass. No live/capture allowance split or model call; only selection isolation changed.
+
+
+## November 1 — final current-state and rollout reconciliation
+
+Replaced contradictory progress/handoff/issue summaries with current local evidence and explicit open acceptance. Documented configured future model versions, Research6/Push14 under total20, capture-only alternative, exact external approvals, blocked migration, bounded dispatcher and free-capacity limits. Added missing routine source links and preserved historical verification/build entries. README/SPEC now distinguish local automatic Push from unchanged production. Build copy list includes scheduler so its syntax-check input ships; no submission archive generated. All45 relative links resolve; diff/consistency/secret-cache exclusions checked; syntax/all 108 tests pass. Archive generation remains deferred. No further model call, hosted write or activation.

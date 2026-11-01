@@ -1,140 +1,29 @@
 # FINN current progress
 
-## November 1 — active Push mission
+Reconciled November 1, 2026 (IST). Current truth overrides historical build/verification entries.
 
-Rollout review found normal workers could select capture-only evaluation jobs despite hiding them in Latest. Normal document/analysis claims now exclude captured events; explicit operator evaluation remains possible. Syntax/all108 tests pass. No model/external action; normal workers cannot consume capture-only jobs.
+## Push: implemented locally, acceptance still open
 
-Final bounds verified: syntax/all 107 tests pass. Missing financial cells stay null/Unavailable; malformed cells are rejected. Independent collection/analysis cadences, common CLI orchestration, conservative worker timing and honest stale-lease publication reporting pass. Captured QA server stopped and browser viewport reset/tab closed. No new model/external action. Next: reconcile handoff/deployment instructions and request exact blocked approvals; model-quality/hosted gates remain open.
+The source-to-briefing pipeline is implemented: overlapping official NSE collection, durable checkpoints/leases, immutable PDF pages/hashes, shared-content job reuse, generic interpretation, whole-output validation, atomic shared quota, cached ranking/delivery and bounded recovery. Model IDs, assignments and limits are configuration; version upgrades do not require generation-specific runtime edits or regenerate the archive. Research and Push assignments do not overlap.
 
-Document identity verified: syntax/all 104 tests pass. Mobile captured-only component preview verifies accepted-note evidence keyboard expansion, physical p.1 links, generic metric table + matching p.9/p.8 row/scope links, applicable contract uncertainty, no overflow or component console errors. Preview explicitly labels captured/metrics-only data and makes no model/collection calls. Production still unchanged; no hosted completion claim.
+Latest is now the local first-run default. Refresh loads saved cards then requests source collection, with zero model calls. Normal workers exclude capture-only evaluation jobs. Recorded/Fictional modes and three reviewed Research notes remain separate.
 
-Added duplicate-record/concurrent single-reservation, grouped-card, legacy-key/capture-separation and applicable-uncertainty tests. A changed mutable URL also withholds stale analysis for its other observations; explicit correction of a known shared document supersedes that document's aliases only. Required checks running.
+Verified at f214b9c: `npm run check` and all **108 tests** pass. Checks cover concurrent reservations/leases, restart reuse, corrections/references, missing/corrupt quota, truncated/rejected output, independent cadences, missing/malformed financial cells and stale-worker publication refusal. Original 15 adversarial citation refusals pass. Local collection caught **66 filings** across three overlapping windows through November 1. This is real manual local collection, not hosted unattended evidence.
 
-Document-identity slice saved: same issuer + full content hashes now share one accepted job across exchange observation IDs, with evaluation/live namespaces separate and old keys reused (no archive regeneration). Every observation follows accepted status; UI groups equivalent attachments. Event-specific uncertainty presentation removes unrelated profile fields from contract/results cards while retaining raw codes and every validated claim. Tests pending; no model call made.
+Source review: **14 model attempts over 10 captured disclosures**, including four reviewed retries, produced two partial briefs (CDSL retirement and L&T orders). Financial results, incoming-manager background, routine notices, complex disclosures, important omissions and reading effort have not passed general acceptance. See [PUSH_EVALUATION.md](docs/PUSH_EVALUATION.md). Two prior Research attempts remain imported: 16 ledger entries, no quota reset or paid fallback. Further evaluation must respect current persisted capacity/cooldowns and the lifetime three-attempt cap; do not expand allowance to manufacture a pass.
 
-Quality checkpoint verified/pending commit: syntax/all 101 pass; L&T p.3 classification grid visually confirms the documented omitted band. 14 model attempts, no additional retries beyond4, two partial outputs with disclosed limitations. Next: shared-document deduplication, completed-card browser checks and final deployment/handoff reconciliation.
+390px browser checks verified pending/source-refresh states, saved cards after connection failure, evidence keyboard expansion/page links and captured-only metric components without overflow/component errors. The QA server is stopped and temporary browser settings restored. Physical-phone offline/install/PDF opening and intended-host recovery remain unverified.
 
-Captured evaluation results are in [PUSH_EVALUATION.md](docs/PUSH_EVALUATION.md): 14 calls/10 cases, two partial briefs (CDSL retirement, L&T contract); ordinary refusals, complex timeouts/server failures and omissions are explicit. No general financial/profile/routine quality pass. New result/profile attempts remain durably deferred; no unsuitable fallback. Source collection caught 66 current-window filings; hosted migration still unexecuted/rejected. Current checks 101 pass; short-profile routing final recheck pending.
+## Production and approval gate
 
-Final distinct evaluation cases prepared under unchanged total20 (no retries beyond daily4): result/appointment-profile cases use explicit capture-only complex evaluation; notice/contract cases use ordinary capacity. Multi-person profile tables now demonstrate complexity even in short filings. All prior attempts remain counted; hosted gate unchanged.
+Production remains October 31 code 909b988 / dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip at https://finn-zeta-one.vercel.app. No November 1 deployment, Gemini key transfer, Push migration or Cloudflare activation occurred. Existing reviewer gate, Neon Latest snapshot (October 31 20:43 IST; 15 EOD/62 filings), Recorded fixtures and Research notes remain deployed.
 
-First successful real model result: CDSL final 3.6 attempt saved four cited claims as partial; source/usefulness review pending. Rebalanced the unchanged approved total 20 attempts to Research6/Push14 for Push-focused evaluation (ordinary8/complex6; retries4 unchanged). Enforce BOTH rolling-24h local caps and Pacific provider reset, so midnight cannot grant a second local allowance. Prompt v6 removes boilerplate headlines and permits essential result metrics; existing accepted briefs do not regenerate.
+Automatic approval review rejected the prepared migration to the existing FINN Neon database and local `.env` ledger rebinding before execution, for missing explicit approval of that external write/destination. Do not retry indirectly. [DEPLOYMENT.md](docs/DEPLOYMENT.md) specifies the exact migration, hosted Gemini credential transfer and Free Cloudflare dispatcher activation needing approval. Configuration is ready for review; generation remains disabled until approval and quality gates pass.
 
-CDSL v5 retry still refused: its conditional significance introduced a successor-appointment action absent from the selected retirement evidence. No guard relaxed and no output published. Moved the one remaining complex evaluation slot from unavailable 3.8 to project-verified 3.6 (2+2 slots, same four complex/ten Push/twenty total). Final capped CDSL attempt will require complex review; no additional ordinary retry or quota reset.
+## Next work
 
-Full 100 tests pass. Actual unchanged CDSL revalidation still refused: priority described retirement but selected only a generic heading, a genuine support error beyond the fixed font spacing. Nothing published, no extra call made by revalidation. Prompt v5 narrows to four claims and requires the actual action quote for significance/priority; one reviewed retry remains within the per-job cap.
+1. Obtain only the missing external-action approvals in the deployment runbook. Keep public-source state, credentials and all quota history server-side.
+2. Within genuinely available persisted allowance, review new distinct results/profile/routine/complex cases and fix only demonstrated support/omission problems. Never partially publish rejected drafts or reset capped jobs.
+3. After approved migration/deployment, measure unattended scheduler collection and new-event analysis, shared-ledger concurrency, restart/deployment persistence, failures and free-tier usage. These are required before closing P-001 or claiming completion/freshness.
 
-Visually reviewed CDSL pp.1/3: Ashish Bhatt, Senior VP Operations, retirement effective close October30; no incoming profile applies. Revalidation test caught a missing jobKey in its synthetic prior-attempt setup, corrected. Added Push truncation/unsupported-output/token-accounting and final-transient-cap regressions. Full rerun pending; no cached draft accepted yet.
-
-CDSL draft isolated a real font-spacing false refusal (Ashi sh/Ash ish vs Ashish); added Push-only letter-preserving intra-word spacing comparison with wrong-surname refusal. Explicit full-draft revalidation shares publication guards and retains every original attempt; no curation/new generation/refund. Fixed final-transient return status to agree with failed job state, and retain observed token counts for rejected bodies. Checks/source visual review pending.
-
-Added an explicit reviewed `--complex` retry control: failed outputs may be escalated only under the same per-job/daily caps, with a durable review reason. It does not reset attempts or automatically retry failures. Required recheck and final bounded APL alternative evaluation pending.
-
-Quality slice in progress: actual APL reviewed retry remained rejected. Source review found concrete false flags for September vs Sept and a clearly narrative “delivered” sentence treated as a flattened table; narrow positive/wrong-month controls added, original table guard retained. Fiscal-year expansion in draft remains a valid refusal, prompt v4 preserves exact strings. Project metadata confirms optional 3.6 Flash access; reserved one of the four complex slots for captured-only evaluation (ordinary 6 + complex 3+1, total Push 10 unchanged). No automatic failed-job retry or hosted activation.
-
-Recovery checkpoint: syntax/all 95 tests pass, including explicit referenced-document supersession and strict corrupt-ledger refusal. Browser with the verifier stopped keeps all 63 saved cards visible and restores Refresh controls, with a clear connection error. Automatic approval review rejected the prepared Neon migration/local rebinding for missing explicit destination/write approval; no migration/config mutation occurred. Hosted unattended completion remains blocked on approval, local quality evaluation continues.
-
-Added reference-step/supersession and corrupt-ledger regressions. Superseded events cannot consume further processing capacity. Prompt v3 addresses the concrete APL issuer-citation failure by requiring names inside selected quotes and leaving validated table figures to the separate display; existing accepted work is never regenerated by this version change. Full checks running before Neon preparation.
-
-Added bounded referenced-evidence steps (up to two explicit original NSE links, one document per resumable step), annotation/text URL retention, combined-content job identity and explicit retrieval limitations. Explicit correction language plus an exact earlier official URL supersedes only that event; ambiguous revisions stay warned. Long multiple-appointment filings route to complex capacity for demonstrated profile/column matching. Tests pending.
-
-Recovery/host preparation slice saved: strict corruption checks on every durable quota entry/cooldown and post-mutation validation; explicit reviewed retry command retains attempt/cooldown caps and refuses completed jobs. Prepared one-time local-to-existing-Neon migration preserving queue/documents/all attempts and binding future local workers to the same ignored backend connection. Not run yet; hosted model/scheduler remain disabled.
-
-Delivery checkpoint verified: syntax/all 93 tests pass; 390×844 Latest default, no overflow/console errors, explicit delayed/pending cards, Refresh retains saved cards while checking NSE. Real first collection 35 filings; Refresh advances catch-up. Generation attempts remain 5 (plus 2 imported prior attempts): two timeouts, three refused drafts. No unseen completed briefing yet. Dispatcher/hosted-secret rollout is prepared but inactive; next slice is output-quality/recovery and durable host preparation.
-
-Browser 390×844 verifies Latest default and visible delayed/pending status with no horizontal overflow. Found/refined two telemetry issues: captured evaluations inflated normal status counts; age delay was worded as overload even below capacity. Status now excludes captures and distinguishes delay from incoming overload. Captured APL draft exposed false named-entity rejection of grammatical “If”/“This”; added only those pronouns to existing context stop set with positive and invented-company negative regression. The draft also has an unsupported issuer citation and remains rejected.
-
-Model access verified by actual metadata API (200, generateContent for assigned IDs). Elecon/Bharti captured drafts rejected for omitted conditions/changed forward wording; not published or automatically retried. Tightened prompt (v2) and joined filing-only Mr/Rs sentence abbreviations so source subject/action/currency stay together, with positive regression; Research defaults unchanged. UI/worker checkpoint full recheck pending.
-
-Added explicit captured evaluator using the same shared allowance, capture-only event labels and durable rejected-draft audit (never delivered as completed analysis). Optional event selection is an operator/evaluation control, not a browser generation route. Verification/evaluation running.
-
-Latest-first UI now renders saved event-specific facts, computed metric rows, uncertainty/evidence expanders, collection/publication times and pending/delayed/error states. Refresh first shows saved data then checks sources with zero model calls. Same-mode refresh failures retain visible saved cards. Existing display preferences preserved; old implicit Recorded default migrates to Latest. Browser/HTTP checks pending.
-
-Added worker/HTTP/delayed-priority/overload behavior tests and cached new UI module in the offline shell; API responses remain network-only. Required check running. Existing UI help text/deployment instructions still need reconciliation before commit.
-
-Delivery/worker slice in progress: signed awaited worker route, durable worker lease, zero-LLM source Refresh/status, saved Push decoration, delayed pending events and evidence-based priority reasons. Cloudflare 15-minute dispatcher config prepared only (not activated). Complexity routing now uses unresolved tables/legal pages/transaction conditions rather than category alone. HTTP/domain/browser verification pending.
-
-Financial/parser checkpoint: syntax/all 87 tests pass. Captured APL p.9 yields three generic metric rows and comparisons; malformed Sun rows remain unavailable. Blank-page parser refusal fixed. Local quota imported safely. One Polycab complex-model attempt timed out, counted and deferred without publication. Source visual review/remaining pipeline integration next.
-
-Financial-evidence slice in progress: shared parser preserves original and aligned text (existing Research normalized text unchanged). Generic quarterly table gate requires explicit scope/currency/scale, unambiguous header and exact column count. Deterministic QoQ/YoY preserve absent/negative/zero bases and withhold regrouped/restated comparisons. Never repairs OCR digits. Tests/captured table review pending.
-
-Added wrapped-unit-header regression matching the unseen APL Apollo presentation format, comparison/ambiguity tests, and local push init/collect/tick/status CLI. Initialization imports previous Research attempts and cannot reset initialized quota. Verification pending; no hosted credential transfer.
-
-Captured APL Apollo p.9 generic extraction succeeds: Revenue/EBITDA/Net Profit with quarter/year comparatives, INR million and consolidated scope p.8. Sun Pharma malformed table remains unavailable. Parser blank-page regression caught missing /Contents in layout mode; fallback preserves original text and existing unreadable refusal. First local Polycab interpretation attempt running under imported shared caps.
-
-Interpreter checkpoint verified: syntax/all 85 tests pass, including all 15 original adversarial refusals, Research fallback/cache/quota/truncation contracts and new Push management/concurrency/restart/model-upgrade controls. No real Push model call yet; financial extraction and hosted unattended acceptance remain incomplete.
-
-Interpretation slice saved in progress: independent structured Push prompt/output, server quote selection, existing citation-context guards, conditional significance/priority, explicit missing context, rejection/escalation and bounded reserved model attempts. Longer complete filing sentences are accepted only by Push (Research defaults unchanged). Need evidence-backed regression for that admission, generic financial rows, shared Research integration and full tests/source review.
-
-Research now reserves through the same atomic ledger as Push while retaining its local fail-closed ledger/cache/citation rules. Configurable model-policy JSON assigns each model to exactly one workflow/capability. Production Research is deliberately 3.5 Lite only: former 3.1/Flash fallbacks are assigned to Push; Gemma remains unevaluated and excluded from default policy. Tests explicitly configure disjoint Research-only fallback fixtures. Full verification pending.
-
-Added generic management publication/restart/concurrency tests, named-person/action/advice refusals, whole legal sentence regression and configuration-only future-model test. Required checks running; real unseen model output review follows.
-
-Integration run exposed direct-quotaId compatibility and Windows SQLite cleanup failures, plus a test declaration-order mistake. Fixed quota shape handling, close each SQLite connection after its bounded operation, and corrected the test setup. Full rerun pending; no output published.
-
-Rerun passed 83/85; shared Research regressions all pass. Two new synthetic Push cases used an interpretation without source-identifying terms (appointment vs appointed). Narrowed the test claims to the disclosed role; guards unchanged. Final recheck pending.
-
-New Push-only name guard also treated the grammatical leading “The” as part of “Chief Financial Officer”; strip that determiner only. Changed-person/action/advice regressions retained. Focused and full rerun pending.
-
-Next saved slice in progress: generic official-attachment extraction, immutable hash-keyed jobs, document retries/rechecks and atomic per-workflow/model token/request reservations with Pacific reset and failure classification. Tests/source review pending. Existing Research is not yet connected to shared reservations; hosted activation remains blocked.
-
-Queue/quota behavior tests added, including real SQLite restart/concurrency and Pacific DST reset. Full check pending before this checkpoint. Same-URL content changes now retain previous processing identity for correction disclosure.
-
-Syntax/all 82 tests pass for this slice. User confirmed AI Studio limits: Lite 3.1/3.5 15 RPM/250k TPM/500 RPD; Flash 3.6/3.8 5 RPM/250k TPM/20 RPD. These are reported project values, local 20 total remains separate. Model roles/limits will be configuration-driven; no version-specific eligibility gate. Source review/hosted analysis still pending.
-
-Collection slice verified: syntax and all 78 tests pass, including four new SQLite persistence/concurrency/checkpoint/correction tests. Restricted-sandbox run could not use HTTP loopback/atomic temp renames; authorized unrestricted rerun passed. SQLite locally / Neon CAS state and immutable documents, stable sequence IDs, overlapping windows and collector lease implemented. Explicit initialization grants no model allowance. Next: generic document/jobs; hosted unattended work remains unverified.
-
-The user requests the complete automatic source-to-briefing workflow. Acceptance/evaluation and staged implementation are in [PUSH_WORKFLOW.md](docs/PUSH_WORKFLOW.md). Entry tree is clean at 3a49e50. Existing snapshot/Research capabilities are preserved. Implementation and hosted unattended verification are pending; no scheduler or Gemini transfer is authorized by this checkpoint.
-
-Reconciled October 31, 2026 (IST). Deadline November 1. Read [HANDOFF.md](HANDOFF.md) and [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.md).
-
-## Verified product
-
-- HTTPS reviewer demo: https://finn-zeta-one.vercel.app, Vercel Node/Python functions and Neon Free (Singapore). Shared-token link exchanges for a signed 24-hour HttpOnly/Secure/SameSite=Lax cookie, then redirects cleanly. UI/assets/APIs gated; health public. No Gemini key on host; live generation disabled.
-- Today/Portfolio/configurable in-app Alerts: 15 NSE companies, recorded/live/fictional modes kept distinct. Source/fetch times and stale/error states retained. Reload reads saved data; no automatic collection or OS push.
-- Three recorded annual-report/transcript examples, generic hosted TCS retrieval. TCS cold collection: 47.5 s, 3 documents/10 evidence chunks/no source errors. Neon storage survives deployments and separate processes. After region/cache optimization: first persisted read 1.6 s, immediate repeat 0.5 s (observations).
-- All three examples have reviewed baked notes, displayed immediately with 0 new model calls. ASIANPAINT/PERSISTENT are explicitly reviewer-curated after rejected drafts, with unsupported sections omitted. INFY earlier FY guidance, later Q1 growth and revised forecast shown side by side with full quotes/pages; annual delivery remains unverified.
-- One recorded L&T consolidated results card: Revenue/PBT/PAT and explicitly limited derived EBITDA proxy, QoQ/YoY, reporting basis and physical PDF p.11. One HDFC Bank succession with bank-attributed profile from the referenced disclosure, p.3. Narrow page-reviewed adapters, not a general automatic table/biography engine.
-- Fifteen adversarial citation attacks rejected; full-sentence quote bank, context guards, unreadable-PDF errors. About includes request latency/model-cost ledger and a live synthetic refusal.
-- All **74 tests** and syntax pass. HTTP verifies gate, all recorded examples, results/profile enrichment and refusal. 390×844 browser checks show no horizontal overflow, six cached INFY claims, full comparison quotes, expanded profile/source href, corrected filing context and no console errors.
-- User reports smooth physical-phone load/scroll, saved alerts and successful TCS research. Device/browser unspecified; installation and phone citation opening not confirmed.
-
-## Current slice — persistent Latest sources
-
-Implemented `src/storage/source-snapshot.js` and explicit `src/ingest.js --publish`. Publication preserves newer snapshots and uses separate Neon storage; requests read stored data, never collect sources. Missing/corrupt/unavailable data remains an explicit failure.
-
-October 31 at 20:43 IST: published capture `2026-10-31T15:13:09.876Z`, **15/15 October 30 EOD records, 62 filings, both adapters OK**. Fresh-process read verified; recorded October 28 replay unchanged. Syntax/72 tests pass. Deployed and verified: HTTPS Latest 200; browser shows current saved capture/coverage.
-
-Current production is `909b988`, deployment `dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip`; result-flow refinement is deployed and verified. The earlier transport failure is superseded by this successful deployment.
-
-## Remaining product limits
-
-Annual/four-quarter delivery verdict, general table/profile extraction, OCR, automatic ingestion, background notifications, voice and native packaging remain unavailable/deferred. Citation guards cover known attacks, not general semantic proof. All three recorded notes are reviewed; arbitrary future outputs still require source review. Docker image, after-idle cold-start behavior, HTTPS installation and phone PDF opening remain unverified.
-
-## Work boundary
-
-The user explicitly deferred conversations and all submission details until they decide the build is solid. Local ignored message snapshots exist, but no history has been shared. Do not continue covering-note packaging, reviewer grants, tagging or email now. Continue product reliability. Source commits/pushes, free hosting/Neon, the two host secrets and billing-disabled local Gemini under existing caps are authorized; no paid use, Gemini secret transfer or email.
-
-D-004 completed October 31: deployment dpl_EiSGNFY8vqXz9zgcKqRamye8bQ6A (2b617c3) is READY at https://finn-zeta-one.vercel.app. HTTPS Latest returns 200; fresh saved capture, source status and 15-company coverage verified. Phone-width browser connected to the same Neon source store shows collected 31 Oct, 8:43 pm IST, Saturday Oct31, 15/15 alert coverage and no console errors. Prior failed filing-context upload is superseded; both that fix and persistent Latest are now deployed. Recorded mode remains unchanged. That demo-note gap is now filled locally and browser verified; deployed and HTTPS verified.
-
-## October 31 — additional demo AI review
-
-Two authorized local free-tier calls attempted ASIANPAINT/PERSISTENT; both drafts were rejected and not published. Asian Paints repeated the unsupported-volume citation; Persistent exposed conservative false refusals for margin/margins and a unit shared by a numeric range. Context normalization now recognizes ordinary plurals and unambiguous adjacent shared range units while retaining currency/scale/direction/scope guards. Positive regression cases added; original 15 attacks must still fail. Syntax and all 73 tests pass, including all 15 original refusals and supported plural/range cases. Drafts remain ignored; no Gemini key transferred and no extra retry bypassed validation.
-
-Plural/range normalization initially passed 72/73 tests; a percent sign before sentence punctuation exposed a boundary error in inherited-unit matching. Boundary corrected; syntax/all 73 tests pass. Nothing from the new drafts was deployed.
-
-## October 31 — reviewed cached notes for all recorded examples
-
-Two local free-tier drafts were rejected as whole outputs. They were not automatically partially published. An explicit source review omitted unsupported claims and narrowed wording before revalidation: ASIANPAINT now has four curated claims (decorative business, international-segment revenue, PBDIT guidance, conditional inflation risk scoped to affected international markets); unsupported 8–10% volume guidance and APPPG figure omitted. PERSISTENT has four claims (business, revenue, EBIT margin decline, headcount); formal guidance/aspiration and bull/bear claims omitted. Original models: Flash-Lite 3.5 and 3.1, one call each, observed draft latency 2.6/6.0 s. Each quote/document/page/period/unit was checked against recorded primary evidence.
-
-Public notes are deliberately baked under data/research/notes, hash-matched and validated at read time, with reviewer-curated wording/omission disclosure in UI. All demo notes need zero new model calls/keys after restart. Syntax and all 74 tests pass. Phone-width browser shows each four-claim curated note, reviewer-curated/omission disclosure, 0 request calls, no overflow and no console errors. Deployed and HTTPS verified. These remain bounded examples, not general semantic proof or annual delivery analysis. No additional model retry was used and no Gemini key transferred.
-
-Curated-note verification: initial curation was refused because “decorative business” did not preserve the quote’s segment scope, so neither note was written. Wording was corrected to “decorative segment”; all claims now pass the unchanged scope check. Two four-claim notes are written, with unavailable sections retained and explicit reviewer-curated disclosure. Syntax/all 74 tests and phone-width browser verification pass; deployed and HTTPS verified.
-
-October 31 final product verification for 6703e85 / dpl_CKCMPqaNGYwHhXvrT9gthu3njPQu: HTTPS all three notes 200 with 6/4/4 claims, 0 request calls, host generation disabled, curation disclosure retained; observed requests 755/220/699 ms. Latest is fresh with saved October31 capture and 15 October30 EOD records. Recorded two filing enrichments and live refusal pass. No additional model call was made. Submission work remains deferred.
-
-## October 31 — research result clarity
-
-U-002: raw document details pushed reviewed notes down the phone screen, and a generic cache-resting message implied an uncached company had a saved note. Source metadata is now a labelled collapsible list (including warning count), unavailable generation is hidden, and no-note requests explicitly say source excerpts only. Completed requests bring the result into view/focus only if the user is still on Research and has not moved focus elsewhere. Notes/comparison keep direct physical-page links. Syntax/all 74 tests pass. 390 px browser verifies result focus at 74 px below navigation, collapsed source details, four cached claims, explicit TCS no-note state with generation hidden, no overflow and no console errors. Native PDF opening could not be confirmed by the browser tool; page hrefs remain verified.
-
-Final verification 21:36 IST: production research.js SHA-256 matches the locally browser-verified source. Three note requests returned 6/4/4 claims and zero new calls in 558/404/200 ms; Latest is fresh (October31 capture, all15 October30 EOD), two recorded filing details and live refusal pass. All74 tests pass. U-002 resolved: completed mobile results focus is visible below navigation, sources collapsed, TCS explicitly evidence-only, no overflow/console errors. No further submission work performed.
+Private source pushes are verified through f214b9c. Final reconciliation passed 45 relative-link checks, diff/consistency checks and secret/cache ignore checks; syntax/all 108 tests pass after adding scheduler to the build source-copy list. No submission archive generated. A Git push does not activate production; verify the actual remote commit before reporting upload. Submission materials, OS notifications, voice/native work and Research expansion remain deferred.

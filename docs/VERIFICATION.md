@@ -1,3 +1,17 @@
+# Current verification — November 1,2026
+
+At f214b9c, `npm run check` and all 108 tests pass. This covers local HTTP/store/domain contracts, shared quota/cadence/leases, content reuse/references/corrections, numeric ambiguity, whole-output rejection and captured-evaluation isolation. Original15 citation attacks still fail. Full checks need normal permissions for loopback/SQLite; sandbox failures were rerun successfully. Synthetic successes are not real model-quality proof.
+
+Real local source collection:66 current-window filings over 3 overlapping windows. Captured review:14 model calls/10 cases, 2 partial briefs and unresolved results/profile/routine/complex/omission/priority/reading-effort gates; [PUSH_EVALUATION.md](PUSH_EVALUATION.md). No paid fallback or quota reset.
+
+390px browser: Latest default/pending/source Refresh/retained cards after connection failure, keyboard evidence expansion, page links and captured metric components; no overflow/component errors. No physical-device offline/install/native PDF claim. Task-owned server stopped, temporary viewport reset/tab closed.
+
+Production is unchanged October 31 code 909b988. No November 1 Neon migration/deployment, Gemini transfer or dispatcher activation. Automatic approval review rejected migration/local rebinding before execution. Intended-host unattended analysis, durability under deployment/concurrency, cold timing and free-tier usage remain unverified.
+
+Current saved reconciliation updates handoff/issues/milestones/setup/runbook/source URLs and corrects stale manual/default/allowance statements. Build source-copy list now includes scheduler because syntax checking traverses it; no submission archive was generated. All45 relative documentation links resolve; diff/consistency and secret/cache ignore checks pass. `npm run check` and all 108 tests pass after that build-list correction. Current archive generation/smoke remains deliberately unrun. Historical results below retain their original dates and do not override this summary.
+
+---
+
 # M1 verification — October 28, 2026
 
 ## Automated
@@ -225,15 +239,15 @@ Public notes are deliberately baked under data/research/notes, hash-matched and 
 
 Curated-note verification: initial curation was refused because “decorative business” did not preserve the quote’s segment scope, so neither note was written. Wording was corrected to “decorative segment”; all claims now pass the unchanged scope check. Two four-claim notes are written, with unavailable sections retained and explicit reviewer-curated disclosure. Syntax/all 74 tests and phone-width browser verification pass; deployed and HTTPS verified.
 
-October 31 final product verification for 6703e85 / dpl_CKCMPqaNGYwHhXvrT9gthu3njPQu: HTTPS all three notes 200 with 6/4/4 claims, 0 request calls, host generation disabled, curation disclosure retained; observed requests 755/220/699 ms. Latest is fresh with saved October31 capture and 15 October30 EOD records. Recorded two filing enrichments and live refusal pass. No additional model call was made. Submission work remains deferred.
+October 31 final product verification for 6703e85 / dpl_CKCMPqaNGYwHhXvrT9gthu3njPQu: HTTPS all three notes 200 with 6/4/4 claims, 0 request calls, host generation disabled, curation disclosure retained; observed requests 755/220/699 ms. Latest is fresh with saved October 31 capture and 15 October 30 EOD records. Recorded two filing enrichments and live refusal pass. No additional model call was made. Submission work remains deferred.
 
 ## October 31 — research result clarity
 
 U-002: raw document details pushed reviewed notes down the phone screen, and a generic cache-resting message implied an uncached company had a saved note. Source metadata is now a labelled collapsible list (including warning count), unavailable generation is hidden, and no-note requests explicitly say source excerpts only. Completed requests bring the result into view/focus only if the user is still on Research and has not moved focus elsewhere. Notes/comparison keep direct physical-page links. Syntax/all 74 tests pass. 390 px browser verifies result focus at 74 px below navigation, collapsed source details, four cached claims, explicit TCS no-note state with generation hidden, no overflow and no console errors. Native PDF opening could not be confirmed by the browser tool; page hrefs remain verified.
 
-## October31 — final product checkpoint (21:36 IST)
+## October 31 — final product checkpoint (21:36 IST)
 
-909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
+909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October 30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — Push acceptance checkpoint
 
 Added missing/negative/malformed financial-cell and independent-cadence checks. Null is displayed Unavailable; unmatched parentheses/non-finite values rejected. Collection/analysis intervals validate1–1440min; durable analysis gate prevents premature checks. .env example starts disabled. Required full run pending.
@@ -248,9 +262,9 @@ Quality/evaluation checkpoint: syntax/all 101 pass. Visually checked L&T contrac
 
 Captured evaluation report records 14 actual calls/10 cases: 2 partial accepted outputs, remaining refusals/deferred provider errors. Source review explicitly records L&T order-band omission and CDSL boilerplate/name artifacts; no universal quality claim. Incoming-profile/financial/routine acceptance remains open. Source catch-up observed 66 filings through current day. Final routing recheck pending before checkpoint.
 
-101 tests passed for rolling cap/internal allocation changes. Multi-person profile table routing broadened to short documents with explicit profile sections; ordinary single-person fixtures stay ordinary. Distinct remaining evaluation cases use first attempts under existing total20 and retry4; verification/evaluation pending.
+101 tests passed for rolling cap/internal allocation changes. Multi-person profile table routing broadened to short documents with explicit profile sections; ordinary single-person fixtures stay ordinary. Distinct remaining evaluation cases use first attempts under existing total 20 and retry4; verification/evaluation pending.
 
-CDSL final 3.6 attempt completed with four claims, partial for missing profile (source says not applicable). Needs manual usefulness/omission review; no general model-quality claim. Added rolling24h/Pacific-boundary cap regression. Rebalanced only internal share of existing total20 to 6/14 for remaining distinct captured cases; no retry-budget increase. Prompt v6 targets actual-event headlines/result metrics. Full checks pending.
+CDSL final 3.6 attempt completed with four claims, partial for missing profile (source says not applicable). Needs manual usefulness/omission review; no general model-quality claim. Added rolling24h/Pacific-boundary cap regression. Rebalanced only internal share of existing total 20 to 6/14 for remaining distinct captured cases; no retry-budget increase. Prompt v6 targets actual-event headlines/result metrics. Full checks pending.
 
 CDSL v5 retry used one call and remained refused (hypothetical appointment action absent from reference). Four claims/priority referencing improved, but whole output still unpublished. One final complex slot is reassigned 3.8→3.6 within unchanged caps (2+2); only an explicit captured evaluation can use it. No automatic retry or model-budget increase.
 
@@ -258,7 +272,7 @@ CDSL v5 retry used one call and remained refused (hypothetical appointment actio
 
 First font/review run: 97/98 passed; new test omitted jobKey on its synthetic original attempt, correctly blocked recovery. Corrected fixture and added Push truncation/numeric refusal/observed-token/no-regeneration and final-transient-cap cases. Original CDSL pp.1/3 visually reviewed; all directly disclosed draft facts supported, significance/priority remain conditional editorial judgments. Profile is not applicable, not invented. Final rerun pending.
 
-Full 96 checks passed before font/review follow-up. APL final attempt hit a transient provider error and is failed at its cap; return-status mismatch corrected. CDSL 3-page retirement draft has a concrete native-text name spacing false flag, with all existing context checks otherwise passing. Narrow name/review tests added; original source visual review and full rerun pending. Actual collection catch-up reached November1 (66 total new filings), with no generation during collection.
+Full 96 checks passed before font/review follow-up. APL final attempt hit a transient provider error and is failed at its cap; return-status mismatch corrected. CDSL 3-page retirement draft has a concrete native-text name spacing false flag, with all existing context checks otherwise passing. Narrow name/review tests added; original source visual review and full rerun pending. Actual collection catch-up reached November 1 (66 total new filings), with no generation during collection.
 
 Reviewed retry can explicitly require complex capacity and records that reason; no ordinary fallback for such a job. Same reservation/attempt caps apply. Recheck and final APL capped alternative evaluation pending.
 
@@ -274,7 +288,7 @@ Recovery/preparation implementation saved: entry/cooldown corruption closes mode
 
 Delivery checkpoint final: syntax/all 93 pass. Actual 390×844 browser shows Latest default, delayed/pending content, no horizontal overflow and no console errors. During explicit Refresh, saved cards remain rendered while NSE check runs; model counter remains 5 current attempts plus 2 imported. Source catch-up is distinct from pending analysis. New completed-brief/evidence UI and offline error branches still need browser verification with accepted output.
 
-390×844 Latest/pending/delayed UI: no horizontal overflow. Status counter/overload wording fixes saved after inspection. Actual NSE collection first window: 35 new/0 changed, checkpoint October28 (not current catch-up). APL results draft refused (one true issuer-citation error plus false If/This named flags); narrow grammatical regression added while invented-company refusal retained. Acquisition complex attempt timed out; reservation counted/deferred. Full recheck pending.
+390×844 Latest/pending/delayed UI: no horizontal overflow. Status counter/overload wording fixes saved after inspection. Actual NSE collection first window: 35 new/0 changed, checkpoint October 28 (not current catch-up). APL results draft refused (one true issuer-citation error plus false If/This named flags); narrow grammatical regression added while invented-company refusal retained. Acquisition complex attempt timed out; reservation counted/deferred. Full recheck pending.
 
 Worker/delivery full run passed syntax/all 91 tests before evaluator/prompt edits. Actual models API 200 confirms assigned IDs support generation. Two new free-tier attempts: Elecon/Bharti rejected and retained as rejected drafts only. Manual source review confirms omitted qualifications; no validation relaxation. Added abbreviation-context regression and prompt v2; final recheck pending.
 
@@ -324,4 +338,4 @@ November 1 final bounds verified: npm run check and all107 tests pass, including
 
 November 1 capture boundary: normal document/analysis selectors exclude captured_evaluation jobs; explicit eventId evaluation remains possible. Regression/checks pending. No model call or remote write.
 
-Capture boundary verified: npm run check and all108 tests pass, including no normal document download or analysis claim for captured events and explicit evaluation claim availability.
+Capture boundary verified: npm run check and all 108 tests pass, including no normal document download or analysis claim for captured events and explicit evaluation claim availability.

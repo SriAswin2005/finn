@@ -1,63 +1,53 @@
-# Gemini: free-quota-only setup
+# Billing-disabled Gemini and shared workflow policy
 
-## November 1 superseding model/allowance configuration
+Reconciled November 1,2026. One Gemini key is sufficient; no ChatGPT/Sarvam key. Keep the original key in ignored backend `.env`; never print, commit or request it in chat. No hosted Gemini transfer has occurred. Local calls under existing caps are authorized; hosted transfer/activation needs explicit approval in [DEPLOYMENT.md](DEPLOYMENT.md).
 
-Runtime assignments are in `src/config/model-policy.json`, overridable server-side with `FINN_MODEL_POLICY_JSON`. IDs/roles/thinking levels/provider-reported RPM/TPM/RPD and separate application allocations are data; upgrading a model requires configuration and evaluation, never code edits or archive regeneration. Defaults: Research 3.5 Lite only; ordinary Push 3.1 Lite; complex Push 3.8 Flash. Optional 3.6 can be configured after evaluation. One model cannot belong to both workflows. Research's former 3.1/Flash fallbacks now belong to Push; Gemma default fallback is deliberately disabled pending quality/capacity evaluation. Existing baked notes survive unchanged. Legacy inventory is retained and intersects the Research assignments.
+## Configurable versions and separate roles
 
-User reported AI Studio November 1: Lite 15 RPM/250k input TPM/500 RPD; Flash 5 RPM/250k input TPM/20 RPD. These are project-reported limits, not invented public allowances. The existing approved local total remains 20 attempts/day, split 10 Research/10 Push (ordinary 6, complex 4), with 4 retries/day; uncertain attempts count. Shared SQLite/Neon ledger must be explicitly initialized/import old local attempts before new calls. Both workflows atomically reserve from it. Missing/corrupt state fails closed. Hosted Research remains disabled; Push hosted activation/credential transfer needs approval.
+`src/config/model-policy.json` is the default, overridable server-side with `FINN_MODEL_POLICY_JSON`. Model IDs, workflow/capability, thinking level, RPM, input TPM, provider RPD and local appRpd are configuration. Future version IDs require explicit free-access/project-limit verification and evaluation, not generation-specific runtime edits. No automatic version substitution/archive regeneration. Tests accept future4.0 IDs through this policy.
 
-FINN currently needs ONE Gemini API key only. ChatGPT and Sarvam are not used by this implementation. Create/manage the key through Google's official guide: https://ai.google.dev/gemini-api/docs/api-key
+| Current configured model | Role | User-reported RPM / input TPM / RPD | Application allocation |
+| --- | --- | --- | --- |
+| gemini-3.5-flash-lite | Research |15 /250,000 /500 |6 |
+| gemini-3.1-flash-lite | Ordinary Push |15 /250,000 /500 |8 |
+| gemini-3.8-flash | Complex Push |5 /250,000 /20 |2 |
+| gemini-3.6-flash | Captured-only complex evaluation |5 /250,000 /20 |4 |
 
-Recommended local setup:
+AI Studio limits were supplied by the user November 1; authenticated model metadata 200 verified project access to all four, not quota. Google documents project-wide limits and midnight-Pacific RPD reset. This is separate from the approved local ceiling: **20 total attempts**, allocations **Research 6 / Push 14**, retry budget4. Total/workflow/retry caps also enforce rolling24h, so a provider midnight cannot grant another local allowance. No approved total increase occurred.
 
-```powershell
-cd "C:\E drive\Enam Holdings Assessment"
-npm run configure:ai
-```
+The4 slots for3.6 require both a captured evaluation event and explicit FINN_PUSH_EVALUATION_MODEL; they are not production fallback capacity. Current production-eligible Push per-model allocations total 10. Models belong to one workflow only. Research's former 3.1/Flash fallbacks are deliberately assigned to Push; unevaluated Gemma is not a default. Research caches/refusal contracts remain; fallback mechanics are tested under explicit isolated Research-only policies.
 
-Run in your own normal PowerShell terminal. It confirms billing-disabled-project use, validates the model inventory before requesting a key, and accepts the key without echo. You can paste the full comma-separated list including speech/embedding IDs: these are saved for later workflows and excluded from research. It writes ignored `.env`, preserving unrelated settings, and makes no network/model call. If secure console input is blocked, the command stops before asking for a key. Never pass the key as a command argument or paste it into chat. Restart FINN after saving. A dummy-key smoke test confirmed hidden input outside Codex's restricted Windows console; the test credential was removed.
+`FINN_GEMINI_MODELS` remains a legacy inventory, intersected with approved Research assignments. The local configurator's older fixed candidate list is an inventory aid, not the runtime authority for new generation versions. Use the JSON policy for upgrades, and update the legacy inventory if it would exclude the new Research ID. Saving an ID never proves project/free-tier access.
 
-Manual alternative:
+## Local setup and durable reconciliation
 
-No live model call is made unless a backend key exists AND `FINN_AI_FREE_TIER_CONFIRMED=true`. Use a Gemini API project with billing disabled; FINN cannot inspect or change the project's billing tier. Local limits reduce calls but do not make a billing-enabled project free. Do not enable billing or a paid fallback for this prototype.
+`npm run configure:ai` accepts the key through hidden local console input, preserves unrelated settings and makes no network/model call. It requires billing-disabled confirmation; if secure input is unavailable it stops before key entry. Alternatively edit ignored `.env` privately using `.env.example` as a reference, preserving existing keys/settings. FINN cannot inspect/change Google billing. Never enable billing or paid fallback.
 
-1. Copy `.env.example` to `.env` in the project folder.
-2. Enter `GEMINI_API_KEY` locally. Never paste it into chat or commit it.
-3. Check free access and the active model limits in your AI Studio project.
-4. Set `FINN_AI_FREE_TIER_CONFIRMED=true` only after confirming billing is disabled.
-5. Set `FINN_GEMINI_MODELS` to your supported model order, then restart `npm start`.
+Both workflows need the same initialized Push ledger before generation. A brand-new checkout must reconcile actual prior state, not invent a fresh budget. This checkout is already initialized with previous Research attempts imported. `node --env-file=.env scripts/push.js init` explicitly imports ignored `data/cache/ai/quota.json` and refuses missing/corrupt legacy history or initialized state. Do not rerun/reset/delete it to bypass limits. On Vercel durable DATABASE_URL is mandatory; after approved migration every local/hosted worker must use the same Neon ledger.
 
-Text candidates are `gemini-3.8-flash`, `gemini-3.6-flash`, `gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`, `gemini-2.5-flash-lite`, `gemma-4-26b-a4b-it` and `gemma-4-31b-it`. Defaults remain the two Flash-Lite models. Inventory accepts up to 40 unique Gemini/Gemma IDs; unverified IDs are saved but disabled, and at least one supported text model is required. Google's 2.5 access caveat still applies. Saving a model does not prove availability in your project. No keys or prompts are returned in errors or logged by FINN.
+Changing environment JSON alone does not replace persisted quota policy. After reviewing it, `node --env-file=.env scripts/push.js policy` applies roles/limits **without changing attempts/cooldowns**. Keep total/allocations within existing approval. Ordinary key configuration cannot silently initialize allowance.
 
-Narrow business/product/service-description questions try configured Gemma 26B, then configured Flash-Lite models, then Gemma 31B and larger Flash models. General concise research prefers configured Flash-Lite models, then larger Flash, then Gemma. Relative order within each group is preserved. Live checks saw both Gemma models time out and larger Flash return busy/timeout errors; this is not a low-latency guarantee. Gemma uses minimal thinking and prompt JSON rather than assuming native structured-output support. Flash 3.8 uses low thinking; Flash 3.6/3.5 Flash-Lite use minimal. Invalid JSON, truncated finish reasons or failed evidence validation stop without automatic regeneration. One reviewed Flash-Lite INFY note completed in about 6.5 seconds; see AI_REVIEW.md.
+| Operator command (prefix `node --env-file=.env scripts/push.js`) | Effect |
+| --- | --- |
+| status |Read local/shared state; no model call |
+| collect |Bounded source refresh/catch-up;0 model calls |
+| tick |Shared awaited orchestration: one collection, up to2 document steps, up to1 eligible model call |
+| policy |Apply reviewed configuration, preserve all ledger history |
+| retry KEY REVIEW_REASON [--complex] |Explicit reviewed failed-job recovery,20–500 character reason; lifetime3-attempt/daily-retry caps retained |
+| revalidate KEY REVIEW_REASON |Whole unchanged rejected draft through all current guards; original reservation required;0 calls/refunds, no partial curation |
 
-## Cost and quota behavior
-- No LLM for prices, thresholds, metadata triage, PDF extraction or passage retrieval.
-- Only an explicit **Generate cited AI note** action makes a model request.
-- Evidence is bounded to 14 short chunks. The backend builds an exact quote bank; the model selects short quote IDs, and the server resolves original text/page references. Output, including internal thinking, is capped at 3,200 tokens. Tools, search grounding and file uploads are disabled.
-- Cache key includes evidence/document hashes, question, prompt version and ordered model list. Identical requests reuse the result, including across restarts.
-- A single model generation is active at once; identical concurrent requests share it.
-- Durable local ledger reserves allowance before each call, including failures. Defaults: 20 total attempts in a rolling 24 hours; per model 20/day, 5/hour and no repeat within one minute. These are conservative LOCAL caps, not a claim about your actual quota.
-- At most three distinct text attempts per request; each network/body attempt times out within 20 seconds and the shared network budget is 45 seconds. Busy servers, transport failures/timeouts, missing models and model-specific 429 errors can fall back. Transport failures also reserve quota and cool that model for one minute. Respect numeric/date Retry-After and structured RetryInfo delays. A project-level/ambiguous 429 persists a project-wide cooldown across requests and server restarts. Never rotate around that cooldown or an authentication/configuration failure. Never retry malformed output or failed citations automatically.
-- No cross-provider or paid fallback. When allowance is unavailable, primary evidence stays usable.
-- Only public company excerpts are sent to Google. User-entered research questions are also included; do not put private portfolio/account information in them.
+Local model enablement also needs FINN_PUSH_ENABLED=true, GEMINI_API_KEY and FINN_AI_FREE_TIER_CONFIRMED=true. Hosted Push additionally needs FINN_PUSH_HOSTED_APPROVED=true; `.env.example` keeps safe false defaults. Hosted Research remains disabled. Do not enable production generation merely because tests pass.
 
-## Grounding limits
-Structured output requires claims and source quote IDs. The backend resolves those IDs to preselected exact quotes, then checks evidence membership and that claim numbers appear in the selected quotes. Unknown IDs, unsupported numbers and truncated output are rejected. This does not prove semantic entailment, currency correctness or a fair comparison. UI labels AI interpretation, links physical PDF pages and explicitly says guidance delivery is not verified. Never market a verified JSON/citation shape as a verified investment conclusion.
+`scripts/evaluate-push.js` explicitly imports ignored captures and selects their event IDs; normal workers never claim them and Latest never displays them. Optional FINN_PUSH_EVALUATION_MODEL permits only the matching configured capture-only alternative. Evaluations share the same allowance. Do not run casually or requeue capped jobs.
 
-## Official references checked October 28, 2026
-- Rate limits, including project-level limits and midnight-Pacific daily resets: https://ai.google.dev/gemini-api/docs/rate-limits
-- Free-tier availability/pricing: https://ai.google.dev/gemini-api/docs/pricing
-- Model access caveat: https://ai.google.dev/gemini-api/docs/models/gemini-2.5-flash-lite
-- REST structured output: https://ai.google.dev/gemini-api/docs/generate-content/structured-output
-- Gemma hosted model IDs and minimal thinking: https://ai.google.dev/gemma/docs/core/gemma_on_gemini_api
-- Model-specific thinking levels: https://ai.google.dev/gemini-api/docs/thinking
+## Attempts, caching and failure behavior
 
-Actual model access/quotas must be confirmed in your project. Do not assume the example counts are current provider allowances.
+App opens/navigation/Reload/source Refresh make 0 model calls. Only new/changed evidence can create a new Push job; same issuer/full content hashes share one job across observation IDs. Prompt/model upgrades and preferences do not regenerate accepted history. Existing Research cache identity still includes evidence/question/prompt/model assignments; baked reviewed notes return without credentials/new attempts.
 
-## If Google rejects the key
-Successful local setup confirms that settings were saved, not that Google accepted them. On October 28, the saved key was rejected with HTTP 400 and `API key not valid` by both generation and model-list metadata. Rerun `npm run configure:ai`, preserve your model list, confirm the existing settings update, and enter a valid Gemini API key from your billing-disabled AI Studio project. Restart FINN afterward. Do not paste the key into chat. FINN stops on credential errors rather than rotating models.
+Every attempted network request reserves shared capacity atomically first, including retries and uncertain timeouts. Per-model minute request/token estimates, provider/app daily caps, project/model cooldowns, exponential jitter, circuit stops and configuration/auth stops persist. Token estimates conservatively allow output; observed totals are retained even on rejected bodies. No SDK hidden retries, key rotation or paid fallback.
 
-To load changed settings, press Ctrl+C in the terminal running FINN, then run `npm start`. `npm restart` does not stop a server started in another terminal; attempting it while that server owns port 3000 produces EADDRINUSE. Do not stop unrelated Node processes. The stale FINN server was identified and replaced locally after the user's port conflict; the new process reports AI configured, but Google's metadata endpoint still rejects the saved key. No additional generation was attempted.
+Push uses one 30s request/invocation, maximum 3 attempts per content job. A failure/deferred job is retained; retry quota and source-specific recovery apply. An unsuitable ordinary model cannot consume a complex job. Invalid/truncated/unsupported output is not automatically regenerated or published; reviewed retry/revalidation cannot reset lifetime counts. Research retains its narrower network/fallback guard (20s/attempt,45s shared request budget, max3 attempts) plus shared reservations and legacy conservative local guard.
 
-Resolved later October 28: after manual `.env` editing, Google's metadata endpoint returned HTTP 200 and listed all configured models. A real INFY note and its browser cache reuse are now verified. The original invalid-key cause was not established; do not assume the original key copied by the user was invalid.
+Public document excerpts go to Google; explicit Research questions do too. Credentials/user preferences/portfolio account data do not. Structured output/server-owned quote IDs and number/context/name/action guards reduce known errors but do not prove semantic entailment or omission-free financial interpretation. Manual source review remains required. See [PUSH_EVALUATION.md](PUSH_EVALUATION.md) and [AI_REVIEW.md](AI_REVIEW.md).
+
+Official references checked November 1: [models](https://ai.google.dev/gemini-api/docs/models), [rate limits](https://ai.google.dev/gemini-api/docs/rate-limits), [pricing](https://ai.google.dev/gemini-api/docs/pricing), [structured output](https://ai.google.dev/gemini-api/docs/structured-output), [thinking](https://ai.google.dev/gemini-api/docs/thinking), [API keys](https://ai.google.dev/gemini-api/docs/api-key). Historical invalid-key issue resolved October 28 after local editing/metadata 200; do not diagnose it as a current blocker.
