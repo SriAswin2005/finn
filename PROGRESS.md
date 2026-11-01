@@ -25,3 +25,6 @@ Completion still requires source-reviewed unseen quality, then enabled new-event
 Syntax/all 109 tests pass at 7b0afda, including HTTP credential-presence without disclosure/reservation, shared gates, quota/concurrency/corrections/captures and all original 15 adversarial refusals. Prior 390px browser checks remain bounded local evidence; deployed client hashes match that source. No new physical-phone offline/install/PDF-opening claim. No new runtime dependency, model call, paid plan, extra allowance, submission materials or OS notifications.
 
 Private implementation pushes verified through 7b0afda; current handoff/rollout evidence passes relative-link and diff/consistency checks; runtime code is unchanged from the verified deployment. Next: observe active Cloudflare cron reaching FINN while generation stays disabled, and continue quality work only within genuinely available persisted allowance.
+
+
+Backlog-age fix saved while cron propagates: aggregate oldestPendingAt/delayed now includes unparsed/reference/retry collected filings, not only already-created analysis jobs. Captured/superseded records remain excluded and failed documents are not falsely pending. Syntax/all110 tests pass; no new model call or manual worker invocation.

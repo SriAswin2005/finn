@@ -15,7 +15,12 @@ export function pushStatus(state, at = Date.now(), { targetMinutes = 15, analysi
   const events = Object.values(state.events).filter(e => e.filing.evidenceMode !== 'captured_evaluation' && !e.replacedBy);
   const ids = new Set(events.map(e => e.filing.id));
   const jobs = Object.values(state.jobs).filter(j => ids.has(j.eventId)); const pending = jobs.filter(j => ['pending', 'processing', 'deferred'].includes(j.status));
-  const oldest = pending.length ? Math.min(...pending.map(j => Date.parse(state.events[j.eventId]?.filing.publishedAt ?? j.createdAt))) : null;
+  const pendingKeys = new Set(pending.map(j => j.key));
+  const waiting = events.filter(e => ['pending_document', 'pending_related', 'document_retry'].includes(e.status) || e.processingKey && pendingKeys.has(e.processingKey));
+  const times = waiting.map(e => Date.parse(e.filing.publishedAt)).filter(Number.isFinite);
+  // Older stores may not yet have observation keys; retain their job timestamp.
+  times.push(...pending.map(j => Date.parse(state.events[j.eventId]?.filing.publishedAt ?? j.createdAt)).filter(Number.isFinite));
+  const oldest = times.length ? Math.min(...times) : null;
   const incoming = events.filter(e => Date.parse(e.firstCollectedAt) > at - 86400000).length;
   const capacity = state.quota.policy?.allocations.push ?? 0;
   const counts = events.reduce((c, e) => ({ ...c, [e.status]: (c[e.status] ?? 0) + 1 }), {});

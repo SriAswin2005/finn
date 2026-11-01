@@ -48,3 +48,5 @@ Original/layout text survives parsing. Complete source-owned sentence quotes fee
 A signed awaited worker runs bounded source/document/analysis stages with durable leases and independent configured collection/analysis cadences. App opens read saved cards; Refresh requests source catch-up only. Rejections, malformed/truncated output, unsuitable model capacity, cooldowns and missing state retain honest failed/deferred/unavailable status. Prompt upgrades alone never regenerate accepted history.
 
 All current records are retained; 90-day operation/free-tier headroom has not been measured. Initial 66 filings exceed the small approved analysis allowance; backlog may grow even with 15-minute dispatch. Capture-only slots cannot silently become production capacity. Actual intended-host persistence, concurrent CAS performance, free usage and freshness must be demonstrated before completion.
+
+Backlog age covers active unparsed/reference/retry filings as well as analysis jobs; captured/superseded observations and terminal document failures do not become pending backlog. A missing PDF job must not hide an old disclosure's delay.

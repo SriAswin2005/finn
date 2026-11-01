@@ -75,3 +75,5 @@ Cloudflare login succeeded but deployment API denied missing Scripts access; cor
 November1 corrected OAuth succeeded. Dispatcher + separate auth secret uploaded (startup1ms), but cron activation was only partially applied: Cloudflare10063 requires an initial workers.dev account namespace even with workers_dev=false. No HTTP targets enabled. Inspecting absent namespace before initializing this routine prerequisite of the approved Free dispatcher; no existing domain will be renamed, no terms/plan change accepted. Scheduler remains unverified/inactive until trigger API confirms.
 
 Current dispatcher status: uploaded and configured15-minute cron active; origin/auth-secret only, HTTP/previews disabled. Real scheduled execution under observation; full quality/unattended-analysis gates remain unchecked.
+
+Pending-age reporting now includes unparsed collected filings; source/capture/supersession/failure regression passes with all110 tests. This does not close model-quality/unattended-analysis gates.

@@ -67,3 +67,6 @@ November1 corrected OAuth succeeded. Dispatcher + separate auth secret uploaded 
 
 
 November1 current scheduler state: namespace initialization and trigger application succeeded. API confirms configured15-minute cron, only FINN_ORIGIN/auth-secret bindings, HTTP/previews disabled. First cron invocation being observed through live logs + shared Neon timestamp, not manually invoked. Earlier missing-scope/namespace failures resolved; quality/actual unattended gate remains open until observed. No billing-plan update/terms acceptance.
+
+
+P-001 fresh finding: aggregate pending count included unparsed documents but oldest age ignored them, understating delay before first PDF job. Fixed by including active pending-document/reference/retry observations plus analysis jobs; captures/superseded/failed records excluded. Syntax/all110 tests pass, including unparsed age/capture/superseded/terminal failure behavior; existing card-level delayed behavior unchanged.

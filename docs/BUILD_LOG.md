@@ -299,3 +299,8 @@ November1 corrected OAuth succeeded. Dispatcher + separate auth secret uploaded 
 
 
 November1 scheduler activation: corrected OAuth succeeded,1.17KiB worker uploaded/startup1ms. Trigger configuration first failed10063, requiring an account namespace even with workers_dev=false. Verified absent40410007, initialized finn-briefings-12ed6cd6 without replacing any namespace, then applied15-minute triggers successfully at16:21:08UTC. GET schedules/settings/subdomain confirms cron7,22,37,52, only origin/auth-secret bindings, HTTP/previews false. No plan/terms change or Gemini/Neon secret transfer. Baseline Neon lastWorker16:00:22UTC,67 source events/16 attempts. First real cron observation pending; runtime code unchanged, no extra model calls.
+
+
+November1 pending-age slice: aggregate delayed age previously ignored unparsed filings despite counting them pending. Include active collected pending documents/references/retries plus analysis jobs, with captured/superseded/failed exclusions; behavior regression/checks pending. No model/manual-worker call; first scheduled event still under observation.
+
+Pending-age checkpoint verified: npm run check and all110 tests pass. Captured/superseded/failed document exclusions and old unparsed age pass;0 calls or manual workers. Ready for the approved hosted deployment while waiting for real cron.

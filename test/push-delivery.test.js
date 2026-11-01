@@ -31,6 +31,16 @@ test('collection failures and no-new/pending status are distinct and capacity ov
   const failed = pushStatus(state, at); assert.equal(failed.collection.status, 'failed'); assert.equal(failed.pending, 1); assert.equal(failed.overload, true);
   state.collection.status = 'ok'; state.collection.counts = { added: 0, changed: 0 }; assert.equal(pushStatus(state, at).collection.counts.added, 0); assert.equal(pushStatus(state, at).pending, 1);
 });
+test('backlog age includes unparsed collected filings and excludes captured or superseded records', () => {
+  const state = initialPushState();
+  mergeFilings(state, [filing, { ...filing, id: 'capture', evidenceMode: 'captured_evaluation', publishedAt: new Date(at - 20 * 86400000).toISOString() }, { ...filing, id: 'replaced', publishedAt: new Date(at - 30 * 86400000).toISOString() }], new Date(at).toISOString());
+  state.events.replaced.replacedBy = filing.id;
+  const status = pushStatus(state, at);
+  assert.equal(status.pending, 1); assert.equal(status.oldestPendingAt, filing.publishedAt); assert.equal(status.delayed, true);
+  state.events[filing.id].status = 'document_failed';
+  const failed = pushStatus(state, at); assert.equal(failed.pending, 0); assert.equal(failed.oldestPendingAt, null);
+});
+
 test('worker tick is awaited and concurrent invocations share durable whole-tick lease', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'finn-worker-')); const store = createPushStore({ env: {}, path: join(directory, 's.sqlite') }); await store.initialize();
   let collections = 0; let documents = 0; let calls = 0;
