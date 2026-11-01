@@ -78,6 +78,18 @@ test('unseen generic management analysis persists once; repeated/concurrent jobs
   const restarted = createPushStore({ env: {}, path }); await processAnalysis({ store: restarted, now: () => at + 1000, env, fetchImpl });
   assert.equal(calls, 1); const state = await restarted.read(); const job = Object.values(state.jobs)[0]; assert.equal(job.status, 'partial'); assert.equal(job.analysis.claims.length, 4); assert.equal(state.quota.attempts[0].observedTokens, 1234);
 });
+test('a replaced analysis lease cannot publish or report completion, while its request remains counted', async () => {
+  const { store } = await temporaryStore();
+  await store.mutate(s => { mergeFilings(s, [filing], 'now'); s.quota.initialized = true; s.quota.policy = { ...policy, models: { ...policy.models, 'gemini-3.1-flash-lite': { ...policy.models['gemini-3.1-flash-lite'], capability: 'ordinary' } } }; });
+  await processDocument({ store, now: () => at, collectDocument: async () => managerDoc });
+  const result = await processAnalysis({ store, now: () => at, env: { FINN_PUSH_ENABLED: 'true', GEMINI_API_KEY: 'fake', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => {
+    await store.mutate(s => { const job = Object.values(s.jobs)[0]; job.lease = { token: 'replacement-worker', until: at + 180000 }; });
+    return new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(managerWire()) }] } }] }));
+  } });
+  assert.equal(result.completed, undefined); assert.equal(result.superseded, true);
+  const state = await store.read(); assert.equal(state.quota.attempts.length, 1); assert.equal(Object.values(state.jobs)[0].analysis, undefined);
+});
+
 test('workflow assignments support configured model upgrades and exclude all Push models from Research', () => {
   assert.deepEqual(researchAssignments({}).text, ['gemini-3.5-flash-lite']);
   const future = { ...policy, models: { 'gemini-4.0-flash-lite': { workflow: 'research', rpm: 1, tpm: 10000, rpd: 1 }, 'gemini-4.0-flash': { workflow: 'push', capability: 'complex', rpm: 1, tpm: 10000, rpd: 1 } } };
@@ -215,7 +227,7 @@ test('unreadable attachments expose a limitation and expired analysis leases rec
   await processDocument({ store, now: () => at, collectDocument: async () => doc });
   const first = await claimAnalysis(store, at); const restarted = createPushStore({ env: {}, path });
   assert.equal(await claimAnalysis(restarted, at + 1000), null);
-  const next = await claimAnalysis(restarted, at + 91000); assert.ok(next); assert.notEqual(first.lease.token, next.lease.token);
+  const next = await claimAnalysis(restarted, at + 181000); assert.ok(next); assert.notEqual(first.lease.token, next.lease.token);
   assert.equal(await settleJob(store, first, { status: 'complete' }), false);
 });
 test('durable quota reserves atomically before calls, retains uncertain attempts and enforces workflow/token/retry caps', async () => {

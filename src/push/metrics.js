@@ -2,7 +2,9 @@
 // scope/unit, a full quarterly header and exactly one value per header column.
 // No model-proposed row/column values and no repaired OCR digits enter this path.
 const normalize = text => text.replace(/\s+/g, ' ').trim();
-const numberPattern = /^\(?-?(?:\d+|\d{1,3}(?:,\d{2,3})+)(?:\.\d+)?\)?$/;
+const digits = '(?:\\d+|\\d{1,3}(?:,\\d{3})+|\\d{1,2}(?:,\\d{2})*,\\d{3})(?:\\.\\d+)?';
+const numberPattern = new RegExp(`^(?:-?${digits}|\\(${digits}\\))$`);
+const missingCell = /^(?:[-–—]|NA|N\/A)$/i;
 export function comparableChange(current, previous) {
   if (!Number.isFinite(current) || !Number.isFinite(previous)) return { percent: null, delta: null, reason: 'Comparative unavailable' };
   const delta = current - previous;
@@ -45,8 +47,9 @@ export function extractFinancialMetrics(doc) {
         const rowCells = rowText.trim().split(/\s{2,}/); const label = metricLabel(rowCells[0]);
         if (!label) continue;
         const rawValues = rowCells.slice(1);
-        if (rawValues.length !== headers.length || rawValues.some(n => !numberPattern.test(n))) { limitations.push(`Ambiguous ${label} row on physical page ${page.page}; no cells repaired.`); continue; }
-        const values = rawValues.map(n => Number(n.replaceAll(',', '').replace(/^\((.*)\)$/, '-$1')));
+        if (rawValues.length !== headers.length || rawValues.some(n => !numberPattern.test(n) && !missingCell.test(n))) { limitations.push(`Ambiguous ${label} row on physical page ${page.page}; no cells repaired.`); continue; }
+        const values = rawValues.map(n => missingCell.test(n) ? null : Number(n.replaceAll(',', '').replace(/^\((.*)\)$/, '-$1')));
+        if (values.some(n => n !== null && !Number.isFinite(n))) { limitations.push(`Non-finite ${label} cell on physical page ${page.page}; unavailable.`); continue; }
         const previousQuarterIndex = headers.findIndex(p => p.index === headers[latest].index - 1);
         const previousYearIndex = headers.findIndex(p => p.index === headers[latest].index - 4);
         rows.push({ label, value: values[latest], currency, unit, scope, period: headers[latest].label,

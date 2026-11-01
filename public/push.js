@@ -17,7 +17,7 @@ export function pushAnalysis(item) {
     for (const metric of a.metrics) {
       const row = el('tr'); const title = el('th', metric.label); title.scope = 'row';
       const change = value => value.percent === null ? 'Unavailable' : `${value.percent > 0 ? '+' : ''}${value.percent.toFixed(1)}%`;
-      row.append(title, el('td', metric.value.toLocaleString('en-IN')), el('td', change(metric.qoq)), el('td', change(metric.yoy))); body.append(row);
+      row.append(title, el('td', Number.isFinite(metric.value) ? metric.value.toLocaleString('en-IN') : 'Unavailable'), el('td', change(metric.qoq)), el('td', change(metric.yoy))); body.append(row);
     }
     table.append(head, body); section.append(table);
     const first = a.metrics[0]; section.append(el('p', `${first.period} · ${first.scope} · ${first.currency} ${first.unit}. Changes are derived from matching source columns. Metric labels are retained as disclosed.`, 'muted'));
@@ -34,7 +34,7 @@ export function pushAnalysis(item) {
     for (const ref of claim.references) evidence.append(el('blockquote', ref.quote), pageLink(ref, `Original filing · physical p.${ref.page} ↗`));
   }
   for (const metric of a.metrics) {
-    evidence.append(el('p', `${metric.label}: latest ${metric.value}; previous quarter ${metric.previousQuarter ?? 'unavailable'}; previous year ${metric.previousYear ?? 'unavailable'}. ${metric.currency} ${metric.unit}; ${metric.scope}. ${metric.qoq.reason}. ${metric.basis}`, 'muted'),
+    evidence.append(el('p', `${metric.label}: latest ${metric.value ?? 'unavailable'}; previous quarter ${metric.previousQuarter ?? 'unavailable'}; previous year ${metric.previousYear ?? 'unavailable'}. ${metric.currency} ${metric.unit}; ${metric.scope}. ${metric.qoq.reason}. ${metric.basis}`, 'muted'),
       el('blockquote', `${metric.source.header}\n${metric.source.row}\n${metric.source.units}`), pageLink(metric.source, `Check metric row · physical p.${metric.source.page} ↗`));
     if (metric.source.scopePage !== metric.source.page) evidence.append(pageLink({ ...metric.source, page: metric.source.scopePage }, `Check reporting scope · physical p.${metric.source.scopePage} ↗`));
   }

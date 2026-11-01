@@ -3,9 +3,8 @@ import { resolve } from 'node:path';
 import { createPushStore } from '../src/push/store.js';
 import { runtimeCacheDirectory } from '../src/storage/snapshots.js';
 import { workflowPolicy } from '../src/ai/workflows.js';
-import { collectPush } from '../src/push/collection.js';
-import { processDocument } from '../src/push/jobs.js';
-import { processAnalysis, revalidateRejected } from '../src/push/analysis.js';
+import { createPushService } from '../src/push/service.js';
+import { revalidateRejected } from '../src/push/analysis.js';
 
 const store = createPushStore(); const command = process.argv[2] ?? 'status';
 try {
@@ -25,7 +24,7 @@ try {
       s.quota.initializedAt = new Date().toISOString();
     });
     console.log('Push state initialized; previous Research attempts imported, no model call made.');
-  } else if (command === 'collect') console.log(JSON.stringify(await collectPush({ store })));
+  } else if (command === 'collect') console.log(JSON.stringify(await createPushService({ store }).refresh()));
   else if (command === 'revalidate') console.log(JSON.stringify(await revalidateRejected({ store, key: process.argv[3], reason: process.argv.slice(4).join(' ') })));
   else if (command === 'policy') {
     const policy = workflowPolicy();
@@ -45,9 +44,7 @@ try {
     console.log('Reviewed job requeued; attempts, cooldowns and all quota limits preserved.');
   }
   else if (command === 'tick') {
-    console.log(JSON.stringify({ collection: await collectPush({ store }) }));
-    for (let i = 0; i < 2; i++) console.log(JSON.stringify({ document: await processDocument({ store }) }));
-    console.log(JSON.stringify({ analysis: await processAnalysis({ store }) }));
+    console.log(JSON.stringify(await createPushService({ store }).tick()));
   } else if (command === 'status') {
     const s = await store.read(); console.log(JSON.stringify({ collection: s.collection, events: Object.keys(s.events).length, jobs: Object.values(s.jobs).reduce((counts, j) => ({ ...counts, [j.status]: (counts[j.status] ?? 0) + 1 }), {}), quotaInitialized: s.quota.initialized, attempts: s.quota.attempts.length, projectPausedUntil: s.quota.projectUntil ? new Date(s.quota.projectUntil).toISOString() : null }, null, 2));
   } else throw new Error('Use push.js init | collect | tick | status | retry KEY REVIEW_REASON.');

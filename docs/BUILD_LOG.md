@@ -184,6 +184,8 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — define the Push completion contract
 
+Final bounds: reject malformed numeric grouping/parentheses, retain null comparatives, display unavailable current cells, configure source/analysis cadence separately. Added behavior tests and disabled env defaults. No model calls or hosted operations; verification next.
+
 Dedup checkpoint:104 tests pass; captured-only mobile evidence/table components and keyboard/page links verified. Preview never enters Latest or generates. No hosted change. Remaining work is final numeric/cadence bounds and current-state/deployment handoff reconciliation.
 
 Added cross-ID single-reservation/old-key/capture-separation regressions and applicable uncertainty tests. Shared mutable URL changes withhold stale aliases; exact correction supersedes only known same-document aliases. Full checks next.
@@ -247,3 +249,7 @@ Queue/quota tests pass (82 total). User supplied project RPM/TPM/RPD and request
 Implemented durable Push state/documents, bounded overlapping NSE windows and atomic collector checkpoint/lease. Uses Node's built-in SQLite locally and existing Neon dependency on host. Pages are separate from queue/quota state; allowance is never automatically initialized. Syntax/all 78 tests pass on unrestricted rerun; sandbox blocked loopback and atomic temporary renames. No model calls/activation.
 
 Reconciled the user's source-to-briefing mission with original assessment p.2 examples and existing capabilities. Added evaluation cases and implementation/activation gates before code changes. Verified official model IDs and scheduling constraints; no provider quota invented, no external activation or secret transfer. Documentation-only checkpoint.
+
+November 1 worker bounds: preserve missing numeric cells, independently configure source/analysis cadence, share CLI orchestration and refuse a false completed report after lease replacement. Initial 106 pass; final regression pending. No model calls or hosted action.
+
+November 1 final bounds checkpoint: syntax/all107 pass. CLI uses the same bounded worker service; numeric/cadence/stale-lease recovery verified. No new model call, migration, credential transfer or scheduler activation.

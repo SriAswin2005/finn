@@ -8,6 +8,7 @@
   Local reference/corruption/recovery tests pass (95 total); real Neon migration was blocked by automatic approval review, no hosted claim.
   Collection/store behavior verified (78 total tests); real/hosted collection and attachment correction stage pending.
 - [ ] Generic source-backed Push interpretation with independent models and quota.
+  Null/malformed-cell, separate cadence and stale-worker settlement checks pass (107 total); CLI shares bounded service orchestration. This does not close model-quality acceptance.
   Document/job/quota modules in progress; Research reservation integration and evaluation pending.
   Structured Push interpreter added; whole-sentence/claim validation and real output review pending.
   Research uses shared reservations; configurable disjoint assignments implemented, regression pending.

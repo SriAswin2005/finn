@@ -86,7 +86,7 @@ export async function claimAnalysis(store, at = Date.now(), { eventId } = {}) {
       .sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt))[0];
     if (!job) return null;
     const event = active(job); job.eventId = event.filing.id;
-    job.lease = { token, until: at + 90000 }; job.status = 'processing';
+    job.lease = { token, until: at + 180000 }; job.status = 'processing';
     return { ...structuredClone(job), filing: structuredClone(event.filing) };
   });
 }

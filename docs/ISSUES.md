@@ -2,6 +2,8 @@
 
 ## P-001 — Automatic Push workflow (active, November 1)
 
+Final bounds verified: syntax/all 107 tests pass. Stale lease cannot publish/report completion; its attempt remains counted. Analysis lease180s, worker lease300s, conservative start cutoffs and common CLI orchestration are verified locally. Numeric/cadence edge cases pass. Hosted/quality gates unchanged.
+
 Same-document cross-ID reuse now passes concurrent single-call/reservation and legacy-key/capture-separation tests (104 total). Captured-only mobile component preview verifies evidence/metric page links and applicable contract uncertainty without generation. Quality/hosted activation gates remain open; dedup local contract issue resolved.
 
 Dedup regressions added: two exchange IDs/URLs with one issuer/hash must reserve once and display one card; old accepted keys survive, captured evidence stays isolated. Changed shared URL withholds old aliases; explicit correction expands only within that known document group. Tests pending.

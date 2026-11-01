@@ -52,3 +52,11 @@ test('HTTP opens and source refresh make zero model calls; signed worker route i
   const signature = createHmac('sha256', secret).update(`push-worker\n${body}`).digest('hex');
   assert.equal((await fetch(url + '/api/push/worker', { method: 'POST', headers: { 'x-finn-worker-signature': signature }, body })).status, 200); assert.equal(ticks, 1); assert.equal(generated, 0);
 });
+
+test('source and analysis cadences are independent configuration and unchanged time skips generation checks', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'finn-cadence-')); const store = createPushStore({ env: {}, path: join(directory, 's.sqlite') }); await store.initialize();
+  let analyses = 0; let interval;
+  const service = createPushService({ store, now: () => at, env: { FINN_PUSH_COLLECTION_MINUTES: '30', FINN_PUSH_ANALYSIS_MINUTES: '60' }, collect: async options => { interval = options.intervalMs; }, document: async () => ({ skipped: true }), analyse: async () => { analyses++; } });
+  await service.tick(); await service.tick(); assert.equal(analyses, 1); assert.equal(interval, 30 * 60000); assert.equal((await service.status()).analysisMinutes, 60);
+  assert.throws(() => createPushService({ store, env: { FINN_PUSH_COLLECTION_MINUTES: '0' } }), /cadence/);
+});

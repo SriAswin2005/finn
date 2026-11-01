@@ -11,7 +11,7 @@ export function workerAuthorized(body, signature, secret, now = Date.now()) {
   if (!timingSafeEqual(Buffer.from(signature), Buffer.from(expected))) return false;
   try { const payload = JSON.parse(body); return Number.isInteger(payload.expires) && payload.expires * 1000 > now && payload.expires * 1000 <= now + 90000 && typeof payload.runId === 'string'; } catch { return false; }
 }
-export function pushStatus(state, at = Date.now()) {
+export function pushStatus(state, at = Date.now(), { targetMinutes = 15, analysisMinutes = 15 } = {}) {
   const events = Object.values(state.events).filter(e => e.filing.evidenceMode !== 'captured_evaluation' && !e.replacedBy);
   const ids = new Set(events.map(e => e.filing.id));
   const jobs = Object.values(state.jobs).filter(j => ids.has(j.eventId)); const pending = jobs.filter(j => ['pending', 'processing', 'deferred'].includes(j.status));
@@ -22,7 +22,7 @@ export function pushStatus(state, at = Date.now()) {
   return { collection: state.collection, counts, pending: pending.length + (counts.pending_document ?? 0) + (counts.pending_related ?? 0) + (counts.document_retry ?? 0), oldestPendingAt: oldest ? new Date(oldest).toISOString() : null,
     incoming24h: incoming, localDailyCapacity: capacity, overload: incoming > capacity, delayed: oldest !== null && at - oldest > 86400000,
     quotaReady: state.quota.initialized, projectPausedUntil: state.quota.projectUntil > at ? new Date(state.quota.projectUntil).toISOString() : null, operationalProblem: state.quota.stopped,
-    targetMinutes: 15, freshnessGuarantee: false };
+    targetMinutes, analysisMinutes, freshnessGuarantee: false };
 }
 export function decoratePushDataset(dataset, state, at = Date.now()) {
   const byUrl = new Map(dataset.announcements.map(a => [a.source.url ?? a.id, { ...a, details: undefined, analysisStatus: 'pending_collection', routine: false, priority: 40, priorityReason: 'Awaiting document analysis; significance has not been established.' }]));
@@ -53,28 +53,32 @@ export function decoratePushDataset(dataset, state, at = Date.now()) {
   return { ...dataset, announcements: [...byUrl.values()], push: status, sources: { ...dataset.sources, announcements: { label: 'NSE Push collection', fetchedAt: state.collection.lastSuccessAt ?? dataset.sources.announcements.fetchedAt, status: state.collection.status === 'ok' ? 'ok' : state.collection.status === 'failed' ? 'stale' : 'unavailable', error: state.collection.error ?? null } } };
 }
 export function createPushService({ store = createPushStore(), env = process.env, now = Date.now, collect = collectPush, document = processDocument, analyse = processAnalysis } = {}) {
+  const minutes = name => { const n = Number(env[name] ?? 15); if (!Number.isInteger(n) || n < 1 || n > 1440) throw new Error('Push cadence must be an integer from 1 to 1440 minutes.'); return n; };
+  const targetMinutes = minutes('FINN_PUSH_COLLECTION_MINUTES'); const analysisMinutes = minutes('FINN_PUSH_ANALYSIS_MINUTES');
+  const status = state => pushStatus(state, now(), { targetMinutes, analysisMinutes });
   return {
     store,
     async decorate(dataset) {
-      try { return decoratePushDataset(dataset, await store.read(), now()); }
+      try { const state = await store.read(); const decorated = decoratePushDataset(dataset, state, now()); decorated.push = status(state); return decorated; }
       catch { return { ...dataset, push: { unavailable: true, error: 'Automatic Push storage is unavailable or not initialized. Saved sources remain readable.' } }; }
     },
-    async status() { return pushStatus(await store.read(), now()); },
+    async status() { return status(await store.read()); },
     async refresh() {
       // Every browser may ask, but the durable per-source cooldown/lease bounds requests.
       await store.mutate(s => { if (!s.collection.lastAttemptAt || now() - Date.parse(s.collection.lastAttemptAt) >= 60000) s.collection.requested = true; });
-      const result = await collect({ store, now }); return { collection: result, status: pushStatus(await store.read(), now()), llmCalls: 0 };
+      const result = await collect({ store, now, intervalMs: targetMinutes * 60000 }); return { collection: result, status: status(await store.read()), llmCalls: 0 };
     },
     async tick() {
       const token = randomUUID(); const started = now();
-      const accepted = await store.mutate(s => { if (s.workerLease?.until > started) return false; s.workerLease = { token, until: started + 240000 }; return true; });
+      const accepted = await store.mutate(s => { if (s.workerLease?.until > started) return false; s.workerLease = { token, until: started + 300000 }; return true; });
       if (!accepted) return { busy: true };
       try {
-        const collection = await collect({ store, now }); const documents = [];
-        for (let i = 0; i < 2 && now() - started < 150000; i++) documents.push(await document({ store, now }));
-        const analysis = now() - started < 180000 ? await analyse({ store, env, now }) : { deferred: true };
+        const collection = await collect({ store, now, intervalMs: targetMinutes * 60000 }); const documents = [];
+        for (let i = 0; i < 2 && now() - started < 120000; i++) documents.push(await document({ store, now }));
+        const due = await store.mutate(s => { if ((s.nextAnalysisAt ?? 0) > now()) return false; s.nextAnalysisAt = now() + analysisMinutes * 60000; return true; });
+        const analysis = due && now() - started < 90000 ? await analyse({ store, env, now }) : { deferred: true };
         await store.mutate(s => { s.lastWorkerAt = new Date(now()).toISOString(); });
-        return { collection, documents, analysis, status: pushStatus(await store.read(), now()) };
+        return { collection, documents, analysis, status: status(await store.read()) };
       } finally { await store.mutate(s => { if (s.workerLease?.token === token) s.workerLease = null; }); }
     },
   };

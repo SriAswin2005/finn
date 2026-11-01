@@ -7,11 +7,11 @@ import { randomUUID } from 'node:crypto';
 
 function publishedResult(analysis, { doc, financials, complexityReasons, model, at }) {
   if (analysis.eventType === 'results') {
-    if (!financials.rows.some(r => /revenue/i.test(r.label))) analysis.missing.push('financial_table');
-    if (!financials.rows.some(r => /^EBITDA$/i.test(r.label))) analysis.missing.push('reported_ebitda');
+    if (!financials.rows.some(r => /revenue/i.test(r.label) && Number.isFinite(r.value))) analysis.missing.push('financial_table');
+    if (!financials.rows.some(r => /^EBITDA$/i.test(r.label) && Number.isFinite(r.value))) analysis.missing.push('reported_ebitda');
     if (!financials.rows.some(r => r.previousQuarter !== null && r.previousYear !== null)) analysis.missing.push('comparatives');
   }
-  const missingMetrics = analysis.eventType === 'results' ? ['Revenue', 'PBT', 'PAT', 'EBITDA'].filter(metric => !financials.rows.some(r => metric === 'PAT' ? /^(?:reported )?PAT$|^net profit$|^profit after tax$/i.test(r.label) : new RegExp(`^(?:total )?${metric}(?: from operations)?$`, 'i').test(r.label))) : [];
+  const missingMetrics = analysis.eventType === 'results' ? ['Revenue', 'PBT', 'PAT', 'EBITDA'].filter(metric => !financials.rows.some(r => Number.isFinite(r.value) && (metric === 'PAT' ? /^(?:reported )?PAT$|^net profit$|^profit after tax$/i.test(r.label) : new RegExp(`^(?:total )?${metric}(?: from operations)?$`, 'i').test(r.label)))) : [];
   const uncertainties = [...new Set(analysis.missing)].map(code => missingContext[code]);
   if (missingMetrics.length) uncertainties.push(`Verified structured values unavailable: ${missingMetrics.join(', ')}. Narrative figures, if present, remain separately cited.`);
   return presentationAnalysis({ ...analysis, missing: [...new Set(analysis.missing)], uncertainties, model, analysisVersion: ANALYSIS_VERSION, documentHash: doc.sha256, generatedAt: new Date(at).toISOString(), metrics: financials.rows, complexityReasons });
@@ -83,7 +83,8 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
     }
     if (analysis.needsComplex && complex) throw new Error('Complex model remains uncertain; output withheld for review.');
     const result = publishedResult(analysis, { doc, financials, complexityReasons, model, at: now() });
-    await settleJob(store, job, { status: result.uncertainties.length || bundle.warnings.length ? 'partial' : 'complete', analysis: result, publishedAt: new Date(now()).toISOString(), nextAt: 0, error: null });
+    const accepted = await settleJob(store, job, { status: result.uncertainties.length || bundle.warnings.length ? 'partial' : 'complete', analysis: result, publishedAt: new Date(now()).toISOString(), nextAt: 0, error: null });
+    if (!accepted) return { deferred: true, superseded: true };
     return { completed: true, key: job.key, model };
   } catch (error) {
     if (attemptId) await finishAttempt(store, attemptId, { outcome: 'invalid_or_unsupported_output', observedTokens, now: now() });
@@ -100,7 +101,7 @@ export async function revalidateRejected({ store, key, reason, now = Date.now } 
   const token = randomUUID();
   const job = await store.mutate(s => {
     const j = s.jobs[key]; if (!j || j.status !== 'failed' || !j.rejectedDraft || j.lease?.until > now()) throw new Error('Only an unchanged rejected structured draft can be reviewed.');
-    j.lease = { token, until: now() + 90000 }; return structuredClone(j);
+    j.lease = { token, until: now() + 180000 }; return structuredClone(j);
   });
   try {
     const docs = [];
@@ -113,7 +114,8 @@ export async function revalidateRejected({ store, key, reason, now = Date.now } 
     const financials = extractFinancialMetrics(docs[0]); bundle.warnings.push(...financials.limitations);
     const result = publishedResult(analysis, { doc: docs[0], financials, complexityReasons: [], model: attempt.model, at: attempt.finishedAt ?? attempt.at });
     result.review = { kind: 'unchanged_draft_revalidated', reason, reviewedAt: new Date(now()).toISOString(), originalPromptVersion: job.attemptPromptVersion ?? 'not_persisted' };
-    await settleJob(store, job, { status: result.uncertainties.length || bundle.warnings.length ? 'partial' : 'complete', analysis: result, publishedAt: new Date(now()).toISOString(), error: null, nextAt: 0 });
+    const accepted = await settleJob(store, job, { status: result.uncertainties.length || bundle.warnings.length ? 'partial' : 'complete', analysis: result, publishedAt: new Date(now()).toISOString(), error: null, nextAt: 0 });
+    if (!accepted) return { accepted: false, superseded: true, llmCalls: 0 };
     return { accepted: true, llmCalls: 0 };
   } catch (error) { await settleJob(store, job, { status: 'failed', error: error.message }); throw error; }
 }

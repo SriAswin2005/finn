@@ -18,3 +18,13 @@ test('ambiguous cells, scope and units stay unavailable, restatements suppress u
   assert.equal(extractFinancialMetrics(restated).rows[0].yoy.percent, null);
   assert.equal(comparableChange(5, 0).percent, null); assert.equal(comparableChange(5, -2).percent, null); assert.equal(comparableChange(5, null).delta, null);
 });
+
+test('explicit missing cells stay null; malformed grouping/unbalanced parentheses never become numbers', () => {
+  const data = structuredClone(document);
+  data.pages[1].layoutText = data.pages[1].layoutText.replace('52,063', '—').replace('3,824', '(3,824)');
+  const rows = extractFinancialMetrics(data).rows;
+  assert.equal(rows[0].value, 70017); assert.equal(rows[0].previousYear, null); assert.equal(rows[0].yoy.percent, null); assert.equal(rows[2].value, -3824);
+  for (const value of ['(70,017', '70,017)', '(-70,017)', '70,01,7', '12,345,67']) {
+    const bad = structuredClone(document); bad.pages[1].layoutText = bad.pages[1].layoutText.replace('70,017', value); assert.equal(extractFinancialMetrics(bad).rows.some(r => r.label === 'Revenue'), false);
+  }
+});
