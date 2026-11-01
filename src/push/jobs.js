@@ -24,7 +24,7 @@ export function acceptDocumentJob(state, current, at) {
 export async function processDocument({ store, now = Date.now, collectDocument = collectFilingDocument } = {}) {
   const at = now(); const token = randomUUID();
   const event = await store.mutate(state => {
-    const eligible = Object.values(state.events).filter(e => !e.replacedBy && (['pending_document', 'pending_related', 'document_retry'].includes(e.status) || e.nextCheckAt <= at) && (e.nextAt ?? 0) <= at && !(e.lease?.until > at))
+    const eligible = Object.values(state.events).filter(e => e.filing.evidenceMode !== 'captured_evaluation' && !e.replacedBy && (['pending_document', 'pending_related', 'document_retry'].includes(e.status) || e.nextCheckAt <= at) && (e.nextAt ?? 0) <= at && !(e.lease?.until > at))
       .sort((a, b) => (a.status === 'complete') - (b.status === 'complete') || Date.parse(b.filing.publishedAt) - Date.parse(a.filing.publishedAt))[0];
     if (!eligible) return null;
     eligible.lease = { token, until: at + 120000 }; eligible.documentAttempts++;
@@ -81,7 +81,7 @@ export async function processDocument({ store, now = Date.now, collectDocument =
 export async function claimAnalysis(store, at = Date.now(), { eventId } = {}) {
   const token = randomUUID();
   return store.mutate(state => {
-    const active = j => Object.values(state.events).find(e => e.processingKey === j.key && !e.replacedBy && (!eventId || e.filing.id === eventId));
+    const active = j => Object.values(state.events).find(e => e.processingKey === j.key && !e.replacedBy && (eventId ? e.filing.id === eventId : e.filing.evidenceMode !== 'captured_evaluation'));
     const job = Object.values(state.jobs).filter(j => active(j) && ['pending', 'deferred', 'processing'].includes(j.status) && j.nextAt <= at && !(j.lease?.until > at))
       .sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt))[0];
     if (!job) return null;

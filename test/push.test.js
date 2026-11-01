@@ -198,6 +198,17 @@ test('document dedup preserves accepted legacy keys and keeps captured evaluatio
   });
   const state = await store.read(); assert.equal(state.events.duplicate.processingKey, 'old-accepted-key'); assert.equal(state.events.duplicate.status, 'complete'); assert.notEqual(state.events.capture.processingKey, 'old-accepted-key'); assert.equal(Object.keys(state.jobs).length, 2);
 });
+test('normal workers exclude captured evaluations while explicit evaluation can claim its own job', async () => {
+  const { store } = await temporaryStore();
+  await store.mutate(s => mergeFilings(s, [{ ...filing, id: 'capture', evidenceMode: 'captured_evaluation' }], 'now'));
+  let downloads = 0;
+  assert.equal((await processDocument({ store, now: () => at, collectDocument: async () => { downloads++; return doc; } })).skipped, true);
+  assert.equal(downloads, 0);
+  await store.mutate(s => { s.events.capture.documentHash = doc.sha256; acceptDocumentJob(s, s.events.capture, at); });
+  assert.equal(await claimAnalysis(store, at), null);
+  assert.equal((await claimAnalysis(store, at, { eventId: 'capture' })).filing.id, 'capture');
+});
+
 test('event-specific uncertainty presentation retains every claim/raw code and preserves relevant missing impact', () => {
   const source = { eventType: 'contract', claims: [{ text: 'An unchanged supported fact' }], missing: ['management_profile', 'order_impact'], uncertainties: [missingContext.management_profile, missingContext.order_impact] };
   const view = presentationAnalysis(source); assert.deepEqual(view.claims, source.claims); assert.deepEqual(view.reportedMissing, source.missing); assert.deepEqual(view.missing, ['order_impact']); assert.deepEqual(view.uncertainties, [missingContext.order_impact]);

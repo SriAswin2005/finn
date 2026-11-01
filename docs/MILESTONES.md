@@ -2,6 +2,8 @@
 
 ## November 1 — Push completion (active scope)
 
+Normal-worker capture exclusion saved during rollout review; syntax/all108 tests pass. Normal workers skip captures; explicit evaluation remains isolated.
+
 - [x] Read original Push examples and define acceptance/evaluation in PUSH_WORKFLOW.md.
 - [ ] Durable overlapping collection, checkpoints, deduplication and corrections.
   Referenced attachments and exact-URL supersession added; tests/integration pending.

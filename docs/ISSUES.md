@@ -2,6 +2,8 @@
 
 ## P-001 — Automatic Push workflow (active, November 1)
 
+Captured-evaluation isolation finding: normal claims could process hidden captured jobs after migration. Added explicit exclusion in document/analysis selection with an operator-only selection control; behavior regression passes (108 total). Captures remain durable audit evidence, never live fallback.
+
 Final bounds verified: syntax/all 107 tests pass. Stale lease cannot publish/report completion; its attempt remains counted. Analysis lease180s, worker lease300s, conservative start cutoffs and common CLI orchestration are verified locally. Numeric/cadence edge cases pass. Hosted/quality gates unchanged.
 
 Same-document cross-ID reuse now passes concurrent single-call/reservation and legacy-key/capture-separation tests (104 total). Captured-only mobile component preview verifies evidence/metric page links and applicable contract uncertainty without generation. Quality/hosted activation gates remain open; dedup local contract issue resolved.

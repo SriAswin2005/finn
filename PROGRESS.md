@@ -2,6 +2,8 @@
 
 ## November 1 — active Push mission
 
+Rollout review found normal workers could select capture-only evaluation jobs despite hiding them in Latest. Normal document/analysis claims now exclude captured events; explicit operator evaluation remains possible. Syntax/all108 tests pass. No model/external action; normal workers cannot consume capture-only jobs.
+
 Final bounds verified: syntax/all 107 tests pass. Missing financial cells stay null/Unavailable; malformed cells are rejected. Independent collection/analysis cadences, common CLI orchestration, conservative worker timing and honest stale-lease publication reporting pass. Captured QA server stopped and browser viewport reset/tab closed. No new model/external action. Next: reconcile handoff/deployment instructions and request exact blocked approvals; model-quality/hosted gates remain open.
 
 Document identity verified: syntax/all 104 tests pass. Mobile captured-only component preview verifies accepted-note evidence keyboard expansion, physical p.1 links, generic metric table + matching p.9/p.8 row/scope links, applicable contract uncertainty, no overflow or component console errors. Preview explicitly labels captured/metrics-only data and makes no model/collection calls. Production still unchanged; no hosted completion claim.

@@ -321,3 +321,7 @@ Read both original assessment PDFs (4 + 3 physical pages), targeted entry docume
 November 1 final worker bounds: numeric/cadence suite passes 106. Stale lease publication reporting, longer analysis lease, persistence time reserve and common CLI orchestration saved; final regression/check pending. No model calls or external writes.
 
 November 1 final bounds verified: npm run check and all107 tests pass, including replaced-lease no-publication/reporting with counted request, missing/malformed cells and independent cadence. QA server stopped, temporary browser viewport reset/tab closed. No new browser behavior or hosted completion claimed.
+
+November 1 capture boundary: normal document/analysis selectors exclude captured_evaluation jobs; explicit eventId evaluation remains possible. Regression/checks pending. No model call or remote write.
+
+Capture boundary verified: npm run check and all108 tests pass, including no normal document download or analysis claim for captured events and explicit evaluation claim availability.

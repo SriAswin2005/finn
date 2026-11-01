@@ -253,3 +253,7 @@ Reconciled the user's source-to-briefing mission with original assessment p.2 ex
 November 1 worker bounds: preserve missing numeric cells, independently configure source/analysis cadence, share CLI orchestration and refuse a false completed report after lease replacement. Initial 106 pass; final regression pending. No model calls or hosted action.
 
 November 1 final bounds checkpoint: syntax/all107 pass. CLI uses the same bounded worker service; numeric/cadence/stale-lease recovery verified. No new model call, migration, credential transfer or scheduler activation.
+
+November 1 rollout review found hidden evaluation jobs could still be claimed by normal workers. Excluded them from normal selectors and added behavior coverage; explicit evaluator retained. Required checks pending.
+
+Capture boundary checkpoint verified: syntax/all108 pass. No live/capture allowance split or model call; only selection isolation changed.
