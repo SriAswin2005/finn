@@ -12,6 +12,7 @@ export function validatePolicy(policy) {
   if (policy.totalDaily > 20 || policy.allocations.push + policy.allocations.research > policy.totalDaily) throw new Error('Local allocations exceed the already-approved 20-attempt policy.');
   for (const [model, cap] of Object.entries(policy.models)) {
     if (!/^(?:gemini|gemma)-[a-z0-9.-]{2,100}$/.test(model) || !['push', 'research'].includes(cap.workflow) || !positive(cap.rpm) || !positive(cap.tpm) || !positive(cap.rpd)) throw new Error('Invalid quota/model separation policy.');
+    if (cap.appRpd !== undefined && (!positive(cap.appRpd) || cap.appRpd > cap.rpd) || cap.capability !== undefined && !['research', 'ordinary', 'complex'].includes(cap.capability)) throw new Error('Invalid model application allocation/capability.');
   }
   return policy;
 }

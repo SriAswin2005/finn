@@ -26,11 +26,22 @@ try {
     });
     console.log('Push state initialized; previous Research attempts imported, no model call made.');
   } else if (command === 'collect') console.log(JSON.stringify(await collectPush({ store })));
+  else if (command === 'retry') {
+    const key = process.argv[3]; const reason = process.argv.slice(4).join(' ');
+    if (reason.length < 20 || reason.length > 500) throw new Error('An explicit operator review/fix reason (20–500 characters) is required.');
+    await store.mutate(s => {
+      const job = s.jobs[key];
+      if (!job || job.status !== 'failed' || job.attempts >= 3 || s.quota.attempts.filter(a => a.jobKey === key).length >= 3) throw new Error('Only reviewed failed jobs below the attempt cap may be retried. Completed analysis/allowance are never reset.');
+      job.reviewRetries ??= []; job.reviewRetries.push({ at: new Date().toISOString(), reason }); job.status = 'deferred'; job.nextAt = 0;
+      if (s.events[job.eventId]?.processingKey === key) s.events[job.eventId].status = 'deferred';
+    });
+    console.log('Reviewed job requeued; attempts, cooldowns and all quota limits preserved.');
+  }
   else if (command === 'tick') {
     console.log(JSON.stringify({ collection: await collectPush({ store }) }));
     for (let i = 0; i < 2; i++) console.log(JSON.stringify({ document: await processDocument({ store }) }));
     console.log(JSON.stringify({ analysis: await processAnalysis({ store }) }));
   } else if (command === 'status') {
     const s = await store.read(); console.log(JSON.stringify({ collection: s.collection, events: Object.keys(s.events).length, jobs: Object.values(s.jobs).reduce((counts, j) => ({ ...counts, [j.status]: (counts[j.status] ?? 0) + 1 }), {}), quotaInitialized: s.quota.initialized, attempts: s.quota.attempts.length, projectPausedUntil: s.quota.projectUntil ? new Date(s.quota.projectUntil).toISOString() : null }, null, 2));
-  } else throw new Error('Use push.js init | collect | tick | status.');
+  } else throw new Error('Use push.js init | collect | tick | status | retry KEY REVIEW_REASON.');
 } catch (error) { console.error(error.message); process.exitCode = 1; }

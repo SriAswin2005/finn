@@ -11,14 +11,14 @@ export function workerAuthorized(body, signature, secret, now = Date.now()) {
   try { const payload = JSON.parse(body); return Number.isInteger(payload.expires) && payload.expires * 1000 > now && payload.expires * 1000 <= now + 90000 && typeof payload.runId === 'string'; } catch { return false; }
 }
 export function pushStatus(state, at = Date.now()) {
-  const events = Object.values(state.events).filter(e => e.filing.evidenceMode !== 'captured_evaluation');
+  const events = Object.values(state.events).filter(e => e.filing.evidenceMode !== 'captured_evaluation' && !e.replacedBy);
   const ids = new Set(events.map(e => e.filing.id));
   const jobs = Object.values(state.jobs).filter(j => ids.has(j.eventId)); const pending = jobs.filter(j => ['pending', 'processing', 'deferred'].includes(j.status));
   const oldest = pending.length ? Math.min(...pending.map(j => Date.parse(state.events[j.eventId]?.filing.publishedAt ?? j.createdAt))) : null;
   const incoming = events.filter(e => Date.parse(e.firstCollectedAt) > at - 86400000).length;
   const capacity = state.quota.policy?.allocations.push ?? 0;
   const counts = events.reduce((c, e) => ({ ...c, [e.status]: (c[e.status] ?? 0) + 1 }), {});
-  return { collection: state.collection, counts, pending: pending.length + (counts.pending_document ?? 0) + (counts.document_retry ?? 0), oldestPendingAt: oldest ? new Date(oldest).toISOString() : null,
+  return { collection: state.collection, counts, pending: pending.length + (counts.pending_document ?? 0) + (counts.pending_related ?? 0) + (counts.document_retry ?? 0), oldestPendingAt: oldest ? new Date(oldest).toISOString() : null,
     incoming24h: incoming, localDailyCapacity: capacity, overload: incoming > capacity, delayed: oldest !== null && at - oldest > 86400000,
     quotaReady: state.quota.initialized, projectPausedUntil: state.quota.projectUntil > at ? new Date(state.quota.projectUntil).toISOString() : null, operationalProblem: state.quota.stopped,
     targetMinutes: 15, freshnessGuarantee: false };
@@ -27,6 +27,7 @@ export function decoratePushDataset(dataset, state, at = Date.now()) {
   const byUrl = new Map(dataset.announcements.map(a => [a.source.url ?? a.id, { ...a, details: undefined, analysisStatus: 'pending_collection', routine: false, priority: 40, priorityReason: 'Awaiting document analysis; significance has not been established.' }]));
   for (const e of Object.values(state.events)) {
     if (e.filing.evidenceMode === 'captured_evaluation') continue;
+    if (e.replacedBy) { byUrl.delete(e.filing.source.url ?? e.filing.id); continue; }
     const job = state.jobs[e.processingKey]; const analysis = ['complete', 'partial'].includes(job?.status) ? job.analysis : null;
     const eventClaim = analysis?.claims.find(c => c.role === 'event'); const significance = analysis?.claims.find(c => c.role === 'significance');
     const priorityReason = analysis?.claims.find(c => c.role === 'priority')?.text ?? 'Awaiting document analysis; significance has not been established.';

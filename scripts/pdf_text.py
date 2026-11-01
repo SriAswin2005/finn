@@ -23,7 +23,16 @@ def extract_pages(source):
         # Some malformed font geometries create megabytes of whitespace. Keep
         # original text and expose the layout limit rather than repair cells.
         layout_limited = len(layout) > 200_000 or bool(text and not layout)
-        pages.append({"page": index + 1, "text": text, "originalText": original,
+        links = []
+        for annotation in page.get("/Annots", []):
+            try:
+                action = annotation.get_object().get("/A", {})
+                uri = action.get("/URI")
+                if isinstance(uri, str) and uri.startswith("https://"):
+                    links.append(uri)
+            except (KeyError, TypeError, ValueError):
+                pass
+        pages.append({"page": index + 1, "text": text, "originalText": original, "links": links[:30],
                       "layoutText": "" if layout_limited else layout,
                       "layoutLimited": layout_limited})
     if total < 200:

@@ -184,6 +184,14 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — define the Push completion contract
 
+Recovery checkpoint: 95 tests pass; browser retains 63 saved cards on server connection failure. Automatic approval review rejected Neon migration/rebinding for missing explicit external write/destination authorization. No command executed and no migration occurred; do not bypass. Hosted approval request will follow independently authorized local preparation/evaluation.
+
+Added corruption and explicit-supersession recovery tests; superseded work cannot consume quota. Prompt v3 addresses the actual metadata-only issuer citation error while preserving all validation. Full checks precede Neon preparation.
+
+Added resumable referenced NSE documents and exact-reference correction handling; never guesses a replacement from title similarity. Long multiple-profile appointments escalate for concrete complexity. Extended planned migration to preserve supplemental hashes/pages. Behavior verification pending.
+
+Added strict durable quota-entry validation, explicit reviewed bounded retry and one-time migration to existing approved Neon. Migration preserves all attempts and binds future local workers to one shared ledger, preserving the original ignored Gemini key. Not executed yet; no hosted activation.
+
 Delivery checkpoint verified: 93 tests, mobile Latest/pending/Refresh with no overflow/console errors. Source refresh continues overlapping catch-up and does not generate. Prepared signed worker/Cloudflare config without activation. Real evaluated drafts are still refused/deferred; quality and intended-host unattended acceptance remain open.
 
 Mobile check found capture-only counts/delay wording issues and corrected them. Actual NSE first catch-up window collected 35 filings. APL draft exposed a grammatical If/This false-name flag alongside an actual issuer-citation error; added narrow pronoun positive/negative regression without accepting draft. Another complex attempt timed out and remains durable. Required checks pending.

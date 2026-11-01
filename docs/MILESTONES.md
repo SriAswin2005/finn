@@ -4,6 +4,8 @@
 
 - [x] Read original Push examples and define acceptance/evaluation in PUSH_WORKFLOW.md.
 - [ ] Durable overlapping collection, checkpoints, deduplication and corrections.
+  Referenced attachments and exact-URL supersession added; tests/integration pending.
+  Local reference/corruption/recovery tests pass (95 total); real Neon migration was blocked by automatic approval review, no hosted claim.
   Collection/store behavior verified (78 total tests); real/hosted collection and attachment correction stage pending.
 - [ ] Generic source-backed Push interpretation with independent models and quota.
   Document/job/quota modules in progress; Research reservation integration and evaluation pending.

@@ -7,6 +7,9 @@ export function initialPushState() {
 }
 function validate(state) {
   if (state?.schemaVersion !== 1 || !state.events || !state.jobs || !state.collection || !state.quota || !Array.isArray(state.quota.attempts) || !state.quota.cooldowns || !state.quota.failures) throw new Error('Push storage is corrupt; processing is paused.');
+  const q = state.quota;
+  if (typeof q.initialized !== 'boolean' || !Number.isFinite(q.projectUntil) || Object.values(q.cooldowns).some(n => !Number.isFinite(n)) || Object.values(q.failures).some(n => !Number.isInteger(n) || n < 0)
+    || q.attempts.some(a => typeof a.id !== 'string' || typeof a.model !== 'string' || !['push', 'research'].includes(a.workflow) || !Number.isFinite(a.at) || a.at < 0 || !Number.isInteger(a.estimatedTokens) || a.estimatedTokens <= 0 || typeof a.retry !== 'boolean' || typeof a.outcome !== 'string')) throw new Error('Push quota state is corrupt; model calls fail closed.');
   return state;
 }
 
@@ -59,6 +62,7 @@ export function createPushStore({ env = process.env, path = resolve(runtimeCache
         const state = structuredClone(validate(row.record));
         const result = change(state);
         if (result?.then) throw new Error('Push transaction callback must be synchronous.');
+        validate(state);
         if (await db.cas(row.revision, state)) return result;
       }
       throw new Error('Push storage is busy; work remains durable for a later job.');

@@ -2,6 +2,12 @@
 
 ## P-001 — Automatic Push workflow (active, November 1)
 
+Recovery implementation passes 95 tests. **External migration blocked by automatic approval review:** request to copy local public queue/documents/all quota history to existing Neon and bind local workers was rejected for missing explicit external-write/destination authorization. No migration or binding occurred; do not retry indirectly. Prepare local work first, then request exact Neon migration + hosted secret/scheduler approvals. Source-backed output evaluation remains incomplete independently of that gate.
+
+Referenced attachments/corrections implemented, tests pending. Follows at most two explicit official NSE PDF URLs over resumable steps; does not invent absent profile/comparative links. Exact linked earlier filing may be superseded only with explicit correction language. Ambiguous revision remains warned. Need mutation/recovery regressions and real persistence.
+
+Strict corrupt-entry fail-closed checks and review-reason retry command saved, tests pending. Host preparation script refuses existing hosted state and imports every local job/document/attempt without resetting allowance; future local workers bind to the same Neon ledger. Migration not executed yet. No Gemini transfer/activation.
+
 Delivery/worker checkpoint: 93 tests and mobile Latest/pending/Refresh verified. Initial collection caught 35 filings; mobile source Refresh starts next catch-up window, zero model calls. No successful real unseen briefing yet. Shared quota counts 5 current evaluation attempts plus 2 imported attempts. Need quality/recovery, supporting-document handling, Neon/deployment checks and hosted activation approval; full mission remains open.
 
 Captured APL results draft rejected: company name not in attached quote (valid rejection); also false proper-name flags on grammatical “If”/“This” (narrow fix/regression added). No automatic retry/publication. Acquisition attempt also timed out (second complex timeout). Real collection succeeded for first overlapping window: 35 new filings, checkpoint October 28; catch-up still needed. Mobile status counters corrected to exclude captured evaluations and distinguish age delay from capacity overload.

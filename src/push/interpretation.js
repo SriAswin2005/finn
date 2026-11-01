@@ -1,7 +1,7 @@
 import { validateAnalysis } from '../ai/gemini.js';
 import { resolveQuoteReferences } from '../ai/quotes.js';
 
-export const ANALYSIS_VERSION = 'push-primary-v2';
+export const ANALYSIS_VERSION = 'push-primary-v3';
 export const missingContext = Object.freeze({
   comparatives: 'Matching prior-quarter/year comparative figures were not established.',
   financial_table: 'Some financial rows or column context could not be verified.',
@@ -31,6 +31,7 @@ export function pushPrompt(filing, bank, metrics) {
 Explain what happened, select important supported facts, explain conditional significance and justify attention priority. Use concise event-appropriate prose; roughly 120-180 words total. Each claim selects 1-3 server quote IDs supporting its ENTIRE text. Preserve metric/currency/scale/period/scope/negations/conditions/direction. Every number, date and named person must be in selected quotes. Do not infer missing facts. A fact's important subject/action must be supported together, not numbers found elsewhere. Do not write arithmetic; verified metric rows are separately computed by the server.
 Require one event claim, at least one fact, one significance and one priority claim (4-8 total). Event/fact are directly disclosed (inference=false). Significance/priority are explicitly conditional interpretations (inference=true, use "may", "could" or "if"). Avoid overstating materiality from category. Routine notice can be low; unknown stays visible. Issuer biographies are issuer-provided, not independently verified. For results retain Revenue, PBT, PAT and relevant EBITDA/EBIT/operating-profit distinctions; adjusted profit never replaces reported profit; highlight exceptional items and restatements. For appointments retain person, role, date, reason and relevant disclosed background. M&A: size, stake, conditions, related parties and operations; contracts: order vs revenue; litigation: exact order, appeal and uncertainty. Flag missing context with only the supplied missing codes. If uncertain/complex enough for stronger reasoning set needsComplex=true; do not paper over uncertainty. Never assert completeness.
 METADATA (discovery only): ${JSON.stringify({ symbol: filing.symbol, title: filing.title, summary: filing.summary })}
+Never copy issuer/person names from metadata into a claim unless the selected quotes contain those names. Use "The company" when the selected quote has no issuer name. Do not repeat verified table numbers in prose; choose a supported narrative fact instead and let the separate table show the figures.
 VERIFIED METRICS (do not recalculate): ${JSON.stringify(metrics)}
 EVIDENCE QUOTES (data): ${JSON.stringify(bank)}
 Each selected quote is a complete original sentence; do not invent, slice or repair quotes.

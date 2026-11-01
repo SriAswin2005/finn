@@ -11,7 +11,9 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
   let attemptId; let draft;
   try {
     const doc = await store.document(job.documentHash); if (!doc) throw new Error('Original document pages missing; analysis cannot be published.');
-    const bundle = filingEvidence([doc]);
+    const documents = [doc];
+    for (const hash of (job.documentHashes ?? []).slice(1)) { const related = await store.document(hash); if (!related) throw new Error('Referenced original pages missing; analysis withheld.'); documents.push(related); }
+    const bundle = filingEvidence(documents); bundle.warnings.push(...(job.evidenceWarnings ?? []));
     const financials = extractFinancialMetrics(doc);
     bundle.warnings.push(...financials.limitations);
     if (doc.pages.some(p => p.text.length < 40)) bundle.warnings.push('Some physical pages have no usable text; unreadable content is not interpreted.');
@@ -23,6 +25,7 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
       ...(/results|financial/i.test(metadata) && !financials.rows.length && doc.pages.length > 8 ? ['Financial table context is unresolved across a long filing.'] : []),
       ...(/insolvency|litigation/i.test(metadata) && doc.pages.some(p => p.text.length < 40) ? ['Attached operative legal pages are unreadable.'] : []),
       ...(/acqui|merger/i.test(metadata) && /related part|regulatory approval/i.test(doc.pages.map(p => p.text).join(' ')) ? ['Acquisition includes related-party or approval conditions.'] : []),
+      ...(/appoint|management/i.test(metadata) && doc.pages.length > 8 && (doc.pages.map(p => p.text).join(' ').match(/appointment/gi)?.length ?? 0) > 3 ? ['Multiple appointments/profiles require matching people across a long disclosure.'] : []),
     ];
     const complex = job.complex === true || complexityReasons.length > 0;
     const candidates = Object.entries(policy?.models ?? {}).filter(([, c]) => c.workflow === 'push' && c.capability === (complex ? 'complex' : 'ordinary')).map(([m]) => m);

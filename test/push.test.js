@@ -89,6 +89,32 @@ test('Push keeps subject and action together across Mr/Rs abbreviations without 
   assert.equal(bundle.quotes.length, 2); assert.equal(bundle.quotes[0].quote, text.split(' Revenue')[0]); assert.match(bundle.quotes[1].quote, /Revenue was Rs\. 100 million/);
 });
 
+test('referenced NSE evidence resumes as separate steps; exact explicit corrections supersede only the linked event', async () => {
+  const { store } = await temporaryStore();
+  const old = { ...filing, id: 'old', source: { url: 'https://nsearchives.nseindia.com/old.pdf' } };
+  const current = { ...filing, id: 'corrected', source: { url: 'https://nsearchives.nseindia.com/corrected.pdf' } };
+  await store.mutate(s => mergeFilings(s, [old, current], new Date(at).toISOString()));
+  let downloads = 0;
+  const collectDocument = async f => {
+    downloads++;
+    if (f.id === 'old') return { ...doc, url: old.source.url };
+    if (f.source.url === old.source.url) return { ...doc, sha256: 'c'.repeat(64), url: old.source.url };
+    return { ...doc, sha256: 'b'.repeat(64), url: current.source.url, pages: [{ page: 1, text: `This corrected disclosure supersedes the earlier filing. See ${old.source.url}`, links: [old.source.url, 'https://unapproved.example/profile.pdf'] }] };
+  };
+  await processDocument({ store, now: () => at, collectDocument });
+  await processDocument({ store, now: () => at, collectDocument });
+  let state = await store.read(); assert.equal(state.events.corrected.status, 'pending_related'); assert.equal(state.events.old.replacedBy, 'corrected');
+  await processDocument({ store, now: () => at, collectDocument });
+  state = await store.read(); const job = state.jobs[state.events.corrected.processingKey]; assert.equal(job.documentHashes.length, 2); assert.equal(downloads, 3);
+  assert.equal((await claimAnalysis(store, at)).eventId, 'corrected');
+});
+test('corrupt quota entries/cooldowns fail closed before mutation and never create an allowance', async () => {
+  const { store } = await temporaryStore();
+  await assert.rejects(store.mutate(s => { s.quota.cooldowns['model'] = 'invalid'; }), /corrupt/);
+  await assert.rejects(store.mutate(s => { s.quota.attempts.push({ model: 'm', at: 1 }); }), /corrupt/);
+  assert.equal((await store.read()).quota.attempts.length, 0);
+});
+
 const doc = { id: 'abc', sha256: 'a'.repeat(64), url: filing.source.url, pages: [{ page: 1, text: 'The company appointed a chief financial officer effective immediately.' }] };
 const policy = { totalDaily: 20, allocations: { push: 10, research: 10 }, retryDaily: 2, models: { 'gemini-3.1-flash-lite': { workflow: 'push', rpm: 2, tpm: 10000, rpd: 10 }, 'gemini-3.8-flash': { workflow: 'push', rpm: 1, tpm: 10000, rpd: 2 } } };
 test('generic attachment hashes share one analysis job and correction invalidates only changed content', async () => {

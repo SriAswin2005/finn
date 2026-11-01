@@ -30,3 +30,7 @@ export function filingEvidence(documents) {
   if (!quotes.length) warnings.push('No short complete sentences could be safely quoted. Tables/scans need further processing.');
   return { evidence, quotes, warnings, hash: createHash('sha256').update(documents.map(d => d.sha256).join('|')).digest('hex') };
 }
+export function referencedFilings(document) {
+  const links = document.pages.flatMap(p => [...(p.links ?? []), ...(p.text.match(/https:\/\/[^\s<>"']+\.pdf(?:\?[^\s<>"']*)?/gi) ?? [])]);
+  return [...new Set(links.map(value => filingUrl(value)).filter(url => url && url !== document.url))].slice(0, 2);
+}
