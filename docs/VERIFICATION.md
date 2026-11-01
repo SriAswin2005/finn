@@ -236,6 +236,12 @@ U-002: raw document details pushed reviewed notes down the phone screen, and a g
 909b988 deployed READY as dpl_3BJwg7CwrYoxHdfiG3eeNMMWgrip. Production research.js SHA-256 equals the browser-verified file. Hosted notes return6/4/4 claims, zero request model calls, observed558/404/200ms; Latest remains fresh with15 October30 EOD records. Two recorded filing enrichments and synthetic refusal pass. All74 tests/syntax pass. 390px browser validates focus/scroll position74px, collapsed sources, cached-note/curation disclosure and explicit TCS evidence-only state; no overflow/console errors. PDF hrefs verified; native/phone PDF opening not confirmed. Local verifier stopped, viewport reset. Git/code and documents preserved; submission work remains deferred.
 # November 1 — Push acceptance checkpoint
 
+Document/queue/quota implementation saved, tests pending. Downloaded an unseen Sun Pharma original results attachment into ignored evaluation cache; 34 physical pages/hash preserved. Further downloads in progress; no live/unattended or model quality claim.
+
+Added behavior coverage for generic hash reuse, concurrent jobs, content-only invalidation, unreadable refusal, expired leases/stale worker refusal, atomic request/token/retry reservations, distinct quota failures and DST reset. Required full checks running.
+
+Result: syntax/all 82 tests pass. Four unseen original filings downloaded to ignored cache (Sun Pharma, Polycab, APL Apollo, Bharti); no generated output yet. User supplied active project limits; not independently queried through a quota API. Local policy remains separate. Model eligibility changed to configured roles rather than fixed version lists; syntax/full recheck required before commit.
+
 Collection checkpoint: syntax/all 78 tests pass (four new behavior tests). Real SQLite cross-instance/concurrent CAS, overlapping failure recovery, stable IDs and affected-only metadata corrections verified. Initial sandbox run failed on loopback/temp-rename restrictions; unrestricted rerun passed. Neon schema/CAS and live collection still need integration verification; no hosted completion claim.
 
 Read both original assessment PDFs (4 + 3 physical pages), targeted entry documents and current pipeline/model/parser code. Working tree initially clean. Official Google/Vercel/Cloudflare documentation checked; active project quotas not yet verified. Documentation-only acceptance checkpoint: relative links checked; no runtime change or new model call. Implementation/evaluation/hosted unattended checks remain pending in PUSH_WORKFLOW.md.

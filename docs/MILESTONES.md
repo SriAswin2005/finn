@@ -6,6 +6,7 @@
 - [ ] Durable overlapping collection, checkpoints, deduplication and corrections.
   Collection/store behavior verified (78 total tests); real/hosted collection and attachment correction stage pending.
 - [ ] Generic source-backed Push interpretation with independent models and quota.
+  Document/job/quota modules in progress; Research reservation integration and evaluation pending.
 - [ ] Cached Latest, zero-call opens, pending/delayed recovery and mobile evidence.
 - [ ] Unseen outputs source-reviewed; failures/concurrency/restarts verified.
 - [ ] Unattended new-event collection and analysis verified on intended host.

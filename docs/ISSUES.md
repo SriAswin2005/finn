@@ -2,6 +2,10 @@
 
 ## P-001 — Automatic Push workflow (active, November 1)
 
+Generic document/job and shared quota modules added; integration/tests pending. Three-attempt job limit, local allocations within approved total, per-minute tokens, daily retry budget, cooldown/circuit/configuration stops are implemented but not yet verified. Active project quotas requested from user; public catalogue cannot establish them.
+
+November 1: syntax/all 82 pass including four new queue/quota behavior tests. User reports AI Studio Lite limits 15/250k/500 and Flash 5/250k/20 (RPM/TPM/RPD). Shared Research integration remains pending. User requires model upgrades via configuration; policy roles accept explicitly configured model versions, with no auto-upgrade or shared fallback.
+
 Collection/store behavior passes four new tests; full syntax/all 78 pass outside sandbox (loopback/temp-rename restrictions caused the first run to fail). Durable quota remains uninitialized by default and missing state fails closed. Real collection/full pipeline/hosted acceptance remains open.
 
 Latest is a saved snapshot; Refresh does not collect. Recorded enrichments are bounded examples. Need durable collection/correction recovery, generic evidence-backed interpretation, shared quota/queue, cached delivery and real unattended deployment verification. Acceptance and evaluation matrix: [PUSH_WORKFLOW.md](PUSH_WORKFLOW.md). Hosted Gemini transfer/frequent scheduler activation remain approval boundaries. Existing research caps are local policy, not verified provider quota.

@@ -2,6 +2,12 @@
 
 ## November 1 — active Push mission
 
+Next saved slice in progress: generic official-attachment extraction, immutable hash-keyed jobs, document retries/rechecks and atomic per-workflow/model token/request reservations with Pacific reset and failure classification. Tests/source review pending. Existing Research is not yet connected to shared reservations; hosted activation remains blocked.
+
+Queue/quota behavior tests added, including real SQLite restart/concurrency and Pacific DST reset. Full check pending before this checkpoint. Same-URL content changes now retain previous processing identity for correction disclosure.
+
+Syntax/all 82 tests pass for this slice. User confirmed AI Studio limits: Lite 3.1/3.5 15 RPM/250k TPM/500 RPD; Flash 3.6/3.8 5 RPM/250k TPM/20 RPD. These are reported project values, local 20 total remains separate. Model roles/limits will be configuration-driven; no version-specific eligibility gate. Source review/hosted analysis still pending.
+
 Collection slice verified: syntax and all 78 tests pass, including four new SQLite persistence/concurrency/checkpoint/correction tests. Restricted-sandbox run could not use HTTP loopback/atomic temp renames; authorized unrestricted rerun passed. SQLite locally / Neon CAS state and immutable documents, stable sequence IDs, overlapping windows and collector lease implemented. Explicit initialization grants no model allowance. Next: generic document/jobs; hosted unattended work remains unverified.
 
 The user requests the complete automatic source-to-briefing workflow. Acceptance/evaluation and staged implementation are in [PUSH_WORKFLOW.md](docs/PUSH_WORKFLOW.md). Entry tree is clean at 3a49e50. Existing snapshot/Research capabilities are preserved. Implementation and hosted unattended verification are pending; no scheduler or Gemini transfer is authorized by this checkpoint.
