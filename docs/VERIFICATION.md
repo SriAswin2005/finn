@@ -368,3 +368,15 @@ November 1 production rollout: approved code 7b0afda deployed READY as dpl_C5Bq1
 
 
 November 1 hosted verification passed: deployment 7b0afda/dpl_C5Bq1Ykbodrre4r57ei8gtTpkx6m. HTTPS gate/cookie/unsigned-worker refusal, safe nonempty key presence + disabled generation, saved Latest excluding captured analyses, Research 6/4/4 with 0 live generation, and app/push/sw source hashes verified. Two simultaneous signed POSTs accepted one worker; added 1 NSE filing/parsed 2 real PDFs, fresh Neon shows 67 source events/2 live jobs/all 16 attempts unchanged. Zero model calls; manual hosted checks only, not unattended. Initial ECONNRESET recovered via bounded read-only transport retries. Cloudflare OAuth expired before user completion; login/activation remains pending. No new code beyond already-tested7b0afda in this documentation checkpoint.
+
+
+November1 Cloudflare auth/dry-run: OAuth connected (account/user read + Workers write), no extra scopes granted. Worker dry-run passes1.17KiB, only origin/auth-secret bindings; no Gemini/Neon transfer. Subscription plan endpoint403 with limited permissions, account settings200. Final Free eligibility/deploy/cron observation pending. Runtime unchanged; no repeat model call/test suite needed for this external-auth documentation checkpoint.
+
+
+November1 Cloudflare deployment attempt failed before upload at the deployments API with “No access to the specified resource”. Generic workers:write OAuth did not include Workers Scripts access. A corrected limited OAuth request now asks for workers_scripts:write and read-only workers_tail:read (plus existing account/user read + Workers write), so the user can authorize the actual deployment/log observation. No unrelated default service scopes requested. No dispatcher activated, no plan/terms changed, no credential reset/model call. Dry-run remains passed; runtime code unchanged.
+
+
+November1 corrected OAuth succeeded. Dispatcher + separate auth secret uploaded (startup1ms), but cron activation was only partially applied: Cloudflare10063 requires an initial workers.dev account namespace even with workers_dev=false. No HTTP targets enabled. Inspecting absent namespace before initializing this routine prerequisite of the approved Free dispatcher; no existing domain will be renamed, no terms/plan change accepted. Scheduler remains unverified/inactive until trigger API confirms.
+
+
+November1 scheduler activation: corrected OAuth succeeded,1.17KiB worker uploaded/startup1ms. Trigger configuration first failed10063, requiring an account namespace even with workers_dev=false. Verified absent40410007, initialized finn-briefings-12ed6cd6 without replacing any namespace, then applied15-minute triggers successfully at16:21:08UTC. GET schedules/settings/subdomain confirms cron7,22,37,52, only origin/auth-secret bindings, HTTP/previews false. No plan/terms change or Gemini/Neon secret transfer. Baseline Neon lastWorker16:00:22UTC,67 source events/16 attempts. First real cron observation pending; runtime code unchanged, no extra model calls.

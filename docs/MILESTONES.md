@@ -12,7 +12,7 @@ Reconciled November 1,2026 (IST). These checks distinguish local engineering fro
 - [x] Cached local Latest default, zero-call opens/source Refresh, pending/delayed/partial/error/priority/evidence display; captured evaluations isolated from normal workers and Latest.
 - [x] Syntax/all 108 tests: concurrency/restart reuse, content corrections, references, missing/corrupt quota, retry/cooldown/token accounting, truncation, stale leases and separate cadence. 390px browser checks verify relevant behavior; no physical-device offline/install claim.
 - [ ] Source-reviewed unseen results, incoming-manager biography, routine/complex summaries, important omissions, fair priority and reading effort.14 calls/10 captured cases yielded2 partial briefs; [evaluation](PUSH_EVALUATION.md) records failures/limits.
-- [ ] Approved Neon migration, one shared intended-host ledger, credential/dispatcher activation. All three external actions explicitly approved November 1 after explanation; migration/source-path fix verified (108 tests + fresh structural equality), all 16 attempts retained and local workers bound to Neon. Approved key/worker Secrets stored; generation disabled. Runtime presence/deployment/collection/parser/concurrent-worker checks pass with 0 model calls. Dispatcher user login/activation pending. Quality gate retained.
+- [ ] Approved Neon migration, one shared intended-host ledger, credential/dispatcher activation. All three external actions explicitly approved November 1 after explanation; migration/source-path fix verified (108 tests + fresh structural equality), all 16 attempts retained and local workers bound to Neon. Approved key/worker Secrets stored; generation disabled. Runtime presence/deployment/collection/parser/concurrent-worker checks pass with 0 model calls. Dispatcher limited-scope login complete/dry-run passes; Free activation and scheduled observation pending. Quality gate retained.
 - [ ] Observed unattended new-event collection→analysis→saved card in production, cross-deployment/restart/concurrency recovery and measured free-tier capacity/freshness. Production code 7b0afda now READY, generation disabled; runtime collection/parser/cache checks passed; dispatcher login/unattended verification pending.
 
 ## M0–M2 — Environment and briefing spine
@@ -68,3 +68,10 @@ November 1 hosted-status checkpoint: syntax/all 109 tests pass. Safe status dist
 
 
 November 1 host acceptance: syntax/all 109 pass; real HTTPS gate/key-presence/cache/source hashes and two-concurrent-worker lease pass. Hosted manual run collected 1 new filing/parsed 2 attachments, fresh Neon persisted records,16 attempts unchanged. Cloudflare login/cron and model quality remain open; no full completion checkbox changed.
+
+Cloudflare login succeeded but deployment API denied missing Scripts access; corrected limited Scripts-write/Tail-read authorization pending. Dispatcher remains inactive.
+
+
+November1 corrected OAuth succeeded. Dispatcher + separate auth secret uploaded (startup1ms), but cron activation was only partially applied: Cloudflare10063 requires an initial workers.dev account namespace even with workers_dev=false. No HTTP targets enabled. Inspecting absent namespace before initializing this routine prerequisite of the approved Free dispatcher; no existing domain will be renamed, no terms/plan change accepted. Scheduler remains unverified/inactive until trigger API confirms.
+
+Current dispatcher status: uploaded and configured15-minute cron active; origin/auth-secret only, HTTP/previews disabled. Real scheduled execution under observation; full quality/unattended-analysis gates remain unchecked.
