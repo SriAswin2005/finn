@@ -54,6 +54,16 @@ test('grammatical If/This are not named entities in supported conditional financ
   assert.throws(() => validateAnalysis({ claims: [{ section: 'financial', text: 'If Apollo demand improves, the company may benefit.', inference: true, references: [{ evidenceId: 'conditional', quote: source[0].text }] }], unavailableSections: [] }, source), /named entity/);
 });
 
+test('reference-number headers are not negations; actual no/not/never statements remain protected', () => {
+  const note = text => ({ claims: [{ section: 'business', text, inference: false, references: [{ evidenceId: 'e', quote: source[0].text }] }], unavailableSections: [] });
+  const source = [{ id: 'e', text: 'Ref. No. SE/2026-27/141. The executive retired from the company.' }];
+  assert.doesNotThrow(() => validateAnalysis(note('The executive retired from the company.'), source));
+  for (const word of ['No', 'Not', 'Never']) {
+    source[0].text = `Ref. No. SE/2026-27/141. ${word} executive retirement was announced.`;
+    assert.throws(() => validateAnalysis(note('Executive retirement was announced.'), source), /negation/);
+  }
+});
+
 test('captured APL narrative and equivalent month abbreviation are supported; different month/table/issuer remain refused', () => {
   const source = [{ id: 'apl', text: 'APL Apollo Tubes Limited announced financial results for the quarter ending Sept 30, 2026. APL Apollo Tubes delivered its strongest-ever quarterly performance, with Q2FY27 sales volumes, EBITDA and PAT growing 13%, 29% and 27%, respectively.' }];
   const claim = (text, quote) => ({ claims: [{ section: 'financial', text, inference: false, references: [{ evidenceId: 'apl', quote }] }], unavailableSections: [] });

@@ -1,3 +1,5 @@
+November 2 quality checkpoint: syntax/all117 tests pass, retaining all original15 adversarial refusals. HDFC complete unchanged draft accepted with0 added calls; retirement-only irrelevant profile warning suppressed without deleting raw codes. Collected APL results completed in1 ordinary call with3 consolidated INR-million quarterly rows and derived comparatives, PBT explicitly missing. Original source-page visual review/appointment case and unattended hosted generation still pending. Pull v7 saved TCS answer remains usable.
+
 # Push evaluation — November 1, 2026 (IST)
 
 This is captured local test evidence, not unattended production. The generic collector separately caught 66 portfolio filings over three overlapping windows through November 1. Browser opens/Refresh made zero model calls. Vercel/Neon migration and hosted activation remain unverified; automatic approval review rejected the external migration before execution.

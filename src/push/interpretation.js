@@ -24,7 +24,9 @@ const relevantMissing = {
   routine: ['effective_date', 'full_document_text'],
 };
 export function presentationAnalysis(analysis) {
-  const allowed = relevantMissing[analysis.eventType]; if (!allowed) return analysis;
+  let allowed = relevantMissing[analysis.eventType]; if (!allowed) return analysis;
+  const facts = (analysis.claims ?? []).filter(c => !c.inference).map(c => c.text).join(' ');
+  if (analysis.eventType === 'management_change' && /\bretir\w*|\bsuperannuat\w*|\bresign\w*/i.test(facts) && !/\bappoint\w*|\bsucceed\w*/i.test(facts)) allowed = allowed.filter(code => code !== 'management_profile');
   const irrelevant = new Set((analysis.missing ?? []).filter(code => !allowed.includes(code)).map(code => missingContext[code]));
   return { ...analysis, reportedMissing: analysis.reportedMissing ?? analysis.missing, missing: (analysis.missing ?? []).filter(code => allowed.includes(code)), uncertainties: (analysis.uncertainties ?? []).filter(message => !irrelevant.has(message)) };
 }

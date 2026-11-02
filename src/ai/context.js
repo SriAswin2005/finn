@@ -45,7 +45,10 @@ export function citationContextFailure(claim, evidenceById) {
   if (periods(stated).some(period => !supportedPeriods.has(period))) return 'reporting period mismatch';
   if (/\bfull.year\b|\bfor the year\b/i.test(stated) && /\bquarter\b|\bQ[1-4]\b/i.test(quotes) && !/\bfull.year\b|\bfor the year\b/i.test(quotes)) return 'quarter is not a full-year result';
   if (/\b(?:segments?|subsidiar\w*|peers?|standalone)\b/i.test(quotes) && !/\b(?:segments?|subsidiar\w*|peers?|standalone)\b/i.test(stated)) return 'entity or consolidation scope mismatch';
-  if (/\b(?:not|never|no)\b/i.test(surrounding.replace(/not only/gi, '')) && !/\b(?:not|never|no)\b/i.test(stated)) return 'negation omitted from source context';
+  // "Ref. No. SE/2026-27/141" is an identifier, not a negated event.
+  // Exempt only an explicit identifier label followed by its identifier.
+  const negationContext = surrounding.replace(/not only/gi, '').replace(/\b(?:ref(?:erence)?|registration|serial|folio|document|account|office)\.?\s*no\.?\s*[:#-]?\s*(?=[A-Z0-9][A-Z0-9/.-]*\b)/gi, '');
+  if (/\b(?:not|never|no)\b/i.test(negationContext) && !/\b(?:not|never|no)\b/i.test(stated)) return 'negation omitted from source context';
   for (const hedge of ['subject to', 'up to', 'at most', 'at least']) if (surrounding.toLowerCase().includes(hedge) && !stated.toLowerCase().includes(hedge)) return 'qualifier omitted from source context';
   if (future.test(surrounding) && !future.test(stated) && !/\bif\b/i.test(stated)) return 'forward statement presented as actual';
   const up = /\b(?:grew|increased|rose|improved|expanded)\b/i; const down = /\b(?:declined|decreased|fell|dropped|contracted)\b/i;

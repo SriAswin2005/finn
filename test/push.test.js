@@ -33,6 +33,12 @@ test('analysis serves recent due disclosures before old backlog without bypassin
   await settleJob(store, recent, { status: 'deferred', nextAt: at + 60000 });
   assert.equal((await claimAnalysis(store, at)).eventId, 'old');
 });
+test('a retirement-only briefing does not request an incoming profile; appointments retain that uncertainty', () => {
+  const draft = { eventType: 'management_change', claims: [{ text: 'The executive retired from the company.', inference: false }], missing: ['management_profile', 'effective_date'], uncertainties: [missingContext.management_profile, missingContext.effective_date] };
+  const retirement = presentationAnalysis(draft); assert.deepEqual(retirement.missing, ['effective_date']); assert.ok(!retirement.uncertainties.includes(missingContext.management_profile)); assert.ok(retirement.reportedMissing.includes('management_profile'));
+  draft.claims.push({ text: 'The board appointed a successor.', inference: false });
+  assert.ok(presentationAnalysis(draft).missing.includes('management_profile'));
+});
 test('Push storage persists across instances, CAS preserves concurrent mutations and quota fails closed', async () => {
   const { store, path } = await temporaryStore(); const other = createPushStore({ env: {}, path });
   await Promise.all(Array.from({ length: 8 }, (_, i) => (i % 2 ? store : other).mutate(s => { s.collection.counter = (s.collection.counter ?? 0) + 1; })));
