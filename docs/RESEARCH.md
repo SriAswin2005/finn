@@ -1,3 +1,5 @@
+November2 quality update: hosted annual reports>100pages scan physical1–40 plus bounded located MDA, with7.2s worker watchdog and complete-page recovery. Metadata pageCount is full physical total; scannedPageCount/partialScan/scanSelection/scanLimitedByTime describe searched coverage. Sparse physical citations are never reindexed. Optional signed targetPages selects up to40physical pages. Query banner displays best exact source sentence/title/physical citation and explicit zero-match/partial coverage. Guidance supports growth/margin formats while preserving not_comparable and metric/basis/period/scope guards. Adding recovered annual evidence changes cache identity; historical notes remain stored, fresh explicit generation may be needed.
+
 # Primary-source research implementation
 
 One annual report and up to two available earnings-call transcripts are discovered from the dedicated Screener document sections. Discovery is generic for NSE symbols; consolidated lookup falls back to standalone when necessary. Secondary company summaries, machine-generated Screener pros/cons, financial tables, presentations, recordings and news are excluded from the corpus.

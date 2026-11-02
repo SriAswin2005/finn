@@ -1,3 +1,5 @@
+Current November2 quality release: dfaa2f1 / dpl_CiYhrNn4rXhb9H2r146zfBjVrk1L READY, https://finn-zeta-one.vercel.app.151tests pass; hosted annual worker has7.2s watchdog with partial-page recovery. Fresh HCL6.48s/TCS5.60s observed, not a universal cold SLA. Existing local parser signature used for narrow verification; no bulk environment download. Runtime source and final docs-only commit differ intentionally; deployment content unchanged by docs.
+
 # Current rollout — November2 wrap-up
 
 Production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY;141 tests pass. Pull live/cached paths verified; Push accepted unattended publication remains unverified after high-demand503s and source-validation failures. Current source/routing/quota code deployed, all53 attempts retained at16:39UTC. Current authoritative state: PROGRESS.md and ISSUES.md. Older dated rollout text below is history where superseded.

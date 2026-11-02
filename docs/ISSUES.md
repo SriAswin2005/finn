@@ -1,45 +1,39 @@
-Source audit correction November2: TCS printed83 is physical54, not94. Earlier contents-offset heuristic matched a body cross-reference; tightened to a standalone MDA heading, supports positive/negative offset hints from repeated observed printed labels, and verifies every candidate physically. Regression covers cross-reference refusal and negative offsets. Real local TCS scans58pages including actualMDAphysical54–71 in3.58s. Syntax/151full tests pass, including7Python cases. Follow-up deployment/hosted checks pending.
+# Current issues — November 2, 2026, 17:50 UTC
 
-R-002 hosted timeout reproduced and core fix verified: HCL485pages now succeeds5.35s; TCS361pages4.59s, both partial40physical pages. MDA missed because HCL contents isphysical25 and numbers precede headings; targeted follow-up fixes cached first40-page lookup and verifies candidate physical heading, bounded by watchdog. Adjacent section contents numbers bound the MDA span. Automatic review rejected bulk production-env download as overbroad; resolved with pre-existing local deployment signature, no secret transfer or manual intervention.
-
-CURRENT quality status November2: R-003 generic guidance and R-004 question display pass151full tests and browser verification. Approval service recovered; earlier sandbox EACCES/EPERM and review-usage failures were environment limits, resolved for these checks. No application test failures remain. R-002 parser passes local timings/watchdog tests; actual hosted cold timing still pending. P-002 triage applied12routine jobs/0calls,68→56waiting,56attempts preserved. P-001 accepted unattended AI publication and provider capacity remain open; these fixes do not assert a70% reduction or quota cause for503s.
-
-R-004 — Question source display: implemented/tested locally. Top-scoring direct passage is expanded below the query box with exact document/physical page citation; no new model call or synthesized takeaway is claimed. Generic words cannot create a query match, AI is recognized as a whole word or artificial intelligence, zero-match text suggests growth/capex/margins, and partial coverage is explicit.29 targeted tests pass; real browser layout pending (sandbox local server inaccessible). Final full-suite rerun/Git/deployment remain approval-environment limits, not confirmed application failures.
-
-R-003 — Generic guidance: fixed/tested locally. Original matcher returned null for standard volume/margin ranges. Added metric-specific patterns, normalized FY periods and signed bounds. Different metrics, explicit fiscal periods, currencies, scope and qualified/segment statements remain refused. An unstated period stays not stated; later revenue actuals never substitute for volume/margin delivery. No completed-year met/missed verdict is produced. Git checkpoint blocked by approval-review service usage limit, not an unsafe-action determination.
-
-P-002 — Routine queue starvation: fixed/tested. Five explicit routine categories bypass model reservation and complete from primary excerpts; new jobs finish at source acceptance and existing pending/deferred jobs reconcile. Material board outcomes are promoted, active leases/captured work/capped failed jobs remain untouched, corrections invalidate affected rule work. Current observed queue68 waiting/22 explicit routine categories before application; no70% saving or503-cause claim is supported. P-001 automatic accepted AI publication remains separately open.
-
-R-002 — bounded annual extraction: implementation verified locally. Old361-page full extraction exceeded8s; bounded extraction2.3s. Hosted worker watchdog retains completed pages, including through a hung page/download; no usable pages yields explicit unavailable. Full pageCount/scanned count/partial coverage preserved. MDA lookup uses bookmarks or a verified physical heading near a contents hint; unavailable lookup is explicit. Actual hosted cold execution/transfer time remains to verify. Current queue has68 waiting jobs (22 explicit routine categories),56 retained attempts;503 high-demand messages do not establish quota exhaustion.
-
-# Current issues — November 2, 2026
-
-Production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY; syntax/all141 tests pass. The user requested quick wrap-up.
+Production dfaa2f1 / dpl_CiYhrNn4rXhb9H2r146zfBjVrk1L READY. Syntax/151tests pass. Detailed evidence: [VERIFICATION.md](VERIFICATION.md).
 
 ## R-001 — Hosted Pull
 
-Resolved for demonstrated paths: live primary-source generation, durable ownership/cache, edited-input isolation and zero-call reuse. Fresh HCL total revenue and five example entry points work. Seven saved request variants returned0calls. Source/quality failures remain explicit; this is not proof all arbitrary research questions are answerable.
+Working for previously demonstrated primary-source generation/cache/lease paths. New source-only HTTP match/no-match and recovered HCL annual reads200. HCL annual error cleared with the verified partial source; two transcripts and historical notes preserved. Adding the annual source changes evidence identity; older HCL notes may need a fresh explicit generation rather than reuse against a changed corpus. No model call was made for this repair.
+
+## R-002 — Annual PDF extraction
+
+Resolved for measured HCL/TCS paths. Old361-page full scan exceeded8s. Hosted download/parser worker now has7.2s watchdog, complete-page recovery, physical1–40 plus bounded located MDA, targeted-page option and honest partial metadata. Final HCL485pages/64scanned/MDA105–128:6.48s; TCS361pages/58scanned/MDA54–71:5.60s. Strict physical-heading verification rejects governance cross-references and handles negative offsets. Source/network/cold-start variability can still yield partial/unavailable; no universal8s SLA or OCR claim.
+
+## P-002 — Routine queue quota use
+
+Resolved/tested: board_meeting, postal_ballot, investor_meetings, agm_egm and unclassified complete from exact cited excerpts without model reservation. Results, management_change, M&A, contract and litigation sort first; substantive board documents are promoted. Other categories retain model review.18rule notices complete; last reconciliation0calls,49waiting,58attempts unchanged. Active leases/captured work/capped failures are not reset. No70% saving or causal quota explanation for503s is claimed.
+
+## R-003 — Guidance formats
+
+Resolved/tested: standard revenue/volume/sales growth guidance/outlook/target and four distinct margin guidance/band/expectation metrics. Exact quotes and physical pages retained; signed ranges supported. Known metric/currency/fiscal-period/scope/qualifier mismatches refused; missing periods remain unstated, actuals absent unless supported. Original INFY case passes. Completed annual delivery remains not_comparable.
+
+## R-004 — Question evidence presentation
+
+Resolved/tested in local browser and production HTTP: prominent exact source sentence, title and physical-page link below question; AI/artificial-intelligence matching, helpful zero-match prompt, stale-input clearing and focus.390px layout has no horizontal overflow. Source reference is not a generated answer; partial scans disclose searched coverage.
+
+## P-001 — Automatic AI publication and semantic quality
+
+OPEN. Source collection/dispatch/model calls run; current58retained attempts, but this quality slice does not prove newly accepted unattended AI publication. Provider503 messages report high demand; invalid subject/metric/negation drafts remain withheld. Historical ITC/Marico/Eicher/L&T lifetime3 caps are unchanged. Prior controlled generation/operator revalidation and current rule notices do not close this acceptance gate.
 
 ## Q-003 — Quotas and model routing
 
-Resolved for current implementation. Artificial20/day removed; confirmed per-model500/500/20/20 ceilings, aggregate1040 and disjoint Research500/Push540. Local retry reserves250/Lite,10/Flash/shared520 stay inside totals. Every attempt/timeout and original workflow/model label survives policy changes; no provider hold reset. Current Research3.5Lite; Push3.1Lite ordinary,3.6Flash preferred complex,3.8Flash alternative. Healthy retry preference, fresh-capacity reserves, future config-only IDs/order and model-independent Research identity are tested.
+Existing configured disjoint pools and per-model500/500/20/20 ceilings remain; aggregate1040, Research500/Push540, local retries250/Lite/10Flash/shared520 inside totals, lifetime3. No history/hold reset. Gemma4 26B/31B user limits30RPM/16k inputTPM/14400RPD remain recorded/unassigned; Research's30000-token estimate still prevents safe assignment without separate work.
 
-Gemma4 26B/31B limits now user-confirmed30RPM/16k inputTPM/14.4kRPD; unassigned/unactivated in this rollout. Fixed Research30000-token reservation exceeds16k; capability and dynamic-estimate evaluation remain before assignment. No repeat quota question needed for these reported values.
+## Q-004 — Source comparison safeguards
 
-## P-001 — Automatic publication and semantic quality
+Existing clipping, identity, dated-year, source-condition and financial-absence regressions remain passing, including15adversarial refusals. No-new-shares does not establish zero cash.
 
-OPEN. Source collection/PDF/model invocation is genuinely scheduled, but no newly accepted unattended card was observed at16:39UTC. Google503 message explicitly says high demand. Other drafts correctly failed unsupported subject/metric/negation checks; latest Sun Pharma16:30 draft failed negation.53 attempts retained. ITC, Marico appointment, Eicher and L&T transcript jobs hit lifetime3; no reset, clone or automatic extra attempt.
+## Q-002 / S-001 / D-004 / D-002 — Remaining breadth/device/submission
 
-Prior source-reviewed HDFC retirement/APL financial table/L&T contract notes work; L&T recovery was operator revalidation and APL was controlled generation. They do not close unattended acceptance. v11 prompt is concise, avoids metadata name expansion and unsupported forecasts; source guards remain unchanged. Continue only with uncapped genuine work and verified suitable models. Validate important omissions, priority and reading effort against originals before declaring broad quality complete.
-
-## Q-004 — Known source-comparison defects
-
-Resolved for concrete regressions: leading/trailing retrieval fragments, Ref.No/PlotNo identifiers, exact dated-year font split202 6 versus2026, and source-condition/financial absence checks. Original15 adversarial refusals and three baked source hashes remain. Entire clipped TCS answer was withheld/audited; no partial curation/refund. No-new-shares cannot establish zero cash.
-
-## Q-002 / S-001 — Research breadth
-
-Open: broad multi-year/balance-sheet/cash-quality/OCR and completed annual guidance-delivery verdicts are not established. Revised guidance is not delivery. Annual-document failures and missing metrics stay unavailable.
-
-## D-004 / D-002 — Source/device/submission limits
-
-Earlier manual snapshot refresh15/15 EOD/66NSE was verified, not scheduled EOD. Current Push collection continues; backlog/delay remains explicit with no freshness guarantee.390px browser and fresh/cached financial note were checked; physical-phone install/offline/native PDF and after-idle benchmark remain unconfirmed. User deferred submission exports/grants/tag/email, voice, OS notifications and native packaging. No new account action needed.
+Broad multi-year/balance-sheet/cash-quality/OCR and annual delivery remain unverified. EOD was manually refreshed, not scheduled. Physical-phone install/offline/native PDF, sustained timing/load and general unseen semantic quality remain open. Submission exports/grants/tag/email, voice, OS notifications/native packaging deferred. No new account action needed.

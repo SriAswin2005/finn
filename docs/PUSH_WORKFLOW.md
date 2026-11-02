@@ -1,3 +1,5 @@
+November2 routine triage policy (supersedes older all-model queue descriptions): src/push/triage.js completes board_meeting/postal_ballot/investor_meetings/agm_egm/unclassified from exact original excerpts and mentioned dates with0model calls. New parsed jobs complete immediately; pending/deferred legacy jobs reconcile in bounded batches. Explicit results/management_change/M&A/contract/litigation take queue priority; substantive board contents are promoted. Other categories retain model review. method=rules and policy priority are labelled; no AI/immateriality claim. Active leases, captured evaluations, capped failed jobs, attempt history/quota and source corrections remain protected.18live rule notices observed; this is separate from open P-001 accepted unattended AI publication.
+
 # Push workflow acceptance and operating contract
 
 Current November2,2026. Automatic Push and hosted Pull fixes/activation are approved. Broad Research expansion, OS notifications and submission work remain deferred. Current implementation/evidence is in PROGRESS/ISSUES, not older disabled-state logs.
