@@ -1,3 +1,7 @@
+November2 Q-004 verified: syntax/all134 tests pass, including lowercase/capitalized leading-fragment refusal, retained complete following sentence, w.e.f. approval/date continuity and all3 original note hashes. No source guard relaxed or new call. Whole recent TCS answer withdrawal and host deployment next.
+
+November2 Q-004 source-boundary fix saved: Research marks retrieval chunks that begin inside a source sentence; quote bank drops that leading fragment even when capitalized, and drops lowercase leading fragments without boundary metadata. Existing original-evidence hashes remain compatible. Push joins w.e.f./i.e./e.g. abbreviation continuations so approval/date conditions remain in the complete quote. Added controls; required full checks/whole-answer withholding/deployment pending. Existing unsupported Push drafts remain rejected.
+
 # Current issues — November 2, 2026
 
 Current verified state takes precedence over historical logs. Production09afd9d / dpl_DA4wJsTFzLAjYPquLBgWVoiPeDBr READY. Syntax/all134 tests pass for the local rejected-output audit slice; that final slice is not deployed yet.

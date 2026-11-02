@@ -10,11 +10,13 @@ const topics = [
 ];
 export function chunkPages(documents) {
   const chunks = [];
+  const segmenter = new Intl.Segmenter('en', { granularity: 'sentence' });
   for (const doc of documents) for (const page of doc.pages) {
+    const boundaries = new Set([...segmenter.segment(page.text)].map(s => s.index + s.segment.match(/^\s*/)[0].length));
     for (let start = 0; start < page.text.length; start += 1050) {
-      const text = page.text.slice(start, start + 1250).trim();
+      const raw = page.text.slice(start, start + 1250); const text = raw.trim();
       if (text.length < 150) continue;
-      chunks.push({ id: `${doc.id}-p${page.page}-${start}`, documentId: doc.id, kind: doc.kind, page: page.page, text });
+      chunks.push({ id: `${doc.id}-p${page.page}-${start}`, documentId: doc.id, kind: doc.kind, page: page.page, text, leadingFragment: !boundaries.has(start + raw.match(/^\s*/)[0].length) });
     }
   }
   return chunks;
@@ -80,6 +82,8 @@ export function buildEvidence(documents, question = '') {
   }
   const focused = /\b(?:revenues?|profit|ebitda|ebit|pbt|pat|margin|cash|guidance)\b/i.test(question) ? sections.find(s => s.id === 'question')?.evidenceIds ?? [] : [];
   const evidence = [...focused.map(id => selected.get(id)), ...[...selected.values()].filter(chunk => !focused.includes(chunk.id))];
-  const evidenceHash = createHash('sha256').update(JSON.stringify({ version: EVIDENCE_VERSION, hashes: documents.map(d => d.sha256), question, evidence })).digest('hex');
+  // Boundary metadata does not change original evidence/recorded-note identity.
+  const hashEvidence = evidence.map(({ leadingFragment, ...chunk }) => chunk);
+  const evidenceHash = createHash('sha256').update(JSON.stringify({ version: EVIDENCE_VERSION, hashes: documents.map(d => d.sha256), question, evidence: hashEvidence })).digest('hex');
   return { sections, evidence, evidenceHash, version: EVIDENCE_VERSION };
 }

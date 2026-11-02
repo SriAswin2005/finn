@@ -4,11 +4,13 @@ export function buildQuoteBank(evidence, { maxLength = 220, joinAbbreviations = 
   const bank = [];
   const segmenter = new Intl.Segmenter('en', { granularity: 'sentence' });
   for (const item of evidence) {
-    let pending = '';
+    let pending = ''; let first = true;
     for (const { segment } of segmenter.segment(item.text)) {
       pending += segment;
-      if (joinAbbreviations && /\b(?:Mr|Mrs|Ms|Dr|Rs|Ltd|Co|No|viz|Ref|M\/s)\.$/i.test(pending.trim())) continue;
+      if (joinAbbreviations && /\b(?:Mr|Mrs|Ms|Dr|Rs|Ltd|Co|No|viz|Ref|M\/s|w\.e\.f|i\.e|e\.g)\.$/i.test(pending.trim())) continue;
       const quote = pending.trim(); pending = '';
+      const fragment = first && (item.leadingFragment || /^[\s\u201c\u2018"'(\[]*\p{Ll}/u.test(quote)); first = false;
+      if (fragment) continue;
       // Never cut a long sentence into standalone fragments that can lose its hedge/negation.
       // Intl.Segmenter also returns the trailing fragment of a retrieved chunk.
       // A fragment ending mid-word/sentence cannot establish a complete claim.

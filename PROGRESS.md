@@ -1,3 +1,7 @@
+November2 Q-004 verified: syntax/all134 tests pass, including lowercase/capitalized leading-fragment refusal, retained complete following sentence, w.e.f. approval/date continuity and all3 original note hashes. No source guard relaxed or new call. Whole recent TCS answer withdrawal and host deployment next.
+
+November2 Q-004 source-boundary fix saved: Research marks retrieval chunks that begin inside a source sentence; quote bank drops that leading fragment even when capitalized, and drops lowercase leading fragments without boundary metadata. Existing original-evidence hashes remain compatible. Push joins w.e.f./i.e./e.g. abbreviation continuations so approval/date conditions remain in the complete quote. Added controls; required full checks/whole-answer withholding/deployment pending. Existing unsupported Push drafts remain rejected.
+
 # FINN current progress — November 2, 2026
 
 Push and Pull generation are enabled on the approved Vercel/Neon deployment. The Cloudflare Free dispatcher runs every15 minutes. No further account action is currently needed. Full unattended Push publication acceptance remains open.
