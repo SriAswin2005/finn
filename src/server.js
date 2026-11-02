@@ -9,6 +9,7 @@ import { createGeminiProvider, AiUnavailable } from './ai/gemini.js';
 import { createAccessGate } from './access.js';
 import { refusalExample } from './ai/refusal.js';
 import { createPushService, workerAuthorized } from './push/service.js';
+import { reportingContext } from './research/reporting-context.js';
 
 const publicDir = fileURLToPath(new URL('../public/', import.meta.url));
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.webmanifest': 'application/manifest+json', '.png': 'image/png', '.svg': 'image/svg+xml' };
@@ -63,8 +64,9 @@ export function createRequestHandler({ datasetProvider = getDataset, researchPro
             catch { return json(res, 400, { error: 'Invalid JSON.' }); }
           }
           const research = await researchProvider(ticker, question);
-          if (researchPost) return json(res, 200, await aiProvider.generate(research));
-          const analysis = aiProvider.getCached ? await aiProvider.getCached(research) : null;
+          if (researchPost) { const analysis = await aiProvider.generate(research); return json(res, 200, { ...analysis, reportingContext: reportingContext(analysis, research.evidence) }); }
+          const saved = aiProvider.getCached ? await aiProvider.getCached(research) : null;
+          const analysis = saved ? { ...saved, reportingContext: reportingContext(saved, research.evidence) } : null;
           const availability = aiProvider.status ? await aiProvider.status(research) : {};
           return json(res, 200, { ...research, analysis, ai: { ...research.ai, ...availability, configured: aiProvider.enabled ?? research.ai.configured } });
         } catch (error) {

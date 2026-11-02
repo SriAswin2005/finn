@@ -18,6 +18,13 @@ function renderAnalysis(analysis, data) {
       return article;
     }), node('p', 'muted', 'Guidance versus delivery: not verified. A revised forecast does not establish that an earlier forecast was met or missed; matching periods and reporting basis must be checked.'), node('p', 'muted', `Unsupported sections: ${analysis.unavailableSections.join(', ') || 'none declared'}. Citation and quote checks passed; they do not prove semantic correctness. Read the sources before relying on a claim.`));
     $('ai-status').textContent = `${analysis.provider} · ${analysis.model} · ${analysis.cached ? 'cached note · 0 LLM calls · ₹0 request spend' : 'new note'} · generated ${new Date(analysis.generatedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST · ${analysis.promptVersion}`;
+    for (const context of analysis.reportingContext ?? []) {
+      const evidence = data.evidence.find(item => item.id === context.evidenceId); const doc = data.documents.find(item => item.id === evidence?.documentId);
+      if (!evidence || !doc) continue;
+      const article = node('article', 'evidence-excerpt');
+      article.append(node('p', 'eyebrow', context.kind === 'growth_basis' ? 'Growth basis · issuer statement' : 'Reporting period · issuer statement'), node('blockquote', '', context.quote), citation(doc, evidence.page));
+      $('ai-result').append(article);
+    }
     if (analysis.curationNote) {
       $('ai-result').append(node('p', 'muted', analysis.curationNote));
       $('ai-status').textContent += ' · reviewer-curated draft';
@@ -100,10 +107,10 @@ for (const field of ['research-ticker', 'research-question']) $(field).addEventL
   $('research-submit').disabled = false; $('research-loading').hidden = true;
   $('research-status').className = 'status'; $('research-status').textContent = 'Read primary evidence for the changed company or question.';
 });
-export function researchCompany(ticker) {
-  location.hash = 'research'; $('research-ticker').value = ticker; $('research-question').value = ''; $('research-form').requestSubmit();
+export function researchCompany(ticker, question = '') {
+  location.hash = 'research'; $('research-ticker').value = ticker; $('research-question').value = question; $('research-form').requestSubmit();
 }
-for (const button of document.querySelectorAll('[data-research-ticker]')) button.addEventListener('click', () => researchCompany(button.dataset.researchTicker));
+for (const button of document.querySelectorAll('[data-research-ticker]')) button.addEventListener('click', () => researchCompany(button.dataset.researchTicker, button.dataset.researchQuestion ?? ''));
 $('research-ai').addEventListener('click', async () => {
   const data = result; const id = request;
   if (!data) return;
