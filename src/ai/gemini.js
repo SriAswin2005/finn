@@ -7,7 +7,7 @@ import { buildQuoteBank, resolveQuoteReferences } from './quotes.js';
 import { claimResearch, settleResearch } from './research-jobs.js';
 import { citationContextFailure } from './context.js';
 import { createPushStore } from '../push/store.js';
-import { reserveAttempt, finishAttempt, classifyFailure, Deferred } from '../push/quota.js';
+import { reserveAttempt, finishAttempt, classifyFailure, Deferred, nextPacificReset } from '../push/quota.js';
 import { researchAssignments, workflowPolicy } from './workflows.js';
 export { SUPPORTED_GEMINI_MODELS } from './models.js';
 
@@ -222,7 +222,22 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
       if (!q.initialized || q.stopped) return { paused: true, reason: q.stopped ? 'Model configuration needs operator attention.' : 'Shared AI quota has not been initialized.' };
       const { key, models } = cachePathFor(research); const request = state.research?.requests[key];
       if (request?.status === 'rejected') return { paused: true, reason: request.error };
-      const until = Math.max(q.projectUntil, request?.nextAt ?? 0, Math.min(...models.map(model => q.cooldowns[model] ?? 0)));
+      const own = q.attempts.filter(a => a.researchKey === key);
+      if (own.length >= 3) return { paused: true, reason: 'This request reached its attempt limit. Primary evidence remains available.' };
+      const day = at => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' }).format(at);
+      const today = q.attempts.filter(a => day(a.at) === day(now())); const rolling = q.attempts.filter(a => now() - a.at < 86400000);
+      let allowanceUntil = 0;
+      for (const [filter, cap] of [[() => true, q.policy.totalDaily], [a => a.workflow === 'research', q.policy.allocations.research], ...(own.length ? [[a => a.retry, q.policy.retryDaily]] : [])]) {
+        if (today.filter(filter).length >= cap) allowanceUntil = Math.max(allowanceUntil, nextPacificReset(now()));
+        const entries = rolling.filter(filter);
+        if (entries.length >= cap) allowanceUntil = Math.max(allowanceUntil, Math.min(...entries.map(a => a.at)) + 86400000);
+      }
+      const modelUntil = Math.min(...models.map(model => {
+        const cap = q.policy.models[model];
+        return Math.max(q.cooldowns[model] ?? 0, cap && today.filter(a => a.model === model).length >= Math.min(cap.rpd, cap.appRpd ?? cap.rpd) ? nextPacificReset(now()) : 0);
+      }));
+      const until = Math.max(q.projectUntil, request?.nextAt ?? 0, modelUntil, allowanceUntil);
+      if (allowanceUntil > now() && allowanceUntil === until) return { paused: true, pausedUntil: new Date(until).toISOString(), reason: 'This request is waiting for the shared daily or retry allowance.' };
       if (until > now()) return { paused: true, pausedUntil: new Date(until).toISOString(), reason: 'New generation is temporarily paused for model capacity or retry backoff.' };
       return { paused: false };
     } catch { return { paused: true, reason: 'AI storage is temporarily unavailable. Primary evidence remains readable.' }; }

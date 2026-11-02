@@ -8,6 +8,7 @@ import { createGeminiProvider } from '../src/ai/gemini.js';
 import policy from '../src/config/model-policy.json' with { type: 'json' };
 import { buildQuoteBank } from '../src/ai/quotes.js';
 import { validateAnalysis } from '../src/ai/gemini.js';
+import { reserveAttempt } from '../src/push/quota.js';
 
 const env = { VERCEL: '1', FINN_AI_LIVE_ENABLED: 'true', FINN_AI_FREE_TIER_CONFIRMED: 'true', GEMINI_API_KEY: 'synthetic-server-only-key' };
 const research = { evidenceHash: 'hosted-contract', question: '', company: 'Example', documents: [], evidence: [{ id: 'e1', documentId: 'd1', page: 2, text: 'The company reported revenue of 100 million for the year.' }] };
@@ -74,4 +75,21 @@ test('source-only reads expose a temporary model pause without claiming jobs or 
   const provider = createGeminiProvider({ env, directory, sharedStore: store, now: () => at });
   const status = await provider.status(research); assert.equal(status.paused, true); assert.equal(status.pausedUntil, new Date(at + 600000).toISOString());
   const s = await store.read(); assert.equal(s.quota.attempts.length, 0); assert.equal(s.research, undefined);
+});
+test('retry readiness waits for both the model pause and the shared allowance, matching reservation enforcement', async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'finn-research-allowance-')); t.after(() => rm(directory, { recursive: true, force: true }));
+  const store = createPushStore({ env: {}, path: join(directory, 'shared.sqlite') }); await store.initialize();
+  await store.mutate(s => { s.quota.initialized = true; s.quota.policy = policy; });
+  let clock = Date.now(); const started = clock;
+  const provider = createGeminiProvider({ env, directory, sharedStore: store, now: () => clock, fetchImpl: async () => { throw new Error('synthetic transport failure'); } });
+  await assert.rejects(provider.generate(research));
+  const first = (await store.read()).quota.attempts[0];
+  await store.mutate(s => {
+    for (let i = 0; i < 4; i++) s.quota.attempts.push({ id: `retry-${i}`, workflow: 'push', model: Object.entries(policy.models).find(([, c]) => c.workflow === 'push')[0], at: started - 60000 - i, estimatedTokens: 100, retry: true, outcome: 'synthetic_failure' });
+  });
+  clock += 120000;
+  const status = await provider.status(research); assert.equal(status.paused, true); assert.match(status.reason, /allowance/);
+  await store.mutate(s => { s.research.requests[first.researchKey].lease = { token: 'readiness-control', until: clock + 60000 }; });
+  await assert.rejects(reserveAttempt(store, { workflow: 'research', model: first.model, researchKey: first.researchKey, leaseToken: 'readiness-control', estimatedTokens: 100, now: clock }), error => { assert.equal(error.until, Date.parse(status.pausedUntil)); return true; });
+  assert.equal((await store.read()).quota.attempts.length, 5);
 });

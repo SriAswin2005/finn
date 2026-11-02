@@ -47,7 +47,10 @@ export function citationContextFailure(claim, evidenceById) {
   if (/\b(?:segments?|subsidiar\w*|peers?|standalone)\b/i.test(quotes) && !/\b(?:segments?|subsidiar\w*|peers?|standalone)\b/i.test(stated)) return 'entity or consolidation scope mismatch';
   // "Ref. No. SE/2026-27/141" is an identifier, not a negated event.
   // Exempt only an explicit identifier label followed by its identifier.
-  const negationContext = surrounding.replace(/not only/gi, '').replace(/\b(?:ref(?:erence)?|registration|serial|folio|document|account|office)\.?\s*no\.?\s*[:#-]?\s*(?=[A-Z0-9][A-Z0-9/.-]*\b)/gi, '');
+  const negationContext = surrounding.replace(/not only/gi, '').replace(/\b(?:ref(?:erence)?|registration|serial|folio|document|account|office)\.?\s*no\.?\s*[:#-]?\s*(?=[A-Z0-9][A-Z0-9/.-]*\b)/gi, '')
+    // Other numbered identifiers, e.g. Plot No.C/1: require the abbreviation
+    // period and a numeric/structured identifier. Bare "no" stays protected.
+    .replace(/\bno\.\s*(?:[A-Z0-9]*\d[A-Z0-9/.-]*|[A-Z][A-Z0-9]*(?:[/.-][A-Z0-9]+)+)\b/gi, '');
   if (/\b(?:not|never|no)\b/i.test(negationContext) && !/\b(?:not|never|no)\b/i.test(stated)) return 'negation omitted from source context';
   for (const hedge of ['subject to', 'up to', 'at most', 'at least']) if (surrounding.toLowerCase().includes(hedge) && !stated.toLowerCase().includes(hedge)) return 'qualifier omitted from source context';
   if (future.test(surrounding) && !future.test(stated) && !/\bif\b/i.test(stated)) return 'forward statement presented as actual';

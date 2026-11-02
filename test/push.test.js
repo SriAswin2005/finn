@@ -128,6 +128,7 @@ test('one opt-in whole-draft correction uses validation feedback and never publi
     const run = () => processAnalysis({ store, env, now: () => clock, fetchImpl });
     assert.equal((await run()).deferred, true);
     let job = Object.values((await store.read()).jobs)[0]; assert.equal(job.analysis, undefined); assert.equal(job.validationRepairUsed, true);
+    if (!correct) await store.mutate(s => { delete s.jobs[job.key].rejectedDrafts; }); // legacy single-draft record
     clock += 61000; const repaired = await run(); assert.equal(Boolean(repaired.completed), correct, JSON.stringify(repaired));
     assert.match(prompts[1], /SERVER DIAGNOSTIC/); assert.match(prompts[1], /PREVIOUS REJECTED DRAFT.*revenue/s);
     job = Object.values((await store.read()).jobs)[0]; assert.equal(job.rejectedDrafts.length, correct ? 1 : 2);

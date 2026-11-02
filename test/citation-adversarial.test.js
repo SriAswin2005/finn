@@ -58,10 +58,14 @@ test('reference-number headers are not negations; actual no/not/never statements
   const note = text => ({ claims: [{ section: 'business', text, inference: false, references: [{ evidenceId: 'e', quote: source[0].text }] }], unavailableSections: [] });
   const source = [{ id: 'e', text: 'Ref. No. SE/2026-27/141. The executive retired from the company.' }];
   assert.doesNotThrow(() => validateAnalysis(note('The executive retired from the company.'), source));
+  source[0].text = 'Plot No.C/1, Mumbai. The executive retired from the company.';
+  assert.doesNotThrow(() => validateAnalysis(note('The executive retired from the company.'), source));
   for (const word of ['No', 'Not', 'Never']) {
     source[0].text = `Ref. No. SE/2026-27/141. ${word} executive retirement was announced.`;
     assert.throws(() => validateAnalysis(note('Executive retirement was announced.'), source), /negation/);
   }
+  source[0].text = 'No. The executive retirement was announced.';
+  assert.throws(() => validateAnalysis(note('Executive retirement was announced.'), source), /negation/);
 });
 
 test('captured APL narrative and equivalent month abbreviation are supported; different month/table/issuer remain refused', () => {

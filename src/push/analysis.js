@@ -102,7 +102,7 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
     const repair = env.FINN_PUSH_VALIDATION_REPAIR === 'true' && draft && !job.validationRepairUsed && job.attempts < 2 && /^(?:AI |Push |Named entity|Event action|Disclosed fact|Significance|Investment|Unknown source quote)/.test(error.message);
     const deferred = error instanceof Deferred || Boolean(repair);
     await settleJob(store, job, { status: error instanceof Deferred ? error.kind === 'attempt_limit' ? 'failed' : 'deferred' : repair ? 'deferred' : 'failed', nextAt: error.until ?? (repair ? now() + 60000 : 0), error: error.message,
-      ...(draft ? { rejectedDraft: draft, rejectedDrafts: [...(job.rejectedDrafts ?? []), { draft, error: error.message, at: new Date(now()).toISOString(), promptVersion: ANALYSIS_VERSION }] } : {}),
+      ...(draft ? { rejectedDraft: draft, rejectedDrafts: [...(job.rejectedDrafts ?? (job.rejectedDraft ? [{ draft: job.rejectedDraft, error: job.error, at: null, promptVersion: job.attemptPromptVersion ?? 'not_persisted' }] : [])), { draft, error: error.message, at: new Date(now()).toISOString(), promptVersion: ANALYSIS_VERSION }] } : {}),
       ...(repair ? { validationRepairUsed: true, validationFeedback: error.message } : {}) });
     return { failed: !deferred, deferred, error: error.message };
   }
