@@ -10,6 +10,7 @@ import { researchAssignments } from '../src/ai/workflows.js';
 import { createGeminiProvider } from '../src/ai/gemini.js';
 import { createHash } from 'node:crypto';
 import { PROMPT_VERSION } from '../src/ai/gemini.js';
+import { modelInventory, researchModelOrder } from '../src/ai/models.js';
 import policy from '../src/config/model-policy.json' with { type: 'json' };
 
 const at = Date.parse('2026-11-02T13:00:00Z');
@@ -58,6 +59,13 @@ test('Research evaluation isolates one assigned model and cannot select a Push m
   assert.deepEqual(researchAssignments({}).text, [model, fallback]);
   assert.deepEqual(researchAssignments({ FINN_RESEARCH_EVALUATION_MODEL: fallback }).text, [fallback]);
   assert.throws(() => researchAssignments({ FINN_RESEARCH_EVALUATION_MODEL: 'gemini-3.8-flash' }), /No approved Research/);
+});
+test('a future model needs only approved configuration, and explicit Research order overrides version heuristics', () => {
+  const future = { ...policy, researchOrder: ['gemini-4.0-flash', 'gemini-4.0-flash-lite'], models: { 'gemini-4.0-flash': { workflow: 'research', rpm: 5, tpm: 250000, rpd: 20 }, 'gemini-4.0-flash-lite': { workflow: 'research', rpm: 15, tpm: 250000, rpd: 500 }, 'gemini-4.1-flash': { workflow: 'push', rpm: 5, tpm: 250000, rpd: 20 } } };
+  const futureEnv = { FINN_MODEL_POLICY_JSON: JSON.stringify(future) };
+  assert.deepEqual(modelInventory('gemini-4.0-flash', futureEnv).text, ['gemini-4.0-flash']);
+  assert.deepEqual(researchModelOrder(researchAssignments(futureEnv), 'Compare financial results'), ['gemini-4.0-flash', 'gemini-4.0-flash-lite']);
+  assert.equal(modelInventory(model + ',gemini-unknown-version', {}).unverified.includes('gemini-unknown-version'), true);
 });
 const evidence = { evidenceHash: 'rotation-contract', company: 'Example', question: '', documents: [], evidence: [{ id: 'e1', text: 'The company reported revenue of 100 million for the year.' }] };
 const env = { GEMINI_API_KEY: 'synthetic-key', FINN_AI_FREE_TIER_CONFIRMED: 'true', FINN_AI_LIVE_ENABLED: 'true' };

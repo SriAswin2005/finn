@@ -14,6 +14,7 @@ export function validatePolicy(policy) {
     if (!/^(?:gemini|gemma)-[a-z0-9.-]{2,100}$/.test(model) || !['push', 'research'].includes(cap.workflow) || !positive(cap.rpm) || !positive(cap.tpm) || !positive(cap.rpd)) throw new Error('Invalid quota/model separation policy.');
     if (cap.appRpd !== undefined && (!positive(cap.appRpd) || cap.appRpd > cap.rpd) || cap.capability !== undefined && !['research', 'ordinary', 'complex'].includes(cap.capability)) throw new Error('Invalid model application allocation/capability.');
   }
+  if (policy.researchOrder !== undefined && (!Array.isArray(policy.researchOrder) || new Set(policy.researchOrder).size !== policy.researchOrder.length || policy.researchOrder.some(id => policy.models[id]?.workflow !== 'research'))) throw new Error('Research priority order includes an unassigned model.');
   return policy;
 }
 export class Deferred extends Error { constructor(message, until, kind = 'capacity') { super(message); this.until = until; this.kind = kind; } }

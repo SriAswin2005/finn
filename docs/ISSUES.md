@@ -1,18 +1,6 @@
-November2 diagnostic completion verified: actual final result syntax/all135 tests PASS, including the previously failing early metric-context diagnostic and complex-correction/no-downgrade controls.1eb5df7 deployment completed asdpl_FEUbNga8pmYxWQ8F8GoBLMvieirb; corrected diagnostic code is now ready for replacement deployment. Prior premature135-pass entry is explicitly superseded, not accepted as evidence.
-
-November2 correction of premature verification claim: first stronger-correction suite was134/135, not135/135. Early metric-term refusal lacked claimText; test correctly caught incomplete diagnostic. All claim-validation failures now attach claim/references, not only context-guard errors; full rerun pending.1eb5df7 was committed/pushed and deployment initiated before failure was read; do not call it verified. No weaker source guard or extra model call.
-
-November2 stronger-correction checkpoint: syntax/all135 tests pass. Rejected ordinary output makes no publication, next correction reserves configured complex model as a counted retry, both drafts remain audited, a second rejection cannot loop, and unavailable complex capacity makes0 further calls instead of downgrade. v9 source-condition/scope reminders and structured context diagnostic ready to deploy. No live model call in checks.
-
-November2 bounded stronger correction saved: ordinary Push validation rejection now escalates its ONE permitted whole-draft correction to configured complex Push capacity, with unchanged lifetime3/shared quotas/source evidence. Context diagnostic includes offending claim and exact references; retained drafts keep that audit, and reviewed retry reuses it. v9 prompt reinforces approval authority/brand scope and avoids uncited market speculation. No downgrade or automatic extra loop; tests pending. Whole clipped TCS answer withdrawn/audited0calls,3.6 exact answer source-reviewed;41 attempts retained at mutation.
-
-November2 Q-004 verified: syntax/all134 tests pass, including lowercase/capitalized leading-fragment refusal, retained complete following sentence, w.e.f. approval/date continuity and all3 original note hashes. No source guard relaxed or new call. Whole recent TCS answer withdrawal and host deployment next.
-
-November2 Q-004 source-boundary fix saved: Research marks retrieval chunks that begin inside a source sentence; quote bank drops that leading fragment even when capitalized, and drops lowercase leading fragments without boundary metadata. Existing original-evidence hashes remain compatible. Push joins w.e.f./i.e./e.g. abbreviation continuations so approval/date conditions remain in the complete quote. Added controls; required full checks/whole-answer withholding/deployment pending. Existing unsupported Push drafts remain rejected.
-
 # Current issues — November 2, 2026
 
-Current verified state takes precedence over historical logs. Production09afd9d / dpl_DA4wJsTFzLAjYPquLBgWVoiPeDBr READY. Syntax/all134 tests pass for the local rejected-output audit slice; that final slice is not deployed yet.
+Current verified state takes precedence over historical logs. Production0c134a0 / dpl_9JLfhWd8v5zuhhQsi6SGrtg782pr READY. Syntax/all137 tests pass locally; model-configuration/Push-rotation cleanup pending commit/deployment. Audit/source-boundary/stronger-correction fixes deployed.
 
 ## R-001 — Hosted Pull activation and durability
 
@@ -20,9 +8,9 @@ Current verified state takes precedence over historical logs. Production09afd9d 
 
 ## Q-003 — Efficient quota use and routing
 
-**Budget/routing fix verified and deployed; secondary model acceptance open.** User-reported Lite15RPM/250k inputTPM/500RPD and Flash5RPM/250k/20RPD replace the old artificial20 cap by explicit November2 instruction.1040 aggregate/520 per workflow are ceilings; retries are inside them and lifetime3 remains. Audited apply retained all33 existing attempts/provider holds and released20 local-allocation waits. Research stable identity preserves legacy cache/lease/rejection/attempt accounting when routing changes. Zero-call fallback/global-stop tests pass.
+**Budget/routing and secondary-model sample verified/deployed.** User-reported Lite15RPM/250k inputTPM/500RPD and Flash5RPM/250k/20RPD replace the old artificial20 cap by explicit November2 instruction.1040 aggregate/520 per workflow are ceilings; retries are inside them and lifetime3 remains. Audited apply retained all33 existing attempts/provider holds and released20 local-allocation waits. Research stable identity preserves legacy cache/lease/rejection/attempt accounting when routing changes. Zero-call fallback/global-stop tests pass.
 
-Research3.5Lite and 3.6Flash fallback are disjoint from Push3.1Lite ordinary/3.8Flash complex. The first staged3.6 financial call was charged/refused for named-entity citation context; a separate exact-quotation case subsequently passed and matched reviewed originalp12; promotion configuration passes syntax/all134 tests; audited apply/deployment pending. Local new audit retains future rejected visible output, reservation/model/prompt/finish/error; earlier missing raw output cannot be reconstructed. Actual provider503 capacity remains outside application control. No key rotation or project-hold bypass.
+Research3.5Lite and 3.6Flash fallback are disjoint from Push3.1Lite ordinary/3.8Flash complex. The first staged3.6 financial call was charged/refused for named-entity citation context; a separate exact-quotation case subsequently passed and matched reviewed originalp12; fallback promotion is applied/deployed. Deployed audit retains future rejected visible output, reservation/model/prompt/finish/error; earlier missing raw output cannot be reconstructed. Actual provider503 capacity remains outside application control. No key rotation or project-hold bypass.
 
 ## P-001 — Automatic Push acceptance and semantic quality
 
@@ -43,3 +31,9 @@ Close the operational publication gate only after a genuine tick saves a validat
 **Open/deferred.** Hosted390px behavior is verified for demonstrated paths. Physical-phone installation/offline/native PDF and after-idle timing are unconfirmed. User deferred submission exports, reviewer grants/tag/email, voice, OS notifications and native packaging. No submission sent.
 
 November2 fresh hosted UI call: TCS services question generated3 claims on3.5Lite at13:17UTC, proving new calls available beyond old6 Research cap. Source review found one citation begins inside a retrieval word; whole new answer must be withheld and quote-bank start-boundary guard fixed. This is an open quality finding. Scheduled13:15 Marico correction failed qualifier validation; unattended acceptance still open. Earlier commit/deploy attempt was not executed because automatic approval review hit a usage limit; normal approved-path retry resumes after user continuation.
+
+## Q-004 — Incomplete leading source quotation
+
+**Resolved for demonstrated failure.** The entire new TCS3-claim answer was withdrawn/audited0calls; its validated reservation remains in history. New quote banks exclude leading retrieval fragments, including capitalized ones using original page-sentence boundaries; w.e.f. continuation retains approval/date context. Original3 baked source hashes remain compatible. Fresh hosted HCL financial output has1 complete exact p12 quote plus source period/growth qualification, verified against original. No partial curation or request reset.
+
+November2 final implementation checks: syntax and all137 tests pass. Ordinary Push transport retries prefer an unused suitable configured stronger model; stronger capacity may handle ordinary work, complex work never downgrades. Every attempt counts, one network call/tick/lifetime3 remain. Runtime model IDs/catalog/defaults/explicit Research order are configuration; unknown inventory is unverified and no automatic quota/free-tier upgrade occurs.19 current relative documentation links resolve. Latest scheduled Marico503 is retained as a real failure, not a passed example.

@@ -1,20 +1,8 @@
-November2 diagnostic completion verified: actual final result syntax/all135 tests PASS, including the previously failing early metric-context diagnostic and complex-correction/no-downgrade controls.1eb5df7 deployment completed asdpl_FEUbNga8pmYxWQ8F8GoBLMvieirb; corrected diagnostic code is now ready for replacement deployment. Prior premature135-pass entry is explicitly superseded, not accepted as evidence.
-
-November2 correction of premature verification claim: first stronger-correction suite was134/135, not135/135. Early metric-term refusal lacked claimText; test correctly caught incomplete diagnostic. All claim-validation failures now attach claim/references, not only context-guard errors; full rerun pending.1eb5df7 was committed/pushed and deployment initiated before failure was read; do not call it verified. No weaker source guard or extra model call.
-
-November2 stronger-correction checkpoint: syntax/all135 tests pass. Rejected ordinary output makes no publication, next correction reserves configured complex model as a counted retry, both drafts remain audited, a second rejection cannot loop, and unavailable complex capacity makes0 further calls instead of downgrade. v9 source-condition/scope reminders and structured context diagnostic ready to deploy. No live model call in checks.
-
-November2 bounded stronger correction saved: ordinary Push validation rejection now escalates its ONE permitted whole-draft correction to configured complex Push capacity, with unchanged lifetime3/shared quotas/source evidence. Context diagnostic includes offending claim and exact references; retained drafts keep that audit, and reviewed retry reuses it. v9 prompt reinforces approval authority/brand scope and avoids uncited market speculation. No downgrade or automatic extra loop; tests pending. Whole clipped TCS answer withdrawn/audited0calls,3.6 exact answer source-reviewed;41 attempts retained at mutation.
-
-November2 Q-004 verified: syntax/all134 tests pass, including lowercase/capitalized leading-fragment refusal, retained complete following sentence, w.e.f. approval/date continuity and all3 original note hashes. No source guard relaxed or new call. Whole recent TCS answer withdrawal and host deployment next.
-
-November2 Q-004 source-boundary fix saved: Research marks retrieval chunks that begin inside a source sentence; quote bank drops that leading fragment even when capitalized, and drops lowercase leading fragments without boundary metadata. Existing original-evidence hashes remain compatible. Push joins w.e.f./i.e./e.g. abbreviation continuations so approval/date conditions remain in the complete quote. Added controls; required full checks/whole-answer withholding/deployment pending. Existing unsupported Push drafts remain rejected.
-
 # FINN current progress — November 2, 2026
 
 Push and Pull generation are enabled on the approved Vercel/Neon deployment. The Cloudflare Free dispatcher runs every15 minutes. No further account action is currently needed. Full unattended Push publication acceptance remains open.
 
-Current production:09afd9d / dpl_DA4wJsTFzLAjYPquLBgWVoiPeDBr READY, https://finn-zeta-one.vercel.app. Private origin contains the same code. Local work now adds retained rejected Research output; syntax/all134 tests pass, deployment pending for that audit change.
+Current production:0c134a0 / dpl_9JLfhWd8v5zuhhQsi6SGrtg782pr READY, https://finn-zeta-one.vercel.app. Private origin contains the same implementation. Local model-version/catalog/explicit-order cleanup passes syntax/all137 tests; commit/deployment pending. Retained output audit, complete-sentence source quotes and stronger single correction are deployed.
 
 ## Model policy and routing
 
@@ -27,7 +15,7 @@ The user's November2 instruction to use models efficiently supersedes the old ar
 | Push |3.1Flash-Lite ordinary |15 /250000 /500 |
 | Push |3.8Flash complex |5 /250000 /20 |
 
-Aggregate1040/day and520/workflow are ceilings, not guaranteed provider or hosting capacity. Every retry/timeout counts inside the totals; lifetime3, Pacific and rolling24h caps, minute budgets, provider pauses and circuits remain. 3.6Flash passed a second, distinct exact-quotation financial case against original transcript physicalp12; promotion configuration passes syntax/all134 tests; audited apply/deployment pending. Its first real financial sample failed named-entity citation validation; it remains withheld/counted; the successful separate case does not reset or relabel it. All34 historical attempts currently remain; the policy audit preserved the original33 and released20 local-budget deferrals. No provider hold was shortened.
+Aggregate1040/day and520/workflow are ceilings, not guaranteed provider or hosting capacity. Every retry/timeout counts inside the totals; lifetime3, Pacific and rolling24h caps, minute budgets, provider pauses and circuits remain. 3.6Flash passed a second, distinct exact-quotation financial case against original transcript physicalp12; fallback promotion is applied/deployed. Its first real financial sample failed named-entity citation validation; it remains withheld/counted; the successful separate case does not reset or relabel it. All43 historical attempts currently remain; the policy audit preserved the original33 and released20 local-budget deferrals. No provider hold was shortened.
 
 Roles/IDs/limits are JSON configuration. Research skips a zero-call model-capacity block, but never rotates around project/auth stops. Model upgrades now preserve stable Research request identity, legacy caches/leases/rejections and lifetime counts without relabeling historical attempts. Default Google sampling replaces custom temperatures.
 
@@ -42,6 +30,10 @@ Roles/IDs/limits are JSON configuration. Research skips a zero-call model-capaci
 
 ## Remaining work
 
-Observe an actual scheduled accepted Push card and verify HTTP/fresh-instance reuse without another call. Diagnose remaining rejected/complex outputs with retained evidence; source/metric absence stays unavailable. Verify promoted Research fallback on the host. Provider503s and general unseen-company/model quality remain limits, not disabled credentials. Reconcile current runbooks and deploy the audit change. Submission/voice/OS notifications/native work remains deferred.
+Final14:45:47.925UTC Marico stronger-model attempt received503 and exhausted lifetime3; it is failed and must not be reset/requeued. Observe an actual scheduled accepted Push card and verify HTTP/fresh-instance reuse without another call. Diagnose remaining rejected/complex outputs with retained evidence; source/metric absence stays unavailable. Verify promoted Research fallback on the host. Provider503s and general unseen-company/model quality remain limits, not disabled credentials. Deploy the verified configurable-version/ordinary-transport-rotation slice; current runbooks are reconciled. Submission/voice/OS notifications/native work remains deferred.
 
 November2 fresh hosted UI call: TCS services question generated3 claims on3.5Lite at13:17UTC, proving new calls available beyond old6 Research cap. Source review found one citation begins inside a retrieval word; whole new answer must be withheld and quote-bank start-boundary guard fixed. This is an open quality finding. Scheduled13:15 Marico correction failed qualifier validation; unattended acceptance still open. Earlier commit/deploy attempt was not executed because automatic approval review hit a usage limit; normal approved-path retry resumes after user continuation.
+
+Latest verification14:40UTC: six saved Research HTTP cases return0calls; clipped TCS whole answer is withheld/audited. Fresh hosted3.5 HCL answer14:40:52UTC has1 exact complete financial quote plus period/constant-currency exception context, matching originalp12. Leading/capitalized retrieval fragments and w.e.f. condition continuity are fixed without changing the three baked source hashes. No source guard weakened.
+
+November2 final implementation checks: syntax and all137 tests pass. Ordinary Push transport retries prefer an unused suitable configured stronger model; stronger capacity may handle ordinary work, complex work never downgrades. Every attempt counts, one network call/tick/lifetime3 remain. Runtime model IDs/catalog/defaults/explicit Research order are configuration; unknown inventory is unverified and no automatic quota/free-tier upgrade occurs.19 current relative documentation links resolve. Latest scheduled Marico503 is retained as a real failure, not a passed example.

@@ -161,6 +161,18 @@ test('a correction waits for complex capacity instead of calling an ordinary mod
   const result = await run(); assert.equal(result.llmCalls, 0); assert.equal(result.deferred, true); assert.equal(calls, 1);
   const state = await store.read(); assert.equal(state.quota.attempts.length, 1); const job = Object.values(state.jobs)[0]; assert.equal(job.complex, true); assert.equal(job.attempts, 1); assert.equal(job.analysis, undefined);
 });
+test('ordinary transport retries prefer an unused suitable stronger model and count every attempt', async () => {
+  const { store } = await temporaryStore();
+  await store.mutate(s => { mergeFilings(s, [filing], 'now'); s.quota.initialized = true; s.quota.policy = { ...policy, models: { 'gemini-3.1-flash-lite': { ...policy.models['gemini-3.1-flash-lite'], capability: 'ordinary' }, 'gemini-3.8-flash': { ...policy.models['gemini-3.8-flash'], capability: 'complex' } } }; });
+  await processDocument({ store, now: () => at, collectDocument: async () => managerDoc });
+  let clock = at; const calls = [];
+  const run = () => processAnalysis({ store, now: () => clock, env: { FINN_PUSH_ENABLED: 'true', GEMINI_API_KEY: 'fake', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async url => { calls.push(url); return calls.length === 1 ? new Response('{}', { status: 503 }) : new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(managerWire()) }] } }] })); } });
+  assert.equal((await run()).llmCalls, 1); clock += 120000;
+  const result = await run(); assert.equal(result.completed, true); assert.equal(result.model, 'gemini-3.8-flash'); assert.equal(result.llmCalls, 1);
+  assert.match(calls[0], /gemini-3.1-flash-lite/); assert.match(calls[1], /gemini-3.8-flash/);
+  const state = await store.read(); assert.equal(state.quota.attempts.length, 2); assert.equal(state.quota.attempts[0].outcome, 'http_503'); assert.equal(state.quota.attempts[1].retry, true);
+  assert.match(Object.values(state.jobs)[0].analysis.complexityReasons[0], /stronger Push model/);
+});
 
 test('project pause reports zero network calls and stops cross-job scanning', async () => {
   const { store } = await temporaryStore();

@@ -1,6 +1,6 @@
 # Push workflow acceptance and operating contract
 
-November 1, 2026, IST. This is the active Push scope; it supersedes the older manual-only scope in SPEC. Research expansion, OS notifications and submission work remain deferred.
+Current November2,2026. Automatic Push and hosted Pull fixes/activation are approved. Broad Research expansion, OS notifications and submission work remain deferred. Current implementation/evidence is in PROGRESS/ISSUES, not older disabled-state logs.
 
 ## What useful means
 
@@ -21,9 +21,9 @@ Initial gap assessment: saved Latest and narrow recorded enrichments worked, whi
 | Case | Required review | Evidence status |
 | --- | --- | --- |
 | Existing L&T results / HDFC succession | Preserve reviewed arithmetic, p.11 / profile p.3 and caveats | Captured regression examples, already reviewed |
-| Unseen results issuer | Revenue, PBT, PAT, exact profit labels, period/unit/entity; absent EBITDA/comparatives explicit | Captured APL/Sun results evaluated; no accepted summary. APL aligned metric table reviewed. |
+| Unseen results issuer | Revenue, PBT, PAT, exact profit labels, period/unit/entity; absent EBITDA/comparatives explicit | APL real source-backed partial/table accepted and reviewed; Sun and broad results quality remain unproven. |
 | Unseen management issuer | Person, role, effective date, reason, supported issuer-attributed background or explicit omission | CDSL retirement partial; Elecon/Safari incoming-profile cases refused/deferred, not passed. |
-| Acquisition / contract / capital allocation | Consideration/order size, conditions, timing, counterparty, uncertainty; no implied revenue/profit | L&T contract partial with size-band omission; APL acquisition timed out. |
+| Acquisition / contract / capital allocation | Consideration/order size, conditions, timing, counterparty, uncertainty; no implied revenue/profit | Latest L&T source-reviewed recovery retains operational scope and Significant band; no exact price/revenue forecast. APL acquisition timed out. |
 | Regulatory / litigation | Authority, amount/currency, operative order, appeal/contingency; no unsupported insolvency conclusion | Polycab appeal timed out; attached operative-order text unreadable. |
 | Routine notice | Correct dates/purpose, concise low-priority reason; unknowns remain visible | Bharti/CDSL notices refused; routine usefulness/priority not passed. |
 | Ambiguous, corrected, unreadable | Refuse invented cells/biography; retain original/replacement identities; expose limitation | Correction/reference/malformed-cell controls pass; real unreadable legal/table pages retained. Hosted correction recovery unverified. |
@@ -32,9 +32,9 @@ Actual reviews are in [PUSH_EVALUATION.md](PUSH_EVALUATION.md). For each output 
 
 ## Infrastructure verification (November 1)
 
-Official Google models page lists gemini-3.5-flash-lite, gemini-3.1-flash-lite, gemini-3.8-flash and gemini-3.6-flash. Actual model listing can establish project access, not rate limits. Google directs active quotas to AI Studio; RPM/TPM/RPD are project limits and daily reset is midnight Pacific. Existing 20/day is a local policy, not Google entitlement. User supplied active AI Studio limits: Lite 15 RPM/250k input TPM/500 RPD; Flash 5 RPM/250k input TPM/20 RPD. Local total 20, Research 6/Push 14/retries 4 is separate; four complex slots are capture-only. Both Pacific and rolling24h caps apply. IDs/roles/limits are configurable, not generation-specific runtime branches.
+User supplied active AI Studio limits: each Lite15RPM/250k inputTPM/500RPD; each Flash5RPM/250k/20RPD. Their November2 model-rotation instruction replaces the old arbitrary20/day allocation:1040 aggregate/520 per workflow ceilings, every retry/timeout included, lifetime3 retained. Research3.5Lite/3.6Flash and Push3.1Lite ordinary/3.8Flash complex are disjoint. IDs/catalog/defaults/explicit Research order/limits are configuration; unknown model quotas/free eligibility are never inferred. Pacific and conservative aggregate/workflow rolling24h caps, minute limits, provider holds/circuits remain. Actual capacity is not guaranteed.
 
-Keep Vercel/Neon. Vercel Hobby cron permits once/day with hour-level timing, so it cannot meet a 15-minute target. Prepare a minimal Cloudflare scheduled fetch worker (15-minute target, bounded awaited Vercel jobs, durable resume). Cloudflare Free has limited CPU; the worker only dispatches, while Vercel performs parsing/generation within its configured 300-second bound. Activation/new terms and hosted Gemini transfer require approval. Do not activate or imply a freshness guarantee. Measure workload, dispatch lateness, pending age and actual free capacity before claiming reliability.
+Approved Vercel/Neon and Cloudflare Free dispatcher are active. The worker only signs/awaits quarter-hour dispatch; Vercel parses/generates within300seconds, awaited dispatch bound290seconds. HTTP/previews disabled and no Gemini/Neon credentials on Cloudflare. Genuine collection/PDF/model invocation is observed; scheduled accepted publication remains a separate acceptance gate. No new account action currently needed. Measure source backlog, lateness and free capacity; do not promise15-minute delivery.
 
 Sources: [Google models](https://ai.google.dev/gemini-api/docs/models), [pricing](https://ai.google.dev/gemini-api/docs/pricing), [rate limits](https://ai.google.dev/gemini-api/docs/rate-limits), [Vercel cron limits](https://vercel.com/docs/cron-jobs/usage-and-pricing), [function limits](https://vercel.com/docs/functions/limitations), [Cloudflare cron](https://developers.cloudflare.com/workers/configuration/cron-triggers/), [Workers limits](https://developers.cloudflare.com/workers/platform/limits/), [Neon plans](https://neon.com/docs/introduction/plans). Exact approval/rollout/capacity limits are in [DEPLOYMENT.md](DEPLOYMENT.md).
 
@@ -47,6 +47,8 @@ Original/layout text survives parsing. Complete source-owned sentence quotes fee
 
 A signed awaited worker runs bounded source/document/analysis stages with durable leases and independent configured collection/analysis cadences. App opens read saved cards; Refresh requests source catch-up only. Rejections, malformed/truncated output, unsuitable model capacity, cooldowns and missing state retain honest failed/deferred/unavailable status. Prompt upgrades alone never regenerate accepted history.
 
-All current records are retained; 90-day operation/free-tier headroom has not been measured. Initial 66 filings exceed the small approved analysis allowance; backlog may grow even with 15-minute dispatch. Capture-only slots cannot silently become production capacity. Actual intended-host persistence, concurrent CAS performance, free usage and freshness must be demonstrated before completion.
+All current records are retained; 90-day operation/free-tier headroom has not been measured. Existing backlog can grow despite higher model ceilings because document/model work is bounded per invocation and providers can fail. Capture isolation, lifetime3 and explicit role/evaluation configuration remain. Intended-host durable state, concurrent CAS and cache reuse are verified for demonstrated paths; sustained free usage/freshness remain unproven.
 
 Backlog age covers active unparsed/reference/retry filings as well as analysis jobs; captured/superseded observations and terminal document failures do not become pending backlog. A missing PDF job must not hide an old disclosure's delay.
+
+November2 bounded correction: one ordinary validation failure escalates its one permitted full correction to configured complex Push capacity using original evidence and structured source diagnostic. No downgrade or third automatic loop; all attempts count. Leading retrieval fragments are excluded and w.e.f. continuation retains source conditions. Previously accepted content is not regenerated by prompt/model changes.

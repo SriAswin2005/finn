@@ -8,9 +8,11 @@ export function workflowPolicy(env = process.env) {
 }
 export function researchAssignments(env = process.env) {
   const trial = env.FINN_RESEARCH_EVALUATION_MODEL;
-  const models = Object.entries(workflowPolicy(env).models).filter(([id, cap]) => cap.workflow === 'research' && (!cap.evaluationOnly || trial === id) && (!trial || trial === id)).map(([id]) => id);
+  const policy = workflowPolicy(env);
+  let models = Object.entries(policy.models).filter(([id, cap]) => cap.workflow === 'research' && (!cap.evaluationOnly || trial === id) && (!trial || trial === id)).map(([id]) => id);
+  if (policy.researchOrder) models = [...policy.researchOrder.filter(id => models.includes(id)), ...models.filter(id => !policy.researchOrder.includes(id))];
   const inventory = env.FINN_GEMINI_MODELS?.split(',').map(id => id.trim().replace(/^models\//, ''));
   const text = inventory ? models.filter(id => inventory.includes(id)) : models;
   if (!text.length) throw new Error('No approved Research model is assigned. Push models cannot be used as Research fallbacks.');
-  return { text };
+  return { text, configuredOrder: Boolean(policy.researchOrder) };
 }
