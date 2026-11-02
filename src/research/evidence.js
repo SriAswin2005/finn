@@ -1,6 +1,17 @@
 import { createHash } from 'node:crypto';
 
 export const EVIDENCE_VERSION = 'primary-excerpts-v2';
+const questionStopWords = new Set('the and what how does this company companies are did do is was were will would can could should has have had why when which where who that these those for from about say said tell me please management report annual transcript call using describe latest current recent keep reported units reporting period quoted evidence establishes them in on at to of with as it its our their they we us an be by or'.split(' '));
+const noQuestionMatch = "No direct mentions found in the annual report or transcripts for this specific term. Try broader terms like 'growth', 'capex', or 'margins'.";
+function queryTerms(question) {
+  return [...new Set(question.toLowerCase().match(/[a-z]{2,}/g) ?? [])].filter(term => !questionStopWords.has(term));
+}
+function directScore(chunk, terms) {
+  return terms.reduce((sum, term) => {
+    const stem = /^investments?$/.test(term) ? 'invest' : term.length > 4 ? term.replace(/s$/, '') : term;
+    return sum + (new RegExp(`\\b${stem}${term === 'ai' ? '' : '\\w*'}\\b`, 'i').test(chunk.text) ? 1 : 0);
+  }, 0);
+}
 const topics = [
   { id: 'business', title: 'Business snapshot', terms: ['business overview', 'our business', 'we provide', 'segments', 'manufactur', 'products', 'services', 'customers'], kind: 'annual_report' },
   { id: 'financial', title: 'Financial snapshot & trends', terms: ['revenue', 'profit', 'margin', 'cash flow', 'growth', 'crore', 'million'] },
@@ -61,6 +72,8 @@ function chooseMatches(matches, topic, documents) {
 }
 export function buildEvidence(documents, question = '') {
   const chunks = chunkPages(documents); const selected = new Map();
+  let questionReferenceId = null;
+  let questionReferenceText = null;
   const sections = topics.map(topic => {
     const matches = chunks.filter(chunk => !topic.kind || chunk.kind === topic.kind).map(chunk => ({ chunk, score: score(chunk, topic.terms) + (topic.id === 'guidance' ? guidanceBonus(chunk.text) : 0) }))
       .filter(item => item.score >= 2 && (topic.id !== 'financial' || /\d/.test(item.chunk.text)))
@@ -78,12 +91,32 @@ export function buildEvidence(documents, question = '') {
       + (totalRevenue && /\b(?:total|overall|our|company(?:'s)?)\s+revenue\b.{0,100}(?:\$|USD|INR|₹)/i.test(chunk.text) ? 24 : 0)
       + (metrics.length && latest === chunk.documentId ? 8 : 0) })).filter(item => item.score > 0).sort((a, b) => b.score - a.score).slice(0, 4);
     for (const match of matches) selected.set(match.chunk.id, match.chunk);
-    sections.unshift({ id: 'question', title: 'Evidence for your question', evidenceIds: matches.map(match => match.chunk.id), note: matches.length ? 'Relevant source passages, not a generated answer.' : 'No matching passage found. Try a more specific question; no answer has been invented.' });
+    const directTerms = queryTerms(question);
+    const asksAI = /\bAI\b|artificial intelligence/i.test(question);
+    // Keep existing saved-note retrieval identity. The prominent source reference
+    // excludes generic question words; add a passage only if old retrieval missed it.
+    let direct = matches.filter(item => directScore(item.chunk, directTerms) > 0);
+    if (asksAI || !direct.length) direct = chunks.map(chunk => ({ chunk,
+      score: directScore(chunk, directTerms) + (asksAI && /\bAI\b|artificial intelligence/i.test(chunk.text) ? 5 : 0) }))
+      .filter(item => item.score > 0 && (!asksAI || /\bAI\b|artificial intelligence/i.test(item.chunk.text)))
+      .sort((a, b) => b.score - a.score || a.chunk.page - b.chunk.page).slice(0, 4);
+    for (const match of direct) selected.set(match.chunk.id, match.chunk);
+    questionReferenceId = direct[0]?.chunk.id ?? null;
+    if (direct[0]) {
+      const text = direct[0].chunk.text;
+      const sentences = [...new Intl.Segmenter('en', { granularity: 'sentence' }).segment(text)]
+        .map(({ segment }) => segment.trim()).filter(sentence => sentence.length >= 30 && /[.!?]["”’']?$/.test(sentence))
+        .map(sentence => ({ text: sentence, score: directScore({ text: sentence }, directTerms) }))
+        .filter(item => item.score > 0 && (!asksAI || /\bAI\b|artificial intelligence/i.test(item.text)))
+        .sort((a, b) => b.score - a.score);
+      questionReferenceText = sentences[0]?.text ?? text;
+    }
+    sections.unshift({ id: 'question', title: 'Evidence for your question', evidenceIds: direct.map(match => match.chunk.id), note: direct.length ? 'Relevant source passages, not a generated answer.' : noQuestionMatch });
   }
   const focused = /\b(?:revenues?|profit|ebitda|ebit|pbt|pat|margin|cash|guidance)\b/i.test(question) ? sections.find(s => s.id === 'question')?.evidenceIds ?? [] : [];
   const evidence = [...focused.map(id => selected.get(id)), ...[...selected.values()].filter(chunk => !focused.includes(chunk.id))];
   // Boundary metadata does not change original evidence/recorded-note identity.
   const hashEvidence = evidence.map(({ leadingFragment, ...chunk }) => chunk);
   const evidenceHash = createHash('sha256').update(JSON.stringify({ version: EVIDENCE_VERSION, hashes: documents.map(d => d.sha256), question, evidence: hashEvidence })).digest('hex');
-  return { sections, evidence, evidenceHash, version: EVIDENCE_VERSION };
+  return { sections, evidence, evidenceHash, questionReferenceId, questionReferenceText, version: EVIDENCE_VERSION };
 }

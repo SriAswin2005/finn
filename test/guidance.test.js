@@ -29,3 +29,28 @@ test('guidance refuses different full-year periods, missing chronology and quali
     assert.equal(buildGuidanceComparison([earlier, qualified]), null);
   }
 });
+
+const call = (month, text) => ({ id: month, title: `Call ${month} 2026`, kind: 'transcript', url: 'https://issuer.example/call.pdf', pages: [{ page: 17, text }] });
+test('guidance recognizes revenue, sales and volume outlook/targets with range separators and retains exact citations', () => {
+  for (const metric of ['Revenue', 'Sales', 'Volume']) for (const word of ['guidance', 'outlook', 'target']) for (const separator of ['to', '-', '–']) {
+    const earlier = call('Apr', `${metric} growth ${word} for FY2027 is 8.5% ${separator} 10% across the company.`);
+    const later = call('Jul', `${metric} growth ${word} for FY2027 is 9% ${separator} 11% across the company.`);
+    const result = buildGuidanceComparison([earlier, later]); assert.ok(result);
+    assert.equal(result.metric, `${metric} growth`); assert.equal(result.promised.lower, 8.5); assert.equal(result.revised.upper, 11);
+    assert.equal(result.promised.period, '2027'); assert.equal(result.promised.page, 17); assert.equal(result.promised.quote, earlier.pages[0].text);
+    assert.equal(result.observed, null); assert.equal(result.deliveryStatus, 'not_comparable');
+  }
+});
+test('margin guidance retains the named metric without substituting revenue actuals', () => {
+  for (const metric of ['EBITDA', 'EBIT', 'PBDIT', 'operating']) for (const word of ['guidance', 'band', 'expectation']) {
+    const result = buildGuidanceComparison([call('Apr', `${metric} margin ${word} is 18 to 20% for FY2026-27.`), call('Jul', `${metric} margin ${word} is 19%–21% for FY2027. Our revenue growth for Q1 was at 2.4% Y-on-Y and 1% Q-on-Q in constant currency terms.`)]);
+    assert.ok(result); assert.equal(result.metric, `${metric} margin`); assert.equal(result.observed, null); assert.equal(result.revised.upper, 21);
+  }
+});
+test('general guidance refuses metric/basis/period mismatches, reversed bounds and qualifications', () => {
+  const earlier = call('Apr', 'EBITDA margin guidance is 18% to 20% for FY2027.');
+  for (const text of ['EBIT margin guidance is 19% to 21% for FY2027.', 'EBITDA margin guidance is 19% to 21% for FY2028.', 'EBITDA margin guidance is 21% to 19% for FY2027.', 'Subsidiary EBITDA margin guidance is 19% to 21% for FY2027.', 'Subject to demand, EBITDA margin guidance is 19% to 21% for FY2027.']) assert.equal(buildGuidanceComparison([earlier, call('Jul', text)]), null);
+  assert.equal(buildGuidanceComparison([call('Apr', 'Revenue growth guidance is 8% to 10% in constant currency terms.'), call('Jul', 'Revenue growth guidance is 9% to 11% in reported currency terms.')]), null);
+  const negative = buildGuidanceComparison([call('Apr', 'Volume outlook is -5% to -3% for FY2027.'), call('Jul', 'Volume outlook is -4% to -2% for FY2027.')]);
+  assert.equal(negative.promised.lower, -5); assert.equal(negative.observed, null);
+});
