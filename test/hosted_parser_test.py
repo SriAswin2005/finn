@@ -42,6 +42,23 @@ class HostedParserTest(unittest.TestCase):
         self.assertTrue(result["partialScan"])
         self.assertTrue(result["scanLimitedByTime"])
 
+    def test_contents_on_physical_page_25_uses_verified_mda_not_printed_page_number(self):
+        class Page:
+            def __init__(self, text="Ordinary overview"):
+                self.text = text
+            def extract_text(self):
+                return self.text
+        class Reader:
+            outline = []
+            pages = [Page() for _ in range(485)]
+        reader = Reader()
+        reader.pages[24] = Page("Contents\n79 Management Discussion\nand Analysis (MDA)\n126 Directors' Report")
+        reader.pages[101] = Page("Management Discussion and Analysis\nIndustry outlook")
+        plan, selection = annual_page_plan(reader)
+        self.assertIn(101, plan)
+        self.assertNotIn(78, plan)  # Printed79 is not assumed to be physical79.
+        self.assertIn("MDA", selection)
+
     def test_signed_expiring_request(self):
         secret = "test-only-secret"
         body = json.dumps({"url": "https://issuer.example/a.pdf", "expires": 150, "maxBytes": 25_000_000}).encode()

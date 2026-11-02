@@ -1,3 +1,7 @@
+MDA follow-up gates passed: syntax and151/151Node tests including6Python parser cases. Ready to commit/deploy; hosted refined MDA timing still pending.
+
+Hosted quality follow-up: [x] real HCL/TCS extraction succeeds under8seconds on observed first deployment; [ ] refined MDA lookup full gates/redeploy/hosted check. No general cold-latency SLA asserted.
+
 CURRENT November2 quality acceptance: [x] bounded annual parser/partial metadata locally tested; [x] routine Push0-call completion/material-first queue; [x] generic growth/margin guidance; [x] query source banner/no-match/edit/mobile verification; [x] syntax/151full tests. [ ] hosted cold parser timing and final deployment verification. P-001 unattended AI publication remains open.
 
 November2 quality slice4: [x] question source banner/zero-match retrieval implemented and29affected tests passed; [ ] browser/mobile visual verification; [ ] final full-suite unrestricted rerun and Git/deploy (approval-review service usage limit).
