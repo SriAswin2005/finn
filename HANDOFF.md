@@ -1,3 +1,5 @@
+November 2 Push order band: src/push/order-band.js and test/order-band.test.js; public/push.js shows separately cited classification, not exact price. Newest-due queue order/60s call bound saved; verification pending.
+
 November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.
 
 November 2 active continuation: user requests both Push and Pull working end to end. Pull activation/durable-answer/request-lease/shared-quota changes saved; tests/host verification pending, production remains disabled. New module src/ai/research-jobs.js; regression test/research-hosted.test.js. Existing caps/history must not be reset. Prior November 1 status below is historical where superseded.

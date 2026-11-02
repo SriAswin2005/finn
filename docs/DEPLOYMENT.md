@@ -1,3 +1,5 @@
+November 2 Push checkpoint verified: npm run check and all115 tests pass, including newest-due queue selection/cooldown/capture isolation and ambiguous order-table refusals. Actual L&T p3 band extraction verified. Pull v7 production dpl_DcX7J26qdoTxk6dyjziGkTypbm2D returns4 TCS annual-report claims and zero-call persisted GET. Push source-reviewed real generation/activation still pending.
+
 November 2 rollout: verified code83e6564 pushed to private origin and deployed READY as dpl_9m6JzRGbFWxGPL4RWG9JQvYQHTD9. Set existing hosted cache-only false and explicit FINN_AI_LIVE_ENABLED=true using approved key/caps. Push switches remain false. Fresh hosted Research inference/source review/cache reuse is now being tested; no success claim yet.
 
 # Vercel + Neon operations and Push rollout

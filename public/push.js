@@ -10,6 +10,9 @@ export function pushAnalysis(item) {
   if (item.correction) section.append(el('p', item.correction, 'muted'));
   if (!item.analysis) { if (item.analysisError) section.append(el('p', item.analysisError, 'muted')); return section; }
   const a = item.analysis;
+  if (a.orderBand) {
+    section.append(el('p', `Issuer order classification: ${a.orderBand.label} · ${a.orderBand.currency} ${a.orderBand.band} ${a.orderBand.unit}. Classification band; this is not an exact contract price.`, 'muted'), pageLink(a.orderBand.source, `Check classification · physical p.${a.orderBand.source.page} ↗`));
+  }
   if (a.metrics.length) {
     const table = el('table', undefined, 'results-table'); const tr = el('tr');
     for (const t of ['Metric', 'Latest', 'QoQ', 'YoY']) tr.append(el('th', t));

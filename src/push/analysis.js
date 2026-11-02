@@ -3,6 +3,7 @@ import { filingEvidence } from './evidence.js';
 import { pushSchema, pushPrompt, validatePush, ANALYSIS_VERSION, missingContext, presentationAnalysis } from './interpretation.js';
 import { reserveAttempt, finishAttempt, classifyFailure, Deferred } from './quota.js';
 import { extractFinancialMetrics } from './metrics.js';
+import { extractOrderBand } from './order-band.js';
 import { randomUUID } from 'node:crypto';
 
 export function pushGenerationState(env = process.env) {
@@ -23,7 +24,7 @@ function publishedResult(analysis, { doc, financials, complexityReasons, model, 
   const missingMetrics = analysis.eventType === 'results' ? ['Revenue', 'PBT', 'PAT', 'EBITDA'].filter(metric => !financials.rows.some(r => Number.isFinite(r.value) && (metric === 'PAT' ? /^(?:reported )?PAT$|^net profit$|^profit after tax$/i.test(r.label) : new RegExp(`^(?:total )?${metric}(?: from operations)?$`, 'i').test(r.label)))) : [];
   const uncertainties = [...new Set(analysis.missing)].map(code => missingContext[code]);
   if (missingMetrics.length) uncertainties.push(`Verified structured values unavailable: ${missingMetrics.join(', ')}. Narrative figures, if present, remain separately cited.`);
-  return presentationAnalysis({ ...analysis, missing: [...new Set(analysis.missing)], uncertainties, model, analysisVersion: ANALYSIS_VERSION, documentHash: doc.sha256, generatedAt: new Date(at).toISOString(), metrics: financials.rows, complexityReasons });
+  return presentationAnalysis({ ...analysis, missing: [...new Set(analysis.missing)], uncertainties, model, analysisVersion: ANALYSIS_VERSION, documentHash: doc.sha256, generatedAt: new Date(at).toISOString(), metrics: financials.rows, orderBand: analysis.eventType === 'contract' ? extractOrderBand(doc) : null, complexityReasons });
 }
 
 export async function processAnalysis({ store, env = process.env, now = Date.now, fetchImpl = fetch, random = Math.random, eventId } = {}) {
@@ -66,7 +67,7 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
     let response; let body;
     try {
       response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
-        method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY }, signal: AbortSignal.timeout(30000),
+        method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY }, signal: AbortSignal.timeout(60000),
         body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseMimeType: 'application/json', responseJsonSchema: pushSchema, maxOutputTokens: 4000, temperature: 0.1, ...(policy.models[model].thinkingLevel ? { thinkingConfig: { thinkingLevel: policy.models[model].thinkingLevel } } : {}) } }),
       }); body = await response.json();
     } catch {

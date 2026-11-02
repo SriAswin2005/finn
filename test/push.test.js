@@ -21,6 +21,18 @@ export async function temporaryStore() {
 }
 const at = Date.parse('2026-11-01T10:00:00Z');
 const filing = { id: 'new-filing', symbol: 'TCS', title: 'Appointment', summary: 'New CFO', publishedAt: new Date(at).toISOString(), source: { url: 'https://nsearchives.nseindia.com/a.pdf' } };
+test('analysis serves recent due disclosures before old backlog without bypassing cooldown or capture isolation', async () => {
+  const { store } = await temporaryStore();
+  await store.mutate(s => {
+    for (const [key, offset, captured] of [['old', -7 * 86400000, false], ['recent', 0, false], ['capture', 1000, true]]) {
+      s.events[key] = { filing: { ...filing, id: key, publishedAt: new Date(at + offset).toISOString(), ...(captured ? { evidenceMode: 'captured_evaluation' } : {}) }, processingKey: key };
+      s.jobs[key] = { key, eventId: key, status: 'pending', nextAt: 0, createdAt: new Date(at + offset).toISOString() };
+    }
+  });
+  const recent = await claimAnalysis(store, at); assert.equal(recent.eventId, 'recent');
+  await settleJob(store, recent, { status: 'deferred', nextAt: at + 60000 });
+  assert.equal((await claimAnalysis(store, at)).eventId, 'old');
+});
 test('Push storage persists across instances, CAS preserves concurrent mutations and quota fails closed', async () => {
   const { store, path } = await temporaryStore(); const other = createPushStore({ env: {}, path });
   await Promise.all(Array.from({ length: 8 }, (_, i) => (i % 2 ? store : other).mutate(s => { s.collection.counter = (s.collection.counter ?? 0) + 1; })));
