@@ -1,3 +1,5 @@
+November2 current rollout: code7cfef94/dpl_HL3CVBXQsKUKCpuh17LTLdaFpCRT READY; Push and Pull enabled. Hosted safe flags/client hashes/TCS4 durable-cache reuse verified0calls; snapshot refreshed15/15. All117 tests pass. Pending real15:07IST scheduled analysis and focused financial retry; complex503/lifetime limit remains explicit. Older disabled-state entries below are historical.
+
 November 2 Push order band: src/push/order-band.js and test/order-band.test.js; public/push.js shows separately cited classification, not exact price. Newest-due queue order/60s call bound saved; verification pending.
 
 November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.

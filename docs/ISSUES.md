@@ -1,107 +1,35 @@
-November 2 activation checkpoint: npm run check/all117 tests pass. Hosted Pull business generation, original-p55 source review, saved GET and cached Generate0calls/mobile390px/no-console-error verified. HDFC retirement and APL results source-reviewed against originals; malformed/unavailable values stay explicit. Enable scheduled production Push under unchanged per-item guards/caps; broad complex-profile acceptance remains OPEN after503s, no suitable-model degradation. New backend timeouts and honest UI status ready for deployment; actual scheduled analysis still pending.
+# Current issues — November 2, 2026 (IST)
 
-November 2 operational fixes: real financial Pull timed out after20,045ms (not Google quota/auth); per-model bounded wait extended40s within65s generation/90s Research lease. Shared retry budget still gates a repeat until genuine capacity returns. Safari final captured alternative also returned503; job stopped after3 lifetime attempts, no invented profile or budget reset. Hosted activation will retain per-item validation/unavailable states; broad complex-profile quality remains open, not declared solved. UI now distinguishes active automatic analysis from disabled reason and saved notes from human review. Required syntax/tests pending.
+Current evidence overrides historical logs. Both hosted generation paths are now enabled at code7cfef94/deployment dpl_HL3CVBXQsKUKCpuh17LTLdaFpCRT; final unattended verification is in progress.
 
-November 2 source/browser review: original HDFC p1 and TCS annual physical p55 visually match disclosed facts; APL original p9 values and p36 narrative visually checked. Hosted Pull at390px shows4 saved TCS claims/citations without overflow; cached Generate interaction under verification. Corrected generic saved-note label: durable validation alone must not imply human review. Safari complex request hit transient503 and deferred with attempt counted, not accepted. No user intervention or quota change; suitable captured alternative awaits recorded retry capacity. UI wording syntax/tests pending.
+## R-001 — Hosted Pull activation and durability
 
-November 2 quality checkpoint: syntax/all117 tests pass, retaining all original15 adversarial refusals. HDFC complete unchanged draft accepted with0 added calls; retirement-only irrelevant profile warning suppressed without deleting raw codes. Collected APL results completed in1 ordinary call with3 consolidated INR-million quarterly rows and derived comparatives, PBT explicitly missing. Original source-page visual review/appointment case and unattended hosted generation still pending. Pull v7 saved TCS answer remains usable.
+**Implementation/hosted business path verified; financial retry pending.** Removed blanket VERCEL cache-only restriction in favor of explicit FINN_AI_LIVE_ENABLED. Shared Neon reservations replace the duplicate ephemeral-file guard. Answers/request leases persist separately in canonical CAS state; cold/concurrent requests reserve once, lost storage fails closed, invalid answers cannot silently regenerate. Source GETs remain available.
 
-November 2 HDFC recovery: complete unchanged real draft accepted after tested Ref.No false-guard fix with0 further calls; facts/date/role/27-year history match original p1. Found irrelevant incoming-profile warning on retirement-only event; presentation now suppresses only that warning while preserving raw reportedMissing, with appointment negative control. Full checks pending for this display-rule addition. Results evaluation in progress.
+First TCS draft technically validated but source review found a clipped quote and unsupported demand/automation inference. Entire answer was withheld with audit and attempt retained. Complete-sentence quote selection, driver guard and focused v7 prompt now have regressions. New TCS4 business claims match original annual physical p55; hosted persisted GET, subsequent deployment and390px cached Generate return0 new calls/no overflow/no console errors. UI calls these saved AI notes, not automatically human-reviewed notes. One financial request timed out at20s; bounded wait now40s within65s overall/90s lease. Repeat awaits shared retry capacity; no budget reset. Broad financial/bull/bear quality is not certified by the business example.
 
-November 2 controlled real Push: HDFC October31 retirement refused on one attempt because Ref.No.SE/2026-27/141 was mistaken for negation. Source quotes and complete draft reviewed; this is a concrete false guard, not a model hallucination. Narrow identifier-label exemption added with actual No/Not/Never negative controls. No weakening of genuine negation/qualification checks; no extra call/reset. Whole unchanged-draft revalidation pending checks.
+## P-001 — Automatic Push and semantic quality
 
-November 2 Push checkpoint verified: npm run check and all115 tests pass, including newest-due queue selection/cooldown/capture isolation and ambiguous order-table refusals. Actual L&T p3 band extraction verified. Pull v7 production dpl_DcX7J26qdoTxk6dyjziGkTypbm2D returns4 TCS annual-report claims and zero-call persisted GET. Push source-reviewed real generation/activation still pending.
+**Collection/document pipeline verified; generation activated, scheduled analysis verification pending.** Real Cloudflare15-minute collection/PDF processing was observed November1. Current host flags/key presence all true. Existing worker/source/document/analysis leases, content deduplication/corrections, separate prompts/models/caches, shared quota and capture isolation remain.
 
-November 2 Push checkpoint: syntax/all114 tests passed before adding explicit recent-vs-backlog/cooldown/capture queue regression. Actual saved L&T attachment now extracts Major INR5,000–10,000crore with original p3 table citation, not a contract price. Final115-test check pending; production Push still off.
+November2 controlled real HDFC retirement: Ref.No identifier falsely triggered negation; narrow fix keeps genuine No/Not/Never refusals. Entire unchanged draft source-reviewed/accepted with0 additional calls. Retirement-only profile warning fixed without deleting raw codes. APL results generated/saved3 consolidated quarterly metric rows and4 claims in1 call; original p9/p36 visually reviewed, PBT unavailable. Generic paired-table order band extraction adds sourced classification, not exact price; ambiguous/malformed tables refused. Recent due jobs precede old backlog without bypassing cooldowns.
 
-November 2 Push quality slice: original L&T p3 classification omission addressed with generic bounded two-row extraction and a separate sourced band display, explicitly not exact price. Malformed/ambiguous units/columns are refused. Newest due collected filings are analysed before stale backlog; metadata is not treated as completed analysis. Push v7 strengthens headline/qualification instructions; complex call timeout60s remains within180s analysis/300s worker leases. Added domain regressions; full checks pending. Pull v7 live TCS4 exact annual-report claims saved and reused by GET with one attempt; further browser/restart/source review pending.
+**Open quality/provider limits:** complex Safari appointment attempts returned503 from both eligible evaluated families; stopped at3 lifetime attempts. No invented profile or weaker substitution. Broad unseen incoming-profile/complex/routine coverage and reading effort remain open. Source/metric absence is unavailable, not zero. Historical14-attempt/two-partial evaluation is superseded only for specific demonstrated fixes, not erased. See [evaluation](PUSH_EVALUATION.md).
 
-November 2 quote-quality checkpoint: npm run check and all 113 tests pass, including clipped-quote/uncited-driver regressions and original15 attacks. Real first TCS answer remains wholly withheld with raw audit/attempt retained. Research v7 production verification pending.
+Close operational scheduled gate only after a genuine tick creates a validated saved card and fresh process/HTTP reads reuse it without another call. Broader semantic acceptance remains separate. Current baseline23 preserved attempts at14:59IST, no manual worker since activation; read-only tail watching15:07IST.
 
-November 2 real Pull evaluation: production83e6564 generated/persisted TCS on one Research attempt. Source review FAILED: an AI-adoption quote ended mid-word and did not establish robust demand/automation inference; narrow business question received irrelevant sections. Entire answer moved to an audit review record, withheld from active cache; attempt retained. Fix now excludes unfinished quote fragments, rejects uncited business drivers, tightens question focus and bumps Research prompt to v7. Regression added; checks pending. Infrastructure success is not quality acceptance.
+## D-004 — Saved source freshness
 
-November 2 rollout: verified code83e6564 pushed to private origin and deployed READY as dpl_9m6JzRGbFWxGPL4RWG9JQvYQHTD9. Set existing hosted cache-only false and explicit FINN_AI_LIVE_ENABLED=true using approved key/caps. Push switches remain false. Fresh hosted Research inference/source review/cache reuse is now being tested; no success claim yet.
+**Resolved for current explicit refresh.** November2 14:59IST published15/15 EOD/66 NSE records, both adapters OK. Existing Neon newer-write protection remains. Push schedules disclosures, not EOD ingestion; no new EOD scheduler claim.
 
-November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.
+## Q-002 / S-001 — Research breadth and evidence depth
 
-November 2 verification: syntax passes; first full run 111/112 passed. The sole failure expected older missing-store wording; corrected to the actual fail-closed error. No model call occurred. Full rerun pending.
+Three original reviewed notes remain6/4/4 claims; ASIANPAINT/PERSISTENT retain curation disclosures. Generic TCS/HCLTECH discovery remains annual reports/transcripts only. Revised outlook is not completed annual delivery. Broad multi-year/balance-sheet/cash-quality/OCR and all-model quality remain unavailable/unverified. Source hashes/pages/timestamps/units and missing-data discipline remain required.
 
-## R-001 — Hosted fresh Pull answers (November 2, active)
+## D-002 — Device and deferred submission
 
-Immediate blocker reproduced: VERCEL forced cache-only despite present key and unused Research allocation. Duplicate temporary-file quota/cache would also fail cold instances. Implementation now uses explicit hosted activation, durable Research notes/request leases in shared CAS state, and one authoritative shared quota ledger. New cross-instance/restart/rejected-output regressions added; verification pending. Existing baked caches and source-only reads preserved. Do not close until fresh production POST, original-source review, persisted GET/restart reuse and zero-call repeat are observed. Push P-001 remains open; its activation and quality are separate.
+Hosted390px browser checks cover real Pull saved claims/citations and cached Generate; physical-phone installation/offline/native PDF opening and after-idle benchmark remain unconfirmed. Voice/OS notifications/native packaging, conversation exports, reviewer grants/tag/email remain deferred. No submission sent.
 
-# Current issues and verification limits
+## Verification and operations
 
-Reconciled November 1, 2026 (IST). Historical logs never override these current findings.
-
-## P-001 — Automatic Push workflow
-
-**Implemented and locally verified; quality/hosted acceptance open.** Source collection→content dedup→PDF extraction→LLM interpretation→whole-output validation→persistence→ranking→cached delivery→recovery is implemented. Syntax/all 110 tests pass at ff124de. Real local collection caught 66 filings through November 1; no intended-host unattended evidence yet.
-
-Resolved local findings: overlapping checkpoint/collector leases, shared atomic reservations, corrupt-ledger fail-closed, reference/correction handling, single job across duplicate observations, unchanged-content reuse, explicit missing/ambiguous financial cells, independent cadence, stale-worker refusal, and capture-only isolation. Normal document/analysis workers cannot claim captured evaluations; the explicit evaluator selects its own event. App opens/navigation/Refresh have zero model calls. Saved cards remain after connection failure.
-
-**Quality finding:** fourteen attempts/ten captured disclosures yielded only two partial briefs. CDSL retirement has a legalistic headline/font spacing; L&T orders omits the disclosed Major size band. Results, incoming-manager profile, routine notices and complex disclosures remain refused/deferred or unverified. Broad extraction/priority/usefulness is not passed. See [PUSH_EVALUATION.md](PUSH_EVALUATION.md) for original URLs/pages/outcomes. Rejected drafts were not partially published. Generic APL financial table extraction is evidence for that layout, not a passing financial summary. All original 15 adversarial attacks still fail.
-
-**External authorization resolved; execution pending:** after explanation the user explicitly approved migration of public Push data/all quota history to the existing FINN Neon database plus local binding, original Gemini key transfer server-side to sriak/finn, and Cloudflare Free dispatcher activation. This supplies the approval missing in the earlier automatic-review rejection. No new terms/spending/extra allowance is included; generation stays quality-gated. Migration verified by fresh structural equality:10 docs,76 events,all 16 attempts. Approved key/worker Secrets and deployed runtime presence/gates/cache/parser/concurrent worker are verified with 0 model calls. Dispatcher now active after corrected Scripts/Tail grant and missing namespace setup; first scheduled tick now verified 22:07IST, successful no-new collection +2 PDF jobs, all 16 attempts unchanged. Production code ff124de is HTTPS verified; generation disabled. See [DEPLOYMENT.md](DEPLOYMENT.md).
-
-Acceptance to close: source-reviewed unseen results/profile/routine/complex outputs with important facts/omissions/fair priority/low reading effort; then observed unattended collection and new-event analysis on the intended host, shared-ledger concurrent/restart/deployment recovery, source/model failures and measured free-tier capacity. Approval alone cannot close this issue. Persisted quotas/cooldowns/lifetime attempt caps apply to further evaluation.
-
-## D-004 — Hosted Latest snapshot persistence
-
-**Resolved October 31 for the saved-snapshot feature.** Normalized sources are in Neon with conditional newer-write protection and preserved timestamps/errors. October 31 20:43 IST capture: 15/15 October 30 EOD,62 filings, both adapters OK; fresh-process/HTTPS/mobile-width reads verified. This does not establish automatic Push or EOD scheduling. Recorded October 28 replay unchanged.
-
-## Q-002 — Reviewed Research quality is bounded
-
-**Three recorded notes reviewed/deployed; general quality unverified.** INFY has 6 claims, ASIANPAINT/PERSISTENT 4 each with visible reviewer-curated/omission disclosure. Unsupported claims/sections omitted by explicit source review, never automatic partial publication. Cache-only/no-key startup and zero-call HTTP/browser checks passed October 31. November 1 shared-reservation/disjoint-model integration preserves cache/refusal contracts; former Push-candidate Research fallbacks deliberately removed, documented in [AI_SETUP.md](AI_SETUP.md). Gemma default disabled pending evaluation.
-
-## S-001 — Evidence depth limits
-
-**Partial, clearly labelled.** INFY promise/later Q1/revised forecast is management progress, not an annual/four-quarter delivery verdict. Recorded L&T results/HDFC profile are page-reviewed fixtures. Push now has generic aligned quarterly extraction/referenced PDFs, with missing/unreadable/ambiguous layouts explicit; broad table/profile quality remains P-001. Balance-sheet/cash-quality/multi-year analysis and OCR remain unavailable. Voice/OS notifications/native packaging remain deferred.
-
-## D-002 — Device and deferred submission gates
-
-User reports smooth phone scrolling/saved alerts/TCS research; device/browser unspecified. Local 390 px checks verify source Refresh, keyboard/evidence links, captured metrics, retained cards on connection failure, no overflow/component errors. Physical-phone installation, native PDF page opening, true offline behavior and after-idle cold-start remain unconfirmed. Docker/current release archive not verified/rebuilt in this Push task; submission packaging is deferred.
-
-Conversations, covering note, reviewer repository grants, final tag and email wait for the user to approve build quality. Nothing sent/shared. Do not resume submission work.
-
-## Resolved findings and operations
-
-- Q-001: October 30/31 context guards reject unsupported metric/currency/scale/period/scope/direction/qualifier claims; original 15 adversarial controls remain in the108-test suite. Narrow supported plurals/ranges/calendar/font-spacing/narrative positives do not certify entailment.
-- D-001: Vercel + Neon Free selected/approved; reviewer/parser secrets already approved/stored. Approved Gemini key stored as production Secret November 1 with both generation gates false; no paid plan/payment or public repository visibility change.
-- D-003: production parser alias fixes generic hosted TCS collection (361-page annual report,29/25-page calls); persisted Neon reuse verified October 31. Cold collection47.5s/repeat0.5s are observations, not guarantees.
-- U-001/U-002: captured filing context and focused/collapsible Research results deployed in909b988; script hash/HTTPS checks passed. Earlier failed uploads superseded.
-
-Current website: https://finn-zeta-one.vercel.app, deployment dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd (ff124de) READY November 1. HTTPS worker/key-presence/cache/parser checks passed; generation disabled. Preserve credentials/cache exclusions, original `.env` key and every prior quota attempt. Never force-push/reset history.
-
-
-November 1 approved migration attempt stopped before any Neon operation: production environment sets VERCEL and redirected the supposed local source to temporary cache. Actual source ledger/backup are intact (16 attempts). Migration now uses explicit workspace data/cache/push.sqlite, with FINN_PUSH_MIGRATION_SOURCE override; verification pending. No init/reset, Gemini transfer or dispatcher activation. Vercel CLI authenticated; Wrangler not installed/cached, authentication pending.
-
-
-Approved migration path finding resolved: production VERCEL no longer changes the explicit local source. All108 tests pass; deep JSON comparison (not key ordering) proves copied evidence/state. Early saved-snapshot Polycab evaluation now tagged captured with audit reason, keeping all IDs/jobs/attempts; normal NSE duplicate remains live-collected. Cloudflare requires user sign-in/authorization; no scheduler active yet.
-
-
-Hosted configuration verification pending: sensitive metadata cannot reveal stored key value by design. Status now reports only configured/enabled/confirmation booleans and reason from the actual analysis gate; no credential/hash value returned. Syntax/all 109 tests pass before deployment; generation remains disabled.
-
-
-November 1 hosted-status checkpoint: syntax/all 109 tests pass. Safe status distinguishes credential absence from the disabled quality gate and never returns values or reserves/calls models. Cloudflare OAuth timed out before user completion; activation remains pending and fresh login will be needed. Vercel deployment/runtime verification next.
-
-
-November 1 current external gate: Cloudflare Free activation approved but login incomplete; first OAuth expired. User must sign in/authorize the limited Workers scope (new terms remain theirs). No scheduler yet. Manual hosted worker verification added 1 source filing, parsed 2 attachments, accepted one of two concurrent invocations and preserved all 16 attempts; fresh Neon confirms persistence. This resolves hosted collection/parser/secret-presence checks, not unattended operation or model quality. First ECONNRESET recovered with bounded read-only retries.
-
-
-November 1 Cloudflare login gate resolved: limited-scope OAuth completed successfully; no broader default scope grant. Dry-run1.17KiB worker passes with only origin/separate auth secret. Free eligibility/deployment/actual scheduled run pending. Billing subscriptions read is403 with limited token; no paid plan/new terms/extra scopes requested.
-
-
-November 1 Cloudflare deployment attempt failed before upload at the deployments API with “No access to the specified resource”. Generic workers:write OAuth did not include Workers Scripts access. A corrected limited OAuth request now asks for workers_scripts:write and read-only workers_tail:read (plus existing account/user read + Workers write), so the user can authorize the actual deployment/log observation. No unrelated default service scopes requested. No dispatcher activated, no plan/terms changed, no credential reset/model call. Dry-run remains passed; runtime code unchanged.
-
-
-November 1 corrected OAuth succeeded. Dispatcher + separate auth secret uploaded (startup1ms), but cron activation was only partially applied: Cloudflare10063 requires an initial workers.dev account namespace even with workers_dev=false. No HTTP targets enabled. Inspecting absent namespace before initializing this routine prerequisite of the approved Free dispatcher; no existing domain will be renamed, no terms/plan change accepted. Scheduler remains unverified/inactive until trigger API confirms.
-
-
-November 1 current scheduler state: namespace initialization and trigger application succeeded. API confirms configured15-minute cron, only FINN_ORIGIN/auth-secret bindings, HTTP/previews disabled. First cron invocation being observed through live logs + shared Neon timestamp, not manually invoked. Earlier missing-scope/namespace failures resolved; quality/actual unattended gate remains open until observed. No billing-plan update/terms acceptance.
-
-
-P-001 fresh finding: aggregate pending count included unparsed documents but oldest age ignored them, understating delay before first PDF job. Fixed by including active pending-document/reference/retry observations plus analysis jobs; captures/superseded/failed records excluded. Syntax/all 110 tests pass, including unparsed age/capture/superseded/terminal failure behavior; existing card-level delayed behavior unchanged.
-
-
-November 1 scheduler collection gate resolved: real cron 16:37:34.677UTC/22:07IST, outcome ok, CPU 1ms/wall 4650ms, no exceptions. Fresh Neon lastWorker16:37:40.243, successful source check added0/changed0,67 collected filings/4 live document jobs (2 additional),16 attempts preserved. No manual invocation during observation. Collection + document pipeline is genuinely unattended; new-event LLM analysis remains disabled/unverified pending quality. Temporary tail observer stopped; scheduled service remains active. Do not close P-001 as full completion.
+Syntax/all117 tests pass, original15 adversarial refusals preserved. Approved private origin contains7cfef94; current production above is separately deployed. Existing approvals/credentials sufficient so far. Shared total20/Research6/Push14/retry4/lifetime3 remain unchanged; all16 old entries plus7 new attempts retained at baseline. No fresh host allowance, reset, spending or new terms. Temporary read-only observer/bootstrap stop after verification; recurring dispatcher continues.
