@@ -8,6 +8,8 @@ import { reserveAttempt, validatePolicy } from '../src/push/quota.js';
 import { applyPolicy } from '../src/push/policy.js';
 import { researchAssignments } from '../src/ai/workflows.js';
 import { createGeminiProvider } from '../src/ai/gemini.js';
+import { createHash } from 'node:crypto';
+import { PROMPT_VERSION } from '../src/ai/gemini.js';
 import policy from '../src/config/model-policy.json' with { type: 'json' };
 
 const at = Date.parse('2026-11-02T13:00:00Z');
@@ -70,5 +72,21 @@ test('Research skips zero-call model holds, charges real fallback attempts and n
     } });
     if (global) { await assert.rejects(provider.generate(evidence), /Project quota/); assert.equal(calls.length, 0); }
     else { assert.equal((await provider.generate(evidence)).model, fallback); assert.equal(calls.length, 1); const attempt = (await store.read()).quota.attempts[0]; assert.equal(attempt.model, fallback); assert.equal(attempt.retry, false); }
+  }
+});
+test('routing changes preserve legacy rejected requests, leases and attempt lifetimes without rewriting reservations', async t => {
+  const oldKey = createHash('sha256').update(JSON.stringify({ evidenceHash: evidence.evidenceHash, models: [model], prompt: PROMPT_VERSION })).digest('hex');
+  for (const reason of ['rejected', 'leased', 'exhausted']) {
+    const { store, directory } = await setup(t); const approved = structuredClone(policy); delete approved.models[fallback].evaluationOnly;
+    await store.mutate(s => {
+      s.quota.policy = approved;
+      s.research = { notes: {}, requests: { [oldKey]: { status: reason === 'rejected' ? 'rejected' : 'deferred', error: reason === 'rejected' ? 'unsupported original claim' : null, lease: reason === 'leased' ? { token: 'old-owner', until: at + 60000 } : null } } };
+      if (reason === 'exhausted') for (let i = 0; i < 3; i++) s.quota.attempts.push({ id: `old-request-${i}`, researchKey: oldKey, workflow: 'research', model, at: at - 120000 - i, estimatedTokens: 100, retry: i > 0, outcome: 'http_503' });
+    });
+    const before = (await store.read()).quota.attempts; let calls = 0;
+    const provider = createGeminiProvider({ env: { ...env, FINN_MODEL_POLICY_JSON: JSON.stringify(approved) }, sharedStore: store, directory, now: () => at, fetchImpl: async () => { calls++; throw Error('must not call'); } });
+    await assert.rejects(provider.generate(evidence), reason === 'rejected' ? /unsupported original/ : reason === 'leased' ? /already being generated/ : /attempt limit/);
+    assert.equal(calls, 0); assert.deepEqual((await store.read()).quota.attempts, before);
+    if (reason !== 'leased') assert.equal((await provider.status(evidence)).paused, true);
   }
 });

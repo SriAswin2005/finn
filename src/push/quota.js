@@ -27,7 +27,8 @@ export async function reserveAttempt(store, { workflow, model, jobKey, researchK
     if ((q.cooldowns[model] ?? 0) > now) throw new Deferred('Model capacity is cooling down.', q.cooldowns[model]);
     if (jobKey && (!state.jobs[jobKey] || state.jobs[jobKey].lease?.token !== leaseToken || state.jobs[jobKey].lease.until <= now)) throw new Error('Job lease is no longer owned; no model call allowed.');
     if (researchKey && (workflow !== 'research' || state.research?.requests[researchKey]?.lease?.token !== leaseToken || state.research.requests[researchKey].lease.until <= now)) throw new Error('Research lease is no longer owned; no model call allowed.');
-    const own = q.attempts.filter(a => jobKey && a.jobKey === jobKey || researchKey && a.researchKey === researchKey);
+    const researchKeys = new Set([researchKey, ...(state.research?.requests[researchKey]?.aliases ?? [])]);
+    const own = q.attempts.filter(a => jobKey && a.jobKey === jobKey || researchKey && researchKeys.has(a.researchKey));
     retry ||= own.length > 0;
     const today = q.attempts.filter(a => pacificDay(a.at) === pacificDay(now));
     const rolling = q.attempts.filter(a => now - a.at < 86400000);

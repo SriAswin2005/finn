@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 import { dataDirectory, runtimeCacheDirectory } from '../storage/snapshots.js';
 import { researchModelOrder } from './models.js';
 import { buildQuoteBank, resolveQuoteReferences } from './quotes.js';
-import { claimResearch, settleResearch } from './research-jobs.js';
+import { claimResearch, settleResearch, researchHistory } from './research-jobs.js';
 import { citationContextFailure } from './context.js';
 import { createPushStore } from '../push/store.js';
 import { reserveAttempt, finishAttempt, classifyFailure, Deferred, nextPacificReset } from '../push/quota.js';
@@ -88,13 +88,17 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
   const enabled = !cacheOnly && Boolean(env.GEMINI_API_KEY && env.FINN_AI_FREE_TIER_CONFIRMED === 'true');
   function cachePathFor(research) {
     const models = researchModelOrder(researchAssignments(env), research.question);
-    const key = createHash('sha256').update(JSON.stringify({ evidenceHash: research.evidenceHash, models, prompt: PROMPT_VERSION })).digest('hex');
-    return { key, models, cachePath: resolve(directory, `${key}.json`) };
+    const hash = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
+    // A routing/configuration update cannot grant a fresh request lifetime.
+    // Retain pre-migration model-list keys as aliases without rewriting attempts.
+    const key = hash({ evidenceHash: research.evidenceHash, prompt: PROMPT_VERSION });
+    const aliases = [...new Set([models, ...models.map(model => [model])].map(list => hash({ evidenceHash: research.evidenceHash, models: list, prompt: PROMPT_VERSION })))];
+    return { key, models, aliases, evidenceHash: research.evidenceHash, promptVersion: PROMPT_VERSION, cachePath: resolve(directory, `${key}.json`), legacyPaths: aliases.map(id => resolve(directory, `${id}.json`)) };
   }
   async function getCached(research) {
     const paths = [];
     if (/^[A-Z0-9&-]{1,33}$/.test(research.ticker ?? '')) paths.push(resolve(recordedDirectory, `${research.ticker}.json`));
-    try { paths.push(cachePathFor(research).cachePath); } catch { /* recorded notes remain usable with no live model configuration */ }
+    try { const settings = cachePathFor(research); paths.push(settings.cachePath, ...settings.legacyPaths); } catch { /* recorded notes remain usable with no live model configuration */ }
     for (const path of paths) {
       try {
         const cached = await readJson(path, null);
@@ -105,7 +109,8 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
     }
     try {
       const notes = (await sharedStore.read()).research?.notes ?? {};
-      const saved = notes[cachePathFor(research).key] ?? Object.values(notes).find(note => note.review?.kind === 'source_reviewed' && note.evidenceHash === research.evidenceHash);
+      const settings = cachePathFor(research);
+      const saved = [settings.key, ...settings.aliases].map(key => notes[key]).find(Boolean) ?? Object.values(notes).find(note => note.review?.kind === 'source_reviewed' && note.evidenceHash === research.evidenceHash);
       if (saved?.evidenceHash === research.evidenceHash) return { ...saved, ...validateAnalysis(saved, research.evidence), cached: true, requestLlmCalls: 0, requestSpendInr: 0 };
     } catch { /* a source-only GET remains available when durable AI storage is down */ }
     return null;
@@ -127,7 +132,7 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
     try { return await promise; } finally { active = null; }
     async function coordinatedRun() {
       let claim;
-      try { claim = await claimResearch(sharedStore, key, now()); }
+      try { claim = await claimResearch(sharedStore, key, now(), { evidenceHash: settings.evidenceHash, promptVersion: settings.promptVersion, aliases: settings.aliases }); }
       catch (error) { throw new AiUnavailable(`Research generation unavailable: ${error.message}`); }
       if (claim.saved) return { ...claim.saved, ...validateAnalysis(claim.saved, research.evidence), cached: true, requestLlmCalls: 0, requestSpendInr: 0 };
       try {
@@ -227,9 +232,11 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
     try {
       const state = await sharedStore.read(); const q = state.quota;
       if (!q.initialized || q.stopped) return { paused: true, reason: q.stopped ? 'Model configuration needs operator attention.' : 'Shared AI quota has not been initialized.' };
-      const { key, models } = cachePathFor(research); const request = state.research?.requests[key];
-      if (request?.status === 'rejected') return { paused: true, reason: request.error };
-      const own = q.attempts.filter(a => a.researchKey === key);
+      const settings = cachePathFor(research); const { key, models } = settings;
+      const history = researchHistory(state, key, settings);
+      const rejected = history.requests.find(r => r.status === 'rejected');
+      if (rejected) return { paused: true, reason: rejected.error };
+      const own = q.attempts.filter(a => history.keys.includes(a.researchKey));
       if (own.length >= 3) return { paused: true, reason: 'This request reached its attempt limit. Primary evidence remains available.' };
       const day = at => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' }).format(at);
       const today = q.attempts.filter(a => day(a.at) === day(now())); const rolling = q.attempts.filter(a => now() - a.at < 86400000);
@@ -243,7 +250,7 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
         const cap = q.policy.models[model];
         return Math.max(q.cooldowns[model] ?? 0, cap && today.filter(a => a.model === model).length >= Math.min(cap.rpd, cap.appRpd ?? cap.rpd) ? nextPacificReset(now()) : 0);
       }));
-      const until = Math.max(q.projectUntil, request?.nextAt ?? 0, modelUntil, allowanceUntil);
+      const until = Math.max(q.projectUntil, ...history.requests.map(r => r.nextAt ?? 0), modelUntil, allowanceUntil);
       if (allowanceUntil > now() && allowanceUntil === until) return { paused: true, pausedUntil: new Date(until).toISOString(), reason: 'This request is waiting for the shared daily or retry allowance.' };
       if (until > now()) return { paused: true, pausedUntil: new Date(until).toISOString(), reason: 'New generation is temporarily paused for model capacity or retry backoff.' };
       return { paused: false };

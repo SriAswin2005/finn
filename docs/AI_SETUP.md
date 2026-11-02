@@ -1,3 +1,5 @@
+Research routing migration: identity is evidenceHash+prompt version, independent of configured model list. Legacy model-list keys remain aliases for saved notes, request leases/rejections/backoff and lifetime accounting. Historical attempts are never relabeled; changing model versions does not reset a request. All134 checks passed; host rollout pending.
+
 Current November 2 policy: user-requested per-model budgets replace historical20/6/14/4. Lite15RPM/250k inputTPM/500RPD each; Flash5RPM/250k/20RPD each. Total1040/day ceiling, Research520/Push520, every retry inside these same totals; lifetime3 unchanged. Research3.5Lite and staged3.6Flash (explicit server FINN_RESEARCH_EVALUATION_MODEL for review); Push3.1Lite ordinary and3.8Flash complex. IDs/roles/limits remain JSON configuration, no automatic unverified upgrade. Run push.js policy only after verified checkpoint; it audits the change and releases local-allocation waits while preserving provider holds/all attempts. Not applied/deployed yet.
 
 ## November 2 bounded Push correction
