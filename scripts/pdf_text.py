@@ -30,6 +30,13 @@ def annual_page_plan(reader, target_pages=None, texts=None):
             end = next((page for _, page, level in outline[i + 1:] if page is not None and page > start and level <= depth), count)
             mda.extend(range(start, min(end, start + 40, count)))
     if not mda:
+        offset_votes = {}
+        for physical_index, text in (texts or {}).items():
+            for printed in {int(n) for n in re.findall(r'(?:^|\n)\s*(\d{1,3})\s*(?=\n|$)', text)}:
+                offset = physical_index + 1 - printed
+                if abs(offset) <= 100:
+                    offset_votes[offset] = offset_votes.get(offset, 0) + 1
+        likely_offsets = [offset for offset, votes in sorted(offset_votes.items(), key=lambda item: -item[1]) if votes >= 3][:3]
         # Contents numbers are hints, never citations. Accept a candidate only
         # after its actual physical page starts with the MDA section heading.
         for index in range(min(40, count)):
@@ -47,13 +54,13 @@ def annual_page_plan(reader, target_pages=None, texts=None):
             length = min(24, int(next_section.group(1)) - printed) if next_section and int(next_section.group(1)) > printed else 24
             # Cover/annexure offsets are candidate hints, verified against the
             # actual physical heading before any page is selected or cited.
-            offsets = list(dict.fromkeys([max(0, index - 1), index, max(0, index - 2), *range(41)]))
+            offsets = list(dict.fromkeys([*likely_offsets, index - 1, index, index - 2, *range(-40, 41)]))
             for offset in offsets:
                 candidate = printed - 1 + offset
                 if not 8 <= candidate < count:
                     continue
                 header = (reader.pages[candidate].extract_text() or "")[:800]
-                if re.search(r'management\s+discussion\s+(?:and|&)\s+analysis', header, re.I) and not re.search(r'contents', header, re.I):
+                if re.search(r'(?:^|\n)\s*management\s+discussion\s+(?:and|&)\s+analysis(?:\s*\(MDA\))?\s*(?:\n|$)', header, re.I) and not re.search(r'contents', header, re.I):
                     mda = list(range(candidate, min(candidate + length, count)))
                     break
             if mda:

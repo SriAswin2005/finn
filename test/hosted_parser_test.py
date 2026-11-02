@@ -26,6 +26,26 @@ class HostedParserTest(unittest.TestCase):
         self.assertNotIn(145, plan)
         self.assertEqual(plan[10], 120)
         self.assertIn("MDA", selection)
+
+    def test_contents_offsets_can_be_negative_and_body_cross_references_are_not_headings(self):
+        class Page:
+            def __init__(self, text="Ordinary page"):
+                self.text = text
+            def extract_text(self):
+                return self.text
+        class Reader:
+            outline = []
+            pages = [Page() for _ in range(361)]
+        reader = Reader()
+        reader.pages[3] = Page("Contents\n83 Management Discussion and Analysis\n101 Corporate Governance Report")
+        reader.pages[53] = Page("Statutory Reports\nManagement Discussion and Analysis\n83\nMarket and Industry Context")
+        reader.pages[93] = Page("Corporate Governance Report\n123\nThe Management Discussion and Analysis forms part of this report.")
+        texts = {i: f"Statutory Reports\n{i + 30}\n" for i in range(10, 40)}
+        texts[3] = reader.pages[3].text
+        plan, _ = annual_page_plan(reader, texts=texts)
+        self.assertIn(53, plan)
+        self.assertNotIn(93, plan)
+        self.assertNotIn(71, plan)  # Stop before the next contents section.
         self.assertEqual(annual_page_plan(Reader(), [220, 5, 220])[0], [4, 219])
 
     def test_hosted_watchdog_keeps_completed_physical_pages_and_kills_slow_worker(self):

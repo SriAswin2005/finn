@@ -1,3 +1,5 @@
+Source audit correction November2: TCS printed83 is physical54, not94. Earlier contents-offset heuristic matched a body cross-reference; tightened to a standalone MDA heading, supports positive/negative offset hints from repeated observed printed labels, and verifies every candidate physically. Regression covers cross-reference refusal and negative offsets. Real local TCS scans58pages including actualMDAphysical54–71 in3.58s. Syntax/151full tests pass, including7Python cases. Follow-up deployment/hosted checks pending.
+
 MDA follow-up gates passed: syntax and151/151Node tests including6Python parser cases. Ready to commit/deploy; hosted refined MDA timing still pending.
 
 Quality follow-up: allfour initialfixes privately pushed/deployed705c0f6 READY dpl_37RtKmd4DinrAabsNJiygsBk4CXL. HCL485pages5.35s/TCS361pages4.59s succeeded with40physicalpages/partial. MDA refinement local uncommitted scripts/pdf_text.py + test/hosted_parser_test.py handlescontentsp25/precedingnumbers/verifiedoffsets, reuses overview text. LocalTCSfindsMDA4.09s; next gates/commit/deploy. Existing ignored .env.deployment contains parser signature; never bulk-pull production env.
