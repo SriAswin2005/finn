@@ -46,7 +46,7 @@ function render(data) {
   $('research-company').textContent = `${data.company} · ${data.ticker}`;
   $('research-mode').textContent = data.mode === 'recorded' ? 'RECORDED PRIMARY EVIDENCE' : 'CACHED PRIMARY DOCUMENTS';
   const kinds = new Set(data.documents.map(doc => doc.kind));
-  $('research-coverage').textContent = `Collected ${new Date(data.fetchedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST.${data.stale ? ' Evidence is over seven days old.' : ''}${!kinds.has('annual_report') ? ' Annual report unavailable.' : ''}${!kinds.has('transcript') ? ' Transcript unavailable.' : ''} ${data.analysis ? 'Reviewed saved note below; source excerpts are separate.' : 'Source excerpts only; no reviewed saved note matches this request.'}`;
+  $('research-coverage').textContent = `Collected ${new Date(data.fetchedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST.${data.stale ? ' Evidence is over seven days old.' : ''}${!kinds.has('annual_report') ? ' Annual report unavailable.' : ''}${!kinds.has('transcript') ? ' Transcript unavailable.' : ''} ${data.analysis ? 'Saved AI note below; source excerpts are separate.' : 'Source excerpts only; no reviewed saved note matches this request.'}`;
   $('research-source-summary').textContent = `${data.documents.length} primary documents${data.errors.length ? ` · ${data.errors.length} source warnings` : ''} · inspect collection details`;
   $('research-documents').replaceChildren(...data.documents.map(doc => {
     const item = node('div', 'document-item'); item.append(citation(doc, 1), node('span', 'muted', `${doc.kind === 'annual_report' ? 'Annual report' : 'Earnings-call transcript'} · ${doc.pageCount} pages · SHA-256 ${doc.sha256.slice(0, 10)}…`)); return item;
@@ -65,7 +65,7 @@ function render(data) {
   }));
   $('research-ai').disabled = !data.ai.configured || !data.evidence.length;
   $('research-ai').hidden = !data.ai.configured;
-  $('ai-status').textContent = data.ai.configured ? 'Generate on demand. Repeated notes use the evidence cache; free-quota limits apply.' : 'No reviewed saved note matches this request. Primary evidence remains available; new model calls are disabled for this demo.';
+  $('ai-status').textContent = data.ai.configured ? 'Generate on demand. Repeated notes use the evidence cache; free-quota limits apply.' : 'No saved note matches this request. Primary evidence remains available; new AI answers are disabled by server configuration.';
   $('ai-result').replaceChildren(); if (data.analysis) renderAnalysis(data.analysis, data); $('research-result').hidden = false;
   renderComparison(data.guidanceComparison);
 }

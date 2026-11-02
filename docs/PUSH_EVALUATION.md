@@ -1,3 +1,5 @@
+November 2 source/browser review: original HDFC p1 and TCS annual physical p55 visually match disclosed facts; APL original p9 values and p36 narrative visually checked. Hosted Pull at390px shows4 saved TCS claims/citations without overflow; cached Generate interaction under verification. Corrected generic saved-note label: durable validation alone must not imply human review. Safari complex request hit transient503 and deferred with attempt counted, not accepted. No user intervention or quota change; suitable captured alternative awaits recorded retry capacity. UI wording syntax/tests pending.
+
 November 2 quality checkpoint: syntax/all117 tests pass, retaining all original15 adversarial refusals. HDFC complete unchanged draft accepted with0 added calls; retirement-only irrelevant profile warning suppressed without deleting raw codes. Collected APL results completed in1 ordinary call with3 consolidated INR-million quarterly rows and derived comparatives, PBT explicitly missing. Original source-page visual review/appointment case and unattended hosted generation still pending. Pull v7 saved TCS answer remains usable.
 
 # Push evaluation — November 1, 2026 (IST)
