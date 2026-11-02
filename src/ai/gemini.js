@@ -36,6 +36,7 @@ export function validateAnalysis(value, evidence, { maxQuoteLength = 220 } = {})
   if (!value || !Array.isArray(value.claims) || !Array.isArray(value.unavailableSections) || value.claims.length > 8 || value.unavailableSections.some(section => !sections.includes(section))) throw new AiUnavailable('AI output did not match the research contract.');
   const byId = new Map(evidence.map(item => [item.id, item]));
   for (const claim of value.claims) {
+    try {
     if (!sections.includes(claim.section) || typeof claim.text !== 'string' || claim.text.length > 500 || typeof claim.inference !== 'boolean' || !Array.isArray(claim.references) || !claim.references.length || claim.references.length > 3) throw new AiUnavailable('AI output contained an invalid claim.');
     if (!claim.text.trim()) throw new AiUnavailable('AI output contained an empty claim.');
     if (['bull', 'bear'].includes(claim.section) && !claim.inference) throw new AiUnavailable('Bull and bear cases must be labelled as interpretations.');
@@ -53,9 +54,9 @@ export function validateAnalysis(value, evidence, { maxQuoteLength = 220 } = {})
       throw new AiUnavailable('AI citation does not establish the metric context of its claim. No generated analysis has been published.');
     }
     const contextFailure = citationContextFailure(claim, byId);
-    if (contextFailure) {
-      const error = new AiUnavailable(`AI citation rejected: ${contextFailure}. No generated analysis has been published.`);
-      error.claimText = claim.text; error.references = claim.references;
+    if (contextFailure) throw new AiUnavailable(`AI citation rejected: ${contextFailure}. No generated analysis has been published.`);
+    } catch (error) {
+      error.claimText = claim?.text; error.references = claim?.references;
       throw error;
     }
   }
