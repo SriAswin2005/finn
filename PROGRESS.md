@@ -1,57 +1,23 @@
-November2 concise-source contract verified: actual syntax/all141 tests PASS. v11 has one consistent4-8 claim/100-160-word contract, schema source-subject descriptions, primary-worded facts and source-specific reading value. Metadata summary/ticker no longer invite unsupported issuer-name expansion; boilerplate is not a useful fact. No source guard relaxed or capped job regenerated. Healthy-retry/reserve deployment746355e/dpl_HCDDKaqj1UqNS56FoWei5L975AvX READY and protective policy applied; v11 rollout next.
-
-November2 v11 prompt coherence: removed duplicated/conflicting word/count instructions and metadata summary/ticker that invited unsupported issuer-name expansion. Facts choose exact source subjects or The company; routine notices select useful document/date detail rather than legal boilerplate. Inferences remain source-specific reading value, not forecasts. Native schema now matches existing effective4-8 claim contract and describes source-subject rules. All source guards unchanged. Full141 checks/real unseen-source verification pending.
-
-November2 healthy-retry/fresh-reserve checkpoint: actual syntax/all141 tests PASS. Healthy used complex capacity outranks unhealthy unused alternatives; fresh ordinary work still probes Lite first. Per-model application retry caps250/Lite and10/Flash plus shared520 are inside the same500/500/20/20/1040 ceilings, preserving fresh capacity and every prior attempt/hold. Readiness/reservation consistency and fresh-first availability verified. Commit/deploy/audited apply next; no live model call in checks.
-
-November2 healthy-retry/reserve controls added: a healthy used complex model must outrank an unhealthy unused alternative; a model retry-day cap must stop retries while allowing fresh attempts, with read-only Research readiness matching reservation time. New per-model250/10 retry ceilings and shared520 remain within1040 total. Full141 checks pending; no real model call in tests.
-
-November2 healthy retry/fresh-capacity slice: controlled LT v10 source call on3.6 incorrectly expanded issuer name beyond selected quote (correctly withheld); genuine15:45 retry blindly chose unused3.8 despite unhealthy counters and timed out, lifetime3 failed. Now prefer healthier suitable models before unused status on retries, while fresh ordinary work probes Lite first and complex work never downgrades. Added per-model retry budgets250/Lite and10/Flash (global520) inside unchanged500/500/20/20/1040 ceilings, reserving fresh capacity. Read-only Research readiness reflects model retry exhaustion. Regression/full checks pending; no history/capped-job reset.
-
-November2 v10 prompt checkpoint: actual syntax/all139 tests PASS. Source-specific reading/monitoring significance replaces instructions that could invite ungrounded causal forecasts; all four roles, whole-output/source validation and existing guards remain. Eicher remains correctly failed at lifetime3 (uncited delivery-volume inference), not revalidated/refunded.5a96962/dpl_2fVXydfZMeqaQjfnyUGpXy743xBY role allocation READY; v10 commit/deploy and different uncapped source verification next.
-
-November23.6 Push availability proven: genuine15:30:48.692UTC Eicher call returned a complete draft, but it introduced delivery-volume context absent from its selected production/international-growth quotes. Correct rejection, not a false metric guard; lifetime3 now failed, no reset/revalidation. All47 attempts retained. v10 prompt now asks for source-specific reading/monitoring value without unsupported causal/financial forecasts, preserving four substantive roles and all source guards. Full139 checks and a different uncapped real disclosure verification pending.
-
 # FINN current progress — November 2, 2026
 
-Push and Pull generation are enabled on the approved Vercel/Neon deployment. The Cloudflare Free dispatcher runs every15 minutes. No further account action is currently needed. Full unattended Push publication acceptance remains open.
+User requested a quick wrap-up; further experiments stop for this handoff. Production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY at https://finn-zeta-one.vercel.app. Source implementation is privately pushed. Syntax and all141 tests pass.
 
-Current production:e81e795 / dpl_DRPHxYjdS1mVwvqvdufoTjDm5dB9 READY, https://finn-zeta-one.vercel.app. Private origin contains the same implementation. Local model-version/catalog/explicit-order cleanup passes syntax/all139 tests; committed, privately pushed, audited/applied and deployed READY. Retained output audit, complete-sentence source quotes and stronger single correction are deployed.
+## Working
 
-## Model policy and routing
+- Hosted Pull generation works on real primary sources. Fresh HCL financial answer was checked against original physicalp12; seven saved request variants across five companies reuse0 model calls. Durable notes/leases survive deployments.
+- Push source collection, generic PDF extraction, deduplication, durable queue, signed quarter-hour dispatch and actual model calls run. Source-only Refresh and ordinary opens do not generate.
+- Old arbitrary20/day cap removed. Current disjoint assignments: Research3.5Flash-Lite; Push3.1Flash-Lite ordinary,3.6Flash preferred complex and3.8Flash alternative. IDs/roles/order/limits are JSON configuration, not generation-specific runtime branches.
+- User-reported model ceilings remain500/500/20/20 RPD, aggregate1040, Research500/Push540. Local retry reserves250/Lite,10/Flash and shared520 are INSIDE these ceilings. All attempts/timeouts count; lifetime3, provider holds and project stops remain. Healthy suitable retries precede unhealthy unused alternatives. These ceilings do not guarantee capacity.
+- Whole-output validation, source-sentence boundaries, reference/address handling, split dated-year comparison, approval/scope/units and zero-cash safeguards are tested. Captured data never becomes live. Unsupported output remains withheld.
 
-The user's November2 instruction to use models efficiently supersedes the old arbitrary20/day, Research6/Push14/retry4 allocation. The audited shared policy now uses the reported per-model ceilings:
+## Not complete
 
-| Workflow | Model role | RPM / inputTPM / RPD |
-| --- | --- | --- |
-| Research |3.5Flash-Lite primary |15 /250000 /500 |
-| Push |3.6Flash preferred complex |5 /250000 /20 |
-| Push |3.1Flash-Lite ordinary |15 /250000 /500 |
-| Push |3.8Flash complex |5 /250000 /20 |
+Fully automatic accepted Push publication is NOT yet verified. Latest check16:39UTC:53 retained historical attempts; no new accepted scheduled card since the earlier source-reviewed recoveries. Provider503s explicitly report high demand. Several complete drafts were correctly rejected for unsupported names, metrics or omitted negation. The last Sun Pharma scheduled draft at16:30 failed negation validation. ITC, Marico appointment, Eicher and L&T transcript cases exhausted lifetime3; never reset/clone them. Existing saved HDFC/APL/L&T notes remain available, but controlled generation/operator revalidation is not unattended acceptance.
 
-Aggregate1040/day andResearch500 and Push540 are ceilings, not guaranteed provider or hosting capacity. Every retry/timeout counts inside the totals; lifetime3, Pacific and rolling24h caps, minute budgets, provider pauses and circuits remain. 3.6Flash passed a second, distinct exact-quotation financial case against original transcript physicalp12; fallback promotion is applied/deployed. Its first real financial sample failed named-entity citation validation; it remains withheld/counted; the successful separate case does not reset or relabel it. All43 historical attempts currently remain; the policy audit preserved the original33 and released20 local-budget deferrals. No provider hold was shortened.
+Both generation gates remain enabled and the approved dispatcher continues. No additional sign-in/account action is currently needed. General unseen-case completeness/priority, sustained free capacity, phone install/offline/PDF opening and after-idle timing remain unverified. EOD was manually refreshed earlier; Push does not schedule EOD. Submission/voice/OS notifications/native work remain deferred.
 
-Roles/IDs/limits are JSON configuration. Research skips a zero-call model-capacity block, but never rotates around project/auth stops. Model upgrades now preserve stable Research request identity, legacy caches/leases/rejections and lifetime counts without relabeling historical attempts. Default Google sampling replaces custom temperatures.
+## New confirmed limits, not activated
 
-## Verified product behavior
+User reports Gemma4 26B/31B limits30RPM,16000 inputTPM,14400RPD and asks to wrap up quickly. Recorded only; no new Gemma assignment/deployment/calls in this rollout. Research currently reserves a fixed30000 token estimate, which exceeds that16k TPM; a future focused capability/token-estimate check is needed before using Gemma. Do not claim it is active or invent independent additional capacity.
 
-- Pull uses annual reports/transcripts only. Hosted generation, durable shared answer cache, cross-instance ownership and zero-call reuse work. Five accessible examples: original INFY6/ASIANPAINT4/PERSISTENT4 claims, source-reviewed TCS business4 and HCLTech total-revenue1.
-- HCLTech totalUSD3,724million is supported by original latest transcript physicalp12. Exact adjacent issuer period (Q2 financialyear27) and constant-currency qualification/exceptions are shown as primary quotes. An earlier off-target answer was wholly withheld/audited.
-- Push automatic collection/PDF processing and actual model invocation are observed. Saved source-reviewed recoveries include HDFC retirement, APL results/table and latest L&T operational contract/Significant INR1000–2500crore band. These are not proof of a wholly unattended accepted publication.
-- Fixed quarter-hour windows tolerate jitter/parser duration; one actual model call/tick, at most5 zero-call queue skips. Captured evaluations remain isolated. One opt-in validation correction retains the whole rejected draft and shared/lifetime accounting.
-- Latest snapshot manually refreshed November2 with15/15 EOD records and66 NSE records, both adapters OK. Push schedules disclosures, not a new EOD collector.
-- Hosted390px checks show saved financial/business answers, citations, input-change isolation, pause explanations and no horizontal overflow/errors. Physical-device install/offline/PDF opening remains unverified.
-
-## Remaining work
-
-Final14:45:47.925UTC Marico stronger-model attempt received503 and exhausted lifetime3; it is failed and must not be reset/requeued. Observe an actual scheduled accepted Push card and verify HTTP/fresh-instance reuse without another call. Diagnose remaining rejected/complex outputs with retained evidence; source/metric absence stays unavailable. Verify preferred3.6Flash Push model against a real source-backed case. Provider503s and general unseen-company/model quality remain limits, not disabled credentials. Verified configurable-version/ordinary-transport-rotation slice is deployed; current runbooks are reconciled. Submission/voice/OS notifications/native work remains deferred.
-
-November2 fresh hosted UI call: TCS services question generated3 claims on3.5Lite at13:17UTC, proving new calls available beyond old6 Research cap. Source review found one citation begins inside a retrieval word; whole new answer must be withheld and quote-bank start-boundary guard fixed. This is an open quality finding. Scheduled13:15 Marico correction failed qualifier validation; unattended acceptance still open. Earlier commit/deploy attempt was not executed because automatic approval review hit a usage limit; normal approved-path retry resumes after user continuation.
-
-Latest verification14:40UTC: six saved Research HTTP cases return0calls; clipped TCS whole answer is withheld/audited. Fresh hosted3.5 HCL answer14:40:52UTC has1 exact complete financial quote plus period/constant-currency exception context, matching originalp12. Leading/capitalized retrieval fragments and w.e.f. condition continuity are fixed without changing the three baked source hashes. No source guard weakened.
-
-November2 final implementation checks: syntax and all139 tests pass. Ordinary Push transport retries prefer an unused suitable configured stronger model; stronger capacity may handle ordinary work, complex work never downgrades. Every attempt counts, one network call/tick/lifetime3 remain. Runtime model IDs/catalog/defaults/explicit Research order are configuration; unknown inventory is unverified and no automatic quota/free-tier upgrade occurs.19 current relative documentation links resolve. Latest scheduled Marico503 is retained as a real failure, not a passed example.
-
-Final deployed verification14:57UTC: seven saved Research requests return0 model calls, including the new HCL financial answer and the reviewed3.6 fallback sample. Four configured Google metadata endpoints return200 (access only, not proof of quota independence/capacity). Browser shows cached0calls/₹0 with exact original quote; temporary viewport restored and task-owned log/bootstrap sessions stopped. Shared44 attempts retained at last full observation. Next genuine15:00 scheduled outcome still under observation; no manual worker/capped-job retry.
-
-November2 availability checkpoint: actual syntax/all139 tests pass for configuration reassignment. After repeated3.8 provider503s, reliable3.5Lite remains Research;3.6Flash becomes preferred complex Push with3.8 alternative. Per-model500/500/20/20, aggregate1040, all-retries-inside and lifetime3 unchanged; allocations derive to Research500/Push540. All46 prior attempts retain original workflow/model labels and provider holds. Old reviewed3.6 Research note remains0call history, not a live cross-workflow fallback. Commit/deploy/audited apply and controlled Push verification pending; no capped ITC/Marico job reset.
+Current truth is here and in docs/ISSUES.md. Detailed historical work remains in Git/BUILD_LOG/VERIFICATION.

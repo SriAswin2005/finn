@@ -1,20 +1,8 @@
-November2 concise-source contract verified: actual syntax/all141 tests PASS. v11 has one consistent4-8 claim/100-160-word contract, schema source-subject descriptions, primary-worded facts and source-specific reading value. Metadata summary/ticker no longer invite unsupported issuer-name expansion; boilerplate is not a useful fact. No source guard relaxed or capped job regenerated. Healthy-retry/reserve deployment746355e/dpl_HCDDKaqj1UqNS56FoWei5L975AvX READY and protective policy applied; v11 rollout next.
-
-November2 v11 prompt coherence: removed duplicated/conflicting word/count instructions and metadata summary/ticker that invited unsupported issuer-name expansion. Facts choose exact source subjects or The company; routine notices select useful document/date detail rather than legal boilerplate. Inferences remain source-specific reading value, not forecasts. Native schema now matches existing effective4-8 claim contract and describes source-subject rules. All source guards unchanged. Full141 checks/real unseen-source verification pending.
-
-November2 healthy-retry/fresh-reserve checkpoint: actual syntax/all141 tests PASS. Healthy used complex capacity outranks unhealthy unused alternatives; fresh ordinary work still probes Lite first. Per-model application retry caps250/Lite and10/Flash plus shared520 are inside the same500/500/20/20/1040 ceilings, preserving fresh capacity and every prior attempt/hold. Readiness/reservation consistency and fresh-first availability verified. Commit/deploy/audited apply next; no live model call in checks.
-
-November2 healthy-retry/reserve controls added: a healthy used complex model must outrank an unhealthy unused alternative; a model retry-day cap must stop retries while allowing fresh attempts, with read-only Research readiness matching reservation time. New per-model250/10 retry ceilings and shared520 remain within1040 total. Full141 checks pending; no real model call in tests.
-
-November2 healthy retry/fresh-capacity slice: controlled LT v10 source call on3.6 incorrectly expanded issuer name beyond selected quote (correctly withheld); genuine15:45 retry blindly chose unused3.8 despite unhealthy counters and timed out, lifetime3 failed. Now prefer healthier suitable models before unused status on retries, while fresh ordinary work probes Lite first and complex work never downgrades. Added per-model retry budgets250/Lite and10/Flash (global520) inside unchanged500/500/20/20/1040 ceilings, reserving fresh capacity. Read-only Research readiness reflects model retry exhaustion. Regression/full checks pending; no history/capped-job reset.
-
-November2 v10 prompt checkpoint: actual syntax/all139 tests PASS. Source-specific reading/monitoring significance replaces instructions that could invite ungrounded causal forecasts; all four roles, whole-output/source validation and existing guards remain. Eicher remains correctly failed at lifetime3 (uncited delivery-volume inference), not revalidated/refunded.5a96962/dpl_2fVXydfZMeqaQjfnyUGpXy743xBY role allocation READY; v10 commit/deploy and different uncapped source verification next.
-
-November23.6 Push availability proven: genuine15:30:48.692UTC Eicher call returned a complete draft, but it introduced delivery-volume context absent from its selected production/international-growth quotes. Correct rejection, not a false metric guard; lifetime3 now failed, no reset/revalidation. All47 attempts retained. v10 prompt now asks for source-specific reading/monitoring value without unsupported causal/financial forecasts, preserving four substantive roles and all source guards. Full139 checks and a different uncapped real disclosure verification pending.
+Current wrap-up:141 tests pass; production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY. Pull verified; P-001 automatic accepted Push publication remains unchecked. User-confirmed Gemma limits recorded only; no further experiment/activation in this wrap-up.
 
 # Milestones and acceptance gates
 
-Current November2,2026. Syntax/all139 tests pass for the local config-upgrade slice; the same137-test implementation is deployed READY as e81e795. Current issues: [ISSUES.md](ISSUES.md). Historical evidence remains in Git/[VERIFICATION.md](VERIFICATION.md)/[BUILD_LOG.md](BUILD_LOG.md).
+Current November2,2026. Syntax/all141 tests pass for the local config-upgrade slice; the same137-test implementation is deployed READY as e81e795. Current issues: [ISSUES.md](ISSUES.md). Historical evidence remains in Git/[VERIFICATION.md](VERIFICATION.md)/[BUILD_LOG.md](BUILD_LOG.md).
 
 ## Briefing and primary evidence
 
@@ -49,7 +37,7 @@ Current November2,2026. Syntax/all139 tests pass for the local config-upgrade sl
 - [x] Latest saved delivery, Refresh0calls, pending/delayed/partial/error/source priority display and bounded queue scan.
 - [x] Neon migration and original-key/HMAC server secrets, limited-scope Cloudflare Free dispatcher active; quarter-hour jitter-safe collection and actual model invocation observed.
 - [x] One whole correction with source diagnostic escalates to complex Push capacity; unavailable stronger capacity waits, no loop/downgrade/extra allowance.
-- [ ] Genuine scheduled validated publication plus fresh HTTP/process0-call reuse: final observation pending. Manual unchanged-draft recoveries do not close this gate.
+- [ ] Genuine scheduled validated publication plus fresh HTTP/process0-call reuse: not verified after final16:39 check. Manual unchanged-draft recoveries do not close this gate.
 - [ ] Broad unseen results, incoming-profile, routine/complex omission/emphasis/priority/reading-effort acceptance.
 - [ ] Measured free capacity/freshness under sustained load; no15-minute guarantee, existing backlog explicit.
 

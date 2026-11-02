@@ -1,3 +1,7 @@
+# Current rollout — November2 wrap-up
+
+Production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY;141 tests pass. Pull live/cached paths verified; Push accepted unattended publication remains unverified after high-demand503s and source-validation failures. Current source/routing/quota code deployed, all53 attempts retained at16:39UTC. Current authoritative state: PROGRESS.md and ISSUES.md. Older dated rollout text below is history where superseded.
+
 # Billing-disabled Gemini and shared model policy
 
 Current November2,2026. Both hosted workflows are enabled using the already-approved original key; no new credential/account action is required. Never enable billing/paid fallback or publish credentials. `.env.example` remains safe/off by default for new checkouts.
@@ -43,3 +47,5 @@ App opens/navigation/source Refresh/saved answer reuse make0 model calls. Missin
 Official references: [rate limits](https://ai.google.dev/gemini-api/docs/rate-limits), [troubleshooting/default sampling](https://ai.google.dev/gemini-api/docs/troubleshooting), [thinking](https://ai.google.dev/gemini-api/docs/thinking), [models](https://ai.google.dev/gemini-api/docs/models), [pricing](https://ai.google.dev/gemini-api/docs/pricing). Active AI Studio project limits are authoritative; metadata access is not proof of capacity.
 
 November2 application retry reserves: each Lite permits up to250 retry attempts/day and each Flash10, with shared520 retries inside1040 aggregate. These are local reserves for fresh work, not additional Google quota. A healthy used suitable model precedes an unhealthy unused one on retries; fresh ordinary work probes Lite first, complex work never downgrades. All prior attempts/provider holds remain. Tests141 pass; rollout pending.
+
+User-confirmed Gemma4 26B/31B limits:30RPM,16000 inputTPM,14400RPD. Recorded, not activated in this rollout. Fixed Research token estimate30000 exceeds16k TPM; evaluate request-size/capability handling before any future assignment. User asked to wrap up quickly.

@@ -1,3 +1,7 @@
+# Current rollout — November2 wrap-up
+
+Production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY;141 tests pass. Pull live/cached paths verified; Push accepted unattended publication remains unverified after high-demand503s and source-validation failures. Current source/routing/quota code deployed, all53 attempts retained at16:39UTC. Current authoritative state: PROGRESS.md and ISSUES.md. Older dated rollout text below is history where superseded.
+
 # FINN Vercel, Neon and dispatcher operations
 
 Current November2,2026. Productione81e795 / dpl_DRPHxYjdS1mVwvqvdufoTjDm5dB9 READY at https://finn-zeta-one.vercel.app. Latest local model-configuration/Push-rotation slice passes syntax/all139 tests; it is committed, privately pushed, audited/applied and deployed READY. A private Git push is separate from a Vercel deployment.
@@ -36,3 +40,5 @@ Final deployed verification14:57UTC: seven saved Research requests return0 model
 November2 availability reallocation verified locally139 tests, pending commit/deploy/apply: Research500/Push540 from unchanged500/500/20/20 model ceilings. Prefer available3.6 complex Push after repeated3.8 overload, retaining all46 attempts. ITC final15:15 correction503/lifetime3 failed; no reset. Real3.6 Push source-case and next genuine scheduled publication still require verification.
 
 November2 application retry reserves: each Lite permits up to250 retry attempts/day and each Flash10, with shared520 retries inside1040 aggregate. These are local reserves for fresh work, not additional Google quota. A healthy used suitable model precedes an unhealthy unused one on retries; fresh ordinary work probes Lite first, complex work never downgrades. All prior attempts/provider holds remain. Tests141 pass; rollout pending.
+
+User-confirmed Gemma4 26B/31B limits:30RPM,16000 inputTPM,14400RPD. Recorded, not activated in this rollout. Fixed Research token estimate30000 exceeds16k TPM; evaluate request-size/capability handling before any future assignment. User asked to wrap up quickly.
