@@ -80,7 +80,12 @@ export function createPushService({ store = createPushStore(), env = process.env
       try {
         const collection = await collect({ store, now, intervalMs: targetMinutes * 60000 }); const documents = [];
         for (let i = 0; i < 2 && now() - started < 120000; i++) documents.push(await document({ store, now }));
-        const due = await store.mutate(s => { if ((s.nextAnalysisAt ?? 0) > now()) return false; s.nextAnalysisAt = now() + analysisMinutes * 60000; return true; });
+        const due = await store.mutate(s => {
+          const index = Math.floor(started / (analysisMinutes * 60000));
+          if (s.analysisWindow?.index === index && s.analysisWindow.minutes === analysisMinutes) return false;
+          s.analysisWindow = { index, minutes: analysisMinutes }; s.nextAnalysisAt = (index + 1) * analysisMinutes * 60000;
+          return true;
+        });
         const analysis = due && now() - started < 90000 ? await analyse({ store, env, now }) : { deferred: true };
         await store.mutate(s => { s.lastWorkerAt = new Date(now()).toISOString(); });
         return { collection, documents, analysis, status: status(await store.read()) };

@@ -26,9 +26,11 @@ export function mergeFilings(state, filings, collectedAt) {
 export async function collectPush({ store, now = Date.now, fetchFilings = fetchAnnouncements, intervalMs = 15 * 60000, symbols = portfolio.map(p => p.symbol) } = {}) {
   if (!Number.isInteger(intervalMs) || intervalMs < 60000) throw new Error('Invalid collection interval.');
   const at = now(); const token = randomUUID();
+  const cadenceWindow = Math.floor(at / intervalMs);
   const window = await store.mutate(state => {
     const c = state.collection;
-    if (c.lease?.until > at || c.nextAt > at && !c.requested) return null;
+    const alreadyCollected = c.cadence?.intervalMs === intervalMs && c.cadence.window === cadenceWindow && !c.catchupPending;
+    if (c.lease?.until > at || !c.requested && (c.status === 'failed' ? c.nextAt > at : alreadyCollected)) return null;
     c.lease = { token, until: at + 90000 }; c.requested = false;
     return collectionWindow(c.checkpoint, at);
   });
@@ -40,7 +42,7 @@ export async function collectPush({ store, now = Date.now, fetchFilings = fetchA
       const c = state.collection; if (c.lease?.token !== token) return { skipped: true };
       const counts = mergeFilings(state, result.announcements, new Date(at).toISOString());
       Object.assign(c, { checkpoint: window.to, lastSuccessAt: new Date(at).toISOString(), lastAttemptAt: new Date(at).toISOString(), status: 'ok', error: null, lease: null,
-        nextAt: Date.parse(window.to) < at ? at : at + intervalMs, window, counts, totalSourceRows: result.totalSourceRows, requestUrl: result.requestUrl });
+        nextAt: Date.parse(window.to) < at ? at : (cadenceWindow + 1) * intervalMs, cadence: { intervalMs, window: cadenceWindow }, catchupPending: Date.parse(window.to) < at, window, counts, totalSourceRows: result.totalSourceRows, requestUrl: result.requestUrl });
       return { ...counts, checkpoint: c.checkpoint };
     });
   } catch (error) {

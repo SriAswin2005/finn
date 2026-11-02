@@ -10,7 +10,7 @@ import { processDocument, claimAnalysis, settleJob, acceptDocumentJob } from '..
 import { reserveAttempt, finishAttempt, classifyFailure, nextPacificReset } from '../src/push/quota.js';
 import { filingEvidence } from '../src/push/evidence.js';
 import { validatePush, presentationAnalysis, missingContext } from '../src/push/interpretation.js';
-import { decoratePushDataset } from '../src/push/service.js';
+import { decoratePushDataset, createPushService } from '../src/push/service.js';
 import { processAnalysis, revalidateRejected } from '../src/push/analysis.js';
 import { researchAssignments } from '../src/ai/workflows.js';
 
@@ -21,6 +21,22 @@ export async function temporaryStore() {
 }
 const at = Date.parse('2026-11-01T10:00:00Z');
 const filing = { id: 'new-filing', symbol: 'TCS', title: 'Appointment', summary: 'New CFO', publishedAt: new Date(at).toISOString(), source: { url: 'https://nsearchives.nseindia.com/a.pdf' } };
+test('scheduled jitter and parser duration do not skip the next collection/analysis window or duplicate the same window', async () => {
+  const { store } = await temporaryStore(); let clock = Date.parse('2026-11-02T09:22:36Z');
+  await store.mutate(s => { s.collection.checkpoint = new Date(clock).toISOString(); });
+  let sources = 0; let analyses = 0;
+  const service = createPushService({ store, env: {}, now: () => clock,
+    collect: options => collectPush({ ...options, fetchFilings: async () => { sources++; return { announcements: [] }; } }),
+    document: async () => { clock += 10000; return { skipped: true }; }, analyse: async () => { analyses++; return { completed: true }; } });
+  await service.tick(); clock = Date.parse('2026-11-02T09:37:34Z'); await service.tick(); await service.tick();
+  assert.equal(sources, 2); assert.equal(analyses, 2);
+});
+test('a new collection window does not bypass a failed source retry deadline', async () => {
+  const { store } = await temporaryStore(); let clock = Date.parse('2026-11-02T09:44:55Z'); let calls = 0;
+  const options = { store, now: () => clock, fetchFilings: async () => { calls++; throw new Error('temporary source failure'); } };
+  await collectPush(options); clock += 10000; assert.equal((await collectPush(options)).skipped, true); assert.equal(calls, 1);
+  clock += 60000; await collectPush(options); assert.equal(calls, 2);
+});
 test('analysis serves recent due disclosures before old backlog without bypassing cooldown or capture isolation', async () => {
   const { store } = await temporaryStore();
   await store.mutate(s => {

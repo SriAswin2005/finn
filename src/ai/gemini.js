@@ -180,7 +180,10 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
         }
         if (!response.ok) {
           const failure = classifyFailure({ status: response.status, body, retryAfter: response.headers.get('retry-after'), now: now(), attempt: attempt + 1 });
-          if (response.status === 429 || response.status >= 500) failure.until = Math.max(failure.until, retryDeadline(response.headers.get('retry-after'), body, now()));
+          // Ambiguous quota responses use the conservative quota deadline.
+          // Transient server errors use bounded backoff and provider guidance;
+          // treating an unguided 503 as quota would add an unnecessary hour.
+          if (response.status === 429) failure.until = Math.max(failure.until, retryDeadline(response.headers.get('retry-after'), body, now()));
           nextAt = Math.max(nextAt, failure.until);
           await finishAttempt(sharedStore, sharedAttempt, { outcome: `http_${response.status}`, failure, now: now() });
           const invalidKey = body?.error?.details?.some?.(detail => detail.reason === 'API_KEY_INVALID')

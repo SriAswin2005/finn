@@ -52,3 +52,17 @@ test('rejected Pull output stays unpublished and cannot regenerate on repeated r
   assert.equal(await createGeminiProvider(options).getCached(research), null); assert.equal(calls, 1);
   assert.equal((await store.read()).quota.attempts[0].outcome, 'invalid_or_unsupported_output');
 });
+test('transient Pull failures use bounded backoff while preserving explicit provider retry guidance', async t => {
+  for (const seconds of [null, '600']) {
+    const directory = await mkdtemp(join(tmpdir(), 'finn-research-backoff-')); t.after(() => rm(directory, { recursive: true, force: true }));
+    const store = createPushStore({ env: {}, path: join(directory, 'shared.sqlite') }); await store.initialize();
+    await store.mutate(s => { s.quota.initialized = true; s.quota.policy = policy; });
+    const at = Date.now();
+    const provider = createGeminiProvider({ env, directory, sharedStore: store, now: () => at, fetchImpl: async () => new Response('{}', { status: 503, headers: seconds ? { 'retry-after': seconds } : {} }) });
+    await assert.rejects(provider.generate(research), /could complete/);
+    const q = (await store.read()).quota; const until = q.cooldowns[q.attempts[0].model];
+    if (seconds) assert.equal(until, at + 600000);
+    else assert.ok(until > at && until <= at + 90000);
+    assert.equal(q.attempts.length, 1);
+  }
+});

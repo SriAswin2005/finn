@@ -1,3 +1,11 @@
+November2 cadence/recovery checkpoint: npm run check/all120 tests pass, including jitter+parser-duration windows, no duplicate same-window analysis, retained source retry deadlines and503-vs429 backoff/provider-guidance controls. All original15 refusals retained. Deploy fixed-window host and quarter-hour dispatcher next; existing historical cooldowns/history unchanged.
+
+November2 recovery finding: Pull incorrectly applied the conservative429 quota fallback (1hour when no guidance) to503 too. Corrected future503 handling to bounded transient backoff plus actual provider guidance; tests verify no synthetic hour and respect600s Retry-After. Existing historical cooldowns are NOT shortened/reset because original response guidance was not retained. Jitter fixed-window tests passed119 before this extra recovery regression; full120 checks pending. Quarter-hour schedule replacement retains15min/96daily dispatches.
+
+November2 genuine15:07IST tick observed (Cloudflare outcomeok/1msCPU/779mswall), but NO analysis was attempted. Found application cadence drift: nextAt=completion+15min let the next scheduled tick arrive~1s early and skip both source/analysis. Fixed to durable fixed-window identity, preserving source failure deadlines and catch-up. Added jitter+slow-parser+same-window/retry regressions. Dispatcher remains15min/96ticks-day, aligned permanently to quarter hours (*/15); new trigger deployment pending. No manual worker substituted or quota reset. Financial retry returned503 after17s (not the corrected40s timeout), retained/deferred. Checks pending.
+
+November2 hosted mobile verification after7cfef94:390px Today shows Automatic AI analysis is enabled, refreshed15-company market data with2 threshold signals, persisted APL metric card and honest source-unavailable/pending states. No overflow/console errors. Cached Pull Generate reports0calls and original TCS annual physical p55 visually supports all4 claims. Real scheduler observer remains active; no manual worker invoked.
+
 # Current issues — November 2, 2026 (IST)
 
 Current evidence overrides historical logs. Both hosted generation paths are now enabled at code7cfef94/deployment dpl_HL3CVBXQsKUKCpuh17LTLdaFpCRT; final unattended verification is in progress.
