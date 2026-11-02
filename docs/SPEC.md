@@ -1,3 +1,5 @@
+November 2 scope clarification: explicit user instruction now replaces arbitrary20/day local allocation with reported per-model free-tier limits and suitable rotation. Disjoint Research/Push model sets, all-attempt accounting, project pauses, lifetime3 and source quality gates remain binding. Ceilings are not guaranteed capacity.
+
 # FINN specification
 
 This file describes the agreed product and architecture, including historical milestone explanations. It is not the current completion report. Start with [HANDOFF.md](../HANDOFF.md), [PROGRESS.md](../PROGRESS.md) and [ISSUES.md](ISSUES.md) for verified, partial, missing and failing behavior. The original PDFs contain an optional menu; unfinished items must not be inferred as completed from this specification.

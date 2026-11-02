@@ -82,3 +82,7 @@ After the three external actions were explained, the user said “okay go ahead�
 ## November 2 — finish both workflows
 
 The user explicitly asks to fix the identified issues and get both hosted Push and Pull running end to end. This supersedes the earlier deferral of Pull activation work and authorizes deploying the fixes and activating verified generation using the already-approved server-only key and existing free-tier infrastructure/caps. Source review, whole-output validation, model separation and quality verification remain required. No new spending, terms, permissions or quota expansion is implied. Continue independently; ask only for genuinely missing account actions.
+
+## November 2 — use the confirmed model quotas efficiently
+
+The user explicitly questioned the artificial20-call limit and requested model rotation. This supersedes the earlier local20/Research6/Push14/retry4 allocations, not billing-disabled-only use or provider limits. Use the reported per-model ceilings: each Lite15RPM/250k inputTPM/500RPD; each Flash5RPM/250k/20RPD. A1040 aggregate ceiling and520 per workflow are upper bounds, with every retry included, lifetime3 retained and disjoint suitable model assignments. Do not reset attempts/provider cooldowns or rotate around a project-wide hold. Configuration supports future model IDs; new unknown quotas/free eligibility are not inferred automatically.

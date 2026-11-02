@@ -79,7 +79,7 @@ test('source-only reads expose a temporary model pause without claiming jobs or 
 test('retry readiness waits for both the model pause and the shared allowance, matching reservation enforcement', async t => {
   const directory = await mkdtemp(join(tmpdir(), 'finn-research-allowance-')); t.after(() => rm(directory, { recursive: true, force: true }));
   const store = createPushStore({ env: {}, path: join(directory, 'shared.sqlite') }); await store.initialize();
-  await store.mutate(s => { s.quota.initialized = true; s.quota.policy = policy; });
+  await store.mutate(s => { s.quota.initialized = true; s.quota.policy = { ...policy, retryDaily: 4 }; });
   let clock = Date.now(); const started = clock;
   const provider = createGeminiProvider({ env, directory, sharedStore: store, now: () => clock, fetchImpl: async () => { throw new Error('synthetic transport failure'); } });
   await assert.rejects(provider.generate(research));

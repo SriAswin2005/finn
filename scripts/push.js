@@ -5,6 +5,7 @@ import { runtimeCacheDirectory } from '../src/storage/snapshots.js';
 import { workflowPolicy } from '../src/ai/workflows.js';
 import { createPushService } from '../src/push/service.js';
 import { revalidateRejected } from '../src/push/analysis.js';
+import { applyPolicy } from '../src/push/policy.js';
 
 const store = createPushStore(); const command = process.argv[2] ?? 'status';
 try {
@@ -28,8 +29,8 @@ try {
   else if (command === 'revalidate') console.log(JSON.stringify(await revalidateRejected({ store, key: process.argv[3], reason: process.argv.slice(4).join(' ') })));
   else if (command === 'policy') {
     const policy = workflowPolicy();
-    await store.mutate(s => { if (!s.quota.initialized) throw new Error('Quota missing; policy cannot recreate it.'); s.quota.policy = policy; });
-    console.log('Applied configured roles/limits; every existing attempt/cooldown preserved.');
+    const result = await applyPolicy(store, policy);
+    console.log(JSON.stringify({ ...result, message: 'Applied configured roles/limits with audit; every existing attempt and provider hold preserved.' }));
   }
   else if (command === 'retry') {
     const key = process.argv[3]; const reason = process.argv.slice(4).filter(value => value !== '--complex').join(' ');

@@ -1,3 +1,7 @@
+November 2 capacity checkpoint: syntax and all133 tests pass. New controls verify more than20 attempts, per-model/lifetime limits, audited no-reset policy changes, local-only wait release, staged-role separation and zero-call fallback/project-stop behavior. No live model call in these checks. Applying audited policy and evaluating staged Research fallback next; current host remainsf3cbc0c.
+
+November 2 capacity slice pending:1040 aggregate ceilings, audited policy application, zero-call fallback and provider-default sampling saved. Required regression/full checks and actual host verification not yet run. Previous129 tests were for f3cbc0c, not this change.
+
 November2 worker-capacity checkpoint: npm run check/all129 tests pass, including5-step/no-more-than1-network-call scan bound and project-stop enforcement. No live model call during verification. Deploying zero-call skip so unavailable complex/retry jobs do not block unused ordinary capacity; next actual scheduled acceptance still pending. Research issuer-context deployment10ff14b/dpl_Hmei2pseo2DR27FjEtGQrq45gcAi READY; source-reviewed HCL total and TCS caches retained.
 
 November2 zero-call scan controls added: unavailable job then one success; at most5 zero-call blocks; stop on actual failed network call; stop on project/global pause. Integration verifies project pause reserves/calls0 and invalid model output reports1 call. Full129 checks pending.
