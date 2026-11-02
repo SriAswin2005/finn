@@ -1,3 +1,7 @@
+November2 v10 prompt checkpoint: actual syntax/all139 tests PASS. Source-specific reading/monitoring significance replaces instructions that could invite ungrounded causal forecasts; all four roles, whole-output/source validation and existing guards remain. Eicher remains correctly failed at lifetime3 (uncited delivery-volume inference), not revalidated/refunded.5a96962/dpl_2fVXydfZMeqaQjfnyUGpXy743xBY role allocation READY; v10 commit/deploy and different uncapped source verification next.
+
+November23.6 Push availability proven: genuine15:30:48.692UTC Eicher call returned a complete draft, but it introduced delivery-volume context absent from its selected production/international-growth quotes. Correct rejection, not a false metric guard; lifetime3 now failed, no reset/revalidation. All47 attempts retained. v10 prompt now asks for source-specific reading/monitoring value without unsupported causal/financial forecasts, preserving four substantive roles and all source guards. Full139 checks and a different uncapped real disclosure verification pending.
+
 # Current issues — November 2, 2026
 
 Current verified state takes precedence over historical logs. Productione81e795 / dpl_DRPHxYjdS1mVwvqvdufoTjDm5dB9 READY. Syntax/all139 tests pass locally; model-configuration/Push-rotation cleanup is committed, privately pushed and deployed READY. Audit/source-boundary/stronger-correction fixes deployed.
