@@ -5,6 +5,7 @@ import { reserveAttempt, finishAttempt, classifyFailure, Deferred } from './quot
 import { extractFinancialMetrics } from './metrics.js';
 import { extractOrderBand } from './order-band.js';
 import { randomUUID } from 'node:crypto';
+import { completeRoutineJobs } from './triage.js';
 
 export function pushGenerationState(env = process.env) {
   const configured = Boolean(env.GEMINI_API_KEY);
@@ -30,6 +31,7 @@ function publishedResult(analysis, { doc, financials, complexityReasons, model, 
 export async function processAnalysis({ store, env = process.env, now = Date.now, fetchImpl = fetch, random = Math.random, eventId } = {}) {
   const generation = pushGenerationState(env);
   if (!generation.enabled) return { disabled: true, reason: generation.reason, llmCalls: 0 };
+  await completeRoutineJobs({ store, now });
   const job = await claimAnalysis(store, now(), { eventId }); if (!job) return { skipped: true, llmCalls: 0 };
   let attemptId; let draft; let observedTokens; let llmCalls = 0;
   try {

@@ -10,6 +10,7 @@ export function pushAnalysis(item) {
   if (item.correction) section.append(el('p', item.correction, 'muted'));
   if (!item.analysis) { if (item.analysisError) section.append(el('p', item.analysisError, 'muted')); return section; }
   const a = item.analysis;
+  if (a.method === 'rules') section.append(el('p', 'Rule-based source notice · 0 model calls', 'eyebrow'));
   if (a.orderBand) {
     section.append(el('p', `Issuer order classification: ${a.orderBand.label} · ${a.orderBand.currency} ${a.orderBand.band} ${a.orderBand.unit}. Classification band; this is not an exact contract price.`, 'muted'), pageLink(a.orderBand.source, `Check classification · physical p.${a.orderBand.source.page} ↗`));
   }
@@ -31,7 +32,7 @@ export function pushAnalysis(item) {
     for (const text of uncertainty) detail.append(el('p', text, 'muted')); section.append(detail);
   }
   const evidence = el('details'); evidence.append(el('summary', 'Evidence & priority reason'));
-  evidence.append(el('p', item.priorityReason, 'muted'), el('p', 'Facts are disclosed by the issuer. Significance and priority are conditional AI interpretations. Issuer-provided background is not independently verified.', 'muted'));
+  evidence.append(el('p', item.priorityReason, 'muted'), el('p', a.method === 'rules' ? 'Exact source excerpt selected by rules. Low queue priority is category policy; materiality has not been assessed by AI.' : 'Facts are disclosed by the issuer. Significance and priority are conditional AI interpretations. Issuer-provided background is not independently verified.', 'muted'));
   for (const claim of a.claims) {
     evidence.append(el('p', `${claim.inference ? 'Interpretation' : 'Disclosed fact'}: ${claim.text}`));
     for (const ref of claim.references) evidence.append(el('blockquote', ref.quote), pageLink(ref, `Original filing · physical p.${ref.page} ↗`));

@@ -11,7 +11,7 @@ export function collectionWindow(checkpoint, now) {
 export function mergeFilings(state, filings, collectedAt) {
   let added = 0; let changed = 0;
   for (const filing of filings) {
-    const revision = hash({ symbol: filing.symbol, title: filing.title, summary: filing.summary, publishedAt: filing.publishedAt, url: filing.source.url });
+    const revision = hash({ symbol: filing.symbol, title: filing.title, summary: filing.summary, category: filing.category, publishedAt: filing.publishedAt, url: filing.source.url });
     const old = state.events[filing.id];
     if (old?.revision === revision) { old.lastSeenAt = collectedAt; continue; }
     state.events[filing.id] = { filing, revision, firstCollectedAt: old?.firstCollectedAt ?? collectedAt, lastSeenAt: collectedAt, status: 'pending_document', nextAt: 0, documentAttempts: 0,

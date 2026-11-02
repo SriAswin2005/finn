@@ -1,3 +1,7 @@
+Live Push queue:12 routine jobs completed with0model calls; waiting68→56, attempts unchanged56. Transient database timeout recovered by idempotent bounded retry.146tests pass; missing routine documents no longer abort material processing.
+
+November2 quality slice2: routine Push notices now complete immediately with cited rule excerpts/mentioned dates and0model calls; legacy pending/deferred routine work is reconciled in bounded batches. Material categories sort first; substantive results/CEO/CFO changes inside board notices remain in the AI queue. Syntax/146tests pass. Attempts, rejected drafts and quota history remain intact. Private source checkpoint follows; next guidance and query display.
+
 November 2 quality slice 1: confirmed original full scan of a real361-page TCS report exceeded8s. Hosted annual reports now have a7.2s worker watchdog, physical1–40 plus bounded located MDA, optional targeted pages, explicit partial coverage and sparse physical-page validation. Local TCS bounded extraction2.3s/40pages; MDA not located in this sample. Syntax/141Node tests and5Python parser cases pass. Vercel cold/network timing remains unverified; next: Push triage, guidance and query display.
 
 # FINN current progress — November 2, 2026

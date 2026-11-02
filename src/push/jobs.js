@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { hash } from './collection.js';
 import { collectFilingDocument, referencedFilings } from './evidence.js';
+import { triageDocument, completeRoutine, highCategories } from './triage.js';
 
 export function acceptDocumentJob(state, current, at) {
   const hashes = [current.documentHash, ...(current.relatedHashes ?? [])];
@@ -16,7 +17,11 @@ export function acceptDocumentJob(state, current, at) {
   const previous = state.jobs[key];
   if (!previous) state.jobs[key] = { key, eventId: current.filing.id, documentHash: hashes[0], documentHashes: hashes, observations: [current.filing.id], status: 'pending', attempts: 0, nextAt: 0, createdAt: new Date(at).toISOString(), revision: current.revision, evidenceWarnings: current.evidenceWarnings ?? [] };
   else previous.observations = [...new Set([...(previous.observations ?? [previous.eventId]), current.filing.id])];
+  if (previous?.analysis?.method === 'rules' && current.triageSources?.some(t => t.mode !== 'rules')) {
+    previous.priorRuleAnalysis = previous.analysis; previous.analysis = null; previous.status = 'pending'; previous.nextAt = 0;
+  }
   current.status = state.jobs[key].status;
+  if (current.triageSources?.length) completeRoutine(state, state.jobs[key], current.triageSources, at);
   if (priorKey && priorKey !== key) { current.previousKey = priorKey; current.correction = 'Attachment or referenced evidence changed; previous analysis superseded for this event.'; }
   return { key, unchanged: Boolean(previous) };
 }
@@ -39,6 +44,7 @@ export async function processDocument({ store, now = Date.now, collectDocument =
       const current = state.events[event.filing.id];
       if (current?.revision !== event.revision || current.lease?.token !== token) return { superseded: true };
       if (relatedUrl) {
+        current.triageSources = [...(current.triageSources ?? []), triageDocument(current.filing, document)];
         current.relatedHashes = [...new Set([...(current.relatedHashes ?? []), document.sha256])]; current.relatedUrls.shift();
       } else {
         const priorHash = current.documentHash;
@@ -49,6 +55,7 @@ export async function processDocument({ store, now = Date.now, collectDocument =
           }
         }
         current.documentHash = document.sha256; current.relatedHashes = []; current.relatedUrls = referencedFilings(document); current.evidenceWarnings = [];
+        current.triageSources = [triageDocument(current.filing, document)];
         current.documentCheckedAt = new Date(at).toISOString(); current.nextCheckAt = at + 86400000;
         const correction = /\bcorrected\b|\brevised\b|\bsupersed/i.test(document.pages.map(p => p.text).join(' '));
         if (correction) {
@@ -83,7 +90,7 @@ export async function claimAnalysis(store, at = Date.now(), { eventId } = {}) {
   return store.mutate(state => {
     const active = j => Object.values(state.events).find(e => e.processingKey === j.key && !e.replacedBy && (eventId ? e.filing.id === eventId : e.filing.evidenceMode !== 'captured_evaluation'));
     const job = Object.values(state.jobs).filter(j => active(j) && ['pending', 'deferred', 'processing'].includes(j.status) && j.nextAt <= at && !(j.lease?.until > at))
-      .sort((a, b) => Number(Boolean(b.validationFeedback)) - Number(Boolean(a.validationFeedback)) || Date.parse(active(b).filing.publishedAt) - Date.parse(active(a).filing.publishedAt) || Date.parse(a.createdAt) - Date.parse(b.createdAt))[0];
+      .sort((a, b) => Number(Boolean(highCategories.has(active(b).filing.category) || active(b).triageSources?.some(t => highCategories.has(t.category)))) - Number(Boolean(highCategories.has(active(a).filing.category) || active(a).triageSources?.some(t => highCategories.has(t.category)))) || Number(Boolean(b.validationFeedback)) - Number(Boolean(a.validationFeedback)) || Date.parse(active(b).filing.publishedAt) - Date.parse(active(a).filing.publishedAt) || Date.parse(a.createdAt) - Date.parse(b.createdAt))[0];
     if (!job) return null;
     const event = active(job); job.eventId = event.filing.id;
     job.lease = { token, until: at + 180000 }; job.status = 'processing';

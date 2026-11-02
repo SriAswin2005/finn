@@ -1,3 +1,7 @@
+Live zero-call application: first batch hit a transient Neon timeout after partial progress; idempotent eight-item retry succeeded.12 routine jobs completed; waiting68→56; attempts56→56. Added missing-document isolation;146tests pass. Remaining eligible work will reconcile on subsequent ticks.
+
+November2 quality slice2: syntax passed;145/146tests passed. Added zero-call/all-five-category, exact physical citation/date, preserved quota/attempt/draft, high-materiality promotion, active-lease/captured isolation, corrected attachment and high-priority order checks. Initial sort test caught undefined-to-NaN; corrected with explicit booleans and full suite passed.
+
 November2 quality slice1: npm run check passed; npm test141/141 passed, including Python5cases (signed requests, public DNS, blank PDF, MDA physical plan, killed-worker partial-page retention). Remote sparse-order/total/count validation tested. Real361-page TCS original >8s; bounded2.3s/40pages, MDA unlocated. Hosted cold/download timing not yet tested.
 
 # Current verification — November2 wrap-up

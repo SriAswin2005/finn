@@ -1,3 +1,5 @@
+November2 quality slice2: [x] routine-category Push completion and material-first queue verified with0model calls and unchanged accounting. P-001 unattended AI acceptance remains open.
+
 Quality fixes November2: [x] bounded annual parser and explicit partial-page metadata verified locally; [ ] hosted cold timing; [ ] routine Push triage; [ ] generic guidance patterns; [ ] prominent question source reference.
 
 Current wrap-up:141 tests pass; production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY. Pull verified; P-001 automatic accepted Push publication remains unchecked. User-confirmed Gemma limits recorded only; no further experiment/activation in this wrap-up.

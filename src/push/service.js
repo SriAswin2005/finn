@@ -3,6 +3,7 @@ import { createPushStore } from './store.js';
 import { collectPush } from './collection.js';
 import { processDocument } from './jobs.js';
 import { processAnalysis, pushGenerationState } from './analysis.js';
+import { completeRoutineJobs } from './triage.js';
 import { presentationAnalysis } from './interpretation.js';
 
 export function workerAuthorized(body, signature, secret, now = Date.now()) {
@@ -36,7 +37,7 @@ export function decoratePushDataset(dataset, state, at = Date.now()) {
     if (e.replacedBy) { byUrl.delete(e.filing.source.url ?? e.filing.id); continue; }
     const job = state.jobs[e.processingKey]; const analysis = ['complete', 'partial'].includes(job?.status) ? presentationAnalysis(job.analysis) : null;
     const eventClaim = analysis?.claims.find(c => c.role === 'event'); const significance = analysis?.claims.find(c => c.role === 'significance');
-    const priorityReason = analysis?.claims.find(c => c.role === 'priority')?.text ?? 'Awaiting document analysis; significance has not been established.';
+    const priorityReason = analysis?.method === 'rules' ? 'Routine-category queue policy; no AI materiality assessment.' : analysis?.claims.find(c => c.role === 'priority')?.text ?? 'Awaiting document analysis; significance has not been established.';
     const delayed = at - Date.parse(e.filing.publishedAt) > 86400000 && (!analysis || Date.parse(analysis.generatedAt) - Date.parse(e.filing.publishedAt) > 86400000);
     const keepDelayed = delayed && (!analysis || analysis.priority !== 'low' && at - Date.parse(analysis.generatedAt) < 3 * 86400000);
     const level = analysis?.priority ?? 'normal'; const ageHours = Math.max(0, (at - Date.parse(e.filing.publishedAt)) / 3600000);
@@ -48,10 +49,10 @@ export function decoratePushDataset(dataset, state, at = Date.now()) {
     if (old && Date.parse(old.publishedAt) > Date.parse(e.filing.publishedAt)) { old.disclosures = disclosures; continue; }
     byUrl.set(documentKey, { ...e.filing, disclosures, title: eventClaim?.text ?? e.filing.title, summary: analysis?.claims.filter(c => c.role === 'fact').map(c => c.text).join(' ') ?? e.filing.summary,
       category: analysis?.eventType === 'routine' ? 'unclassified' : analysis?.eventType ?? e.filing.category,
-      why: significance?.text ?? 'Document interpretation is pending; the exchange title alone does not establish significance.', analysis, analysisStatus: e.status, analysisError: job?.error ?? e.error ?? null,
+      why: analysis?.method === 'rules' ? 'Routine-category queue policy: source excerpt shown without an AI materiality assessment.' : significance?.text ?? 'Document interpretation is pending; the exchange title alone does not establish significance.', analysis, analysisStatus: e.status, analysisError: job?.error ?? e.error ?? null,
       collectedAt: e.firstCollectedAt, analysisPublishedAt: analysis ? job.publishedAt ?? analysis.generatedAt : null, delayed, keepDelayed, correction: e.correction,
       priority, priorityReason, routine: analysis?.eventType === 'routine' && level === 'low',
-      source: { ...e.filing.source, evidence: analysis ? 'AI interpretation of original filing evidence; disclosed facts and conditional interpretation are separated. Issuer-provided background is not independently verified.' : 'Original disclosure collected; document analysis is pending or unavailable. Exchange metadata is not completed analysis.' },
+      source: { ...e.filing.source, evidence: analysis?.method === 'rules' ? 'Rule-based original filing excerpt; 0 model calls. Low queue priority is policy, not a finding of immateriality.' : analysis ? 'AI interpretation of original filing evidence; disclosed facts and conditional interpretation are separated. Issuer-provided background is not independently verified.' : 'Original disclosure collected; document analysis is pending or unavailable. Exchange metadata is not completed analysis.' },
     });
   }
   const status = pushStatus(state, at);
@@ -80,6 +81,7 @@ export function createPushService({ store = createPushStore(), env = process.env
       try {
         const collection = await collect({ store, now, intervalMs: targetMinutes * 60000 }); const documents = [];
         for (let i = 0; i < 2 && now() - started < 120000; i++) documents.push(await document({ store, now }));
+        const routine = await completeRoutineJobs({ store, now });
         const due = await store.mutate(s => {
           const index = Math.floor(started / (analysisMinutes * 60000));
           if (s.analysisWindow?.index === index && s.analysisWindow.minutes === analysisMinutes) return false;
@@ -95,7 +97,7 @@ export function createPushService({ store = createPushStore(), env = process.env
         }
         const analysis = analysisSteps.at(-1) ?? { deferred: true, llmCalls: 0 };
         await store.mutate(s => { s.lastWorkerAt = new Date(now()).toISOString(); });
-        return { collection, documents, analysis, analysisSteps, status: status(await store.read()) };
+        return { collection, documents, routine, analysis, analysisSteps, status: status(await store.read()) };
       } finally { await store.mutate(s => { if (s.workerLease?.token === token) s.workerLease = null; }); }
     },
   };

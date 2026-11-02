@@ -1,3 +1,5 @@
+Quality slice2 adds src/push/triage.js (routine source excerpts, material promotions, bounded legacy queue reconciliation), integrated with jobs/service/analysis and public/push.js.146tests pass. No model policy/limits changed and failed lifetime-capped jobs were not reset.
+
 Current new quality slice1: bounded annual parser implemented and locally verified;141tests pass. Annual worker watchdog7.2s; overview plus located MDA/targeted physical pages, partial coverage shown. Real361-page TCS2.3s/40pages (MDA not located), old >8s. Hosted cold timing pending. Remaining requested slices: Push routine triage, generic guidance, question source banner. See newest quality entries in progress/issues.
 
 # FINN — start here
