@@ -93,3 +93,16 @@ test('retry readiness waits for both the model pause and the shared allowance, m
   await assert.rejects(reserveAttempt(store, { workflow: 'research', model: first.model, researchKey: first.researchKey, leaseToken: 'readiness-control', estimatedTokens: 100, now: clock }), error => { assert.equal(error.until, Date.parse(status.pausedUntil)); return true; });
   assert.equal((await store.read()).quota.attempts.length, 5);
 });
+test('only explicitly source-reviewed answers survive a prompt-key migration and still revalidate exact evidence', async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'finn-reviewed-cache-')); t.after(() => rm(directory, { recursive: true, force: true }));
+  const store = createPushStore({ env: {}, path: join(directory, 'shared.sqlite') }); await store.initialize();
+  await store.mutate(s => { s.quota.initialized = true; s.quota.policy = policy; });
+  const provider = createGeminiProvider({ env, directory, sharedStore: store, fetchImpl: async () => response() });
+  const note = await provider.generate(research);
+  await store.mutate(s => { s.research.notes = { 'previous-prompt-key': { ...note } }; });
+  assert.equal(await provider.getCached(research), null);
+  await store.mutate(s => { s.research.notes['previous-prompt-key'].review = { kind: 'source_reviewed' }; });
+  assert.equal((await provider.getCached(research)).cached, true);
+  assert.equal(await provider.getCached({ ...research, evidence: [{ ...research.evidence[0], text: 'Different evidence without the quoted financial statement.' }] }), null);
+  assert.equal((await store.read()).quota.attempts.length, 1);
+});

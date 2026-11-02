@@ -150,6 +150,13 @@ test('real Python PDF parser preserves page numbers and rejects non-PDF input', 
 const evidence = [{ id: 'e1', documentId: 'd', page: 3, text: 'The company reported revenue of 100 million for the year. Management noted demand uncertainty.' }];
 const validAnalysis = () => ({ claims: [{ section: 'financial', text: 'Reported revenue was 100 million for the year.', inference: false, references: [{ evidenceId: 'e1', quote: 'reported revenue of 100 million for the year' }] }], unavailableSections: ['guidance'] });
 const wireAnalysis = () => { const value = validAnalysis(); value.claims[0].references = [{ quoteId: 'q1' }]; return value; };
+test('a total revenue question prioritizes the latest explicit company amount over segment and profit chatter', () => {
+  const total = 'We are discussing Q2 financial year 2027. Total revenue for the quarter is $3,724 million, a growth of 2.3% QoQ and 2.6% YoY. This is the company financial performance statement for the quarter.';
+  const chatter = 'Quarterly revenue reporting units for the latest earnings call include software revenue. Our EBIT is $677 million and net income is $538 million. Software revenue is $294 million, with growth details and reporting units discussed by management.';
+  const docs = [{ id: 'latest', sha256: 'a', kind: 'transcript', pages: [{ page: 12, text: total }, { page: 14, text: chatter }] }, { id: 'earlier', sha256: 'b', kind: 'transcript', pages: [{ page: 1, text: total.replace('3,724', '3,000') }] }];
+  const result = buildEvidence(docs, 'From the latest earnings call, what quarterly revenue did management report in US dollars?');
+  assert.equal(result.evidence[0].documentId, 'latest'); assert.equal(result.evidence[0].page, 12); assert.match(result.evidence[0].text, /3,724/);
+});
 test('AI validation rejects invented citations, quotes and numbers', () => {
   const validated = validateAnalysis(validAnalysis(), evidence);
   assert.equal(validated.claims.length, 1);

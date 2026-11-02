@@ -69,11 +69,17 @@ export function buildEvidence(documents, question = '') {
   });
   if (question.trim()) {
     const terms = [...new Set(question.toLowerCase().match(/[a-z]{3,}/g) ?? [])].filter(term => !['the', 'and', 'what', 'how', 'does', 'this', 'company', 'are'].includes(term));
-    const matches = chunks.map(chunk => ({ chunk, score: score(chunk, terms) })).filter(item => item.score > 0).sort((a, b) => b.score - a.score).slice(0, 4);
+    const metrics = terms.filter(term => /^(?:revenues?|profit|ebitda|ebit|pbt|pat|margin|cash|guidance)$/.test(term));
+    const totalRevenue = metrics.some(term => /^revenues?$/.test(term)) && !/\b(?:segment|division|subsidiary|software|services|guidance|outlook|target)\b/i.test(question);
+    const latest = /\b(?:latest|current|recent)\b/i.test(question) ? documents.find(d => d.kind === 'transcript')?.id : null;
+    const matches = chunks.map(chunk => ({ chunk, score: score(chunk, terms) + 3 * score(chunk, metrics)
+      + (totalRevenue && /\b(?:total|overall|our|company(?:'s)?)\s+revenue\b.{0,100}(?:\$|USD|INR|₹)/i.test(chunk.text) ? 24 : 0)
+      + (metrics.length && latest === chunk.documentId ? 8 : 0) })).filter(item => item.score > 0).sort((a, b) => b.score - a.score).slice(0, 4);
     for (const match of matches) selected.set(match.chunk.id, match.chunk);
     sections.unshift({ id: 'question', title: 'Evidence for your question', evidenceIds: matches.map(match => match.chunk.id), note: matches.length ? 'Relevant source passages, not a generated answer.' : 'No matching passage found. Try a more specific question; no answer has been invented.' });
   }
-  const evidence = [...selected.values()];
+  const focused = /\b(?:revenues?|profit|ebitda|ebit|pbt|pat|margin|cash|guidance)\b/i.test(question) ? sections.find(s => s.id === 'question')?.evidenceIds ?? [] : [];
+  const evidence = [...focused.map(id => selected.get(id)), ...[...selected.values()].filter(chunk => !focused.includes(chunk.id))];
   const evidenceHash = createHash('sha256').update(JSON.stringify({ version: EVIDENCE_VERSION, hashes: documents.map(d => d.sha256), question, evidence })).digest('hex');
   return { sections, evidence, evidenceHash, version: EVIDENCE_VERSION };
 }

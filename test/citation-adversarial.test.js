@@ -67,6 +67,13 @@ test('reference-number headers are not negations; actual no/not/never statements
   source[0].text = 'No. The executive retirement was announced.';
   assert.throws(() => validateAnalysis(note('Executive retirement was announced.'), source), /negation/);
 });
+test('quoted financial year apostrophe notation supports the same FY, never a different FY sharing other numbers', () => {
+  const quote = "We are discussing Q2 financial year '27 earnings, with 28 accounts.";
+  const evidence = [{ id: 'e', text: quote }];
+  const note = year => ({ claims: [{ section: 'financial', text: `We are discussing Q2 FY${year} earnings.`, inference: false, references: [{ evidenceId: 'e', quote }] }], unavailableSections: [] });
+  assert.doesNotThrow(() => validateAnalysis(note(27), evidence));
+  assert.throws(() => validateAnalysis(note(28), evidence), /reporting period/);
+});
 
 test('captured APL narrative and equivalent month abbreviation are supported; different month/table/issuer remain refused', () => {
   const source = [{ id: 'apl', text: 'APL Apollo Tubes Limited announced financial results for the quarter ending Sept 30, 2026. APL Apollo Tubes delivered its strongest-ever quarterly performance, with Q2FY27 sales volumes, EBITDA and PAT growing 13%, 29% and 27%, respectively.' }];

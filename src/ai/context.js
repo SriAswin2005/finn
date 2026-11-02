@@ -40,7 +40,7 @@ export function citationContextFailure(claim, evidenceById) {
     if (!fact.unit && matching.length && matching.every(other => other.unit)) return 'missing unit or scale';
   }
   for (const metric of metrics) if (new RegExp(`\\b${metric}s?\\b`, 'i').test(stated) && !new RegExp(`\\b${metric}s?\\b`, 'i').test(quotes)) return `missing ${metric} metric context`;
-  const periods = text => [...text.matchAll(/\bQ[1-4]\b|\bFY\s*(?:20)?\d{2}\b|\b(?:fiscal|financial) year\s*20\d{2}\b/gi)].map(match => match[0].toLowerCase().replace(/\s+/g, '').replace(/(?:fiscal|financial)year/, 'fy').replace(/^fy20/, 'fy'));
+  const periods = text => [...text.matchAll(/\bQ[1-4]\b|\bFY\s*(?:20)?\d{2}\b|\b(?:fiscal|financial)\s+year\s*['’]?\s*(?:20)?\d{2}\b/gi)].map(match => match[0].toLowerCase().replace(/\s+/g, '').replace(/(?:fiscal|financial)year['’]?/, 'fy').replace(/^fy20/, 'fy'));
   const supportedPeriods = new Set(periods(quotes));
   if (periods(stated).some(period => !supportedPeriods.has(period))) return 'reporting period mismatch';
   if (/\bfull.year\b|\bfor the year\b/i.test(stated) && /\bquarter\b|\bQ[1-4]\b/i.test(quotes) && !/\bfull.year\b|\bfor the year\b/i.test(quotes)) return 'quarter is not a full-year result';
