@@ -1,3 +1,7 @@
+## November 2 bounded Push correction
+
+FINN_PUSH_VALIDATION_REPAIR=true permits at most one whole-output correction after a structured draft fails source validation. Rejected drafts are retained/unpublished; the same suitable model receives server diagnostic and original evidence. Correction uses shared daily retry/workflow/model/three-lifetime caps. No loop, partial curation, stronger-model bypass or quota refund. Reviewed retry attaches existing validation feedback and consumes that correction opportunity. Verified order classification is separately displayed as a band, not exact price; model receives source/rank context. Production enablement pending.
+
 November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.
 
 ## November 2 hosted Pull activation and storage

@@ -18,7 +18,7 @@ export function extractOrderBand(doc) {
     if (bounds.some((b, i) => b.length === 2 && b[1] <= b[0] || i > 0 && bounds[i - 1][1] !== b[0])) continue;
     const selected = headers.findIndex(h => h.toLowerCase() === headline[1].toLowerCase());
     if (selected < 0) continue;
-    return { label: headers[selected], band: cells[selected], currency: 'INR', unit: 'crore', isExactPrice: false,
+    return { label: headers[selected], rank: selected + 1, bands: headers.length, band: cells[selected], currency: 'INR', unit: 'crore', isExactPrice: false,
       source: { page: page.page, url: doc.url, header: lines[index], row: lines[index + 1] } };
   }
   return null;

@@ -4,6 +4,7 @@ import { parseDocument } from '../research/service.js';
 import { collectRemoteDocument } from '../research/remote-parser.js';
 import { filingUrl } from '../providers/nse.js';
 import { buildQuoteBank } from '../ai/quotes.js';
+import { extractOrderBand } from './order-band.js';
 
 export async function collectFilingDocument(filing, { env = process.env } = {}) {
   if (!filingUrl(filing.source.url)) throw new Error('No allowed original NSE attachment; document analysis unavailable.');
@@ -25,6 +26,12 @@ export function filingEvidence(documents) {
   const all = buildQuoteBank(evidence, { maxLength: 1000, joinAbbreviations: true });
   const score = q => /appoint|resign|effective|acquir|consideration|contract|order|tribunal|penalt|appeal|revenue|profit|ebit|quarter|consolidat|crore|million|billion|experience|served|subject to|not |meeting|record date/i.test(q.quote) ? 2 : 0;
   const quotes = all.map((q, i) => ({ ...q, index: i })).sort((a, b) => score(b) - score(a) || a.index - b.index).slice(0, 120).sort((a, b) => a.index - b.index).map(({ index, ...q }) => q);
+  for (const doc of documents) {
+    const band = extractOrderBand(doc); if (!band) continue;
+    const quote = `${band.source.header} ${band.source.row}`;
+    const page = evidence.find(e => e.page === band.source.page && e.documentId === doc.id);
+    if (page?.text.replace(/\s+/g, ' ').includes(quote.replace(/\s+/g, ' '))) quotes.push({ id: `order-classification-${doc.id}`, evidenceId: page.id, quote });
+  }
   const warnings = [];
   if (all.length > quotes.length) warnings.push('Only selected complete sentences fit the interpretation budget; full documents remain available.');
   if (!quotes.length) warnings.push('No short complete sentences could be safely quoted. Tables/scans need further processing.');

@@ -83,7 +83,7 @@ export async function claimAnalysis(store, at = Date.now(), { eventId } = {}) {
   return store.mutate(state => {
     const active = j => Object.values(state.events).find(e => e.processingKey === j.key && !e.replacedBy && (eventId ? e.filing.id === eventId : e.filing.evidenceMode !== 'captured_evaluation'));
     const job = Object.values(state.jobs).filter(j => active(j) && ['pending', 'deferred', 'processing'].includes(j.status) && j.nextAt <= at && !(j.lease?.until > at))
-      .sort((a, b) => Date.parse(active(b).filing.publishedAt) - Date.parse(active(a).filing.publishedAt) || Date.parse(a.createdAt) - Date.parse(b.createdAt))[0];
+      .sort((a, b) => Number(Boolean(b.validationFeedback)) - Number(Boolean(a.validationFeedback)) || Date.parse(active(b).filing.publishedAt) - Date.parse(active(a).filing.publishedAt) || Date.parse(a.createdAt) - Date.parse(b.createdAt))[0];
     if (!job) return null;
     const event = active(job); job.eventId = event.filing.id;
     job.lease = { token, until: at + 180000 }; job.status = 'processing';

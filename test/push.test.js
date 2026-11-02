@@ -112,6 +112,29 @@ test('unseen generic management analysis persists once; repeated/concurrent jobs
   const restarted = createPushStore({ env: {}, path }); await processAnalysis({ store: restarted, now: () => at + 1000, env, fetchImpl });
   assert.equal(calls, 1); const state = await restarted.read(); const job = Object.values(state.jobs)[0]; assert.equal(job.status, 'partial'); assert.equal(job.analysis.claims.length, 4); assert.equal(state.quota.attempts[0].observedTokens, 1234);
 });
+test('one opt-in whole-draft correction uses validation feedback and never publishes an invalid draft or loops', async () => {
+  for (const correct of [true, false]) {
+    const { store } = await temporaryStore();
+    await store.mutate(s => { mergeFilings(s, [filing], 'now'); s.quota.initialized = true; s.quota.policy = { ...policy, models: { ...policy.models, 'gemini-3.1-flash-lite': { ...policy.models['gemini-3.1-flash-lite'], capability: 'ordinary' } } }; });
+    await processDocument({ store, now: () => at, collectDocument: async () => managerDoc });
+    let clock = at; let calls = 0; const prompts = [];
+    const env = { FINN_PUSH_ENABLED: 'true', FINN_PUSH_VALIDATION_REPAIR: 'true', GEMINI_API_KEY: 'fake', FINN_AI_FREE_TIER_CONFIRMED: 'true' };
+    const fetchImpl = async (url, options) => {
+      calls++; const value = managerWire();
+      prompts.push(JSON.parse(options.body).contents[0].parts[0].text);
+      if (calls === 1 || !correct) value.claims.find(c => c.role === 'significance').text = 'Company revenue may grow after this appointment.';
+      return new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(value) }] } }] }));
+    };
+    const run = () => processAnalysis({ store, env, now: () => clock, fetchImpl });
+    assert.equal((await run()).deferred, true);
+    let job = Object.values((await store.read()).jobs)[0]; assert.equal(job.analysis, undefined); assert.equal(job.validationRepairUsed, true);
+    clock += 61000; const repaired = await run(); assert.equal(Boolean(repaired.completed), correct, JSON.stringify(repaired));
+    assert.match(prompts[1], /SERVER DIAGNOSTIC/); assert.match(prompts[1], /PREVIOUS REJECTED DRAFT.*revenue/s);
+    job = Object.values((await store.read()).jobs)[0]; assert.equal(job.rejectedDrafts.length, correct ? 1 : 2);
+    assert.equal(Boolean(job.analysis), correct); assert.equal((await store.read()).quota.attempts[1].retry, true);
+    clock += 61000; await run(); assert.equal(calls, 2);
+  }
+});
 test('a replaced analysis lease cannot publish or report completion, while its request remains counted', async () => {
   const { store } = await temporaryStore();
   await store.mutate(s => { mergeFilings(s, [filing], 'now'); s.quota.initialized = true; s.quota.policy = { ...policy, models: { ...policy.models, 'gemini-3.1-flash-lite': { ...policy.models['gemini-3.1-flash-lite'], capability: 'ordinary' } } }; });
