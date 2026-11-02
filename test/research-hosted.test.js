@@ -51,7 +51,10 @@ test('rejected Pull output stays unpublished and cannot regenerate on repeated r
   await assert.rejects(createGeminiProvider(options).generate(research), /number absent/);
   await assert.rejects(createGeminiProvider(options).generate(research), /number absent/);
   assert.equal(await createGeminiProvider(options).getCached(research), null); assert.equal(calls, 1);
-  assert.equal((await store.read()).quota.attempts[0].outcome, 'invalid_or_unsupported_output');
+  const state = await store.read();
+  assert.equal(state.quota.attempts[0].outcome, 'invalid_or_unsupported_output');
+  const draft = Object.values(state.research.requests)[0].rejectedDrafts[0];
+  assert.match(draft.output, /999 million/); assert.match(draft.error, /number absent/); assert.equal(draft.attemptId, state.quota.attempts[0].id);
 });
 test('transient Pull failures use bounded backoff while preserving explicit provider retry guidance', async t => {
   for (const seconds of [null, '600']) {

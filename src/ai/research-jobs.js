@@ -33,6 +33,7 @@ export async function settleResearch(store, key, token, result) {
     const request = state.research?.requests[key];
     if (request?.lease?.token !== token) throw new Error('Research request ownership expired; answer was not published.');
     if (result.note) state.research.notes[key] = result.note;
+    if (result.rejectedDraft) { request.rejectedDrafts ??= []; request.rejectedDrafts.push({ ...result.rejectedDraft, error: result.error }); }
     Object.assign(request, { status: result.note ? 'complete' : result.rejected ? 'rejected' : 'deferred', error: result.error ?? null, nextAt: result.nextAt ?? 0, lease: null });
   });
 }

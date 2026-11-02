@@ -127,7 +127,7 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
       if (active.key === key) return active.promise;
       throw new AiUnavailable('Another AI note is being generated. Please retry shortly.');
     }
-    let rejected = false; let nextAt = 0;
+    let rejected = false; let nextAt = 0; let rejectedDraft;
     const promise = coordinatedRun(); active = { key, promise };
     try { return await promise; } finally { active = null; }
     async function coordinatedRun() {
@@ -140,7 +140,7 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
         await settleResearch(sharedStore, key, claim.token, { note });
         return note;
       } catch (error) {
-        await settleResearch(sharedStore, key, claim.token, { rejected, error: error.message, nextAt: error.until ?? nextAt });
+        await settleResearch(sharedStore, key, claim.token, { rejected, rejectedDraft: rejected ? rejectedDraft : undefined, error: error.message, nextAt: error.until ?? nextAt });
         throw error instanceof AiUnavailable ? error : new AiUnavailable(`Research generation unavailable: ${error.message}`);
       }
     }
@@ -205,6 +205,7 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
           throw new AiUnavailable('Gemini quota is unavailable. Project-level or unclear limits are not bypassed with model rotation. Please try later.');
         }
         await finishAttempt(sharedStore, sharedAttempt, { outcome: 'response_received_validation_pending', observedTokens: body?.usageMetadata?.totalTokenCount, now: now() });
+        rejectedDraft = { attemptId: sharedAttempt, model, promptVersion: PROMPT_VERSION, receivedAt: new Date(now()).toISOString(), finishReason: body?.candidates?.[0]?.finishReason ?? null, output: (body?.candidates?.[0]?.content?.parts?.filter(part => typeof part.text === 'string' && !part.thought).map(part => part.text).join('') ?? '').slice(0, 50000) };
         try {
           if (body?.candidates?.[0]?.finishReason && body.candidates[0].finishReason !== 'STOP') throw new AiUnavailable('The model did not finish the research note. No partial analysis was published or automatically retried.');
           let value;
