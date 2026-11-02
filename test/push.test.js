@@ -173,6 +173,16 @@ test('ordinary transport retries prefer an unused suitable stronger model and co
   const state = await store.read(); assert.equal(state.quota.attempts.length, 2); assert.equal(state.quota.attempts[0].outcome, 'http_503'); assert.equal(state.quota.attempts[1].retry, true);
   assert.match(Object.values(state.jobs)[0].analysis.complexityReasons[0], /stronger Push model/);
 });
+test('complex retries prefer a healthy used model over an unhealthy unused alternative', async () => {
+  const { store } = await temporaryStore();
+  await store.mutate(s => { mergeFilings(s, [filing], 'now'); s.quota.initialized = true; s.quota.policy = { ...policy, models: { 'gemini-3.6-flash': { ...policy.models['gemini-3.8-flash'], capability: 'complex' }, 'gemini-3.8-flash': { ...policy.models['gemini-3.8-flash'], capability: 'complex' } } }; s.quota.failures['gemini-3.8-flash'] = 2; });
+  await processDocument({ store, now: () => at, collectDocument: async () => managerDoc });
+  await store.mutate(s => { const job = Object.values(s.jobs)[0]; job.complex = true; job.attempts = 1; s.quota.attempts.push({ id: 'healthy-response', jobKey: job.key, model: 'gemini-3.6-flash', workflow: 'push', at: at - 120000, estimatedTokens: 100, retry: false, outcome: 'invalid_or_unsupported_output' }); });
+  const calls = [];
+  const result = await processAnalysis({ store, now: () => at, env: { FINN_PUSH_ENABLED: 'true', GEMINI_API_KEY: 'fake', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async url => { calls.push(url); return new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(managerWire()) }] } }] })); } });
+  assert.equal(result.completed, true); assert.equal(calls.length, 1); assert.match(calls[0], /gemini-3.6-flash/);
+  const state = await store.read(); assert.equal(state.quota.attempts.length, 2); assert.equal(state.quota.attempts[1].retry, true); assert.equal(state.quota.failures['gemini-3.8-flash'], 2);
+});
 
 test('project pause reports zero network calls and stops cross-job scanning', async () => {
   const { store } = await temporaryStore();

@@ -256,7 +256,8 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
       }
       const modelUntil = Math.min(...models.map(model => {
         const cap = q.policy.models[model];
-        return Math.max(q.cooldowns[model] ?? 0, cap && today.filter(a => a.model === model).length >= Math.min(cap.rpd, cap.appRpd ?? cap.rpd) ? nextPacificReset(now()) : 0);
+        const modelDay = today.filter(a => a.model === model);
+        return Math.max(q.cooldowns[model] ?? 0, cap && (modelDay.length >= Math.min(cap.rpd, cap.appRpd ?? cap.rpd) || own.length && modelDay.filter(a => a.retry).length >= (cap.retryRpd ?? cap.rpd)) ? nextPacificReset(now()) : 0);
       }));
       const until = Math.max(q.projectUntil, ...history.requests.map(r => r.nextAt ?? 0), modelUntil, allowanceUntil);
       if (allowanceUntil > now() && allowanceUntil === until) return { paused: true, pausedUntil: new Date(until).toISOString(), reason: 'This request is waiting for the shared daily or retry allowance.' };

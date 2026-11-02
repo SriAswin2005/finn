@@ -32,7 +32,7 @@ test('configured quotas permit more than20 calls while enforcing each model and 
   });
   await reserveAttempt(store, { workflow: 'research', model, estimatedTokens: 100, now: at });
   await store.mutate(s => {
-    s.quota.policy.models[model].appRpd = 26;
+    s.quota.policy.models[model].appRpd = 26; s.quota.policy.models[model].retryRpd = 26;
     s.research = { notes: {}, requests: { same: { lease: { token: 'owned', until: at + 60000 } } } };
     for (let i = 0; i < 3; i++) s.quota.attempts.push({ id: `same-${i}`, researchKey: 'same', workflow: 'research', model: fallback, at: at - 120000 - i, estimatedTokens: 100, retry: true, outcome: 'synthetic_prior' });
   });
@@ -99,4 +99,18 @@ test('routing changes preserve legacy rejected requests, leases and attempt life
     assert.equal(calls, 0); assert.deepEqual((await store.read()).quota.attempts, before);
     if (reason !== 'leased') assert.equal((await provider.status(evidence)).paused, true);
   }
+});
+test('per-model retries leave fresh capacity available and readiness agrees with reservation enforcement', async t => {
+  const { store, directory } = await setup(t);
+  await store.mutate(s => { s.quota.policy.models[model].retryRpd = 1; });
+  assert.throws(() => validatePolicy({ ...policy, models: { ...policy.models, [model]: { ...policy.models[model], retryRpd: 501 } } }), /retry allocation/);
+  let clock = at; let calls = 0;
+  const provider = createGeminiProvider({ env: { ...env, FINN_GEMINI_MODELS: model }, sharedStore: store, directory, now: () => clock, fetchImpl: async () => { calls++; return new Response('{}', { status: 503 }); } });
+  await assert.rejects(provider.generate(evidence)); clock += 120000;
+  await assert.rejects(provider.generate(evidence)); clock += 120000;
+  const status = await provider.status(evidence); assert.equal(status.paused, true);
+  await assert.rejects(provider.generate(evidence), error => { assert.equal(error.until, Date.parse(status.pausedUntil)); return true; });
+  assert.equal(calls, 2); assert.equal((await store.read()).quota.attempts.length, 2);
+  await reserveAttempt(store, { workflow: 'research', model, estimatedTokens: 100, retry: false, now: clock });
+  const entries = (await store.read()).quota.attempts; assert.deepEqual(entries.map(a => a.retry), [false, true, false]);
 });

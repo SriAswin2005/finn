@@ -13,6 +13,7 @@ export function validatePolicy(policy) {
   for (const [model, cap] of Object.entries(policy.models)) {
     if (!/^(?:gemini|gemma)-[a-z0-9.-]{2,100}$/.test(model) || !['push', 'research'].includes(cap.workflow) || !positive(cap.rpm) || !positive(cap.tpm) || !positive(cap.rpd)) throw new Error('Invalid quota/model separation policy.');
     if (cap.appRpd !== undefined && (!positive(cap.appRpd) || cap.appRpd > cap.rpd) || cap.capability !== undefined && !['research', 'ordinary', 'complex'].includes(cap.capability)) throw new Error('Invalid model application allocation/capability.');
+    if (cap.retryRpd !== undefined && (!positive(cap.retryRpd) || cap.retryRpd > Math.min(cap.rpd, cap.appRpd ?? cap.rpd))) throw new Error('Invalid per-model retry allocation.');
   }
   if (policy.researchOrder !== undefined && (!Array.isArray(policy.researchOrder) || new Set(policy.researchOrder).size !== policy.researchOrder.length || policy.researchOrder.some(id => policy.models[id]?.workflow !== 'research'))) throw new Error('Research priority order includes an unassigned model.');
   return policy;
@@ -35,7 +36,7 @@ export async function reserveAttempt(store, { workflow, model, jobKey, researchK
     const rolling = q.attempts.filter(a => now - a.at < 86400000);
     const modelDay = today.filter(a => a.model === model);
     const rollingOwn = rolling.filter(a => a.workflow === workflow); const rollingRetries = rolling.filter(a => a.retry);
-    const dailyExhausted = today.length >= policy.totalDaily || today.filter(a => a.workflow === workflow).length >= policy.allocations[workflow] || modelDay.length >= Math.min(cap.rpd, cap.appRpd ?? cap.rpd) || retry && today.filter(a => a.retry).length >= policy.retryDaily;
+    const dailyExhausted = today.length >= policy.totalDaily || today.filter(a => a.workflow === workflow).length >= policy.allocations[workflow] || modelDay.length >= Math.min(cap.rpd, cap.appRpd ?? cap.rpd) || retry && (today.filter(a => a.retry).length >= policy.retryDaily || modelDay.filter(a => a.retry).length >= (cap.retryRpd ?? cap.rpd));
     const resets = [now + 1000];
     if (dailyExhausted) resets.push(nextPacificReset(now));
     const rollingReset = entries => Math.min(...entries.map(a => a.at)) + 86400000;
