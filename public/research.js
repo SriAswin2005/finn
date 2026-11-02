@@ -56,7 +56,7 @@ function render(data) {
   $('research-coverage').textContent = `Collected ${new Date(data.fetchedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST.${data.stale ? ' Evidence is over seven days old.' : ''}${!kinds.has('annual_report') ? ' Annual report unavailable.' : ''}${!kinds.has('transcript') ? ' Transcript unavailable.' : ''} ${data.analysis ? 'Saved AI note below; source excerpts are separate.' : 'Source excerpts only; no reviewed saved note matches this request.'}`;
   $('research-source-summary').textContent = `${data.documents.length} primary documents${data.errors.length ? ` · ${data.errors.length} source warnings` : ''} · inspect collection details`;
   $('research-documents').replaceChildren(...data.documents.map(doc => {
-    const item = node('div', 'document-item'); item.append(citation(doc, 1), node('span', 'muted', `${doc.kind === 'annual_report' ? 'Annual report' : 'Earnings-call transcript'} · ${doc.pageCount} pages · SHA-256 ${doc.sha256.slice(0, 10)}…`)); return item;
+    const item = node('div', 'document-item'); item.append(citation(doc, 1), node('span', 'muted', `${doc.kind === 'annual_report' ? 'Annual report' : 'Earnings-call transcript'} · ${doc.partialScan ? `Partial scan: ${doc.scannedPageCount} of ${doc.pageCount} physical pages · ${doc.scanSelection ?? 'bounded extraction'} · unscanned pages were not searched` : `${doc.pageCount} pages`} · SHA-256 ${doc.sha256.slice(0, 10)}…`)); return item;
   }), ...data.errors.map(error => node('p', 'muted', `${error.title}: ${error.error}`)));
   const evidenceById = new Map(data.evidence.map(item => [item.id, item]));
   const documentById = new Map(data.documents.map(doc => [doc.id, doc]));

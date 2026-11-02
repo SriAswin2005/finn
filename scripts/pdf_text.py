@@ -1,8 +1,59 @@
 """Shared page-preserving parser for local and Vercel Python runtimes."""
 from pypdf import PdfReader
+import re
 
 
-def extract_pages(source):
+def annual_page_plan(reader, target_pages=None):
+    """Physical pages only; bookmarks locate MDA without guessing printed offsets."""
+    count = len(reader.pages)
+    if target_pages:
+        return sorted({page - 1 for page in target_pages if 1 <= page <= count}), "targeted physical pages"
+    if count <= 100:
+        return list(range(count)), None
+    outline = []
+    def walk(items, depth=0):
+        for item in items:
+            if isinstance(item, list):
+                walk(item, depth + 1)
+            else:
+                try:
+                    outline.append((str(item.get('/Title', '')), reader.get_destination_page_number(item), depth))
+                except (KeyError, ValueError, TypeError):
+                    pass
+    try:
+        walk(reader.outline)
+    except (KeyError, ValueError, TypeError):
+        pass
+    mda = []
+    for i, (title, start, depth) in enumerate(outline):
+        if re.search(r'management\s+discussion|\bMD\s*&?\s*A\b', title, re.I) and start is not None and start >= 0:
+            end = next((page for _, page, level in outline[i + 1:] if page is not None and page > start and level <= depth), count)
+            mda.extend(range(start, min(end, start + 40, count)))
+    if not mda:
+        # Contents numbers are hints, never citations. Accept a candidate only
+        # after its actual physical page starts with the MDA section heading.
+        for index in range(min(8, count)):
+            contents = reader.pages[index].extract_text() or ""
+            hint = re.search(r'management\s+discussion(?:\s+(?:and|&)\s+analysis)?[^\n\d]{0,60}(\d{1,3})\b', contents, re.I)
+            if not hint:
+                continue
+            printed = int(hint.group(1))
+            for offset in range(13):
+                candidate = printed - 1 + offset
+                if not 8 <= candidate < count:
+                    continue
+                header = (reader.pages[candidate].extract_text() or "")[:800]
+                if re.search(r'management\s+discussion\s+(?:and|&)\s+analysis', header, re.I) and not re.search(r'contents', header, re.I):
+                    mda = list(range(candidate, min(candidate + 24, count)))
+                    break
+            if mda:
+                break
+    # Give MDA an early turn even when a watchdog cuts off the overview scan.
+    plan = list(dict.fromkeys([*range(10), *mda[:40], *range(10, 40)]))
+    return plan, "overview and located MDA (bounded section)" if mda else "overview; MDA not located within scan budget"
+
+
+def extract_pages(source, *, bounded_annual=False, target_pages=None, emit=None):
     reader = PdfReader(source, strict=False)
     if reader.is_encrypted and not reader.decrypt(""):
         raise ValueError("Password-protected document")
@@ -10,14 +61,29 @@ def extract_pages(source):
         raise ValueError("Document exceeds the 800-page prototype limit")
     pages = []
     total = 0
-    for index, page in enumerate(reader.pages):
+    large = bounded_annual and len(reader.pages) > 100 and not target_pages
+    plan, selection = (list(range(10)), "overview; MDA lookup pending") if large else annual_page_plan(reader, target_pages) if bounded_annual else (list(range(len(reader.pages))), None)
+    metadata = {"parser": "pypdf-6.10.0-v2", "pageCount": len(reader.pages),
+                "partialScan": len(plan) < len(reader.pages), "scanSelection": selection}
+    if emit:
+        emit({"metadata": metadata})
+    def indices():
+        yield from plan
+        if large:
+            remaining, selected = annual_page_plan(reader)
+            metadata["scanSelection"] = selected
+            if emit:
+                emit({"metadata": metadata})
+            yield from (index for index in remaining if index >= 10)
+    for index in indices():
+        page = reader.pages[index]
         original = page.extract_text() or ""
         text = " ".join(original.split())
         total += len(text)
         if total > 4_000_000:
             raise ValueError("Extracted document exceeds the text-size limit")
         try:
-            layout = page.extract_text(extraction_mode="layout", layout_mode_space_vertically=False) or ""
+            layout = "" if bounded_annual else page.extract_text(extraction_mode="layout", layout_mode_space_vertically=False) or ""
         except (KeyError, ValueError, TypeError):
             layout = ""  # A blank/broken layout never repairs or replaces text.
         # Some malformed font geometries create megabytes of whitespace. Keep
@@ -35,6 +101,11 @@ def extract_pages(source):
         pages.append({"page": index + 1, "text": text, "originalText": original, "links": links[:30],
                       "layoutText": "" if layout_limited else layout,
                       "layoutLimited": layout_limited})
+        if emit:
+            emit({"page": pages[-1]})
     if total < 200:
         raise ValueError("Unreadable PDF: no usable text layer; OCR is not enabled")
-    return {"parser": "pypdf-6.10.0-v2", "pages": pages}
+    # Preserve the legacy local shape/hash; hosted metadata explicitly describes coverage.
+    return {**(metadata if bounded_annual else {"parser": metadata["parser"]}),
+            "pages": sorted(pages, key=lambda page: page["page"]),
+            **({"scannedPageCount": len(pages)} if bounded_annual else {})}

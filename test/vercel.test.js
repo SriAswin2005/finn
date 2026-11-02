@@ -42,6 +42,13 @@ test('remote PDF parser sends signed small metadata and rejects malformed page o
   assert.equal(received.options.headers['x-finn-parser-signature'], createHmac('sha256', env.FINN_PARSER_SECRET).update(received.options.body).digest('hex'));
   assert.ok(!JSON.stringify(received).includes(env.FINN_PARSER_SECRET));
   assert.equal(JSON.parse(received.options.body).expires, 190);
+  assert.equal(JSON.parse(received.options.body).kind, 'annual_report');
+  const partial = { sha256: 'a'.repeat(64), pageCount: 350, partialScan: true, scannedPageCount: 2, pages: [{ page: 1, text: 'Overview' }, { page: 121, text: 'MDA' }] };
+  const scanned = await collectRemoteDocument(source, '', { env, fetchImpl: async () => Response.json(partial) });
+  assert.equal(scanned.pageCount, 350); assert.equal(scanned.scannedPageCount, 2); assert.equal(scanned.partialScan, true); assert.equal(scanned.pages[1].page, 121);
+  for (const bad of [{ ...partial, partialScan: false }, { ...partial, scannedPageCount: 3 }, { ...partial, pages: [...partial.pages].reverse() }, { ...partial, pageCount: 100 }]) {
+    await assert.rejects(collectRemoteDocument(source, '', { env, fetchImpl: async () => Response.json(bad) }), /invalid page data/);
+  }
   await assert.rejects(collectRemoteDocument(source, '', { env, fetchImpl: async () => Response.json({ pages: [] }) }), /invalid page data/);
   await assert.rejects(collectRemoteDocument(source, '', { env: {} }), /not configured/);
 });

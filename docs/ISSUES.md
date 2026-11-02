@@ -1,3 +1,5 @@
+R-002 — bounded annual extraction: implementation verified locally. Old361-page full extraction exceeded8s; bounded extraction2.3s. Hosted worker watchdog retains completed pages, including through a hung page/download; no usable pages yields explicit unavailable. Full pageCount/scanned count/partial coverage preserved. MDA lookup uses bookmarks or a verified physical heading near a contents hint; unavailable lookup is explicit. Actual hosted cold execution/transfer time remains to verify. Current queue has68 waiting jobs (22 explicit routine categories),56 retained attempts;503 high-demand messages do not establish quota exhaustion.
+
 # Current issues — November 2, 2026
 
 Production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY; syntax/all141 tests pass. The user requested quick wrap-up.

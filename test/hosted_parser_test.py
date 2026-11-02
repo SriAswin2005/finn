@@ -2,13 +2,46 @@ import hashlib
 import hmac
 import json
 import unittest
+import subprocess
+import sys
+import time
+from unittest.mock import patch
 from io import BytesIO
 from pypdf import PdfWriter
-from api.parse import verify_payload, public_target
-from scripts.pdf_text import extract_pages
+from api.parse import verify_payload, public_target, bounded_annual_report
+from scripts.pdf_text import extract_pages, annual_page_plan
 
 
 class HostedParserTest(unittest.TestCase):
+    def test_large_annual_plan_prioritizes_overview_and_physical_mda(self):
+        class Reader:
+            pages = [None] * 350
+            outline = [{"/Title": "Management Discussion and Analysis", "page": 120},
+                       {"/Title": "Statutory notes", "page": 145}]
+            def get_destination_page_number(self, item):
+                return item["page"]
+        plan, selection = annual_page_plan(Reader())
+        self.assertTrue(set(range(40)).issubset(plan))
+        self.assertTrue(set(range(120, 145)).issubset(plan))
+        self.assertNotIn(145, plan)
+        self.assertEqual(plan[10], 120)
+        self.assertIn("MDA", selection)
+        self.assertEqual(annual_page_plan(Reader(), [220, 5, 220])[0], [4, 219])
+
+    def test_hosted_watchdog_keeps_completed_physical_pages_and_kills_slow_worker(self):
+        records = [{"metadata": {"sha256": "a" * 64, "pageCount": 350, "partialScan": True}},
+                   {"page": {"page": 7, "text": "Original evidence. " * 30}}]
+        code = "import sys,time;sys.stdout.buffer.write(" + repr(b"\n".join(json.dumps(r).encode() for r in records) + b"\n") + ");sys.stdout.buffer.flush();time.sleep(10)"
+        real_popen = subprocess.Popen
+        with patch("api.parse.subprocess.Popen", side_effect=lambda *args, **kwargs: real_popen([sys.executable, "-c", code], **kwargs)):
+            start = time.monotonic()
+            result = bounded_annual_report({}, timeout=0.7)
+        self.assertLess(time.monotonic() - start, 2)
+        self.assertEqual([p["page"] for p in result["pages"]], [7])
+        self.assertEqual(result["pageCount"], 350)
+        self.assertTrue(result["partialScan"])
+        self.assertTrue(result["scanLimitedByTime"])
+
     def test_signed_expiring_request(self):
         secret = "test-only-secret"
         body = json.dumps({"url": "https://issuer.example/a.pdf", "expires": 150, "maxBytes": 25_000_000}).encode()

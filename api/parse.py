@@ -10,6 +10,8 @@ import os
 import socket
 import ssl
 import time
+import subprocess
+import sys
 from urllib.parse import urlsplit, urljoin
 from scripts.pdf_text import extract_pages
 
@@ -24,7 +26,51 @@ def verify_payload(body, signature, secret, now=None):
         raise PermissionError("Parser request expired")
     if payload.get("maxBytes") not in (25_000_000, 50_000_000):
         raise ValueError("Invalid document limit")
+    targets = payload.get("targetPages")
+    if targets is not None and (not isinstance(targets, list) or not 1 <= len(targets) <= 40 or any(type(p) is not int or not 1 <= p <= 800 for p in targets)):
+        raise ValueError("Invalid targeted physical pages")
     return payload
+
+
+def bounded_annual_report(payload, timeout=7.2):
+    """Kill slow DNS/download/page extraction and retain only fully emitted pages."""
+    process = subprocess.Popen([sys.executable, "-m", "api.parse", "--annual-worker"],
+                               stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    timed_out = False
+    try:
+        output, _ = process.communicate(json.dumps(payload).encode(), timeout=timeout)
+    except subprocess.TimeoutExpired:
+        timed_out = True
+        process.kill()
+        output, _ = process.communicate()
+    result = {}
+    pages = []
+    complete = False
+    for line in output.splitlines():
+        try:
+            record = json.loads(line)
+        except (ValueError, UnicodeDecodeError):
+            continue  # A killed worker may leave an incomplete final line.
+        result.update(record.get("metadata", {}))
+        if "page" in record:
+            pages.append(record["page"])
+        complete = complete or record.get("complete", False)
+    if not result.get("sha256") or sum(len(page["text"]) for page in pages) < 200:
+        raise ValueError("No usable pages within hosted extraction budget")
+    return {**result, "pages": sorted(pages, key=lambda page: page["page"]), "scannedPageCount": len(pages),
+            "partialScan": result.get("partialScan", False) or timed_out or not complete,
+            "scanLimitedByTime": timed_out or not complete}
+
+
+def annual_worker():
+    payload = json.loads(sys.stdin.buffer.read())
+    def emit(record):
+        sys.stdout.buffer.write(json.dumps(record, ensure_ascii=False).encode() + b"\n")
+        sys.stdout.buffer.flush()
+    pdf, url = download_pdf(payload["url"], payload["maxBytes"])
+    emit({"metadata": {"sha256": hashlib.sha256(pdf).hexdigest(), "url": url}})
+    extract_pages(BytesIO(pdf), bounded_annual=True, target_pages=payload.get("targetPages"), emit=emit)
+    emit({"complete": True})
 
 
 def public_target(url, resolver=socket.getaddrinfo):
@@ -111,8 +157,11 @@ class handler(BaseHTTPRequestHandler):
                 return self.respond(413, {"error": "Parser request size is invalid."})
             body = self.rfile.read(size)
             payload = verify_payload(body, self.headers.get("x-finn-parser-signature", ""), os.environ.get("FINN_PARSER_SECRET", ""))
-            pdf, url = download_pdf(payload["url"], payload["maxBytes"])
-            result = {**extract_pages(BytesIO(pdf)), "sha256": hashlib.sha256(pdf).hexdigest(), "url": url}
+            if payload.get("kind") == "annual_report":
+                result = bounded_annual_report(payload)
+            else:
+                pdf, url = download_pdf(payload["url"], payload["maxBytes"])
+                result = {**extract_pages(BytesIO(pdf)), "sha256": hashlib.sha256(pdf).hexdigest(), "url": url}
             if len(json.dumps(result).encode("utf-8")) > 4_000_000:
                 raise ValueError("Extracted PDF exceeds the hosted response limit")
             self.respond(200, result)
@@ -123,3 +172,7 @@ class handler(BaseHTTPRequestHandler):
 
     def log_message(self, *args):
         pass  # Do not log signed request material or source URL query strings.
+
+
+if __name__ == "__main__" and sys.argv[1:] == ["--annual-worker"]:
+    annual_worker()

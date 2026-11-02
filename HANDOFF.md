@@ -1,3 +1,5 @@
+Current new quality slice1: bounded annual parser implemented and locally verified;141tests pass. Annual worker watchdog7.2s; overview plus located MDA/targeted physical pages, partial coverage shown. Real361-page TCS2.3s/40pages (MDA not located), old >8s. Hosted cold timing pending. Remaining requested slices: Push routine triage, generic guidance, question source banner. See newest quality entries in progress/issues.
+
 # FINN — start here
 
 Current November2 wrap-up: read PROGRESS.md, docs/ISSUES.md and docs/WORKING_AGREEMENT.md. Production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY;141 tests pass; private source pushed. Pull works for verified live/cached paths. Push collection/dispatch/model calls run, but accepted unattended publication remains OPEN after provider503s and legitimate citation rejections.53 attempts retained at16:39UTC. No sign-in/account action needed. User requested quick wrap-up; do not restart broad experiments without fresh steering.

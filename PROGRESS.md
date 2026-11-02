@@ -1,3 +1,5 @@
+November 2 quality slice 1: confirmed original full scan of a real361-page TCS report exceeded8s. Hosted annual reports now have a7.2s worker watchdog, physical1–40 plus bounded located MDA, optional targeted pages, explicit partial coverage and sparse physical-page validation. Local TCS bounded extraction2.3s/40pages; MDA not located in this sample. Syntax/141Node tests and5Python parser cases pass. Vercel cold/network timing remains unverified; next: Push triage, guidance and query display.
+
 # FINN current progress — November 2, 2026
 
 User requested a quick wrap-up; further experiments stop for this handoff. Production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY at https://finn-zeta-one.vercel.app. Source implementation is privately pushed. Syntax and all141 tests pass.

@@ -1,3 +1,5 @@
+November2 quality slice1: npm run check passed; npm test141/141 passed, including Python5cases (signed requests, public DNS, blank PDF, MDA physical plan, killed-worker partial-page retention). Remote sparse-order/total/count validation tested. Real361-page TCS original >8s; bounded2.3s/40pages, MDA unlocated. Hosted cold/download timing not yet tested.
+
 # Current verification — November2 wrap-up
 
 Production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY; npm run check and all141 tests PASS. Private upstream matched0/0 before this docs-only handoff. No runtime changes after those checks.

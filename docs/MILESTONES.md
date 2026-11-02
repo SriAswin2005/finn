@@ -1,3 +1,5 @@
+Quality fixes November2: [x] bounded annual parser and explicit partial-page metadata verified locally; [ ] hosted cold timing; [ ] routine Push triage; [ ] generic guidance patterns; [ ] prominent question source reference.
+
 Current wrap-up:141 tests pass; production 845b165 / dpl_2AGTPb8jsYyLhrMmAPfg8okrKfYD READY. Pull verified; P-001 automatic accepted Push publication remains unchecked. User-confirmed Gemma limits recorded only; no further experiment/activation in this wrap-up.
 
 # Milestones and acceptance gates
