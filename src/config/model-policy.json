@@ -1,8 +1,8 @@
 {
   "totalDaily": 1040,
   "allocations": {
-    "research": 520,
-    "push": 520
+    "research": 500,
+    "push": 540
   },
   "retryDaily": 1040,
   "limitsSource": "User-reported AI Studio per-model limits November 1; November 2 instruction to use those limits and eligible rotation. Ceilings, not guaranteed capacity; every retry counts inside the same total.",
@@ -24,6 +24,15 @@
       "rpd": 500,
       "appRpd": 500
     },
+    "gemini-3.6-flash": {
+      "workflow": "push",
+      "capability": "complex",
+      "rpm": 5,
+      "tpm": 250000,
+      "rpd": 20,
+      "appRpd": 20,
+      "thinkingLevel": "minimal"
+    },
     "gemini-3.8-flash": {
       "workflow": "push",
       "capability": "complex",
@@ -32,19 +41,9 @@
       "rpd": 20,
       "appRpd": 20,
       "thinkingLevel": "low"
-    },
-    "gemini-3.6-flash": {
-      "workflow": "research",
-      "capability": "research",
-      "rpm": 5,
-      "tpm": 250000,
-      "rpd": 20,
-      "appRpd": 20,
-      "thinkingLevel": "minimal"
     }
   },
   "researchOrder": [
-    "gemini-3.5-flash-lite",
-    "gemini-3.6-flash"
+    "gemini-3.5-flash-lite"
   ]
 }

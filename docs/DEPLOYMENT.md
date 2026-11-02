@@ -1,6 +1,6 @@
 # FINN Vercel, Neon and dispatcher operations
 
-Current November2,2026. Production0c134a0 / dpl_9JLfhWd8v5zuhhQsi6SGrtg782pr READY at https://finn-zeta-one.vercel.app. Latest local model-configuration/Push-rotation slice passes syntax/all137 tests; its commit/deploy remains pending. A private Git push is separate from a Vercel deployment.
+Current November2,2026. Productione81e795 / dpl_DRPHxYjdS1mVwvqvdufoTjDm5dB9 READY at https://finn-zeta-one.vercel.app. Latest local model-configuration/Push-rotation slice passes syntax/all139 tests; it is committed, privately pushed, audited/applied and deployed READY. A private Git push is separate from a Vercel deployment.
 
 ## Approved and active
 
@@ -15,7 +15,7 @@ The user approved the explained Neon evidence/history migration, original Gemini
 
 Run required `npm run check` and `npm test`, inspect the focused diff/secret exclusions, update current docs, commit/push approved private master and verify upstream. Current local CLI is Vercel65.9.0. Deploy linked existing project with `npx --no-install vercel deploy --prod --yes`; verify READY and production alias. `vercel.json` retains the signed Python parser and300second Node limit; the new src JSON catalog is traced through static imports.
 
-Non-secret inventory is FINN_GEMINI_MODELS with four approved policy IDs. Future model upgrades change JSON configuration/confirmed limits/order, then deliberately apply `node --env-file=.env scripts/push.js policy` and deploy; every historical attempt/provider hold stays. Do not infer quotas from listing a model or reset known429/project holds.1040 aggregate and520/workflow ceilings do not guarantee availability; actual500/500/20/20 model limits and provider pauses still apply.
+Non-secret inventory is FINN_GEMINI_MODELS with four approved policy IDs. Future model upgrades change JSON configuration/confirmed limits/order, then deliberately apply `node --env-file=.env scripts/push.js policy` and deploy; every historical attempt/provider hold stays. Do not infer quotas from listing a model or reset known429/project holds.1040 aggregate andResearch500/Push540 ceilings do not guarantee availability; actual500/500/20/20 model limits and provider pauses still apply.
 
 Use hidden/piped stdin for secrets, never command-line values/output. Existing reviewer link is ignored `tmp/reviewer-link.txt`; it exchanges for a24-hour signed HttpOnly/Secure/SameSite cookie and clean redirect. Never print the link/token. UI/assets/APIs are reviewer-gated; health and independently signed internal routes are the intended exceptions. Do not change reviewer access while verifying ordinary functionality.
 
@@ -30,3 +30,7 @@ Vercel Hobby cron's once-daily timing is unsuitable; existing Cloudflare schedul
 EOD snapshots are separate: manual `node --env-file=.env.vercel.production src/ingest.js --publish` was explicitly used November2 for15/15 EOD/66NSE records, not scheduled by Push. Do not run stale capture/evaluation migration/`init` to overwrite canonical state. Submission archives, reviewer grants/tag/email, new terms/spending and further platform work remain deferred.
 
 Official infrastructure references: [Vercel cron](https://vercel.com/docs/cron-jobs/usage-and-pricing), [function limits](https://vercel.com/docs/functions/limitations), [Cloudflare cron](https://developers.cloudflare.com/workers/configuration/cron-triggers/), [Workers limits](https://developers.cloudflare.com/workers/platform/limits/), [Neon plans](https://neon.com/docs/introduction/plans).
+
+Final deployed verification14:57UTC: seven saved Research requests return0 model calls, including the new HCL financial answer and the reviewed3.6 fallback sample. Four configured Google metadata endpoints return200 (access only, not proof of quota independence/capacity). Browser shows cached0calls/₹0 with exact original quote; temporary viewport restored and task-owned log/bootstrap sessions stopped. Shared44 attempts retained at last full observation. Next genuine15:00 scheduled outcome still under observation; no manual worker/capped-job retry.
+
+November2 availability reallocation verified locally139 tests, pending commit/deploy/apply: Research500/Push540 from unchanged500/500/20/20 model ceilings. Prefer available3.6 complex Push after repeated3.8 overload, retaining all46 attempts. ITC final15:15 correction503/lifetime3 failed; no reset. Real3.6 Push source-case and next genuine scheduled publication still require verification.
