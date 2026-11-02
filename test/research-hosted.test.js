@@ -66,3 +66,12 @@ test('transient Pull failures use bounded backoff while preserving explicit prov
     assert.equal(q.attempts.length, 1);
   }
 });
+test('source-only reads expose a temporary model pause without claiming jobs or consuming quota', async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'finn-research-status-')); t.after(() => rm(directory, { recursive: true, force: true }));
+  const store = createPushStore({ env: {}, path: join(directory, 'shared.sqlite') }); await store.initialize();
+  const at = Date.now(); const model = Object.entries(policy.models).find(([, c]) => c.workflow === 'research')[0];
+  await store.mutate(s => { s.quota.initialized = true; s.quota.policy = policy; s.quota.cooldowns[model] = at + 600000; });
+  const provider = createGeminiProvider({ env, directory, sharedStore: store, now: () => at });
+  const status = await provider.status(research); assert.equal(status.paused, true); assert.equal(status.pausedUntil, new Date(at + 600000).toISOString());
+  const s = await store.read(); assert.equal(s.quota.attempts.length, 0); assert.equal(s.research, undefined);
+});

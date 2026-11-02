@@ -42,13 +42,14 @@ test('HTTP contract, validation, static isolation and install assets', async t =
 
 test('research HTTP contract preserves page citations and protects generation requests', async t => {
   let generated = 0;
-  const server = createAppServer({ aiProvider: { generate: async () => { generated++; throw new AiUnavailable('Free quota not configured.'); } } });
+  const server = createAppServer({ aiProvider: { enabled: true, status: async () => ({ paused: true, pausedUntil: '2026-11-02T10:36:00Z', reason: 'Temporary model capacity pause.' }), generate: async () => { generated++; throw new AiUnavailable('Free quota not configured.'); } } });
   server.listen(0, '127.0.0.1'); await once(server, 'listening');
   t.after(() => new Promise(resolve => server.close(resolve)));
   const base = `http://127.0.0.1:${server.address().port}`;
   const response = await fetch(base + '/api/research?ticker=ASIANPAINT');
   assert.equal(response.status, 200); const result = await response.json();
   assert.equal(result.documents.length, 3); assert.ok(result.evidence.every(item => item.page >= 1));
+  assert.equal(result.ai.configured, true); assert.equal(result.ai.paused, true); assert.equal(result.ai.pausedUntil, '2026-11-02T10:36:00Z'); assert.equal(generated, 0);
   assert.equal((await fetch(base + '/api/research?ticker=../private')).status, 400);
   assert.equal((await fetch(base + '/data/cache/research/ASIANPAINT.json')).status, 404);
   const post = options => fetch(base + '/api/research/analysis', { method: 'POST', ...options });

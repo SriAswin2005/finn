@@ -215,5 +215,17 @@ export function createGeminiProvider({ env = process.env, fetchImpl = fetch, dir
       throw new AiUnavailable('No configured text model could complete the note within the request and allowance limits. Source evidence remains usable; try later.');
     }
   }
-  return { generate, getCached, enabled };
+  async function status(research) {
+    if (!enabled) return { paused: true, reason: 'New AI answers are disabled by server configuration.' };
+    try {
+      const state = await sharedStore.read(); const q = state.quota;
+      if (!q.initialized || q.stopped) return { paused: true, reason: q.stopped ? 'Model configuration needs operator attention.' : 'Shared AI quota has not been initialized.' };
+      const { key, models } = cachePathFor(research); const request = state.research?.requests[key];
+      if (request?.status === 'rejected') return { paused: true, reason: request.error };
+      const until = Math.max(q.projectUntil, request?.nextAt ?? 0, Math.min(...models.map(model => q.cooldowns[model] ?? 0)));
+      if (until > now()) return { paused: true, pausedUntil: new Date(until).toISOString(), reason: 'New generation is temporarily paused for model capacity or retry backoff.' };
+      return { paused: false };
+    } catch { return { paused: true, reason: 'AI storage is temporarily unavailable. Primary evidence remains readable.' }; }
+  }
+  return { generate, getCached, enabled, status };
 }

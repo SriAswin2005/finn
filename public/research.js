@@ -63,9 +63,10 @@ function render(data) {
     }
     return panel;
   }));
-  $('research-ai').disabled = !data.ai.configured || !data.evidence.length;
+  $('research-ai').disabled = !data.ai.configured || !data.evidence.length || data.ai.paused && !data.analysis;
   $('research-ai').hidden = !data.ai.configured;
   $('ai-status').textContent = data.ai.configured ? 'Generate on demand. Repeated notes use the evidence cache; free-quota limits apply.' : 'No saved note matches this request. Primary evidence remains available; new AI answers are disabled by server configuration.';
+  if (data.ai.paused && !data.analysis) $('ai-status').textContent = `${data.ai.reason}${data.ai.pausedUntil ? ` Retry after ${new Date(data.ai.pausedUntil).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST.` : ''}`;
   $('ai-result').replaceChildren(); if (data.analysis) renderAnalysis(data.analysis, data); $('research-result').hidden = false;
   renderComparison(data.guidanceComparison);
 }
