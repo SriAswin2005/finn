@@ -6,11 +6,22 @@ import { join } from 'node:path';
 import { createPushStore } from '../src/push/store.js';
 import { createGeminiProvider } from '../src/ai/gemini.js';
 import policy from '../src/config/model-policy.json' with { type: 'json' };
+import { buildQuoteBank } from '../src/ai/quotes.js';
+import { validateAnalysis } from '../src/ai/gemini.js';
 
 const env = { VERCEL: '1', FINN_AI_LIVE_ENABLED: 'true', FINN_AI_FREE_TIER_CONFIRMED: 'true', GEMINI_API_KEY: 'synthetic-server-only-key' };
 const research = { evidenceHash: 'hosted-contract', question: '', company: 'Example', documents: [], evidence: [{ id: 'e1', documentId: 'd1', page: 2, text: 'The company reported revenue of 100 million for the year.' }] };
 const wire = { claims: [{ section: 'financial', text: 'Reported revenue was 100 million for the year.', inference: false, references: [{ quoteId: 'q1' }] }], unavailableSections: [] };
 const response = () => new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(wire) }] } }] }));
+
+test('clipped retrieval fragments and uncited inference drivers are refused', () => {
+  const evidence = [{ id: 'e1', text: 'Enterprise AI adoption transitioned from experimentation to sca' }];
+  assert.deepEqual(buildQuoteBank(evidence), []);
+  evidence[0].text = 'Enterprise AI adoption transitioned from experimentation to scale.';
+  assert.equal(buildQuoteBank(evidence).length, 1);
+  const note = { claims: [{ section: 'bull', text: 'AI adoption may keep demand for automation robust.', inference: true, references: [{ evidenceId: 'e1', quote: evidence[0].text }] }], unavailableSections: [] };
+  assert.throws(() => validateAnalysis(note, evidence), /uncited business driver/);
+});
 
 test('hosted Pull uses durable leases, one shared reservation and saved notes across cold instances', async t => {
   const directory = await mkdtemp(join(tmpdir(), 'finn-research-hosted-')); t.after(() => rm(directory, { recursive: true, force: true }));

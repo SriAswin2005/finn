@@ -1,3 +1,5 @@
+November 2 rollout: verified code83e6564 pushed to private origin and deployed READY as dpl_9m6JzRGbFWxGPL4RWG9JQvYQHTD9. Set existing hosted cache-only false and explicit FINN_AI_LIVE_ENABLED=true using approved key/caps. Push switches remain false. Fresh hosted Research inference/source review/cache reuse is now being tested; no success claim yet.
+
 # Vercel + Neon operations and Push rollout
 
 Reconciled November 1,2026 (IST). **Approved rollout in progress.** Current production https://finn-zeta-one.vercel.app is READY at code ff124de / dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd (November 1). HTTPS runtime verification passed (details below). Both generation gates false; Cloudflare dispatcher active and first scheduled collection/PDF processing verified 22:07IST.

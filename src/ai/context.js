@@ -27,6 +27,11 @@ export function citationContextFailure(claim, evidenceById) {
   const quotes = claim.references.map(ref => normalize(ref.quote)).join(' ');
   const surrounding = claim.references.map(ref => contexts(ref, evidenceById.get(ref.evidenceId))).join(' ');
   const stated = claim.text;
+  if (['bull', 'bear'].includes(claim.section)) {
+    for (const driver of [/\bdemand\b/i, /\bautomat\w*/i, /\bcapacity\b/i, /\bcompetit\w*/i, /\bpricing\b/i, /\bgeopolitical\b/i, /\bmacroeconomic\b/i, /\bheadwinds?\b/i, /\bclients?\b/i, /\bcustomers?\b/i]) {
+      if (driver.test(stated) && !driver.test(quotes)) return 'interpretation introduces an uncited business driver';
+    }
+  }
   const quoteFacts = facts(quotes);
   for (const fact of facts(stated)) {
     const matching = quoteFacts.filter(other => other.value === fact.value);

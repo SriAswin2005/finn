@@ -1,3 +1,7 @@
+November 2 quote-quality checkpoint: npm run check and all 113 tests pass, including clipped-quote/uncited-driver regressions and original15 attacks. Real first TCS answer remains wholly withheld with raw audit/attempt retained. Research v7 production verification pending.
+
+November 2 real Pull evaluation: production83e6564 generated/persisted TCS on one Research attempt. Source review FAILED: an AI-adoption quote ended mid-word and did not establish robust demand/automation inference; narrow business question received irrelevant sections. Entire answer moved to an audit review record, withheld from active cache; attempt retained. Fix now excludes unfinished quote fragments, rejects uncited business drivers, tightens question focus and bumps Research prompt to v7. Regression added; checks pending. Infrastructure success is not quality acceptance.
+
 November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.
 
 ## November 2 — complete both authorized workflows

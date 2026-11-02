@@ -10,7 +10,9 @@ export function buildQuoteBank(evidence, { maxLength = 220, joinAbbreviations = 
       if (joinAbbreviations && /\b(?:Mr|Mrs|Ms|Dr|Rs|Ltd|Co|No|viz|Ref|M\/s)\.$/i.test(pending.trim())) continue;
       const quote = pending.trim(); pending = '';
       // Never cut a long sentence into standalone fragments that can lose its hedge/negation.
-      if (quote.length >= 20 && quote.length <= maxLength) bank.push({ id: `q${bank.length + 1}`, evidenceId: item.id, quote });
+      // Intl.Segmenter also returns the trailing fragment of a retrieved chunk.
+      // A fragment ending mid-word/sentence cannot establish a complete claim.
+      if (quote.length >= 20 && quote.length <= maxLength && /[.!?][\s\u201d\u2019"')\]]*$/.test(quote)) bank.push({ id: `q${bank.length + 1}`, evidenceId: item.id, quote });
     }
   }
   return bank;
