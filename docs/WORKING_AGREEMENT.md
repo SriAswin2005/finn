@@ -78,3 +78,7 @@ The user deferred conversation exports and all other submission details until th
 ## November 1 — explicit hosted Push approval
 
 After the three external actions were explained, the user said “okay go ahead”. This explicitly approves: (1) migrating public Push evidence/jobs/results and all quota history to the existing FINN Neon database and binding local workers to that same ledger; (2) transferring the original Gemini key to server-only Vercel project sriak/finn, with generation disabled until quality gates pass; (3) activating the Cloudflare Workers Free dispatcher with a separate worker-auth secret. No paid plan, extra model allowance, broader repository access or acceptance of new account terms is included. Do not ask again for these approved actions. Verify actual execution rather than claiming approval is deployment success.
+
+## November 2 — finish both workflows
+
+The user explicitly asks to fix the identified issues and get both hosted Push and Pull running end to end. This supersedes the earlier deferral of Pull activation work and authorizes deploying the fixes and activating verified generation using the already-approved server-only key and existing free-tier infrastructure/caps. Source review, whole-output validation, model separation and quality verification remain required. No new spending, terms, permissions or quota expansion is implied. Continue independently; ask only for genuinely missing account actions.

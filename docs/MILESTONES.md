@@ -1,3 +1,12 @@
+November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.
+
+## November 2 — complete both authorized workflows
+
+- [ ] Fresh hosted Pull: explicit activation, durable answers/leases/shared quotas, cold-instance cache reuse, primary-source-reviewed successful answer.
+- [ ] Push quality fixes then source-reviewed scheduled analysis and persisted delivery; existing caps/history preserved.
+
+Pull durability/activation implementation and regressions saved; local checks/production verification pending. November 1 collection-only evidence remains valid but is not full completion.
+
 # Milestones and acceptance gates
 
 Reconciled November 1,2026 (IST). These checks distinguish local engineering from full product acceptance; historical sections retain their original dated scope. Current findings: [ISSUES.md](ISSUES.md). Final source/runbook reconciliation: 45 relative links resolve; syntax/all 108 tests pass; dispatcher sources included in the build-copy list, archive generation deferred.

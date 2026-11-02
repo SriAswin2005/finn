@@ -211,10 +211,10 @@ test('Gemini does not rotate around ambiguous project quotas or bad credentials'
     await assert.rejects(provider.generate({ evidenceHash: `stop-${status}`, evidence, documents: [], company: 'Test', question: '' }), AiUnavailable);
     assert.equal(calls, 1);
     if (status === 429) {
-      await assert.rejects(provider.generate({ evidenceHash: 'different-company', evidence, documents: [], company: 'Other', question: '' }), /cooling down/);
+      await assert.rejects(provider.generate({ evidenceHash: 'different-company', evidence, documents: [], company: 'Other', question: '' }), /quota is paused/);
       assert.equal(calls, 1);
       const restarted = createGeminiProvider({ directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => { calls++; return new Response('{}'); } });
-      await assert.rejects(restarted.generate({ evidenceHash: 'after-restart', evidence, documents: [], company: 'Other', question: '' }), /cooling down/);
+      await assert.rejects(restarted.generate({ evidenceHash: 'after-restart', evidence, documents: [], company: 'Other', question: '' }), /quota is paused/);
       assert.equal(calls, 1);
     }
   }

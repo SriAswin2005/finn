@@ -6,6 +6,7 @@ import { tmpdir } from 'node:os';
 import { createQuotaStore } from '../src/ai/quota.js';
 import { createGeminiProvider } from '../src/ai/gemini.js';
 import { getResearch } from '../src/research/service.js';
+import { createPushStore } from '../src/push/store.js';
 
 test('lost or unwritable quota retains memory but never grants a new allowance', async () => {
   let disk = { entries: [{ model: 'm', at: 1 }], cooldowns: {} }; let fail = false;
@@ -26,12 +27,12 @@ test('lost or unwritable quota retains memory but never grants a new allowance',
 test('fresh or corrupt disk makes zero model calls; reviewed note survives no credentials and host restart', async t => {
   const directory = await mkdtemp(join(tmpdir(), 'finn-disposable-')); t.after(() => rm(directory, { recursive: true, force: true }));
   let calls = 0;
-  const options = { directory, env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => { calls++; throw new Error('must not call'); } };
+  const options = { directory, sharedStore: createPushStore({ env: {}, path: join(directory, 'shared.sqlite') }), env: { GEMINI_API_KEY: 'test', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => { calls++; throw new Error('must not call'); } };
   const evidence = [{ id: 'e1', text: 'Revenue was 100 million in the period.', page: 1 }];
   const unknown = { evidenceHash: 'missing', evidence, documents: [], question: '', company: 'Test' };
-  await assert.rejects(createGeminiProvider(options).generate(unknown), /AI quota resting/);
-  await writeFile(join(directory, 'quota.json'), '{corrupt');
-  await assert.rejects(createGeminiProvider(options).generate(unknown), /AI quota resting/);
+  await assert.rejects(createGeminiProvider(options).generate(unknown), /state missing/);
+  await writeFile(join(directory, 'shared.sqlite'), 'corrupt');
+  await assert.rejects(createGeminiProvider({ ...options, sharedStore: createPushStore({ env: {}, path: join(directory, 'shared.sqlite') }) }).generate(unknown), /generation unavailable/);
   const research = await getResearch('INFY');
   for (let restart = 0; restart < 2; restart++) {
     const provider = createGeminiProvider({ ...options, env: { RAILWAY_ENVIRONMENT: 'production' } });

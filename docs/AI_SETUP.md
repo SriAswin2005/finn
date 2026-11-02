@@ -1,3 +1,9 @@
+November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.
+
+## November 2 hosted Pull activation and storage
+
+Hosted Research requires FINN_AI_LIVE_ENABLED=true, FINN_AI_CACHE_ONLY=false, the server-only key and billing-disabled confirmation. VERCEL alone no longer forbids generation. New answers and request leases use the separate Research namespace in the same durable CAS record as shared quotas; no temporary quota.json is required. Old reviewed/file caches remain read-only compatible. Cold hosts fail closed if canonical storage is missing/unavailable; repeated invalid drafts remain rejected until evidence/prompt changes. Production activation/verification pending.
+
 # Billing-disabled Gemini and shared workflow policy
 
 Reconciled November 1,2026. One Gemini key is sufficient; no ChatGPT/Sarvam key. Keep the original key in ignored backend `.env`; never print, commit or request it in chat. User approved the exact hosted transfer November 1; original key is now a Vercel production Secret, with generation disabled pending quality. Local calls under existing caps are authorized; hosted transfer/activation needs explicit approval in [DEPLOYMENT.md](DEPLOYMENT.md).

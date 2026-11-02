@@ -1,3 +1,11 @@
+November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.
+
+November 2 verification: syntax passes; first full run 111/112 passed. The sole failure expected older missing-store wording; corrected to the actual fail-closed error. No model call occurred. Full rerun pending.
+
+## R-001 — Hosted fresh Pull answers (November 2, active)
+
+Immediate blocker reproduced: VERCEL forced cache-only despite present key and unused Research allocation. Duplicate temporary-file quota/cache would also fail cold instances. Implementation now uses explicit hosted activation, durable Research notes/request leases in shared CAS state, and one authoritative shared quota ledger. New cross-instance/restart/rejected-output regressions added; verification pending. Existing baked caches and source-only reads preserved. Do not close until fresh production POST, original-source review, persisted GET/restart reuse and zero-call repeat are observed. Push P-001 remains open; its activation and quality are separate.
+
 # Current issues and verification limits
 
 Reconciled November 1, 2026 (IST). Historical logs never override these current findings.

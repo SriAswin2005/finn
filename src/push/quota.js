@@ -17,7 +17,7 @@ export function validatePolicy(policy) {
   return policy;
 }
 export class Deferred extends Error { constructor(message, until, kind = 'capacity') { super(message); this.until = until; this.kind = kind; } }
-export async function reserveAttempt(store, { workflow, model, jobKey, leaseToken, estimatedTokens, retry = false, now = Date.now() }) {
+export async function reserveAttempt(store, { workflow, model, jobKey, researchKey, leaseToken, estimatedTokens, retry = false, now = Date.now() }) {
   return store.mutate(state => {
     const q = state.quota; if (!q.initialized) throw new Error('Shared quota is not initialized; generation is paused.');
     const policy = validatePolicy(q.policy); const cap = policy.models[model];
@@ -26,6 +26,9 @@ export async function reserveAttempt(store, { workflow, model, jobKey, leaseToke
     if (q.projectUntil > now) throw new Deferred('Project quota is paused.', q.projectUntil);
     if ((q.cooldowns[model] ?? 0) > now) throw new Deferred('Model capacity is cooling down.', q.cooldowns[model]);
     if (jobKey && (!state.jobs[jobKey] || state.jobs[jobKey].lease?.token !== leaseToken || state.jobs[jobKey].lease.until <= now)) throw new Error('Job lease is no longer owned; no model call allowed.');
+    if (researchKey && (workflow !== 'research' || state.research?.requests[researchKey]?.lease?.token !== leaseToken || state.research.requests[researchKey].lease.until <= now)) throw new Error('Research lease is no longer owned; no model call allowed.');
+    const own = q.attempts.filter(a => jobKey && a.jobKey === jobKey || researchKey && a.researchKey === researchKey);
+    retry ||= own.length > 0;
     const today = q.attempts.filter(a => pacificDay(a.at) === pacificDay(now));
     const rolling = q.attempts.filter(a => now - a.at < 86400000);
     const modelDay = today.filter(a => a.model === model);
@@ -40,10 +43,9 @@ export async function reserveAttempt(store, { workflow, model, jobKey, leaseToke
     if (resets.length > 1) throw new Deferred('Daily local/model allowance exhausted; pending work is retained.', Math.max(...resets), 'daily');
     const minute = q.attempts.filter(a => a.at > now - 60000 && a.model === model);
     if (minute.length >= cap.rpm || minute.reduce((sum, a) => sum + Math.max(a.estimatedTokens, a.observedTokens ?? 0), estimatedTokens) > cap.tpm) throw new Deferred('Minute request/token allowance unavailable.', now + 60000, 'minute');
-    const own = q.attempts.filter(a => jobKey && a.jobKey === jobKey);
     if (own.length >= 3) throw new Deferred('Job attempt limit reached.', now + 86400000, 'attempt_limit');
     const id = randomUUID();
-    q.attempts.push({ id, workflow, model, jobKey: jobKey ?? null, at: now, estimatedTokens, retry, outcome: 'reserved_unknown' });
+    q.attempts.push({ id, workflow, model, jobKey: jobKey ?? null, ...(researchKey ? { researchKey } : {}), at: now, estimatedTokens, retry: retry || own.length > 0, outcome: 'reserved_unknown' });
     return id;
   });
 }

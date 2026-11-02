@@ -1,3 +1,7 @@
+November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.
+
+November 2 active continuation: user requests both Push and Pull working end to end. Pull activation/durable-answer/request-lease/shared-quota changes saved; tests/host verification pending, production remains disabled. New module src/ai/research-jobs.js; regression test/research-hosted.test.js. Existing caps/history must not be reset. Prior November 1 status below is historical where superseded.
+
 # FINN — start here
 
 Reconciled November 1, 2026 (IST), deadline day. Read AGENTS.md, this file, [PROGRESS.md](PROGRESS.md), [ISSUES.md](docs/ISSUES.md) and [WORKING_AGREEMENT.md](docs/WORKING_AGREEMENT.md) on entry. Read [SPEC.md](docs/SPEC.md)/[MILESTONES.md](docs/MILESTONES.md) before scope changes. The October 30 audit is historical coverage, not completion proof. Avoid full repository scans.

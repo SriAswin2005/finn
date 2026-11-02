@@ -1,0 +1,43 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { createPushStore } from '../src/push/store.js';
+import { createGeminiProvider } from '../src/ai/gemini.js';
+import policy from '../src/config/model-policy.json' with { type: 'json' };
+
+const env = { VERCEL: '1', FINN_AI_LIVE_ENABLED: 'true', FINN_AI_FREE_TIER_CONFIRMED: 'true', GEMINI_API_KEY: 'synthetic-server-only-key' };
+const research = { evidenceHash: 'hosted-contract', question: '', company: 'Example', documents: [], evidence: [{ id: 'e1', documentId: 'd1', page: 2, text: 'The company reported revenue of 100 million for the year.' }] };
+const wire = { claims: [{ section: 'financial', text: 'Reported revenue was 100 million for the year.', inference: false, references: [{ quoteId: 'q1' }] }], unavailableSections: [] };
+const response = () => new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(wire) }] } }] }));
+
+test('hosted Pull uses durable leases, one shared reservation and saved notes across cold instances', async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'finn-research-hosted-')); t.after(() => rm(directory, { recursive: true, force: true }));
+  const path = join(directory, 'shared.sqlite'); const store = createPushStore({ env: {}, path }); await store.initialize();
+  await store.mutate(s => { s.quota.initialized = true; s.quota.policy = policy; });
+  let calls = 0; let release; let entered;
+  const barrier = new Promise(resolve => { entered = resolve; });
+  const wait = new Promise(resolve => { release = resolve; });
+  const options = { env, directory: join(directory, 'missing-cache'), sharedStore: store, fetchImpl: async () => { calls++; entered(); await wait; return response(); } };
+  const first = createGeminiProvider(options).generate(research); await barrier;
+  await assert.rejects(createGeminiProvider({ ...options, sharedStore: createPushStore({ env: {}, path }) }).generate(research), /already being generated/);
+  release(); const note = await first; assert.equal(note.cached, false);
+  const restarted = createGeminiProvider({ ...options, directory: join(directory, 'different-empty-cache'), env: { ...env, GEMINI_API_KEY: '' }, sharedStore: createPushStore({ env: {}, path }) });
+  const saved = await restarted.generate(research); assert.equal(saved.cached, true); assert.deepEqual(saved.claims, note.claims);
+  assert.equal(calls, 1); assert.equal((await store.read()).quota.attempts.length, 1);
+  assert.equal(createGeminiProvider({ ...options, env: { ...env, FINN_AI_LIVE_ENABLED: 'false' } }).enabled, false);
+  assert.equal(createGeminiProvider({ ...options, env: { ...env, FINN_AI_CACHE_ONLY: 'true' } }).enabled, false);
+});
+
+test('rejected Pull output stays unpublished and cannot regenerate on repeated requests', async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'finn-research-rejected-')); t.after(() => rm(directory, { recursive: true, force: true }));
+  const store = createPushStore({ env: {}, path: join(directory, 'shared.sqlite') }); await store.initialize();
+  await store.mutate(s => { s.quota.initialized = true; s.quota.policy = policy; });
+  let calls = 0;
+  const options = { env, directory, sharedStore: store, fetchImpl: async () => { calls++; return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify({ ...wire, claims: [{ ...wire.claims[0], text: 'Revenue was 999 million.' }] }) }] } }] })); } };
+  await assert.rejects(createGeminiProvider(options).generate(research), /number absent/);
+  await assert.rejects(createGeminiProvider(options).generate(research), /number absent/);
+  assert.equal(await createGeminiProvider(options).getCached(research), null); assert.equal(calls, 1);
+  assert.equal((await store.read()).quota.attempts[0].outcome, 'invalid_or_unsupported_output');
+});

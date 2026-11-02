@@ -1,3 +1,9 @@
+November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.
+
+## November 2 — make hosted Pull activation and persistence explicit
+
+Replaced unconditional Vercel cache-only with a configured hosted opt-in. Moved generated Research notes and request ownership to a separate namespace in the existing durable CAS record and retained the shared reservation ledger as authority. Failed validation stays unpublished and repeated requests do not trigger regeneration. Added restart/concurrency regressions; verification pending. User requested complete Push/Pull operation, not another explanation-only checkpoint.
+
 # Build decisions
 
 ## October 28, 2026 — M0 and M1

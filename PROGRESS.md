@@ -1,3 +1,11 @@
+November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.
+
+November 2 verification: syntax passes; first full run 111/112 passed. The sole failure expected older missing-store wording; corrected to the actual fail-closed error. No model call occurred. Full rerun pending.
+
+# November 2 — restore complete Push and Pull workflows
+
+The user requested fixes and end-to-end hosted operation of both workflows, using existing approvals/credentials/caps. Pull implementation now replaces the blanket Vercel block with explicit FINN_AI_LIVE_ENABLED plus cache-only/key/free-tier gates. Generated notes and cross-instance request leases persist separately in the existing shared CAS record; shared reservations replace the duplicate temporary-file quota gate. Invalid answers remain unpublished and cannot regenerate repeatedly. Production is still unchanged and disabled; syntax/tests and real hosted generation are pending. Push quality improvements and rolling allowance recovery remain next; no quota reset or expansion.
+
 # FINN current progress
 
 Reconciled November 1,2026 (IST). Current status overrides historical logs.

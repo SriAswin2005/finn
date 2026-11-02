@@ -1,3 +1,11 @@
+November 2 Pull checkpoint: npm run check and all 112 tests pass, including cold-instance cache reuse, concurrent request ownership, invalid-output suppression and original adversarial refusals. Production activation/real inference/browser verification remain pending.
+
+November 2 verification: syntax passes; first full run 111/112 passed. The sole failure expected older missing-store wording; corrected to the actual fail-closed error. No model call occurred. Full rerun pending.
+
+# November 2 — Pull serverless durability checkpoint (checks pending)
+
+Added cross-instance lease/reservation, cold-cache persisted answer and repeated-invalid-output refusal regressions. Replaced the obsolete provider dependency on temporary quota.json; standalone legacy-ledger tests remain for migration safety. No real model call yet. Production gates remain unchanged. Full syntax/tests, browser and hosted inference have not yet run for this change.
+
 # Current scheduled verification — November 1,2026
 
 
