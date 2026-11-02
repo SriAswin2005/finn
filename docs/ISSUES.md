@@ -1,3 +1,7 @@
+November2 Research input-context checkpoint: npm run check/all121 tests pass. Browser verification pending deployment; no new model call. Pause-status production165e6d7/dpl_42vugESWvqyA9qQRgdCQcRrAFPhE is READY; next code preserves edited-input isolation and honest cache ledger wording.
+
+November2 UI integrity fix: editing ticker/question now invalidates the displayed answer and any in-flight render, disables generation until evidence is loaded for the new request, and never generates automatically. Prevents answering an old question/company under edited inputs. Also removed remaining generic human-reviewed wording from the request ledger. Syntax/tests and actual browser verification pending; no markup-mirroring tests added.
+
 November2 pause-status checkpoint: npm run check/all121 tests pass, including Research GET exposing a pause and retry time while making0 generation calls, plus source-only/cache behavior and all prior controls. Production deployment of pause UI pending; fixed-window host/quarter-hour dispatcher remain active and no manual worker has been invoked.
 
 November2 pause-status verification: syntax/all121 tests passed; extended existing Research HTTP contract to assert source GET200 plus configured=true/paused=true/retry timestamp with0 generation calls. Full final checks pending for assertion addition; no quota/cooldown mutation.

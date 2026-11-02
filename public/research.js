@@ -83,7 +83,7 @@ async function load() {
     const data = await response.json(); if (!response.ok) throw new Error(data.error || 'Research unavailable.');
     if (id !== request) return; render(data);
     $('research-status').textContent = 'Primary evidence is ready. Open a page reference to inspect the original document.';
-    $('cost-ledger').textContent = `Research retrieval: 0 LLM calls · ${Math.round(performance.now() - started)} ms including network/render · ₹0 model spend${data.analysis ? ' · reviewed note served from cache' : ''}`;
+    $('cost-ledger').textContent = `Research retrieval: 0 LLM calls · ${Math.round(performance.now() - started)} ms including network/render · ₹0 model spend${data.analysis ? ' · saved AI note served from cache' : ''}`;
     if (location.hash === '#research' && [trigger, document.body, $('research-submit')].includes(document.activeElement)) {
       $('research-company').focus({ preventScroll: true });
       $('research-result').scrollIntoView({ block: 'start' });
@@ -94,12 +94,19 @@ async function load() {
   } finally { clearTimeout(timeout); if (id === request) { $('research-submit').disabled = false; $('research-loading').hidden = true; } }
 }
 $('research-form').addEventListener('submit', event => { event.preventDefault(); load(); });
+for (const field of ['research-ticker', 'research-question']) $(field).addEventListener('input', () => {
+  request++; controller?.abort(); result = null;
+  $('research-result').hidden = true; $('research-ai').disabled = true;
+  $('research-submit').disabled = false; $('research-loading').hidden = true;
+  $('research-status').className = 'status'; $('research-status').textContent = 'Read primary evidence for the changed company or question.';
+});
 export function researchCompany(ticker) {
   location.hash = 'research'; $('research-ticker').value = ticker; $('research-question').value = ''; $('research-form').requestSubmit();
 }
 for (const button of document.querySelectorAll('[data-research-ticker]')) button.addEventListener('click', () => researchCompany(button.dataset.researchTicker));
 $('research-ai').addEventListener('click', async () => {
   const data = result; const id = request;
+  if (!data) return;
   $('research-ai').disabled = true; $('ai-status').textContent = 'Preparing a cited note from the selected primary evidence…';
   try {
     const response = await fetch('/api/research/analysis', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ticker: data.ticker, question: data.question }), signal: AbortSignal.timeout(150000) });
