@@ -10,6 +10,7 @@ import { buildQuoteBank } from '../src/ai/quotes.js';
 import { validateAnalysis } from '../src/ai/gemini.js';
 import { reserveAttempt } from '../src/push/quota.js';
 import { chunkPages } from '../src/research/evidence.js';
+import { citationNumberText } from '../src/ai/numbers.js';
 
 const env = { FINN_GEMINI_MODELS: 'gemini-3.5-flash-lite', VERCEL: '1', FINN_AI_LIVE_ENABLED: 'true', FINN_AI_FREE_TIER_CONFIRMED: 'true', GEMINI_API_KEY: 'synthetic-server-only-key' };
 const research = { evidenceHash: 'hosted-contract', question: '', company: 'Example', documents: [], evidence: [{ id: 'e1', documentId: 'd1', page: 2, text: 'The company reported revenue of 100 million for the year.' }] };
@@ -30,6 +31,26 @@ test('clipped retrieval fragments and uncited inference drivers are refused', ()
   const bank = buildQuoteBank([chunks[1]]); assert.equal(bank.length, 1); assert.equal(bank[0].quote, 'The next complete sentence is available for exact citation.');
   const qualified = 'Appointment of Mr. Rohit Jawa as an independent director w.e.f. January 1, 2027, subject to shareholder approval.';
   assert.deepEqual(buildQuoteBank([{ id: 'whole', text: qualified }], { maxLength: 1000, joinAbbreviations: true }).map(q => q.quote), [qualified]);
+});
+test('font-split dated years compare without merging financial cells or changing quoted evidence', () => {
+  const text = 'The company approved the scheme on 2nd November, 202 6.';
+  const evidence = [{ id: 'date', text }];
+  const note = { claims: [{ section: 'business', text: 'The company approved the scheme on 2nd November, 2026.', inference: false, references: [{ evidenceId: 'date', quote: text }] }], unavailableSections: [] };
+  assert.equal(validateAnalysis(note, evidence).claims[0].references[0].quote, text);
+  assert.throws(() => validateAnalysis({ ...note, claims: [{ ...note.claims[0], text: note.claims[0].text.replace('2026', '2027') }] }, evidence), /number absent/);
+  const malformed = 'Revenue for November was 202 6 million.';
+  assert.equal(citationNumberText(malformed), malformed);
+  assert.throws(() => validateAnalysis({ claims: [{ section: 'financial', text: 'Revenue was 2026 million.', inference: false, references: [{ evidenceId: 'amount', quote: malformed }] }], unavailableSections: [] }, [{ id: 'amount', text: malformed }]), /number absent/);
+  assert.equal(citationNumberText('The date was 2 Nov, 20 26.'), 'The date was 2 Nov, 2026.');
+  const split = [{ id: 'd1', text: 'The company approved the scheme on 2nd November.' }, { id: 'd2', text: '202 6 million was reported as revenue.' }];
+  assert.throws(() => validateAnalysis({ claims: [{ ...note.claims[0], references: split.map(s => ({ evidenceId: s.id, quote: s.text })) }], unavailableSections: [] }, split), /number absent/);
+});
+test('no new shares cannot become an unsupported assertion of zero cash consideration', () => {
+  const text = 'The company will not be required to issue any fresh shares for the merger.';
+  const note = { claims: [{ section: 'business', text: 'The company may not need fresh shares and could complete the merger without external cash outflow.', inference: true, references: [{ evidenceId: 'merger', quote: text }] }], unavailableSections: [] };
+  assert.throws(() => validateAnalysis(note, [{ id: 'merger', text }]), /absence of cash consideration/);
+  const explicit = 'No cash consideration is payable for the merger.';
+  assert.doesNotThrow(() => validateAnalysis({ claims: [{ ...note.claims[0], text: 'No cash outflow is required for the merger.', inference: false, references: [{ evidenceId: 'merger', quote: explicit }] }], unavailableSections: [] }, [{ id: 'merger', text: explicit }]));
 });
 
 test('hosted Pull uses durable leases, one shared reservation and saved notes across cold instances', async t => {

@@ -1,6 +1,14 @@
+November2 ITC comparison/cash checkpoint: actual syntax/all139 tests PASS. Original public PDF physicalpp1/3/4 visually confirms November2,2026/conditional April1 effect/wholly-owned scope/no-new-shares; no explicit zero cash outflow. Narrow per-quote date normalization passes while wrong year, undated financial digits and cross-quote stitching remain refused. Explicit absence-of-cash guard prevents no-shares from becoming zero cash. Literal quotations, all15 original attacks and three baked source hashes retained. Commit/deploy and audited pending-feedback update next; no attempt/status/schedule reset.
+
+November2 local date comparison check caught a missing parenthesis before tests/deployment. Replaced nested extraction with one shared numbersIn helper and per-reference flatMap; no affected code was deployed. Full139 rerun pending.
+
+November2 original ITC pp1/3/4 visually reviewed: date2026 is genuine; approvals/appointee/scope and no-new-shares statements retained. The draft also inferred no external cash outflow from no-new-shares, which source does not establish. Added explicit cash-absence support guard (missing is not zero), positive no-cash source control, and a negative cross-quote year-stitch control. Date normalization is per original quote only, never across separate quotes. Full139 checks pending; final scheduled correction remains below lifetime3, no requeue/reset.
+
+November2 P-001 date-extraction false refusal: genuine15:00:49.440UTC ITC merger3.8 response stated2026 but original PDF extraction has dated year202 6. Added narrow day+month+split-calendar-year comparison only, preserving literal original quotes and refusing undated malformed financial cells/wrong year. Job has2 attempts and one bounded automatic correction pending; no manual requeue/refund. Regression/full checks and original-source visual review pending.
+
 # Milestones and acceptance gates
 
-Current November2,2026. Syntax/all137 tests pass for the local config-upgrade slice; production0c134a0 has the preceding135-test code. Current issues: [ISSUES.md](ISSUES.md). Historical evidence remains in Git/[VERIFICATION.md](VERIFICATION.md)/[BUILD_LOG.md](BUILD_LOG.md).
+Current November2,2026. Syntax/all137 tests pass for the local config-upgrade slice; the same137-test implementation is deployed READY as e81e795. Current issues: [ISSUES.md](ISSUES.md). Historical evidence remains in Git/[VERIFICATION.md](VERIFICATION.md)/[BUILD_LOG.md](BUILD_LOG.md).
 
 ## Briefing and primary evidence
 
@@ -50,3 +58,5 @@ Current November2,2026. Syntax/all137 tests pass for the local config-upgrade sl
 - [ ] Voice, OS/background notifications, further PWA/native/on-device work deferredP1/P2.
 
 November2 final implementation checks: syntax and all137 tests pass. Ordinary Push transport retries prefer an unused suitable configured stronger model; stronger capacity may handle ordinary work, complex work never downgrades. Every attempt counts, one network call/tick/lifetime3 remain. Runtime model IDs/catalog/defaults/explicit Research order are configuration; unknown inventory is unverified and no automatic quota/free-tier upgrade occurs.19 current relative documentation links resolve. Latest scheduled Marico503 is retained as a real failure, not a passed example.
+
+Final deployed verification14:57UTC: seven saved Research requests return0 model calls, including the new HCL financial answer and the reviewed3.6 fallback sample. Four configured Google metadata endpoints return200 (access only, not proof of quota independence/capacity). Browser shows cached0calls/₹0 with exact original quote; temporary viewport restored and task-owned log/bootstrap sessions stopped. Shared44 attempts retained at last full observation. Next genuine15:00 scheduled outcome still under observation; no manual worker/capped-job retry.

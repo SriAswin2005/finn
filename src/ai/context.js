@@ -1,3 +1,5 @@
+import { citationNumberText } from './numbers.js';
+
 const normalize = text => text.replace(/\s+/g, ' ').trim();
 const future = /\b(?:guidance|expects?|expected|forecasts?|targets?|plans?|aims?|intends?|estimates?|will|would|could|may|might)\b/i;
 const metrics = ['revenue', 'ebitda', 'pbt', 'pat', 'profit', 'volume', 'margin', 'cash flow', 'headcount'];
@@ -32,13 +34,15 @@ export function citationContextFailure(claim, evidenceById) {
       if (driver.test(stated) && !driver.test(quotes)) return 'interpretation introduces an uncited business driver';
     }
   }
-  const quoteFacts = facts(quotes);
-  for (const fact of facts(stated)) {
+  const quoteFacts = facts(claim.references.map(ref => citationNumberText(ref.quote)).join(' '));
+  for (const fact of facts(citationNumberText(stated))) {
     const matching = quoteFacts.filter(other => other.value === fact.value);
     if (fact.unit && !matching.some(other => other.unit === fact.unit)) return 'unit or scale mismatch';
     if (fact.currency && !matching.some(other => other.currency === fact.currency && (!fact.unit || other.unit === fact.unit))) return 'currency mismatch';
     if (!fact.unit && matching.length && matching.every(other => other.unit)) return 'missing unit or scale';
   }
+  const noCash = /\b(?:without|no|zero|nil)\s+(?:(?:any|external)\s+)?cash\s+(?:outflows?|consideration|payments?)\b/i;
+  if (noCash.test(stated) && !noCash.test(quotes)) return 'absence of cash consideration not established';
   for (const metric of metrics) if (new RegExp(`\\b${metric}s?\\b`, 'i').test(stated) && !new RegExp(`\\b${metric}s?\\b`, 'i').test(quotes)) return `missing ${metric} metric context`;
   const periods = text => [...text.matchAll(/\bQ[1-4]\b|\bFY\s*(?:20)?\d{2}\b|\b(?:fiscal|financial)\s+year\s*['’]?\s*(?:20)?\d{2}\b/gi)].map(match => match[0].toLowerCase().replace(/\s+/g, '').replace(/(?:fiscal|financial)year['’]?/, 'fy').replace(/^fy20/, 'fy'));
   const supportedPeriods = new Set(periods(quotes));

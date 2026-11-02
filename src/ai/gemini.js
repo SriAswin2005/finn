@@ -9,6 +9,7 @@ import { citationContextFailure } from './context.js';
 import { createPushStore } from '../push/store.js';
 import { reserveAttempt, finishAttempt, classifyFailure, Deferred, nextPacificReset } from '../push/quota.js';
 import { researchAssignments, workflowPolicy } from './workflows.js';
+import { citationNumberText } from './numbers.js';
 export { SUPPORTED_GEMINI_MODELS } from './models.js';
 
 export const PROMPT_VERSION = 'cited-primary-research-v8';
@@ -25,6 +26,7 @@ const schema = {
 };
 export class AiUnavailable extends Error {}
 const normalized = value => value.replace(/\s+/g, ' ').trim();
+const numbersIn = text => (citationNumberText(text).match(/\d[\d,.]*/g) ?? []).map(number => number.replaceAll(',', '').replace(/\.$/, ''));
 // Stop words too generic to establish metric context even when matched.
 const STOP_WORDS = new Set(['about', 'above', 'after', 'again', 'against', 'being', 'between', 'business', 'claim', 'company', 'compared', 'during', 'fiscal', 'following', 'growth', 'guidance', 'having', 'outlook', 'period', 'reported', 'reporting', 'revised', 'section', 'since', 'target', 'their', 'these', 'those', 'through', 'under', 'which', 'while', 'within', 'without', 'would']);
 // Extract meaningful metric-identifying terms: lower-cased alpha words >=5 chars, not stop words.
@@ -43,8 +45,8 @@ export function validateAnalysis(value, evidence, { maxQuoteLength = 220 } = {})
     for (const ref of claim.references) {
       if (typeof ref.quote !== 'string' || ref.quote.length < 20 || ref.quote.length > maxQuoteLength || !byId.has(ref.evidenceId) || !normalized(byId.get(ref.evidenceId).text).includes(normalized(ref.quote))) throw new AiUnavailable('AI citation validation failed. No generated analysis has been published.');
     }
-    const quoteNumbers = new Set((claim.references.map(ref => ref.quote).join(' ').match(/\d[\d,.]*/g) ?? []).map(number => number.replaceAll(',', '').replace(/\.$/, '')));
-    const numbers = (claim.text.match(/\d[\d,.]*/g) ?? []).map(number => number.replaceAll(',', '').replace(/\.$/, ''));
+    const quoteNumbers = new Set(claim.references.flatMap(ref => numbersIn(ref.quote)));
+    const numbers = numbersIn(claim.text);
     if (numbers.some(number => !quoteNumbers.has(number))) throw new AiUnavailable('AI output introduced a number absent from its quoted evidence.');
     // Q-001: verify that the claim's key metric terms appear in its combined quote text.
     // Sharing numbers with a quote that names a different metric does not support the claim.

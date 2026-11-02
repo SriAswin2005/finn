@@ -1,6 +1,14 @@
+November2 ITC comparison/cash checkpoint: actual syntax/all139 tests PASS. Original public PDF physicalpp1/3/4 visually confirms November2,2026/conditional April1 effect/wholly-owned scope/no-new-shares; no explicit zero cash outflow. Narrow per-quote date normalization passes while wrong year, undated financial digits and cross-quote stitching remain refused. Explicit absence-of-cash guard prevents no-shares from becoming zero cash. Literal quotations, all15 original attacks and three baked source hashes retained. Commit/deploy and audited pending-feedback update next; no attempt/status/schedule reset.
+
+November2 local date comparison check caught a missing parenthesis before tests/deployment. Replaced nested extraction with one shared numbersIn helper and per-reference flatMap; no affected code was deployed. Full139 rerun pending.
+
+November2 original ITC pp1/3/4 visually reviewed: date2026 is genuine; approvals/appointee/scope and no-new-shares statements retained. The draft also inferred no external cash outflow from no-new-shares, which source does not establish. Added explicit cash-absence support guard (missing is not zero), positive no-cash source control, and a negative cross-quote year-stitch control. Date normalization is per original quote only, never across separate quotes. Full139 checks pending; final scheduled correction remains below lifetime3, no requeue/reset.
+
+November2 P-001 date-extraction false refusal: genuine15:00:49.440UTC ITC merger3.8 response stated2026 but original PDF extraction has dated year202 6. Added narrow day+month+split-calendar-year comparison only, preserving literal original quotes and refusing undated malformed financial cells/wrong year. Job has2 attempts and one bounded automatic correction pending; no manual requeue/refund. Regression/full checks and original-source visual review pending.
+
 # Current verification — November2,2026
 
-Production0c134a0 / dpl_9JLfhWd8v5zuhhQsi6SGrtg782pr READY. Local model-configuration/Push-rotation cleanup passes `npm run check` and all137 tests; commit/deploy pending. Previous premature135-pass entry was corrected: one missing diagnostic assertion failed, its implementation was fixed, and the actual full135 suite passed before0c134a0 rollout. New explicit-order cleanup likewise passed136 after compatibility correction. No known failing test is hidden by these totals.
+Productione81e795 / dpl_DRPHxYjdS1mVwvqvdufoTjDm5dB9 READY. Local model-configuration/Push-rotation cleanup passes `npm run check` and all137 tests; committed, privately pushed, audited/applied and deployed READY. Previous premature135-pass entry was corrected: one missing diagnostic assertion failed, its implementation was fixed, and the actual full135 suite passed before0c134a0 rollout. New explicit-order cleanup likewise passed136 after compatibility correction. No known failing test is hidden by these totals.
 
 Quota tests cover more than20 calls, model/request/token caps, project holds, all-attempt accounting, lifetime3, audit/no-reset policy changes and only-local-wait release. Routing tests cover zero-call model fallback, global stops, disjoint assignments, legacy cache/lease/rejection/attempt identities and config-only future IDs/order. Unknown inventory remains unverified. Correction tests prove one stronger-model retry, no publication of either invalid draft, no loop and no ordinary downgrade when complex capacity is unavailable. All15 original adversarial refusals remain.
 
@@ -11,6 +19,9 @@ Actual HTTPS14:40UTC checks: six saved requests (INFY6,ASIANPAINT4,PERSISTENT4,T
 Actual quarter-hour Cloudflare collection/PDF/model invocations observed with version52a351bd-14c2-48fa-ae14-fdcac285c606, cron*/15, HTTP/previews disabled. Several genuine outputs were rejected for scope/qualifier/context, and503/timeouts counted. No manually recovered L&T note is labelled automatic. Final reviewed Marico appointment ran on genuine14:45:47.925UTC3.8Flash, received503 and exhausted lifetime3; no further retry/reset. Automatic accepted publication/fresh HTTP reuse remains unverified.
 
 Browser: hosted390px saved answers/citations/context/input isolation/pause behavior verified earlier and fresh financial UI read after deployment. Temporary browser connection required one tool-runtime reset; it recovered with the same tab. Physical-device install/offline/native PDF and sustained-load/after-idle measurements remain unverified. EOD refresh was manual. No submission sent.
+
+
+Final14:57UTC HTTPS: seven saved Research cases0calls, including fresh financial request after final deployment; withheld clipped TCS case has no answer and explicit pause. Four configured Google metadata endpoints200 establish access only, not quota independence/free capacity. Mobile screenshot shows full exact quote and cached0calls/₹0; viewport restored, deliverable tab retained. Task-owned tail/bootstrap stopped. No new model request in final verification. Next genuine15:00 tick remains under observation.
 
 # Historical verification
 
