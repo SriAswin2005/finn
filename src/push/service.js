@@ -86,9 +86,16 @@ export function createPushService({ store = createPushStore(), env = process.env
           s.analysisWindow = { index, minutes: analysisMinutes }; s.nextAnalysisAt = (index + 1) * analysisMinutes * 60000;
           return true;
         });
-        const analysis = due && now() - started < 90000 ? await analyse({ store, env, now }) : { deferred: true };
+        const analysisSteps = [];
+        if (due) for (let i = 0; i < 5 && now() - started < 90000; i++) {
+          const outcome = await analyse({ store, env, now }); analysisSteps.push(outcome);
+          // Skip bounded zero-call source/model-capacity blocks. Never issue a
+          // second network attempt in the same tick or bypass a project stop.
+          if (!outcome || outcome.llmCalls !== 0 || outcome.skipped || outcome.disabled || outcome.globalPause || !outcome.deferred && !outcome.failed) break;
+        }
+        const analysis = analysisSteps.at(-1) ?? { deferred: true, llmCalls: 0 };
         await store.mutate(s => { s.lastWorkerAt = new Date(now()).toISOString(); });
-        return { collection, documents, analysis, status: status(await store.read()) };
+        return { collection, documents, analysis, analysisSteps, status: status(await store.read()) };
       } finally { await store.mutate(s => { if (s.workerLease?.token === token) s.workerLease = null; }); }
     },
   };

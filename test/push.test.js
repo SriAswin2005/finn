@@ -37,6 +37,21 @@ test('a new collection window does not bypass a failed source retry deadline', a
   await collectPush(options); clock += 10000; assert.equal((await collectPush(options)).skipped, true); assert.equal(calls, 1);
   clock += 60000; await collectPush(options); assert.equal(calls, 2);
 });
+test('worker skips bounded zero-call blocks but stops after one network attempt or a global pause', async () => {
+  for (const mode of ['available_after_block', 'all_blocked', 'network_failed', 'global_pause']) {
+    const { store } = await temporaryStore(); let steps = 0;
+    const service = createPushService({ store, env: {}, now: () => at, collect: async () => ({}), document: async () => ({ skipped: true }), analyse: async () => {
+      steps++;
+      if (mode === 'global_pause') return { deferred: true, llmCalls: 0, globalPause: true };
+      if (mode === 'network_failed') return { deferred: true, llmCalls: 1 };
+      if (mode === 'available_after_block' && steps === 2) return { completed: true, llmCalls: 1 };
+      return { deferred: true, llmCalls: 0 };
+    } });
+    const result = await service.tick();
+    assert.equal(steps, mode === 'all_blocked' ? 5 : mode === 'available_after_block' ? 2 : 1);
+    assert.ok(result.analysisSteps.reduce((sum, r) => sum + r.llmCalls, 0) <= 1);
+  }
+});
 test('analysis serves recent due disclosures before old backlog without bypassing cooldown or capture isolation', async () => {
   const { store } = await temporaryStore();
   await store.mutate(s => {
@@ -126,7 +141,7 @@ test('one opt-in whole-draft correction uses validation feedback and never publi
       return new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(value) }] } }] }));
     };
     const run = () => processAnalysis({ store, env, now: () => clock, fetchImpl });
-    assert.equal((await run()).deferred, true);
+    const rejected = await run(); assert.equal(rejected.deferred, true); assert.equal(rejected.llmCalls, 1);
     let job = Object.values((await store.read()).jobs)[0]; assert.equal(job.analysis, undefined); assert.equal(job.validationRepairUsed, true);
     if (!correct) await store.mutate(s => { delete s.jobs[job.key].rejectedDrafts; }); // legacy single-draft record
     clock += 61000; const repaired = await run(); assert.equal(Boolean(repaired.completed), correct, JSON.stringify(repaired));
@@ -135,6 +150,14 @@ test('one opt-in whole-draft correction uses validation feedback and never publi
     assert.equal(Boolean(job.analysis), correct); assert.equal((await store.read()).quota.attempts[1].retry, true);
     clock += 61000; await run(); assert.equal(calls, 2);
   }
+});
+test('project pause reports zero network calls and stops cross-job scanning', async () => {
+  const { store } = await temporaryStore();
+  await store.mutate(s => { mergeFilings(s, [filing], 'now'); s.quota.initialized = true; s.quota.policy = { ...policy, models: { ...policy.models, 'gemini-3.1-flash-lite': { ...policy.models['gemini-3.1-flash-lite'], capability: 'ordinary' } } }; s.quota.projectUntil = at + 3600000; });
+  await processDocument({ store, now: () => at, collectDocument: async () => managerDoc });
+  let calls = 0;
+  const result = await processAnalysis({ store, now: () => at, env: { FINN_PUSH_ENABLED: 'true', GEMINI_API_KEY: 'fake', FINN_AI_FREE_TIER_CONFIRMED: 'true' }, fetchImpl: async () => { calls++; throw new Error('must not call'); } });
+  assert.equal(result.llmCalls, 0); assert.equal(result.globalPause, true); assert.equal(calls, 0); assert.equal((await store.read()).quota.attempts.length, 0);
 });
 test('a replaced analysis lease cannot publish or report completion, while its request remains counted', async () => {
   const { store } = await temporaryStore();

@@ -29,9 +29,9 @@ function publishedResult(analysis, { doc, financials, complexityReasons, model, 
 
 export async function processAnalysis({ store, env = process.env, now = Date.now, fetchImpl = fetch, random = Math.random, eventId } = {}) {
   const generation = pushGenerationState(env);
-  if (!generation.enabled) return { disabled: true, reason: generation.reason };
-  const job = await claimAnalysis(store, now(), { eventId }); if (!job) return { skipped: true };
-  let attemptId; let draft; let observedTokens;
+  if (!generation.enabled) return { disabled: true, reason: generation.reason, llmCalls: 0 };
+  const job = await claimAnalysis(store, now(), { eventId }); if (!job) return { skipped: true, llmCalls: 0 };
+  let attemptId; let draft; let observedTokens; let llmCalls = 0;
   try {
     const doc = await store.document(job.documentHash); if (!doc) throw new Error('Original document pages missing; analysis cannot be published.');
     const documents = [doc];
@@ -67,6 +67,7 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
     await store.mutate(s => { s.jobs[job.key].attempts++; s.jobs[job.key].attemptModel = model; s.jobs[job.key].attemptPromptVersion = ANALYSIS_VERSION; });
     let response; let body;
     try {
+      llmCalls = 1;
       response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
         method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY }, signal: AbortSignal.timeout(60000),
         body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseMimeType: 'application/json', responseJsonSchema: pushSchema, maxOutputTokens: 4000, temperature: 0.1, ...(policy.models[model].thinkingLevel ? { thinkingConfig: { thinkingLevel: policy.models[model].thinkingLevel } } : {}) } }),
@@ -75,13 +76,13 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
       const failure = classifyFailure({ now: now(), attempt: job.attempts + 1, random });
       await finishAttempt(store, attemptId, { outcome: 'timeout_or_network_unknown', failure, now: now() }); attemptId = null;
       await settleJob(store, job, { status: job.attempts >= 2 ? 'failed' : 'deferred', nextAt: failure.until, error: 'Model network/timeout error; reserved attempt counted conservatively.' });
-      return { failed: job.attempts >= 2, deferred: job.attempts < 2 };
+      return { failed: job.attempts >= 2, deferred: job.attempts < 2, llmCalls };
     }
     if (!response.ok) {
       const failure = classifyFailure({ status: response.status, body, retryAfter: response.headers.get('retry-after'), now: now(), attempt: job.attempts + 1, random });
       await finishAttempt(store, attemptId, { outcome: `http_${response.status}`, failure, now: now() }); attemptId = null;
       await settleJob(store, job, { status: failure.terminal || job.attempts >= 2 ? 'failed' : 'deferred', nextAt: failure.until, error: `Model ${failure.kind} failure; original disclosure retained.` });
-      return { failed: failure.terminal || job.attempts >= 2, deferred: !failure.terminal && job.attempts < 2 };
+      return { failed: failure.terminal || job.attempts >= 2, deferred: !failure.terminal && job.attempts < 2, llmCalls };
     }
     const candidate = body?.candidates?.[0];
     observedTokens = body?.usageMetadata?.totalTokenCount;
@@ -90,13 +91,13 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
     const analysis = validatePush(value, bundle);
     await finishAttempt(store, attemptId, { outcome: analysis.needsComplex && !complex ? 'escalated' : 'validated', observedTokens: body.usageMetadata?.totalTokenCount, now: now() }); attemptId = null;
     if (analysis.needsComplex && !complex) {
-      await settleJob(store, job, { status: 'deferred', complex: true, nextAt: now() + 60000, error: 'Ordinary model requested stronger interpretation; draft not published.' }); return { escalated: true };
+      await settleJob(store, job, { status: 'deferred', complex: true, nextAt: now() + 60000, error: 'Ordinary model requested stronger interpretation; draft not published.' }); return { escalated: true, llmCalls };
     }
     if (analysis.needsComplex && complex) throw new Error('Complex model remains uncertain; output withheld for review.');
     const result = publishedResult(analysis, { doc, financials, complexityReasons, model, at: now() });
     const accepted = await settleJob(store, job, { status: result.uncertainties.length || bundle.warnings.length ? 'partial' : 'complete', analysis: result, publishedAt: new Date(now()).toISOString(), nextAt: 0, error: null });
-    if (!accepted) return { deferred: true, superseded: true };
-    return { completed: true, key: job.key, model };
+    if (!accepted) return { deferred: true, superseded: true, llmCalls };
+    return { completed: true, key: job.key, model, llmCalls };
   } catch (error) {
     if (attemptId) await finishAttempt(store, attemptId, { outcome: 'invalid_or_unsupported_output', observedTokens, now: now() });
     const repair = env.FINN_PUSH_VALIDATION_REPAIR === 'true' && draft && !job.validationRepairUsed && job.attempts < 2 && /^(?:AI |Push |Named entity|Event action|Disclosed fact|Significance|Investment|Unknown source quote)/.test(error.message);
@@ -104,7 +105,7 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
     await settleJob(store, job, { status: error instanceof Deferred ? error.kind === 'attempt_limit' ? 'failed' : 'deferred' : repair ? 'deferred' : 'failed', nextAt: error.until ?? (repair ? now() + 60000 : 0), error: error.message,
       ...(draft ? { rejectedDraft: draft, rejectedDrafts: [...(job.rejectedDrafts ?? (job.rejectedDraft ? [{ draft: job.rejectedDraft, error: job.error, at: null, promptVersion: job.attemptPromptVersion ?? 'not_persisted' }] : [])), { draft, error: error.message, at: new Date(now()).toISOString(), promptVersion: ANALYSIS_VERSION }] } : {}),
       ...(repair ? { validationRepairUsed: true, validationFeedback: error.message } : {}) });
-    return { failed: !deferred, deferred, error: error.message };
+    return { failed: !deferred, deferred, error: error.message, llmCalls, globalPause: /^(?:Model credentials\/configuration|Project quota|Shared quota|Quota policy)/.test(error.message) };
   }
 }
 
