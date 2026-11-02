@@ -102,9 +102,10 @@ export async function processAnalysis({ store, env = process.env, now = Date.now
     if (attemptId) await finishAttempt(store, attemptId, { outcome: 'invalid_or_unsupported_output', observedTokens, now: now() });
     const repair = env.FINN_PUSH_VALIDATION_REPAIR === 'true' && draft && !job.validationRepairUsed && job.attempts < 2 && /^(?:AI |Push |Named entity|Event action|Disclosed fact|Significance|Investment|Unknown source quote)/.test(error.message);
     const deferred = error instanceof Deferred || Boolean(repair);
+    const diagnostic = { reason: error.message, ...(error.claimText ? { claimText: error.claimText, references: error.references } : {}) };
     await settleJob(store, job, { status: error instanceof Deferred ? error.kind === 'attempt_limit' ? 'failed' : 'deferred' : repair ? 'deferred' : 'failed', nextAt: error.until ?? (repair ? now() + 60000 : 0), error: error.message,
-      ...(draft ? { rejectedDraft: draft, rejectedDrafts: [...(job.rejectedDrafts ?? (job.rejectedDraft ? [{ draft: job.rejectedDraft, error: job.error, at: null, promptVersion: job.attemptPromptVersion ?? 'not_persisted' }] : [])), { draft, error: error.message, at: new Date(now()).toISOString(), promptVersion: ANALYSIS_VERSION }] } : {}),
-      ...(repair ? { validationRepairUsed: true, validationFeedback: error.message } : {}) });
+      ...(draft ? { rejectedDraft: draft, rejectedDrafts: [...(job.rejectedDrafts ?? (job.rejectedDraft ? [{ draft: job.rejectedDraft, error: job.error, at: null, promptVersion: job.attemptPromptVersion ?? 'not_persisted' }] : [])), { draft, error: error.message, diagnostic, at: new Date(now()).toISOString(), promptVersion: ANALYSIS_VERSION }] } : {}),
+      ...(repair ? { validationRepairUsed: true, validationFeedback: diagnostic, complex: true } : {}) });
     return { failed: !deferred, deferred, error: error.message, llmCalls, globalPause: /^(?:Model credentials\/configuration|Project quota|Shared quota|Quota policy)/.test(error.message) };
   }
 }

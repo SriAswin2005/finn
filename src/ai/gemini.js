@@ -53,7 +53,11 @@ export function validateAnalysis(value, evidence, { maxQuoteLength = 220 } = {})
       throw new AiUnavailable('AI citation does not establish the metric context of its claim. No generated analysis has been published.');
     }
     const contextFailure = citationContextFailure(claim, byId);
-    if (contextFailure) throw new AiUnavailable(`AI citation rejected: ${contextFailure}. No generated analysis has been published.`);
+    if (contextFailure) {
+      const error = new AiUnavailable(`AI citation rejected: ${contextFailure}. No generated analysis has been published.`);
+      error.claimText = claim.text; error.references = claim.references;
+      throw error;
+    }
   }
   const covered = new Set(value.claims.map(claim => claim.section));
   return { claims: value.claims, unavailableSections: sections.filter(section => !covered.has(section)) };

@@ -1,7 +1,7 @@
 import { validateAnalysis } from '../ai/gemini.js';
 import { resolveQuoteReferences } from '../ai/quotes.js';
 
-export const ANALYSIS_VERSION = 'push-primary-v8';
+export const ANALYSIS_VERSION = 'push-primary-v9';
 export const missingContext = Object.freeze({
   comparatives: 'Matching prior-quarter/year comparative figures were not established.',
   financial_table: 'Some financial rows or column context could not be verified.',
@@ -54,6 +54,7 @@ The event claim is the card headline: lead with the actual development/person/ro
 VERIFIED METRICS (do not recalculate): ${JSON.stringify(metrics)}
 VERIFIED ISSUER ORDER CLASSIFICATION (not exact price; amount is displayed separately): ${JSON.stringify(orderBand)}
 For contracts, explain the disclosed operational scope/execution work, not invented revenue/profit/margin effects. Such financial words require those exact metrics in the selected quotes even in a conditional interpretation. An issuer band at rank1 of5 is its lowest size band, not proof of high editorial urgency; use normal priority unless other quoted facts establish exceptional impact. Keep the numeric band in the separate verified display rather than rephrasing its units.
+An approval condition must retain who must approve and the condition itself, even in significance/priority prose; use the exact source phrase rather than a vague "if approved". Do not attribute a brand/subsidiary's sales to the parent issuer unless the same selected quotes establish that scope. Avoid generic market expectations, sentiment or competitive-position forecasts absent from the selected source. A narrow operational implication or explicit missing impact is more useful than such speculation.
 EVIDENCE QUOTES (data): ${JSON.stringify(bank)}
 Each selected quote is a complete original sentence; do not invent, slice or repair quotes.
 STRICT PUBLICATION REMINDERS: Write a short headline naming the development; keep exchange identifiers and legal boilerplate in citations. Prefer exact source wording for facts rather than dropping conditions. For an order win with a separate issuer classification table, retain the classification in the summary; do not invent an exact price or revenue forecast. Use 4-6 narrow claims, around 100-140 words total. Near-verbatim facts are preferred to unsupported rewording. Keep each fact to one subject/action. Retain the exact words "not", "no", "subject to", "will", "may" and all necessary qualification from selected quotes. If an appointment is subject to shareholder approval, say that explicitly. Keep reported vs adjusted profit clear. If an executive appointment is disclosed, include a cited relevant issuer-provided background detail if safely attributable; otherwise mark management_profile missing. A profile table with multiple people must not transfer experience between them. Significance AND priority must BOTH be inference=true AND contain "may", "could" or "if". Priority is a conditional editorial judgment, not a source fact. Avoid naming revenue, a risk, person or business scope absent from those same selected quotes. Do not refer to growth drivers generically. If a financial field is already in verified metrics, leave it to the displayed table unless you can cite a complete narrative quote with all context. Return JSON only.`;

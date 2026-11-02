@@ -39,7 +39,7 @@ try {
       const job = s.jobs[key];
       if (!job || job.status !== 'failed' || job.attempts >= 3 || s.quota.attempts.filter(a => a.jobKey === key).length >= 3) throw new Error('Only reviewed failed jobs below the attempt cap may be retried. Completed analysis/allowance are never reset.');
       job.reviewRetries ??= []; job.reviewRetries.push({ at: new Date().toISOString(), reason }); job.status = 'deferred'; job.nextAt = 0;
-      if (job.rejectedDraft) { job.validationFeedback = job.rejectedDrafts?.at(-1)?.error ?? job.error; job.validationRepairUsed = true; }
+      if (job.rejectedDraft) { job.validationFeedback = job.rejectedDrafts?.at(-1)?.diagnostic ?? job.rejectedDrafts?.at(-1)?.error ?? job.error; job.validationRepairUsed = true; }
       if (process.argv.includes('--complex')) job.complex = true;
       if (s.events[job.eventId]?.processingKey === key) s.events[job.eventId].status = 'deferred';
     });
