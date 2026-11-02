@@ -10,7 +10,7 @@ Current verified state takes precedence over historical logs. Production09afd9d 
 
 **Budget/routing fix verified and deployed; secondary model acceptance open.** User-reported Lite15RPM/250k inputTPM/500RPD and Flash5RPM/250k/20RPD replace the old artificial20 cap by explicit November2 instruction.1040 aggregate/520 per workflow are ceilings; retries are inside them and lifetime3 remains. Audited apply retained all33 existing attempts/provider holds and released20 local-allocation waits. Research stable identity preserves legacy cache/lease/rejection/attempt accounting when routing changes. Zero-call fallback/global-stop tests pass.
 
-Research3.5Lite and staged3.6Flash are disjoint from Push3.1Lite ordinary/3.8Flash complex. The first staged3.6 financial call was charged/refused for named-entity citation context; it remains evaluation-only. Local new audit retains future rejected visible output, reservation/model/prompt/finish/error; earlier missing raw output cannot be reconstructed. Actual provider503 capacity remains outside application control. No key rotation or project-hold bypass.
+Research3.5Lite and 3.6Flash fallback are disjoint from Push3.1Lite ordinary/3.8Flash complex. The first staged3.6 financial call was charged/refused for named-entity citation context; a separate exact-quotation case subsequently passed and matched reviewed originalp12; promotion configuration passes syntax/all134 tests; audited apply/deployment pending. Local new audit retains future rejected visible output, reservation/model/prompt/finish/error; earlier missing raw output cannot be reconstructed. Actual provider503 capacity remains outside application control. No key rotation or project-hold bypass.
 
 ## P-001 — Automatic Push acceptance and semantic quality
 
@@ -29,3 +29,5 @@ Close the operational publication gate only after a genuine tick saves a validat
 ## D-002 — Device and deferred submission
 
 **Open/deferred.** Hosted390px behavior is verified for demonstrated paths. Physical-phone installation/offline/native PDF and after-idle timing are unconfirmed. User deferred submission exports, reviewer grants/tag/email, voice, OS notifications and native packaging. No submission sent.
+
+November2 fresh hosted UI call: TCS services question generated3 claims on3.5Lite at13:17UTC, proving new calls available beyond old6 Research cap. Source review found one citation begins inside a retrieval word; whole new answer must be withheld and quote-bank start-boundary guard fixed. This is an open quality finding. Scheduled13:15 Marico correction failed qualifier validation; unattended acceptance still open. Earlier commit/deploy attempt was not executed because automatic approval review hit a usage limit; normal approved-path retry resumes after user continuation.

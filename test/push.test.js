@@ -172,7 +172,7 @@ test('a replaced analysis lease cannot publish or report completion, while its r
 });
 
 test('workflow assignments support configured model upgrades and exclude all Push models from Research', () => {
-  assert.deepEqual(researchAssignments({}).text, ['gemini-3.5-flash-lite']);
+  assert.deepEqual(researchAssignments({}).text, ['gemini-3.5-flash-lite', 'gemini-3.6-flash']);
   const future = { ...policy, models: { 'gemini-4.0-flash-lite': { workflow: 'research', rpm: 1, tpm: 10000, rpd: 1 }, 'gemini-4.0-flash': { workflow: 'push', capability: 'complex', rpm: 1, tpm: 10000, rpd: 1 } } };
   assert.deepEqual(researchAssignments({ FINN_MODEL_POLICY_JSON: JSON.stringify(future) }).text, ['gemini-4.0-flash-lite']);
 });

@@ -11,11 +11,11 @@ The user's November2 instruction to use models efficiently supersedes the old ar
 | Workflow | Model role | RPM / inputTPM / RPD |
 | --- | --- | --- |
 | Research |3.5Flash-Lite primary |15 /250000 /500 |
-| Research |3.6Flash staged fallback |5 /250000 /20 |
+| Research |3.6Flash fallback |5 /250000 /20 |
 | Push |3.1Flash-Lite ordinary |15 /250000 /500 |
 | Push |3.8Flash complex |5 /250000 /20 |
 
-Aggregate1040/day and520/workflow are ceilings, not guaranteed provider or hosting capacity. Every retry/timeout counts inside the totals; lifetime3, Pacific and rolling24h caps, minute budgets, provider pauses and circuits remain. Staged3.6 is excluded from normal routing until verified. Its first real financial sample failed named-entity citation validation; it was withheld, counted and not promoted. All34 historical attempts currently remain; the policy audit preserved the original33 and released20 local-budget deferrals. No provider hold was shortened.
+Aggregate1040/day and520/workflow are ceilings, not guaranteed provider or hosting capacity. Every retry/timeout counts inside the totals; lifetime3, Pacific and rolling24h caps, minute budgets, provider pauses and circuits remain. 3.6Flash passed a second, distinct exact-quotation financial case against original transcript physicalp12; promotion configuration passes syntax/all134 tests; audited apply/deployment pending. Its first real financial sample failed named-entity citation validation; it remains withheld/counted; the successful separate case does not reset or relabel it. All34 historical attempts currently remain; the policy audit preserved the original33 and released20 local-budget deferrals. No provider hold was shortened.
 
 Roles/IDs/limits are JSON configuration. Research skips a zero-call model-capacity block, but never rotates around project/auth stops. Model upgrades now preserve stable Research request identity, legacy caches/leases/rejections and lifetime counts without relabeling historical attempts. Default Google sampling replaces custom temperatures.
 
@@ -30,4 +30,6 @@ Roles/IDs/limits are JSON configuration. Research skips a zero-call model-capaci
 
 ## Remaining work
 
-Observe an actual scheduled accepted Push card and verify HTTP/fresh-instance reuse without another call. Diagnose remaining rejected/complex outputs with retained evidence; source/metric absence stays unavailable. Evaluate staged Research Flash before promotion. Provider503s and general unseen-company/model quality remain limits, not disabled credentials. Reconcile current runbooks and deploy the audit change. Submission/voice/OS notifications/native work remains deferred.
+Observe an actual scheduled accepted Push card and verify HTTP/fresh-instance reuse without another call. Diagnose remaining rejected/complex outputs with retained evidence; source/metric absence stays unavailable. Verify promoted Research fallback on the host. Provider503s and general unseen-company/model quality remain limits, not disabled credentials. Reconcile current runbooks and deploy the audit change. Submission/voice/OS notifications/native work remains deferred.
+
+November2 fresh hosted UI call: TCS services question generated3 claims on3.5Lite at13:17UTC, proving new calls available beyond old6 Research cap. Source review found one citation begins inside a retrieval word; whole new answer must be withheld and quote-bank start-boundary guard fixed. This is an open quality finding. Scheduled13:15 Marico correction failed qualifier validation; unattended acceptance still open. Earlier commit/deploy attempt was not executed because automatic approval review hit a usage limit; normal approved-path retry resumes after user continuation.

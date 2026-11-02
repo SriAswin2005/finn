@@ -10,7 +10,7 @@ import { buildQuoteBank } from '../src/ai/quotes.js';
 import { validateAnalysis } from '../src/ai/gemini.js';
 import { reserveAttempt } from '../src/push/quota.js';
 
-const env = { VERCEL: '1', FINN_AI_LIVE_ENABLED: 'true', FINN_AI_FREE_TIER_CONFIRMED: 'true', GEMINI_API_KEY: 'synthetic-server-only-key' };
+const env = { FINN_GEMINI_MODELS: 'gemini-3.5-flash-lite', VERCEL: '1', FINN_AI_LIVE_ENABLED: 'true', FINN_AI_FREE_TIER_CONFIRMED: 'true', GEMINI_API_KEY: 'synthetic-server-only-key' };
 const research = { evidenceHash: 'hosted-contract', question: '', company: 'Example', documents: [], evidence: [{ id: 'e1', documentId: 'd1', page: 2, text: 'The company reported revenue of 100 million for the year.' }] };
 const wire = { claims: [{ section: 'financial', text: 'Reported revenue was 100 million for the year.', inference: false, references: [{ quoteId: 'q1' }] }], unavailableSections: [] };
 const response = () => new Response(JSON.stringify({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(wire) }] } }] }));

@@ -54,8 +54,8 @@ test('policy updates audit previous limits and release only allocation waits, pr
   assert.equal(s.research.requests.local.nextAt, at); assert.deepEqual(s.research.requests.rejected, before.research.requests.rejected);
   assert.equal((await applyPolicy(store, policy, at)).unchanged, true); assert.equal((await store.read()).quota.policyChanges.length, 1);
 });
-test('staged Research fallback is opt-in and cannot select a Push model', () => {
-  assert.deepEqual(researchAssignments({}).text, [model]);
+test('Research evaluation isolates one assigned model and cannot select a Push model', () => {
+  assert.deepEqual(researchAssignments({}).text, [model, fallback]);
   assert.deepEqual(researchAssignments({ FINN_RESEARCH_EVALUATION_MODEL: fallback }).text, [fallback]);
   assert.throws(() => researchAssignments({ FINN_RESEARCH_EVALUATION_MODEL: 'gemini-3.8-flash' }), /No approved Research/);
 });
