@@ -28,15 +28,17 @@ npm test
 
 ## Current milestone
 
-Prototype 0.3 is hosted on Vercel + Neon with Today, Portfolio, Ask FINN, Alerts and About, three reviewed recorded notes, a cited management-progress view and two captured filing details. The November 1 automatic Push pipeline is implemented locally and passes 108 tests; model-quality/intended-host acceptance remains incomplete. See [Push evaluation](docs/PUSH_EVALUATION.md) and [rollout gates](docs/DEPLOYMENT.md). Public data travels through normalized snapshots and deterministic ranking/signals to the briefing. Generic research discovers annual reports and earnings-call transcripts, extracts physical PDF pages and returns cited excerpts. Captured examples: INFY, ASIANPAINT and PERSISTENT. HCLTECH and TCS were verified through cold on-demand lookups outside that set. See current handoff/issues rather than treating this milestone label as full completion.
+Prototype0.3 is deployed on [Vercel](https://finn-zeta-one.vercel.app) with Neon persistence, a private reviewer-access link, Today/Portfolio/Ask FINN/Alerts/About and151passing tests. The15-company briefing distinguishes current saved sources, recorded primary evidence and fictional scenarios. The approved Cloudflare dispatcher collects/processes official disclosures every15minutes. Accepted unattended AI publication is now demonstrated: the November3 Polycab disclosure passed validation at14:31IST and two production reads reused it without new model calls. Delays, provider503s, unsupported outputs and partial coverage remain visible; this is not a guaranteed freshness or general semantic-quality claim.
 
-Neon persistence uses the official `@neondatabase/serverless` driver (run `npm ci` for database access); browser code remains buildless. PDF parsing uses `pypdf==6.10.0`. Three public-evidence notes are reviewed and deliberately baked into the demo; ASIANPAINT/PERSISTENT are reviewer-curated after refused drafts and disclose omissions. Recorded notes need no key or new model calls; ignored runtime caches are not shipped. The user approved the original Gemini key transfer on November 1; it is stored as a server-only Vercel Secret while live generation remains disabled pending quality acceptance. Guidance revision is supported; comparable full-year delivery remains unverified. See docs/AI_REVIEW.md.
+Browser code is buildless. Node uses the existing official `@neondatabase/serverless` driver; Python extraction uses `pypdf==6.10.0`. Run `npm ci` for database-backed workflows. Recorded briefing/research demonstrations work without credentials; deployed secrets and live caches are excluded from source packages. Live Research generation is enabled and explicitly requested with **Generate cited AI note**. Ordinary reads/source Refresh make0model calls.
 
-Choose a data mode and briefing window, expand routine filings, open original NSE filings, inspect company market records, and change alert thresholds. Preferences remain in this browser.
+Research retains annual-report/transcript URLs, hashes and physical PDF pages. Large hosted annual reports have a7.2s download/parser watchdog, overview/MDA selection and explicit partial-scan metadata. Observed HCL485-page andTCS361-page requests returned in6.48s and5.60s. Query-specific exact source sentences/citations and no-match guidance are shown below the question field. Generic guidance ranges keep metric/basis/period checks; revised guidance never becomes a fabricated delivery verdict.
 
-- **Latest sources** is the November 1 first-run default. It reads saved sources plus durable Push state, never fictional data. Refresh reads saved cards then requests bounded official NSE collection with 0 model calls. New local state needs explicit quota reconciliation; see [AI setup](docs/AI_SETUP.md). November 1 production now serves the verified Push workflow; scheduled dispatch remains pending Cloudflare login, and generation is disabled pending quality.
-- **Recorded sources** replays the committed real-data capture at its original timestamp; it is not current information. This works without contacting Yahoo/NSE.
-- **Fictional demo** uses the original deterministic scenarios and fixed demo clock, clearly labelled throughout.
+- **Latest sources** reads saved official sources plus durable Push state. Refresh requests bounded source collection with0model calls. The dispatcher is active; no account sign-in is pending.
+- **Recorded sources** replays the committed real-data capture at its original timestamp.
+- **Fictional demo** uses clearly labelled deterministic scenarios and a fixed clock.
+
+See [current issues](docs/ISSUES.md), [verification](docs/VERIFICATION.md) and the [submission draft](docs/SUBMISSION_DRAFT.md) for actual limits and delivery details. Voice, OS notifications/native packaging and comprehensive multi-year/OCR/annual-delivery analysis remain deferred.
 
 ## Collect public data
 
@@ -44,7 +46,7 @@ Choose a data mode and briefing window, expand routine filings, open original NS
 npm run ingest
 ```
 
-This fetches Yahoo NSE daily histories (3 months) and seven calendar days of NSE announcements, with timeouts, one bounded retry and three price requests at a time. An incomplete latest Yahoo row can be completed from NSE's official closing report, preserving separate price and historical-volume source links. This EOD/snapshot ingester is still manual. The November 1 Push source Refresh/worker separately collect NSE disclosures; normal briefing reads never collect/generate. The frequent dispatcher is prepared but inactive.
+This fetches Yahoo NSE daily histories (3 months) and seven calendar days of NSE announcements, with timeouts, one bounded retry and three price requests at a time. An incomplete latest Yahoo row can be completed from NSE's official closing report, preserving separate price and historical-volume source links. This EOD/snapshot ingester is still manual. The November 1 Push source Refresh/worker separately collect NSE disclosures; normal briefing reads never collect/generate. The frequent Push dispatcher is active; it does not schedule this EOD ingester.
 
 ```powershell
 npm run ingest -- --record
@@ -85,7 +87,4 @@ See [specification](docs/SPEC.md), [milestones](docs/MILESTONES.md), [environmen
 
 To deliberately publish a fresh source snapshot to the configured Neon host, run `node --env-file=.env.vercel.production src/ingest.js --publish` from the trusted owner checkout. The environment file is ignored and server-only. `npm run ingest` continues to collect locally. The deployed October 31 Reload rereads saved data; November 1 source Refresh separately requests bounded NSE collection, never generation.
 
-Base hosted EOD/source snapshot: October 31, 2026, 20:43 IST; all 15 October 30 EOD records and 62 filings, both source adapters OK. Recorded replay remains October 28. Hosting/access/persistence details are in docs/DEPLOYMENT.md. The user deferred conversations and submission details until the build is solid.
-
-
-November 1 Push production is ff124de, HTTPS verified:67 collected filings after one manual hosted worker run,2 attachments parsed, all 16 prior attempts unchanged. Both model generation gates false. Free dispatcher is active at minutes7/22/37/52 with HTTP/previews disabled; first real scheduled source check/PDF processing verified 22:07IST; no unattended-analysis claim.
+The EOD snapshot was manually refreshed November2 for15companies; it is not an intraday or recurring EOD feed. Current runtime source dfaa2f1 is deployed; final release changes affect packaging/documentation. The source archive contains no reviewer credential or runtime cache. Repository access and complete original AI-history links must be supplied before emailing the submission.

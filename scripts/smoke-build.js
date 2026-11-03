@@ -7,6 +7,7 @@ import { createAppServer } from '../dist/finn/src/server.js';
 const manifest = JSON.parse(await readFile(new URL('../dist/finn/BUILD_MANIFEST.json', import.meta.url)));
 for (const file of manifest.files) {
   assert.ok(!file.path.startsWith('data/cache/') && file.path !== '.env' && !file.path.startsWith('.venv/'));
+  assert.ok(!file.path.split('/').some(part => part === '__pycache__' || /\.py[co]$/i.test(part) || /^\.env(?:\.|$)/.test(part) && part !== '.env.example'), `Private environment or Python cache packaged: ${file.path}`);
   const bytes = await readFile(new URL('../dist/finn/' + file.path, import.meta.url));
   assert.equal(createHash('sha256').update(bytes).digest('hex'), file.sha256);
 }

@@ -1,3 +1,5 @@
+November3 submission wrap-up: user now requests final changes and preparation for submission, superseding the earlier packaging/draft deferral only. Source archive and covering note are authorized; email, new access grants/public visibility and unspecified external sharing remain unapproved. Confirmed release packager would copy generated __pycache__ files; added copy filtering and archive smoke assertions. README/covering draft updated from obsolete41/108-test/disabled-generation descriptions to current151-test hosted workflows. Gates/package verification pending.
+
 # Current issues — November 2, 2026, 17:50 UTC
 
 Production dfaa2f1 / dpl_CiYhrNn4rXhb9H2r146zfBjVrk1L READY. Syntax/151tests pass. Detailed evidence: [VERIFICATION.md](VERIFICATION.md).
@@ -24,7 +26,9 @@ Resolved/tested in local browser and production HTTP: prominent exact source sen
 
 ## P-001 — Automatic AI publication and semantic quality
 
-OPEN. Source collection/dispatch/model calls run; current58retained attempts, but this quality slice does not prove newly accepted unattended AI publication. Provider503 messages report high demand; invalid subject/metric/negation drafts remain withheld. Historical ITC/Marico/Eicher/L&T lifetime3 caps are unchanged. Prior controlled generation/operator revalidation and current rule notices do not close this acceptance gate.
+Unattended publication demonstrated on November 3. Scheduled Polycab and Infosys cards passed validation and their quotes matched the original physical pages. Two production reads served the Polycab card with the attempt count unchanged at 123. See [verification](VERIFICATION.md).
+
+Broader semantic quality and sustained provider capacity remain open. Provider 503s still delay jobs, and unsupported output is withheld.
 
 ## Q-003 — Quotas and model routing
 
@@ -36,4 +40,4 @@ Existing clipping, identity, dated-year, source-condition and financial-absence 
 
 ## Q-002 / S-001 / D-004 / D-002 — Remaining breadth/device/submission
 
-Broad multi-year/balance-sheet/cash-quality/OCR and annual delivery remain unverified. EOD was manually refreshed, not scheduled. Physical-phone install/offline/native PDF, sustained timing/load and general unseen semantic quality remain open. Submission exports/grants/tag/email, voice, OS notifications/native packaging deferred. No new account action needed.
+Broad multi-year/balance-sheet/cash-quality/OCR and annual delivery remain unverified. EOD was manually refreshed, not scheduled. Physical-phone install/offline/native PDF, sustained timing/load and general unseen semantic quality remain open. The source bundle and covering draft are prepared locally. Complete AI history and reviewer access remain pending. Voice, OS notifications and native packaging remain deferred. No new account action needed.

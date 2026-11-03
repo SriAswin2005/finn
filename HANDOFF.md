@@ -1,10 +1,12 @@
+November 3 submission verification. The 14:31 IST Polycab card passed scheduled validation without operator recovery. All citations matched the original physical page. Two production reads returned the same four-claim card and the attempt count stayed at 123. The 14:45 IST Infosys job also passed scheduled validation with matching source quotes. These examples establish unattended publication. Provider delays and broader semantic quality remain open. Syntax, all 151 tests, and packaged HTTP and checksum checks passed. The build manifest lists 137 files and excludes Python bytecode and private environment files.
+
 # FINN — start here
 
 Read PROGRESS.md, docs/ISSUES.md and docs/WORKING_AGREEMENT.md first. Current November2 quality source dfaa2f1 / dpl_CiYhrNn4rXhb9H2r146zfBjVrk1L is READY;151tests pass. Allfour requested fixes implemented/pushed/deployed: bounded annual/MDA scan,0-call routine Push triage, generic guidance and question source banner.
 
 Final fresh hosted HCL64/485pages6.48s/MDAphysical105–128; TCS58/361pages5.60s/MDA54–71. Partial coverage always disclosed; watchdog7.2s covers download/parser, not a universal cold-start SLA. HCL missing annual cache repaired by CAS, two transcripts/old notes retained. Expanded evidence identity may need new explicit HCL synthesis; no model calls made for repair.
 
-18routine jobs complete;49waiting/58attempts at17:50UTC. P-001 accepted unattended AI publication remains OPEN; rule cards do not prove AI acceptance. Preserve all lifetime3 failures/holds/history. Existing dispatcher continues. No new sign-in/permission/account action needed.
+18routine jobs complete;49waiting/58attempts at17:50UTC. P-001 unattended publication is demonstrated in the November 3 verification above; rule cards do not prove AI acceptance. Preserve all lifetime3 failures/holds/history. Existing dispatcher continues. No new sign-in/permission/account action needed.
 
 ## Targeted implementation map
 

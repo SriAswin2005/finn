@@ -1,3 +1,5 @@
+November 3 submission verification. The 14:31 IST Polycab card passed scheduled validation without operator recovery. All citations matched the original physical page. Two production reads returned the same four-claim card and the attempt count stayed at 123. The 14:45 IST Infosys job also passed scheduled validation with matching source quotes. These examples establish unattended publication. Provider delays and broader semantic quality remain open. Syntax, all 151 tests, and packaged HTTP and checksum checks passed. The build manifest lists 137 files and excludes Python bytecode and private environment files.
+
 # FINN current progress — November 2, 2026, 17:50 UTC
 
 All four requested quality fixes are implemented, privately pushed and deployed. Runtime source dfaa2f1 is READY as dpl_CiYhrNn4rXhb9H2r146zfBjVrk1L at https://finn-zeta-one.vercel.app. Syntax and151/151tests pass, including7Python parser cases. No new runtime dependency.
@@ -9,6 +11,6 @@ All four requested quality fixes are implemented, privately pushed and deployed.
 
 HCL's old annual-source failure was replaced by the verified64-page partial record using a compare-and-swap update; two transcripts retained, no notes deleted/model calls made. Added source evidence changes the evidence identity, so older HCL notes remain in storage but may require a new explicit generation for the expanded corpus.
 
-Still open: P-001 accepted unattended AI Push publication/provider capacity and broad unseen-source semantics. Routine rule publication is not proof of automatic AI acceptance. Google503s report high demand; quota exhaustion is not established as their cause. Physical-phone install/offline/native PDF, sustained cold timing and broad multi-year/OCR/full-year delivery remain unverified. EOD refresh remains manual. Submission/voice/OS notifications/native work remain deferred.
+Still open: provider capacity and broad unseen-source semantics. Routine rule publication is not proof of automatic AI acceptance. Google503s report high demand; quota exhaustion is not established as their cause. Physical-phone install/offline/native PDF, sustained cold timing and broad multi-year/OCR/full-year delivery remain unverified. EOD refresh remains manual. Submission/voice/OS notifications/native work remain deferred.
 
 Current approved pools/limits unchanged: Research3.5Lite500; Push3.1Lite500/3.6Flash20/3.8Flash20. Aggregate1040, retries inside totals, lifetime3. Gemma limits recorded but models unassigned. Existing dispatcher continues; no sign-in/new permission/manual account action is required.

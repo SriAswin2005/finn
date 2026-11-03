@@ -92,3 +92,8 @@ Application retry budgets reserve fresh capacity within the same approved model 
 ## November2 — quick wrap-up and Gemma limits
 
 User reports30RPM,16k inputTPM and14.4kRPD for the queried Gemma4 26B/31B pair and explicitly asks to wrap up quickly after prolonged work. Record these values without asking again; no new Gemma activation/evaluation is performed in this wrap-up. Save current work and honestly distinguish working Pull, active Push processing and still-unverified accepted Push publication. Keep the approved dispatcher running; do not reset failures or spend/accept new terms.
+
+
+## November3 — submission preparation
+
+The user asks to finish any final changes quickly and wrap up for submission. This authorizes final local checks, source packaging/checksums, current README/covering-draft updates and the existing private Git commits/pushes. It supersedes the earlier submission-preparation deferral. It does not authorize sending email, inviting unspecified reviewers, publishing secrets or changing repository visibility. Complete AI conversation links and reviewer identities are genuinely missing input; prepare the rest independently and label older history snapshots accurately.

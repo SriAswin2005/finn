@@ -4,11 +4,13 @@ import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 
 const root = process.cwd(); const output = resolve(root, 'dist/finn');
+const copyOptions = { recursive: true, filter: source => !relative(root, source).split(/[\\/]/).some(part =>
+  part === '__pycache__' || /\.py[co]$/i.test(part) || /^\.env(?:\.|$)/.test(part) && part !== '.env.example') };
 // Delete only this script's fixed build directory; never touch a computed external path.
 if (!output.startsWith(resolve(root, 'dist') + '\\') && !output.startsWith(resolve(root, 'dist') + '/')) throw new Error('Invalid build output.');
 await rm(output, { recursive: true, force: true }); await mkdir(output, { recursive: true });
-for (const path of ['public', 'src', 'scripts', 'test', 'api', 'scheduler', 'vercel.json', '.vercelignore', 'package-lock.json', 'package.json', 'requirements.txt', '.env.example', 'Dockerfile', 'README.md', 'AGENTS.md', 'CONTRIBUTING.md', 'HANDOFF.md', 'PROGRESS.md', 'docs']) await cp(resolve(root, path), resolve(output, path), { recursive: true });
-for (const path of ['recorded-snapshot.json', 'filings.json', 'research']) await cp(resolve(root, 'data', path), resolve(output, 'data', path), { recursive: true });
+for (const path of ['public', 'src', 'scripts', 'test', 'api', 'scheduler', 'vercel.json', '.vercelignore', 'package-lock.json', 'package.json', 'requirements.txt', '.env.example', 'Dockerfile', 'README.md', 'AGENTS.md', 'CONTRIBUTING.md', 'HANDOFF.md', 'PROGRESS.md', 'docs']) await cp(resolve(root, path), resolve(output, path), copyOptions);
+for (const path of ['recorded-snapshot.json', 'filings.json', 'research']) await cp(resolve(root, 'data', path), resolve(output, 'data', path), copyOptions);
 const files = [];
 async function scan(directory) {
   for (const item of await readdir(directory, { withFileTypes: true })) {

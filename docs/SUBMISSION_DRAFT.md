@@ -6,43 +6,34 @@ Subject: ENAM - IIT screening - 2027
 
 Hello ENAM team,
 
-I built FINN around the investor's daily briefing: a prioritized portfolio digest with original exchange filings, inspectable end-of-day signals, and on-demand primary-document research. The mobile interface includes Today, Portfolio, Ask FINN and configurable in-app Alerts.
+I built FINN, a mobile-first briefing PWA for a 15-company mock NSE portfolio. Today prioritizes official disclosures, Portfolio shows inspectable EOD price/volume calculations, Ask FINN provides primary-document research, and Alerts offers configurable in-app preferences.
 
-**Architecture:** Zero-runtime-dependency Node/browser application with a small Python PDF parser (pypdf). All calculations and triage are deterministic and independently tested. A replaceable Gemini adapter provides on-demand synthesis with free-tier quotas and bounded fallback. The source pipeline preserves document URLs, physical PDF page numbers and fetch timestamps throughout.
+The prototype runs on Vercel with Neon persistence and a Cloudflare15-minute dispatcher. The modular Node/browser ESM architecture uses the existing Neon driver and Python/pypdf for PDF extraction. Research uses annual reports and earnings-call transcripts only; model claims retain exact source quotations, document URLs and physical page citations. Gemini is server-side, billing-disabled/free-tier only, with separate Push/Research model pools, cached answers and all-attempt quota accounting.
 
-**Research quality:** Evidence is cached with document hashes and page citations. Models select server-held quote IDs — preventing fabricated quotes in responses. Numeric and metric-context validation ensures claims cannot be supported by unrelated citations (e.g. a "volume growth" claim whose only reference never mentions volume). One live Infosys example has been reviewed against primary evidence in the mobile browser: six claims covering business context, financial highlight, earlier/later guidance revision, and conditional bull/bear cases. Comparable full-year guidance delivery remains explicitly unverified.
+Push now demonstrates accepted unattended publication: a Polycab disclosure was validated on November3 at14:31 IST and served by repeated production reads with zero new model calls. Routine notices use cited rule excerpts with zero LLM calls. Research includes three recorded primary-source examples (INFY, ASIANPAINT, PERSISTENT), generic NSE discovery and verified HCL/TCS collection. Bounded annual scans explicitly disclose partial coverage; observed HCL/TCS requests took6.48s/5.60s. Questions show a direct source sentence and page link, or a helpful no-match message.
 
-**Scope decisions:** Voice, background push and native packaging were deferred to keep the evidence pipeline reliable. Data gaps are always visible — the recorded source replay is clearly labelled and distinguished from current data and fictional scenarios. The demo covers INFY, ASIANPAINT, and PERSISTENT with full document retrieval; cold lookups (HCLTECH, TCS) were verified using the same generic path.
+Validation:151/151 automated tests, JavaScript syntax checks, physical-source citation checks, 390 px mobile browser checks and production HTTP checks. The source bundle includes tests, setup instructions and a checksum manifest; credentials, live caches and Python bytecode caches are excluded. Final packaged smoke-check evidence is recorded in docs/VERIFICATION.md.
 
-**Test coverage:** 41 tests across briefing logic, research pipeline, HTTP contracts, AI validation, quota management and source normalization. 38 pass in an offline environment; 3 server integration tests require a running local server.
+Limits are explicit: free-provider503s and source availability can delay work; unsupported model output is withheld. Data is EOD, not live trading data, and EOD refresh is manual. Partial annual scans, missing metrics and unknown evidence stay visible. Comparable annual guidance delivery, comprehensive multi-year/OCR research, physical-phone install/offline testing, voice and OS notifications/native packaging remain outside verified scope. The next priorities are sustained-load reliability and broader source/semantic evaluation.
 
-What I would do next: semantic retrieval improvements, comparable-period guidance analysis (four-quarter promised vs delivered), and stable hosted deployment with a durable quota store.
-
-- Prototype: [add verified HTTPS link after deployment approval]
-- Repository: https://github.com/SriAswin2005/finn (private; arrange reviewer access before sending)
-- AI build history: [add original conversation exports/share links]
+- Prototype: https://finn-zeta-one.vercel.app
+- Private reviewer access: [insert existing private reviewer link from the local submission email; never publish its token in Git]
+- Source repository: https://github.com/SriAswin2005/finn (private; confirm reviewer access or attach the supplied source archive)
+- Source archive: finn-submission.zip, with SHA-256 checksum
+- Original AI build history: [insert complete original conversation exports/share links; the existing October 31 snapshot is incomplete for the final build]
 
 Regards,
 Aswin
 
 ---
 
-## Submission gates (complete before sending)
-- [ ] Deploy with user approval; verify HTTPS phone workflow and restart persistence.
-- [ ] Add verified hosted link above.
-- [ ] Arrange reviewer GitHub access (currently private).
-- [ ] Export original AI coding-agent conversation history; add share links above.
-- [ ] Final `git tag demo-v1` checkpoint after all above.
-- [ ] Send email only after all gates pass; do not send automatically.
+## Final handoff checklist
 
-## What is verified (as of October 30, 2026)
-- 41 tests; 38 pass offline; 3 require a live HTTP server (pre-existing sandbox restriction).
-- Build archive: 70 files, `.env` excluded, checksums verified.
-- Q-001 fix: metric-context validation added to `validateAnalysis`; regression test passes.
-- Both INFY cached AI outputs pass the updated validation.
-- ASIANPAINT and PERSISTENT: 3 documents + 10 evidence chunks each; no active AI cache (live generation needs running server + valid key).
-- Private repo pushed: https://github.com/SriAswin2005/finn master.
-- Root `SPEC.md` duplicate removed; build script updated.
-- Mobile/offline shell: browser-verified October 28. No fresh physical-phone or HTTPS install verified.
-- Recorded briefing: October 28 capture, October 27 closes, 44 filings.
-- Live ingestion last succeeded October 30 at 15:59 IST: 15/15 October 29 EOD, 55 filings.
+- [x] Working HTTPS deployment and private access gate verified.
+- [x] Current151-test/source/production evidence and honest limits reflected above.
+- [x] Source build, checksums and packaged smoke verification passed.
+- [ ] Complete original AI conversation exports/share links through November3. Existing ignored snapshot stops October31 and is labelled incomplete.
+- [ ] Private GitHub reviewer usernames/access if repository browsing is required. No invitations sent.
+- [ ] Owner reviews private access/history links and sends the email. Nothing sent automatically.
+
+The current user request authorizes preparation/packaging. It does not authorize sending email, publishing credentials, changing repository visibility or inviting unspecified reviewers. No final demo tag is required to reproduce the provided immutable Git checkpoint.

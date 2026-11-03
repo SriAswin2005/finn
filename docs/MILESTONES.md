@@ -1,3 +1,5 @@
+November3 submission wrap-up: user now requests final changes and preparation for submission, superseding the earlier packaging/draft deferral only. Source archive and covering note are authorized; email, new access grants/public visibility and unspecified external sharing remain unapproved. Confirmed release packager would copy generated __pycache__ files; added copy filtering and archive smoke assertions. README/covering draft updated from obsolete41/108-test/disabled-generation descriptions to current151-test hosted workflows. Gates/package verification pending.
+
 # Milestones and acceptance gates
 
 Current November2,17:50UTC: production dfaa2f1 READY; syntax/151tests pass. [ISSUES.md](ISSUES.md) governs open findings; dated historical checks remain in Git/VERIFICATION/BUILD_LOG.
@@ -43,7 +45,7 @@ Current November2,17:50UTC: production dfaa2f1 READY; syntax/151tests pass. [ISS
 - [x] Latest saved delivery, Refresh0calls, pending/delayed/partial/error/source priority display and bounded queue scan.
 - [x] Neon migration and original-key/HMAC server secrets, limited-scope Cloudflare Free dispatcher active; quarter-hour jitter-safe collection and actual model invocation observed.
 - [x] One whole correction with source diagnostic escalates to complex Push capacity; unavailable stronger capacity waits, no loop/downgrade/extra allowance.
-- [ ] Genuine scheduled validated publication plus fresh HTTP/process0-call reuse: not verified after final16:39 check. Manual unchanged-draft recoveries do not close this gate.
+- [x] Scheduled validated publication and two production reads with zero additional model calls, verified November 3.
 - [ ] Broad unseen results, incoming-profile, routine/complex omission/emphasis/priority/reading-effort acceptance.
 - [ ] Measured free capacity/freshness under sustained load; no15-minute guarantee, existing backlog explicit.
 
@@ -54,5 +56,5 @@ Current November2,17:50UTC: production dfaa2f1 READY; syntax/151tests pass. [ISS
 - [x] Approved private source commits/pushes preserved; Vercel deployments verified separately.
 - [x] User previously reported smooth phone load/scroll/alerts/TCS research; device/browser unspecified.
 - [ ] Physical-phone installation/offline/native PDF and after-idle benchmark unconfirmed; Docker image unverified.
-- [ ] Submission packaging/covering note/exports/share links/reviewer grants/final tag/email deferred by user.
+- [x] Verified source package and covering draft. Complete AI history, reviewer access and email remain pending.
 - [ ] Voice, OS/background notifications, further PWA/native/on-device work deferredP1/P2.
