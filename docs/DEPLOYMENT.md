@@ -1,6 +1,6 @@
 # FINN hosting and recovery operations — November6,2026
 
-Current public URL: https://finn-zeta-one.vercel.app. Reviewer token/cookie gate unchanged. Production dpl_Ah5Cb9FGRYFDefeDePPSitHLxR8N uses source4802d3b; source c310e5a adds operational import recovery. Research read-resilience rollout is pending. All159tests pass.
+Current public URL: https://finn-zeta-one.vercel.app. Reviewer token/cookie gate unchanged. Production dpl_AwN9qvjhYLqm6kujo2sE5Lj6ELvS uses source 4e0668c and is READY/aliased. Research read resilience is deployed; all 159 tests pass. N-001/N-003 verified; the separate Google generation hold remains N-002.
 
 ## Active architecture
 
@@ -28,7 +28,7 @@ The old Neon tables must remain fenced. Never roll back to a stale ledger or del
 
 ## Verification and free limits
 
-Verify access gate, authenticated health/Latest/status, saved source/AI-note reuse, canonical concurrent writes, timestamps/physical citations and scheduled progress separately. Browser and HTTP checks are recorded in VERIFICATION.md. Recovery did not regenerate notes or spend model calls. Cold/large Research failure is tracked as N-003; authenticated reads may retry once, uncertain writes must never replay automatically.
+Verify access gate, authenticated health/Latest/status, saved source/AI-note reuse, canonical concurrent writes, timestamps/physical citations and scheduled progress separately. Browser and HTTP checks are recorded in VERIFICATION.md. Recovery did not regenerate notes or spend model calls. N-003 is resolved for the verified fresh/repeat TCS/HCL paths: Research allows 15 seconds and one transient read retry; uncertain writes never replay automatically.
 
 Cloudflare Free SQLite Durable Objects have daily request/row limits and5GB total storage, not an unlimited SLA. Actual free plan/provider limits still apply; no plan upgraded. Official references: [Durable Object pricing](https://developers.cloudflare.com/durable-objects/platform/pricing/), [limits](https://developers.cloudflare.com/durable-objects/platform/limits/), [Vercel function limits](https://vercel.com/docs/functions/limitations), [Neon plans](https://neon.com/docs/introduction/plans).
 

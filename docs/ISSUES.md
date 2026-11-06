@@ -6,7 +6,7 @@ Resolved by independent free storage, not an allowance reset. All120 records dee
 
 ## N-003 — Intermittent large Research read
 
-Open rollout gate. Fresh19:42IST TCS GET503 after initial post-cutover success; direct TCS/HCL reads subsequently succeeded in1.4–2.8s. Research-only15s deadline and one transient read retry pass syntax/159tests, deployment pending. Authentication/corrupt JSON and uncertain writes never retry. Acceptance: deployed saved TCS/HCL reads succeed across fresh/warm requests without new model calls.
+Resolved with bounded transient-read recovery, deployed as source 4e0668c / dpl_AwN9qvjhYLqm6kujo2sE5Lj6ELvS. Research uses a 15-second deadline and at most one network/502/503/504 read retry. Authentication/corrupt JSON and uncertain writes never retry. Syntax/all 159 tests pass. Fresh TCS/HCL requests returned 200 in 2.51/1.19 seconds; repeat requests returned 200 in 2.01/2.04 seconds. TCS retained four cached claims and zero model calls. These checks do not promise universal source/network availability.
 
 ## N-002 — Existing Google generation authorization/configuration stop
 

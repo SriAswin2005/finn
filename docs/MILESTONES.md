@@ -6,7 +6,7 @@
 - [x] Authenticated Cloudflare Free SQLite storage and unchanged Vercel/reviewer URL deployed.
 - [x] Source publicly inaccessible; access gate/CAS/HTTP/browser and hours of scheduled writes verified.
 - [x] Syntax/all159tests; recovery/importer source privately committed/pushed.
-- [ ] Deploy/verify transient large Research read recovery (N-003).
+- [x] Deploy/verify transient large Research read recovery (N-003), fresh and repeat TCS/HCL reads 200.
 - [ ] Resolve separate pre-existing Google generation403 configuration hold (N-002).
 
 Current evidence is in ISSUES/VERIFICATION; older milestone observations below remain dated history.
