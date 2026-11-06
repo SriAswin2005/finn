@@ -1,7 +1,9 @@
 import { validateSnapshot } from './snapshots.js';
+import { createRemoteRecords } from './remote-records.js';
 
 export function createSourceSnapshotStore({ env = process.env, query: injectedQuery, now = Date.now } = {}) {
   let ready; let memory = null;
+  const remote = env.FINN_STORAGE_URL ? createRemoteRecords({ env }) : null;
   async function database() {
     if (!ready) ready = (async () => {
       const query = injectedQuery ?? (await import('@neondatabase/serverless')).neon(env.DATABASE_URL).query;
@@ -14,6 +16,11 @@ export function createSourceSnapshotStore({ env = process.env, query: injectedQu
     async get() {
       if (memory?.expires > now()) return structuredClone(memory.record);
       try {
+        if (remote) {
+          const record = (await remote.get('source:snapshot'))?.record ?? null;
+          if (record) { validateSnapshot(record); memory = { record, expires: now() + 30000 }; }
+          return record ? structuredClone(record) : null;
+        }
         const query = await database();
         const rows = await query('SELECT record FROM finn_source_snapshots WHERE id = 1', [], { fetchOptions: { signal: AbortSignal.timeout(8000) } });
         const record = rows[0]?.record ?? null;
@@ -23,6 +30,10 @@ export function createSourceSnapshotStore({ env = process.env, query: injectedQu
     },
     async set(record) {
       validateSnapshot(record);
+      if (remote) {
+        const changed = await remote.set('source:snapshot', record, old => Date.parse(record.asOf) >= Date.parse(old.asOf));
+        memory = null; return changed;
+      }
       try {
         const query = await database();
         const rows = await query("INSERT INTO finn_source_snapshots (id, record) VALUES (1, $1::jsonb) ON CONFLICT (id) DO UPDATE SET record = EXCLUDED.record, updated_at = now() WHERE (EXCLUDED.record->>'asOf')::timestamptz >= (finn_source_snapshots.record->>'asOf')::timestamptz RETURNING record", [JSON.stringify(record)], { fetchOptions: { signal: AbortSignal.timeout(8000) } });

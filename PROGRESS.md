@@ -2,6 +2,16 @@ November 3 submission verification. The 14:31 IST Polycab card passed scheduled 
 
 # FINN current progress — November 6, 2026
 
+Syntax and all 157 tests now pass with permitted HTTP/temp access. Vercel and Cloudflare CLI authentication restored. Prepared explicit Neon write-fence script for the final consistent migration; it preserves all source rows and reads, prevents old deployments from creating a second ledger, and has not run yet. Next: commit/push verified adapter, stage both services, fence/export/import/verify, then promote the existing URL.
+
+Added actual SQLite-backed gateway/adapter contract tests (concurrent CAS, immutable documents, source ordering, authentication/expiry and fail-closed authority) and non-overwriting import/verify tool. Verification running. User has signed in and explicitly approved exact Cloudflare CLI scopes; Vercel CLI login succeeded, Cloudflare browser authorization pending. Initial full suite hit sandbox temp-file restrictions and will be rerun with permitted access.
+
+Independent recovery implementation prepared (not deployed/tested yet): authenticated Cloudflare SQLite Durable Object gateway and opt-in FINN_STORAGE_URL adapter for all three stores. CAS, immutable documents, source timestamp ordering and fail-closed quota authority remain. No runtime dependency added. Consistent full backup succeeded: 120 rows total, ignored gzip 3,377,792 bytes. Deployment awaits existing account sign-in.
+
+Added read-only consistent four-table recovery export in scripts/backup-neon.js, restricted to ignored tmp/neon-recovery. Execution and verification pending; no export is committed. Vercel CLI also reports logged out; browser login is required before deployment.
+
+Recovery continuation: user explicitly requests a no-upgrade recovery for recruiter availability. Neon remains reachable. Applied the tested compression with an ignored local backup: exact state and quota unchanged, 174 attempts preserved; transfer representation 185,600 bytes versus 844,163 JSON bytes (78% smaller). Production code deployment still pending; this does not replenish allowance. Investigating an independent free storage backend while preserving the submitted URL. Cloudflare CLI currently reports unauthenticated; existing credential location is being checked.
+
 Neon transfer incident: user reports 100% of monthly 5 GB allowance. A bounded read confirmed the database remains reachable and Push state is 844,163 bytes. Production health/Latest returned 200 with 15 companies/77 disclosures; this is not a suspension guarantee. Repeated full-state reads in the quarter-hour worker are a plausible major contributor, not measured billing attribution. Added revision-matched gzip transfer for Neon Push state; plain JSON remains authoritative for older deployments and CAS preserves history/holds. Syntax and all 154 tests pass (initial restricted HTTP/temp failures passed with permitted access). Automatic approval review rejected the production backup/CAS operation as requiring exact user authorization; no backup, schema change, state migration or deployment occurred. Explicit approval requested; real savings/host verification pending. No plan upgrade, quota reset or new account. See N-001.
 
 ## Prior November 2 verified checkpoint

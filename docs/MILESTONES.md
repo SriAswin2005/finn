@@ -4,6 +4,14 @@ November3 submission wrap-up: user now requests final changes and preparation fo
 
 ## November 6 transfer incident
 
+- [x] New backend contracts pass syntax/157 tests; both existing CLI logins restored.
+
+- [x] Consistent ignored backup of all 120 canonical rows before migration.
+- [ ] Verify and deploy opt-in Cloudflare SQLite Durable Object storage; existing accounts need sign-in.
+
+- [x] Preserve exact production state/quota in lossless compression seed; ignored backup and 78% smaller representation verified November 6.
+- [ ] Recover independence from exhausted Neon transfer while retaining the recruiter URL.
+
 - [ ] N-001: verify/deploy compressed Neon Push transfer, preserve history/quota and measure savings. Database and Latest reachable at initial check despite reported 100% allowance; continuing availability is unconfirmed.
 
 Current November2,17:50UTC: production dfaa2f1 READY; syntax/151tests pass. [ISSUES.md](ISSUES.md) governs open findings; dated historical checks remain in Git/VERIFICATION/BUILD_LOG.

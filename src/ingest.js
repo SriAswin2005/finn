@@ -66,7 +66,7 @@ export async function collectSnapshot({ previous = null, now = new Date(), compa
 async function run() {
   const record = process.argv.includes('--record');
   const publish = process.argv.includes('--publish');
-  if (publish && !process.env.DATABASE_URL) throw new Error('Configure Neon DATABASE_URL server-side before publishing sources.');
+  if (publish && !process.env.DATABASE_URL && !process.env.FINN_STORAGE_URL) throw new Error('Configure durable server-side storage before publishing sources.');
   const persistent = publish ? createSourceSnapshotStore() : null;
   const previous = publish ? await persistent.get() : await readSnapshot(liveSnapshotPath);
   const { snapshot, raw } = await collectSnapshot({ previous });

@@ -2,6 +2,7 @@ import { mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { gzipSync, gunzipSync } from 'node:zlib';
 import { runtimeCacheDirectory } from '../storage/snapshots.js';
+import { createRemoteRecords } from '../storage/remote-records.js';
 
 export function initialPushState() {
   return { schemaVersion: 1, events: {}, jobs: {}, collection: { checkpoint: null, nextAt: 0, status: 'not_collected', requested: false }, quota: { initialized: false, attempts: [], cooldowns: {}, projectUntil: 0, stopped: null, failures: {} } };
@@ -20,6 +21,16 @@ export function createPushStore({ env = process.env, path = resolve(runtimeCache
   let ready;
   async function backend() {
     if (!ready) ready = (async () => {
+      if (env.FINN_STORAGE_URL) {
+        const records = createRemoteRecords({ env });
+        return {
+          read: () => records.get('push:state'),
+          initialize: () => { throw new Error('Remote quota must be migrated; automatic initialization is forbidden.'); },
+          cas: (revision, record) => records.cas('push:state', revision, record),
+          document: async hash => (await records.get(`document:${hash}`))?.record ?? null,
+          saveDocument: doc => records.create(`document:${doc.sha256}`, doc),
+        };
+      }
       if (env.DATABASE_URL || injectedQuery) {
         const query = injectedQuery ?? (await import('@neondatabase/serverless')).neon(env.DATABASE_URL).query;
         const run = (sql, args = []) => query(sql, args, { fetchOptions: { signal: AbortSignal.timeout(8000) } });

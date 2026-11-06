@@ -1,9 +1,11 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { runtimeCacheDirectory, writeJsonAtomic } from './snapshots.js';
+import { createRemoteRecords } from './remote-records.js';
 
 export function createResearchStore({ env = process.env, query: injectedQuery, directory = resolve(runtimeCacheDirectory, 'research'), now = Date.now } = {}) {
   let ready;
+  const remote = env.FINN_STORAGE_URL ? createRemoteRecords({ env }) : null;
   const memory = new Map();
   function remember(ticker, record) {
     if (!record) return;
@@ -25,6 +27,10 @@ export function createResearchStore({ env = process.env, query: injectedQuery, d
       const warm = memory.get(ticker);
       if (warm?.expires > now()) return warm.record;
       memory.delete(ticker);
+      if (remote) {
+        const record = (await remote.get(`research:${ticker}`))?.record ?? null;
+        remember(ticker, record); return record;
+      }
       if (env.DATABASE_URL || injectedQuery) {
         try {
           const query = await database();
@@ -37,6 +43,7 @@ export function createResearchStore({ env = process.env, query: injectedQuery, d
     },
     async set(ticker, record) {
       validate(ticker);
+      if (remote) { await remote.set(`research:${ticker}`, record); remember(ticker, record); return; }
       if (env.DATABASE_URL || injectedQuery) {
         try {
           const query = await database();

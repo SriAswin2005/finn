@@ -1,0 +1,9 @@
+{
+  "name": "finn-durable-storage",
+  "main": "storage-worker.js",
+  "compatibility_date": "2026-11-06",
+  "workers_dev": true,
+  "preview_urls": false,
+  "durable_objects": { "bindings": [{ "name": "FINN_RECORDS", "class_name": "FinnRecords" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["FinnRecords"] }]
+}

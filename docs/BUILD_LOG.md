@@ -480,3 +480,10 @@ November 1 backlog hosted verification: ff124de/dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd
 
 
 November 1 unattended collection verified: cron event scheduled16:37:34.677UTC, version86d3c18c-3027-4e6f-9996-4bc505740a46, outcome ok, CPU 1ms, wall 4650ms, exceptions[]. Fresh Neon: collection16:37:37.056, lastWorker16:37:40.243, added0/changed0,67 collected filings/4 live jobs (2 PDFs processed),16 attempts unchanged. No manual worker in observation interval. Both generation gates remain false. All3 approved external setup steps complete; source-reviewed model quality + scheduled new-event analysis still open. Read-only log observer stopped; dispatcher continues. No runtime changes, docs-only evidence checkpoint.
+November 6 recovery continuation: applied existing compression through CAS after renewed no-upgrade recovery instruction. Exact state/quota retained and ignored backup saved; 174 attempts, 78% transfer reduction measured. Deployment and independent recovery remain pending; no upgrade/model call/reset.
+
+November 6 independent storage preparation: added a separate SQLite Durable Object gateway plus compressed HMAC transport, conditional writes and opt-in store selection. This removes a future Neon dependency without changing the Vercel/Python runtime. Full consistent backup saved privately; no cutover or new external backend exists yet. Test and authentication gates remain pending.
+
+Added SQLite-backed remote-store contract tests and lossless non-overwriting migration/import verification. User explicitly approved the CLI scopes; Vercel authentication restored, Cloudflare authorization pending. No cutover yet.
+
+November 6: recovery adapter passes all 157 tests and syntax. Hosting logins restored. Added explicit four-table write fence for atomic cutover safety; old readers remain allowed and old writers cannot spend against a diverged ledger. Fence/deployment not yet executed.

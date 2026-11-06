@@ -97,3 +97,6 @@ User reports30RPM,16k inputTPM and14.4kRPD for the queried Gemma4 26B/31B pair a
 ## November3 — submission preparation
 
 The user asks to finish any final changes quickly and wrap up for submission. This authorizes final local checks, source packaging/checksums, current README/covering-draft updates and the existing private Git commits/pushes. It supersedes the earlier submission-preparation deferral. It does not authorize sending email, inviting unspecified reviewers, publishing secrets or changing repository visibility. Complete AI conversation links and reviewer identities are genuinely missing input; prepare the rest independently and label older history snapshots accurately.
+## November 6 — no-upgrade availability recovery
+
+The user explicitly requests restoring recruiter availability without a plan upgrade, including alternative hosting/workarounds. Preserve the existing URL, data, quota history and source citations. The user signed in to the existing Vercel/Cloudflare accounts and explicitly approved Cloudflare account/user read, Workers/scripts write, tail read and persistent CLI login scopes on this date. No paid plan, new account, additional model allowance or expanded reviewer access is authorized. Prepare an independent free backend and verify lossless migration before promotion.

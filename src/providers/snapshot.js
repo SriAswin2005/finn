@@ -9,7 +9,7 @@ export async function getDataset(mode = 'live', { now = new Date(), livePath = l
   if (mode === 'demo') return getDemoDataset();
   if (!['live', 'recorded'].includes(mode)) throw new RangeError('Data mode must be live, recorded or demo.');
   let data;
-  try { data = mode === 'live' ? await (liveProvider ? liveProvider() : process.env.DATABASE_URL ? persistent.get() : readSnapshot(livePath)) : await readSnapshot(recordedPath); }
+  try { data = mode === 'live' ? await (liveProvider ? liveProvider() : (process.env.FINN_STORAGE_URL || process.env.DATABASE_URL) ? persistent.get() : readSnapshot(livePath)) : await readSnapshot(recordedPath); }
   catch { throw new DatasetUnavailable('Source snapshot could not be loaded. Try another data mode or retry shortly.'); }
   if (!data) throw new DatasetUnavailable(mode === 'live' ? 'Latest sources have not been collected for this host. Choose Recorded sources or try again later.' : 'No recorded snapshot is available.');
   try { validateSnapshot(data); } catch { throw new DatasetUnavailable('Source snapshot is unreadable. No replacement data has been invented.'); }
