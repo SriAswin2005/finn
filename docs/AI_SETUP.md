@@ -25,7 +25,7 @@ Push chooses suitable capability from configuration, one network attempt per sch
 
 ## Operations
 
-Existing local/hosted workers use canonical Neon via ignored server-only DATABASE_URL. `npm start` loads ignored `.env`; `npm run configure:ai` accepts the key through hidden local input and confirmed billing-disabled status, preserves unrelated settings and makes0 calls. Existing checkout is initialized. NEVER delete quota or run init to create a fresh allowance; new environments must reconcile real history first.
+Existing local/hosted workers now use canonical Cloudflare SQLite via ignored server-only FINN_STORAGE_URL/FINN_STORAGE_SECRET. Neon remains read-only. The pre-existing Google403 configuration hold is preserved; model metadata access is not proof generation is authorized. `npm start` loads ignored `.env`; `npm run configure:ai` accepts the key through hidden local input and confirmed billing-disabled status, preserves unrelated settings and makes0 calls. Existing checkout is initialized. NEVER delete quota or run init to create a fresh allowance; new environments must reconcile real history first.
 
 Prefix commands with `node --env-file=.env scripts/push.js`:
 

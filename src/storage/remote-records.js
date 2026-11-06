@@ -3,17 +3,28 @@ import { gzipSync, gunzipSync } from 'node:zlib';
 
 // Server-only storage transport. A configured remote backend never falls back to
 // Neon or a fresh local ledger on errors: there must be one quota authority.
-export function createRemoteRecords({ env = process.env, fetchImpl = fetch, timeoutMs = 8000 } = {}) {
+export function createRemoteRecords({ env = process.env, fetchImpl = fetch, timeoutMs = 8000, retryReads = false } = {}) {
   if (!Number.isInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > 30000) throw new Error('Invalid storage timeout.');
   const origin = new URL(env.FINN_STORAGE_URL);
   if (origin.protocol !== 'https:' || origin.username || origin.password || origin.search || origin.hash || origin.pathname !== '/') throw new Error('Storage requires an HTTPS origin.');
   if ((env.FINN_STORAGE_SECRET ?? '').length < 32) throw new Error('Storage authentication is missing.');
   async function request(operation, key, extra = {}) {
-    const body = JSON.stringify({ operation, key, ...extra, expires: Math.floor(Date.now() / 1000) + 60 });
-    const signature = createHmac('sha256', env.FINN_STORAGE_SECRET).update(`finn-storage\n${body}`).digest('hex');
-    const response = await fetchImpl(new URL('/v1/records', origin), { method: 'POST', headers: { 'content-type': 'application/json', 'x-finn-storage-signature': signature }, body, signal: AbortSignal.timeout(timeoutMs), redirect: 'error' });
-    if (!response.ok) throw new Error(`Durable storage unavailable (HTTP ${response.status}).`);
-    return response.json();
+    const attempts = operation === 'get' && retryReads ? 2 : 1;
+    for (let attempt = 0; attempt < attempts; attempt++) {
+      try {
+        const body = JSON.stringify({ operation, key, ...extra, expires: Math.floor(Date.now() / 1000) + 60 });
+        const signature = createHmac('sha256', env.FINN_STORAGE_SECRET).update(`finn-storage\n${body}`).digest('hex');
+        const response = await fetchImpl(new URL('/v1/records', origin), { method: 'POST', headers: { 'content-type': 'application/json', 'x-finn-storage-signature': signature }, body, signal: AbortSignal.timeout(timeoutMs), redirect: 'error' });
+        if (!response.ok) {
+          const error = new Error(`Durable storage unavailable (HTTP ${response.status}).`);
+          error.transient = [502, 503, 504].includes(response.status); throw error;
+        }
+        return await response.json();
+      } catch (error) {
+        const transient = error.transient || ['TypeError', 'TimeoutError', 'AbortError'].includes(error.name);
+        if (attempt + 1 >= attempts || !transient) throw error;
+      }
+    }
   }
   function encode(record) {
     const payload = gzipSync(JSON.stringify(record)).toString('base64');

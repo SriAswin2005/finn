@@ -1,6 +1,8 @@
-# November 6 — Reduce Neon transfer without losing canonical history
+# November6 — Recover from Neon transfer exhaustion without upgrading
 
-Investigated user's monthly 5 GB warning. Canonical state still readable and submitted Latest responds 200. Repeated 844 KB full-state reads create plausible background transfer amplification. Added gzip/base64 transfer alongside revisioned authoritative JSON; SQL omits plain JSON when the compressed revision matches, and older writers invalidate the compressed copy. Syntax/all 154 tests pass, including persistence, conflict/legacy and corrupt-transfer cases. No allowance/history reset or paid service. Auto-review rejected production backup/CAS execution pending explicit user approval. No database/schema change or deployment; actual production compression remains unmeasured.
+Added HMAC-authenticated Cloudflare SQLite Durable Object persistence for Push, Research and snapshots; no new dependency or model policy. Restored existing CLI logins after exact scope approval. User approved retaining four old Neon tables read-only. A consistent120-record backup was imported and deep-compared, preserving174attempts/holds; unchanged reviewer URL promoted and HTTP/browser/CAS checks passed. Import timeout recovered with bounded non-overwriting resume. Scheduled remote writes continued for hours.
+
+An intermittent later TCS503 led to a Research-only15s deadline/single transient-read retry. All159tests pass; rollout pending. The pre-existing Google403 stop remains untouched; metadata checks200 cannot establish generation authorization. Original compression seed had reduced844,163bytes to185,600bytes but independent storage is the actual availability recovery.
 
 November 3 submission verification. The 14:31 IST Polycab card passed scheduled validation without operator recovery. All citations matched the original physical page. Two production reads returned the same four-claim card and the attempt count stayed at 123. The 14:45 IST Infosys job also passed scheduled validation with matching source quotes. These examples establish unattended publication. Provider delays and broader semantic quality remain open. Syntax, all 151 tests, and packaged HTTP and checksum checks passed. The build manifest lists 137 files and excludes Python bytecode and private environment files.
 
@@ -480,11 +482,3 @@ November 1 backlog hosted verification: ff124de/dpl_DnbDJvZYnDHoCgqM95YyaH6W7mAd
 
 
 November 1 unattended collection verified: cron event scheduled16:37:34.677UTC, version86d3c18c-3027-4e6f-9996-4bc505740a46, outcome ok, CPU 1ms, wall 4650ms, exceptions[]. Fresh Neon: collection16:37:37.056, lastWorker16:37:40.243, added0/changed0,67 collected filings/4 live jobs (2 PDFs processed),16 attempts unchanged. No manual worker in observation interval. Both generation gates remain false. All3 approved external setup steps complete; source-reviewed model quality + scheduled new-event analysis still open. Read-only log observer stopped; dispatcher continues. No runtime changes, docs-only evidence checkpoint.
-November 6 recovery continuation: applied existing compression through CAS after renewed no-upgrade recovery instruction. Exact state/quota retained and ignored backup saved; 174 attempts, 78% transfer reduction measured. Deployment and independent recovery remain pending; no upgrade/model call/reset.
-
-November 6 independent storage preparation: added a separate SQLite Durable Object gateway plus compressed HMAC transport, conditional writes and opt-in store selection. This removes a future Neon dependency without changing the Vercel/Python runtime. Full consistent backup saved privately; no cutover or new external backend exists yet. Test and authentication gates remain pending.
-
-Added SQLite-backed remote-store contract tests and lossless non-overwriting migration/import verification. User explicitly approved the CLI scopes; Vercel authentication restored, Cloudflare authorization pending. No cutover yet.
-
-November 6: recovery adapter passes all 157 tests and syntax. Hosting logins restored. Added explicit four-table write fence for atomic cutover safety; old readers remain allowed and old writers cannot spend against a diverged ledger. Fence/deployment not yet executed.
-November 6 migration interrupted by network timeout; source fence/data retained and alias not moved. Improved non-overwriting resume and migration-only timeout/progress; runtime timeout unchanged. Syntax/all 157 tests passed; resumable import running.

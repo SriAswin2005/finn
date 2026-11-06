@@ -10,6 +10,30 @@ import { createSourceSnapshotStore } from '../src/storage/source-snapshot.js';
 import { readFile } from 'node:fs/promises';
 
 const env = { FINN_STORAGE_URL: 'https://storage.example/', FINN_STORAGE_SECRET: 'test-only-storage-secret-32-characters', DATABASE_URL: 'must-not-be-used' };
+
+test('opt-in research reads retry transient failures once but refuse authorization and corrupt responses', async () => {
+  for (const failure of [new DOMException('timeout', 'TimeoutError'), new TypeError('network'), new Response('busy', { status: 503 })]) {
+    let calls = 0;
+    const records = createRemoteRecords({ env, retryReads: true, fetchImpl: async () => {
+      calls++; if (calls === 1) { if (failure instanceof Error) throw failure; return failure; }
+      return Response.json(null);
+    } });
+    assert.equal(await records.get('research:TCS'), null); assert.equal(calls, 2);
+  }
+  for (const response of [() => new Response('denied', { status: 403 }), () => new Response('bad json'), () => new Response('busy', { status: 503 })]) {
+    let calls = 0;
+    const records = createRemoteRecords({ env, retryReads: true, fetchImpl: async () => { calls++; return response(); } });
+    await assert.rejects(records.get('research:TCS'));
+    assert.equal(calls, response().status === 503 ? 2 : 1);
+  }
+});
+
+test('an uncertain committed write is never automatically replayed even with read retries enabled', async () => {
+  let calls = 0;
+  const records = createRemoteRecords({ env, retryReads: true, fetchImpl: async () => { calls++; throw new TypeError('connection closed after commit'); } });
+  await assert.rejects(records.cas('push:state', 1, { preserved: true })); assert.equal(calls, 1);
+  await assert.rejects(records.create('research:TCS', { preserved: true })); assert.equal(calls, 2);
+});
 function backend() {
   const db = new DatabaseSync(':memory:');
   const object = new FinnRecords({ storage: { sql: { exec(sql, ...args) { const statement = db.prepare(sql); if (statement.columns().length) return statement.all(...args); statement.run(...args); return []; } } } });

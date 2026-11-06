@@ -1,20 +1,15 @@
-November3 submission wrap-up: user now requests final changes and preparation for submission, superseding the earlier packaging/draft deferral only. Source archive and covering note are authorized; email, new access grants/public visibility and unspecified external sharing remain unapproved. Confirmed release packager would copy generated __pycache__ files; added copy filtering and archive smoke assertions. README/covering draft updated from obsolete41/108-test/disabled-generation descriptions to current151-test hosted workflows. Gates/package verification pending.
-
 # Milestones and acceptance gates
 
-## November 6 transfer incident
+## November6 recovery
 
-- [x] New backend contracts pass syntax/157 tests; both existing CLI logins restored.
+- [x] Consistent ignored120-record backup and exact verified import;174attempts/holds retained.
+- [x] Authenticated Cloudflare Free SQLite storage and unchanged Vercel/reviewer URL deployed.
+- [x] Source publicly inaccessible; access gate/CAS/HTTP/browser and hours of scheduled writes verified.
+- [x] Syntax/all159tests; recovery/importer source privately committed/pushed.
+- [ ] Deploy/verify transient large Research read recovery (N-003).
+- [ ] Resolve separate pre-existing Google generation403 configuration hold (N-002).
 
-- [x] Consistent ignored backup of all 120 canonical rows before migration.
-- [ ] Verify and deploy opt-in Cloudflare SQLite Durable Object storage; existing accounts need sign-in.
-
-- [x] Preserve exact production state/quota in lossless compression seed; ignored backup and 78% smaller representation verified November 6.
-- [ ] Recover independence from exhausted Neon transfer while retaining the recruiter URL.
-
-- [ ] N-001: verify/deploy compressed Neon Push transfer, preserve history/quota and measure savings. Database and Latest reachable at initial check despite reported 100% allowance; continuing availability is unconfirmed.
-
-Current November2,17:50UTC: production dfaa2f1 READY; syntax/151tests pass. [ISSUES.md](ISSUES.md) governs open findings; dated historical checks remain in Git/VERIFICATION/BUILD_LOG.
+Current evidence is in ISSUES/VERIFICATION; older milestone observations below remain dated history.
 
 ## Requested quality fixes
 

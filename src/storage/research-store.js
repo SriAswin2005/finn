@@ -5,7 +5,9 @@ import { createRemoteRecords } from './remote-records.js';
 
 export function createResearchStore({ env = process.env, query: injectedQuery, directory = resolve(runtimeCacheDirectory, 'research'), now = Date.now } = {}) {
   let ready;
-  const remote = env.FINN_STORAGE_URL ? createRemoteRecords({ env }) : null;
+  // Large primary-source records may need a cold connection retry. Only reads
+  // retry; an uncertain write must not be replayed over a concurrent update.
+  const remote = env.FINN_STORAGE_URL ? createRemoteRecords({ env, timeoutMs: 15000, retryReads: true }) : null;
   const memory = new Map();
   function remember(ticker, record) {
     if (!record) return;
