@@ -2,6 +2,10 @@ November3 submission wrap-up: user now requests final changes and preparation fo
 
 # Current issues — November 2, 2026, 17:50 UTC
 
+## N-001 — Neon monthly transfer exhausted (November 6)
+
+Open availability risk. User received 100%/5 GB warning. Neon documents suspension until the next billing period or upgrade; reducing traffic cannot replenish consumed allowance. Small direct query still succeeds; canonical Push JSON is 844,163 bytes. Authenticated production Latest returned 200/15 companies/77 disclosures. No claim that the project is safe from enforcement. Worker/browser repeatedly fetch the complete CAS record; exact billing attribution remains unmeasured. Revision-matched gzip transfer implemented with legacy-writer invalidation and fail-closed decode; syntax/all 154 tests pass. Production rollout and savings pending: automatic approval review rejected the backup/CAS action because exact user authorization for the production write/local full-state backup was absent. Approval requested; no database/schema/host changes made. Preserve all original history, quota reservations and provider holds. Acceptance: deployed reads/canonical content and quota match; actual compressed response size measured; user informed that any already-enforced suspension still needs separate recovery. No plan upgrade authorized.
+
 Production dfaa2f1 / dpl_CiYhrNn4rXhb9H2r146zfBjVrk1L READY. Syntax/151tests pass. Detailed evidence: [VERIFICATION.md](VERIFICATION.md).
 
 ## R-001 — Hosted Pull

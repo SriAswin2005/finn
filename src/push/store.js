@@ -1,5 +1,6 @@
 import { mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
+import { gzipSync, gunzipSync } from 'node:zlib';
 import { runtimeCacheDirectory } from '../storage/snapshots.js';
 
 export function initialPushState() {
@@ -23,11 +24,24 @@ export function createPushStore({ env = process.env, path = resolve(runtimeCache
         const query = injectedQuery ?? (await import('@neondatabase/serverless')).neon(env.DATABASE_URL).query;
         const run = (sql, args = []) => query(sql, args, { fetchOptions: { signal: AbortSignal.timeout(8000) } });
         await run('CREATE TABLE IF NOT EXISTS finn_push_state (id smallint PRIMARY KEY CHECK (id=1), revision bigint NOT NULL, record jsonb NOT NULL)');
+        await run('ALTER TABLE finn_push_state ADD COLUMN IF NOT EXISTS transfer_gzip text, ADD COLUMN IF NOT EXISTS transfer_revision bigint');
         await run('CREATE TABLE IF NOT EXISTS finn_push_documents (hash text PRIMARY KEY, record jsonb NOT NULL, saved_at timestamptz NOT NULL DEFAULT now())');
         return {
-          read: async () => (await run('SELECT revision, record FROM finn_push_state WHERE id=1'))[0],
+          read: async () => {
+            // Return exactly one representation. Older deployments can still write
+            // record/revision; their newer revision invalidates the compressed copy.
+            const row = (await run('SELECT revision, CASE WHEN transfer_revision=revision AND transfer_gzip IS NOT NULL THEN NULL ELSE record END AS record, CASE WHEN transfer_revision=revision THEN transfer_gzip ELSE NULL END AS transfer_gzip FROM finn_push_state WHERE id=1'))[0];
+            if (row?.transfer_gzip !== null && row?.transfer_gzip !== undefined) {
+              row.record = JSON.parse(gunzipSync(Buffer.from(row.transfer_gzip, 'base64'), { maxOutputLength: 64 * 1024 * 1024 }).toString('utf8'));
+            }
+            return row;
+          },
           initialize: async () => run('INSERT INTO finn_push_state (id,revision,record) VALUES (1,0,$1::jsonb) ON CONFLICT (id) DO NOTHING', [JSON.stringify(initialPushState())]),
-          cas: async (revision, record) => (await run('UPDATE finn_push_state SET revision=revision+1,record=$1::jsonb WHERE id=1 AND revision=$2 RETURNING revision', [JSON.stringify(record), revision])).length > 0,
+          cas: async (revision, record) => {
+            const json = JSON.stringify(record);
+            const compressed = gzipSync(json).toString('base64');
+            return (await run('UPDATE finn_push_state SET revision=revision+1,record=$1::jsonb,transfer_gzip=$3,transfer_revision=revision+1 WHERE id=1 AND revision=$2 RETURNING revision', [json, revision, compressed])).length > 0;
+          },
           document: async hash => (await run('SELECT record FROM finn_push_documents WHERE hash=$1', [hash]))[0]?.record ?? null,
           saveDocument: async doc => run('INSERT INTO finn_push_documents (hash,record) VALUES ($1,$2::jsonb) ON CONFLICT (hash) DO NOTHING', [doc.sha256, JSON.stringify(doc)]),
         };

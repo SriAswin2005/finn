@@ -1,6 +1,10 @@
 November 3 submission verification. The 14:31 IST Polycab card passed scheduled validation without operator recovery. All citations matched the original physical page. Two production reads returned the same four-claim card and the attempt count stayed at 123. The 14:45 IST Infosys job also passed scheduled validation with matching source quotes. These examples establish unattended publication. Provider delays and broader semantic quality remain open. Syntax, all 151 tests, and packaged HTTP and checksum checks passed. The build manifest lists 137 files and excludes Python bytecode and private environment files.
 
-# FINN current progress — November 2, 2026, 17:50 UTC
+# FINN current progress — November 6, 2026
+
+Neon transfer incident: user reports 100% of monthly 5 GB allowance. A bounded read confirmed the database remains reachable and Push state is 844,163 bytes. Production health/Latest returned 200 with 15 companies/77 disclosures; this is not a suspension guarantee. Repeated full-state reads in the quarter-hour worker are a plausible major contributor, not measured billing attribution. Added revision-matched gzip transfer for Neon Push state; plain JSON remains authoritative for older deployments and CAS preserves history/holds. Syntax and all 154 tests pass (initial restricted HTTP/temp failures passed with permitted access). Automatic approval review rejected the production backup/CAS operation as requiring exact user authorization; no backup, schema change, state migration or deployment occurred. Explicit approval requested; real savings/host verification pending. No plan upgrade, quota reset or new account. See N-001.
+
+## Prior November 2 verified checkpoint
 
 All four requested quality fixes are implemented, privately pushed and deployed. Runtime source dfaa2f1 is READY as dpl_CiYhrNn4rXhb9H2r146zfBjVrk1L at https://finn-zeta-one.vercel.app. Syntax and151/151tests pass, including7Python parser cases. No new runtime dependency.
 

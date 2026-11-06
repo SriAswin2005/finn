@@ -2,6 +2,10 @@ November3 submission wrap-up: user now requests final changes and preparation fo
 
 # Milestones and acceptance gates
 
+## November 6 transfer incident
+
+- [ ] N-001: verify/deploy compressed Neon Push transfer, preserve history/quota and measure savings. Database and Latest reachable at initial check despite reported 100% allowance; continuing availability is unconfirmed.
+
 Current November2,17:50UTC: production dfaa2f1 READY; syntax/151tests pass. [ISSUES.md](ISSUES.md) governs open findings; dated historical checks remain in Git/VERIFICATION/BUILD_LOG.
 
 ## Requested quality fixes
