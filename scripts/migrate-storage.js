@@ -17,11 +17,21 @@ const entries = [
   ...tables.finn_push_documents.map(row => [`document:${row.hash}`, row.record]),
   ...tables.finn_research_cache.map(row => [`research:${row.ticker}`, row.record]),
 ];
-const records = createRemoteRecords(); let verified = 0;
-for (const [key, record] of entries) {
-  if (operation === 'import') await records.create(key, record); // Never overwrite target history.
-  const saved = await records.get(key);
-  if (!saved || !isDeepStrictEqual(saved.record, record)) throw new Error(`Migration mismatch for ${key}; no cutover permitted.`);
-  verified++;
+const records = createRemoteRecords({ timeoutMs: 30000 }); let verified = 0;
+async function copy([key, record]) {
+  try {
+    let saved = await records.get(key);
+    if (!saved && operation === 'import') { await records.create(key, record); saved = await records.get(key); }
+    if (!saved || !isDeepStrictEqual(saved.record, record)) throw new Error('Record mismatch; no cutover permitted.');
+    verified++;
+    if (verified % 25 === 0) console.log(JSON.stringify({ verified }));
+  } catch (error) { throw new Error(`Migration failed for ${key}: ${error.message}`); }
+}
+// Independent records can be copied in small batches. Every operation is
+// non-overwriting; a timed-out run can resume without replacing target history.
+for (let index = 0; index < entries.length; index += 4) {
+  const results = await Promise.allSettled(entries.slice(index, index + 4).map(copy));
+  const failed = results.find(result => result.status === 'rejected');
+  if (failed) throw failed.reason;
 }
 console.log(JSON.stringify({ operation, verified, attempts: tables.finn_push_state[0].record.quota.attempts.length, exactRecords: true }));

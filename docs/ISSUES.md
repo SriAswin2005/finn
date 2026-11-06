@@ -4,6 +4,14 @@ November3 submission wrap-up: user now requests final changes and preparation fo
 
 ## N-001 — Neon monthly transfer exhausted (November 6)
 
+Final import interrupted by an 8-second request timeout. Target partially populated, old source fenced, public alias unchanged. Importer now allows 30 seconds and four independent non-overwriting copies per batch; retry and complete verification required before promotion.
+
+Write-fence approval received and action succeeded: all four old tables are read-only; original rows retained. All 113 immutable documents copied and exactly verified. Final mutable import/promotion pending; no remaining permission blocker.
+
+Staged build READY (dpl_Ah5Cb9FGRYFDefeDePPSitHLxR8N), storage auth checked. Exact four-table persistent write-fence action was rejected by auto-review; scope/duration approval requested. No source freeze/import/promotion happened. Remaining blocker is that explicit permission.
+
+Cloudflare gateway deployed (bf43cc9a-db49-4b14-83fd-d6d91e626043), source 4802d3b privately pushed. Target empty; old app still uses Neon. Vercel staging and data cutover remain pending.
+
 Latest gates: syntax/157 tests pass. Both CLI logins restored; prior auth blocker resolved after explicit scope approval. Write-fence preparation added to prevent old/new ledger divergence. No backend cutover yet; Cloudflare deployment/import and hosted verification still required.
 
 Recovery test/import tooling now prepared: test/remote-storage.test.js and scripts/migrate-storage.js. Vercel CLI authenticated. Cloudflare OAuth scopes explicitly approved after auto-review rejection; browser authorization pending. Initial suite encountered sandbox temp-file restrictions (not application proof); rerun pending.

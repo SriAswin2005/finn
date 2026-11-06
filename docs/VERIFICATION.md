@@ -419,3 +419,8 @@ November 6 recovery export: repeatable-read transaction saved 120 rows to ignore
 Recovery verification pending: new tests exercise real SQLite SQL via the Worker contract and all application stores. Import verifies every decoded record and refuses to overwrite existing target data. Initial full-suite run hit restricted temp-file renames; permitted rerun required.
 
 November 6 recovery adapter gates: npm run check and all 157 tests passed with required local HTTP/temp permissions. Three new tests cover actual SQLite CAS/conflicts, immutable evidence, source ordering, authentication/expiry and all-store fail-closed routing. Existing 154 tests retained. Cloudflare and Vercel CLI logins succeeded. Freeze helper syntax/operational verification pending; no cutover yet.
+Cloudflare dry-run and live deployment succeeded: version bf43cc9a-db49-4b14-83fd-d6d91e626043, startup 1 ms, SQLite Durable Object binding present. Source 4802d3b pushed to private origin. This is gateway deployment only; target import and Vercel switch still pending.
+
+Staging: Vercel dpl_Ah5Cb9FGRYFDefeDePPSitHLxR8N READY without alias promotion. Deployed gateway signed read 200/null and unsigned POST 401. All exported compressed records fit 1.9 MB bound (largest Research 898,516 bytes). Production migration not executed: auto-review rejected write-fence action pending exact user approval.
+
+Final import encountered a TimeoutError before completion. No cutover. Added bounded 30-second operational timeout, small parallel batches, existing-record comparison and explicit progress/key errors; syntax/all 157 tests pass and retry is in progress. Runtime retains the original 8-second timeout.

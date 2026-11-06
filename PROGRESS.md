@@ -2,6 +2,14 @@ November 3 submission verification. The 14:31 IST Polycab card passed scheduled 
 
 # FINN current progress — November 6, 2026
 
+Final import hit a request timeout; no promotion occurred and source remains safely read-only. Made the importer resumable with 30-second request bounds, four independent records per batch and key-specific error/progress reporting; existing target records are compared, never overwritten. Application default remains 8 seconds. Syntax/all 157 tests pass; resumable retry is in progress.
+
+User explicitly approved the four-table read-only cutover. Fence now applied/verified on all four old Neon tables; no rows deleted. All 113 immutable documents already copied and matched exactly. Final frozen export/import and same-URL promotion in progress; prior approval blocker resolved.
+
+Staged Vercel deployment dpl_Ah5Cb9FGRYFDefeDePPSitHLxR8N is READY with no production alias change. Gateway signed empty read succeeded; unsigned POST rejected 401. Auto-review rejected the four-table Neon write fence pending exact scope/duration approval; user question pending, no tables frozen or records migrated. Largest compressed existing record 898,516 bytes fits the 1.9 MB safety bound.
+
+Recovery source 4802d3b committed/pushed. Cloudflare storage Worker deployed successfully, version bf43cc9a-db49-4b14-83fd-d6d91e626043; canonical target still empty and Vercel still reads Neon. Configuring the same server-only secret/origin and staging a deployment before migration. No plan upgrade.
+
 Syntax and all 157 tests now pass with permitted HTTP/temp access. Vercel and Cloudflare CLI authentication restored. Prepared explicit Neon write-fence script for the final consistent migration; it preserves all source rows and reads, prevents old deployments from creating a second ledger, and has not run yet. Next: commit/push verified adapter, stage both services, fence/export/import/verify, then promote the existing URL.
 
 Added actual SQLite-backed gateway/adapter contract tests (concurrent CAS, immutable documents, source ordering, authentication/expiry and fail-closed authority) and non-overwriting import/verify tool. Verification running. User has signed in and explicitly approved exact Cloudflare CLI scopes; Vercel CLI login succeeded, Cloudflare browser authorization pending. Initial full suite hit sandbox temp-file restrictions and will be rerun with permitted access.

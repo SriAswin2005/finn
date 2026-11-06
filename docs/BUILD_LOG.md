@@ -487,3 +487,4 @@ November 6 independent storage preparation: added a separate SQLite Durable Obje
 Added SQLite-backed remote-store contract tests and lossless non-overwriting migration/import verification. User explicitly approved the CLI scopes; Vercel authentication restored, Cloudflare authorization pending. No cutover yet.
 
 November 6: recovery adapter passes all 157 tests and syntax. Hosting logins restored. Added explicit four-table write fence for atomic cutover safety; old readers remain allowed and old writers cannot spend against a diverged ledger. Fence/deployment not yet executed.
+November 6 migration interrupted by network timeout; source fence/data retained and alias not moved. Improved non-overwriting resume and migration-only timeout/progress; runtime timeout unchanged. Syntax/all 157 tests passed; resumable import running.
